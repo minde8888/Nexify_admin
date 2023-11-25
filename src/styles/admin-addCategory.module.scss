@@ -1,0 +1,41 @@
+@import '../global.scss';
+
+.containerFluid { margin: 200px;}
+
+.categoryElement {
+   
+
+    .categoryEditElement {
+        display        : flex;
+        justify-content: space-between;
+        align-items    : center;
+        width          : 100%;
+        margin         : 10px 0 10px 0;
+
+        .categoryEditElement__name {
+            width          : 50%;
+            display        : flex;
+            justify-content: flex-start;
+            align-items    : center;
+
+            .categoryEditElement__name__text {
+                margin: 0 10px 0 10px;
+            }
+        }
+
+        .categoryEditElement__button {
+            width          : 50%;
+            display        : flex;
+            justify-content: flex-end;
+            align-items    : center;
+
+            .categoryEditElement__button__edit {
+                margin: 0 10px 0 10px;
+            }
+
+            .categoryEditElement__button__delete {
+                margin: 0 10px 0 10px;
+            }
+        }
+    }
+}

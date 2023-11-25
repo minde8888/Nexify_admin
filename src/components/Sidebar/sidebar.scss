@@ -1,0 +1,243 @@
+$base-bgcolor    : #354152;
+$base-color      : #7e8ba3;
+$base-text       : #6b6d62;
+$text            : #fff;
+$nav-button-left :12px;
+$nav-text-left   :100px;
+$background-color:#1d242d;
+
+
+.navBar {
+    position        : fixed;
+    top             : 0;
+    right           : 0;
+    display         : flex;
+    justify-content : space-between;
+    align-items     : center;
+    background-color: $background-color;
+    height          : 65px;
+    z-index         : 2;
+    width           : 100%;
+
+    .logo {
+        color          : white;
+        font-size      : 40px;
+        text-decoration: none;
+    }
+
+    .menu {
+        position     : relative;
+        left         : 20px;
+        padding      : 30px;
+        border-radius: 100%;
+        cursor       : pointer;
+        height       : 40px;
+
+        &::before,
+        &::after {
+            content      : '';
+            background   : $base-color;
+            border-radius: 5px;
+            width        : 30px;
+            height       : 5px;
+            position     : absolute;
+            left         : 15px;
+            top          : 27px;
+            transition   : 0.2s ease;
+        }
+
+        &::before {
+            transform: rotate(0deg);
+        }
+
+        &::after {
+            transform: rotate(-90deg);
+        }
+
+        &.open {
+            z-index: 1;
+            opacity: 0.9;
+
+            &::before {
+                transform: rotate(45deg);
+            }
+
+            &::after {
+                transform: rotate(-45deg);
+            }
+
+            .nav_button {
+                opacity       : 1;
+                pointer-events: auto;
+
+                &:first-of-type {
+                    bottom    : -80px;
+                    background: url('../../svg/6916994_building_home_homepage_house_icon.svg') no-repeat 50%/50% #e8e8f3;
+                }
+
+                &:nth-of-type(2) {
+                    bottom          : -150px;
+                    background      : url('https://bassets.github.io/img.svg') no-repeat 50%/ 50% #e8e8f3;
+                    transition-delay: 0.05s;
+                }
+
+                &:nth-of-type(3) {
+                    bottom          : -220px;
+                    background      : url('https://bassets.github.io/img.svg') no-repeat 50%/ 50% #e8e8f3;
+                    transition-delay: 0.1s;
+                }
+
+                &:nth-of-type(4) {
+                    bottom          : -290px;
+                    background      : url('https://bassets.github.io/img.svg') no-repeat 50%/ 50% #e8e8f3;
+                    transition-delay: 0.15s;
+                }
+
+                &:nth-of-type(5) {
+                    bottom          : -360px;
+                    background      : url('https://bassets.github.io/img.svg') no-repeat 50%/ 50% #e8e8f3;
+                    transition-delay: 0.2s;
+                }
+
+                &:nth-of-type(6) {
+                    bottom          : -430px;
+                    background      : url('https://bassets.github.io/img.svg') no-repeat 50%/ 50% #e8e8f3;
+                    transition-delay: 0.25s;
+                }
+
+                &:nth-of-type(7) {
+                    bottom          : -500px;
+                    background      : url('https://bassets.github.io/img.svg') no-repeat 50%/ 50% #e8e8f3;
+                    transition-delay: 0.3s;
+                }
+
+            }
+        }
+
+        .home {
+            top: 100px;
+        }
+
+        .home1 {
+            top: 170px;
+        }
+
+        .home2 {
+            top: 240px;
+        }
+
+        .nav {
+            display    : none;
+            position   : absolute;
+            font-size  : 18px;
+            width      : 200px;
+            font-weight: 700;
+        }
+
+        .nav_button {
+            padding       : 30px;
+            border-radius : 50%;
+            cursor        : pointer;
+            background    : #e8e8f3;
+            position      : absolute;
+            bottom        : 0;
+            right         : 0;
+            opacity       : 0;
+            pointer-events: none;
+            box-shadow    : 0px 0px 10px 5px #15191f;
+            transition    : 0.2s cubic-bezier(0.18, 0.89, 0.32, 1.28), 0.1s ease opacity;
+            z-index       : 1;
+
+            &:hover {
+                transform: scale(1.1);
+            }
+
+            &:hover+.home,
+            &:hover+.home1,
+            &:hover+.home2 {
+                display: block;
+            }
+
+            @media (hover: none) {
+
+                &:hover+.home,
+                &:hover+.home1,
+                &:hover+.home2 {
+                    display: none
+                }
+            }
+
+            .nav_link {
+                position       : absolute;
+                left           : 0;
+                top            : 0;
+                text-decoration: none;
+                color          : $base-color;
+                font-weight    : 600;
+                width          : 60px;
+                height         : 60px;
+            }
+
+            .nav_link:hover {
+                color: white;
+            }
+        }
+    }
+
+    .links {
+        margin: 0 60px 0 0;
+
+        .signup {
+            margin: 0 0 0 30px;
+        }
+
+        a {
+            text-decoration: none;
+            font-weight    : 500;
+            color          : $base-color;
+        }
+
+        a:hover {
+            color: $text;
+        }
+
+        .navbar_profile_logout {
+            display: flex;
+            margin : 0 0 0 30px;
+            color  : $base-color;
+        }
+
+        .profile {
+            margin: 0 30px 0 0;
+        }
+
+        .profile:hover {
+            color: $text;
+        }
+
+        .userLogout {
+            cursor          : pointer;
+            color           : $base-color;
+            background-color: $background-color;
+            border          : none;
+            font-weight     : 500;
+            text-align      : 30px;
+            font-size       : 16px;
+        }
+
+        .userLogout:hover {
+            color: $text;
+        }
+    }
+}
+
+@media (max-width: 860px) {
+    .navBar {
+        width          : 100%;
+        justify-content: space-around;
+
+        .menu {
+            left: 0;
+        }
+    }
+}

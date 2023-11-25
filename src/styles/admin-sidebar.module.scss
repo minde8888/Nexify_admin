@@ -1,0 +1,26 @@
+.sidebar {
+    position: fixed;
+    display: flex;
+    flex-direction: column;
+    left: 0;
+    top: 0;
+    height: 100%;
+    width: 178px;
+    background: #7b71e4;
+    padding: 6px 14px;
+    z-index: 99;
+    transition: all 0.5s ease;
+  
+    &.open {
+      width: 250px;
+    }
+  }
+  
+  @media (max-width: 420px) {
+    .sidebar li .tooltip {
+      display: none;
+    }
+  }
+  
+  
+  

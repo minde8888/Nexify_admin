@@ -1,23 +1,47 @@
-# See https://help.github.com/articles/ignoring-files/ for more about ignoring files.
 
-# dependencies
+.cache/
+
+# Ignore Node.js modules and binaries
 /node_modules
-/.pnp
-.pnp.js
 
-# testing
-/coverage
+# Ignore built files
+/public
 
-# production
-/build
+/static
 
-# misc
-.DS_Store
+# Ignore environment-specific .env files
 .env.local
-.env.development.local
-.env.test.local
-.env.production.local
+.env.development
+.env.test
+.env.production
+.env.chatGPT
+.evn
 
+# Ignore cache and log files
+*.log
 npm-debug.log*
 yarn-debug.log*
 yarn-error.log*
+yarn.lock
+
+# Ignore TypeScript and JavaScript build output
+/dist
+/out
+
+# Ignore Visual Studio Code settings
+.vscode
+
+*.env
+
+*.json
+
+*.lock
+
+*.js
+
+.prettierrc
+
+/assets
+
+
+

@@ -1,0 +1,83 @@
+.image {
+    width: 100%;
+
+    .upload_image {
+        display       : flex;
+        gap           : 10px;
+        flex-direction: row;
+        flex-wrap     : wrap;
+        padding       : 10px;
+
+        .clickDrop {
+            position  : absolute;
+            height    : 50vh;
+            width     : 49%;
+            text-align: center;
+            cursor    : pointer;
+
+            div {
+                margin: 25vh 0 0 0;
+            }
+        }
+
+        .clickDrop:hover {
+            background-color: rgba(131, 128, 128, 0.452);
+        }
+
+        .removeImages {
+            position: absolute;
+            top     : 200px;
+            z-index : 1;
+        }
+
+        .removeImages:hover {
+            background-color: aquamarine;
+        }
+
+        div {
+            &:nth-of-type(2) {
+                height: 60vh;
+                width : 100%;
+
+                .image_show {
+                    margin    : 0;
+                    width     : 100%;
+                    height    : 50vh;
+                    object-fit: cover;
+                }
+            }
+        }
+
+        .image_item {
+            width: 30%;
+
+            img {
+                border-radius: 5px;
+            }
+
+            .image_show {
+                width     : 100%;
+                height    : 150px;
+                object-fit: cover;
+            }
+
+            .image_btn_wrapper {
+                display        : flex;
+                justify-content: space-evenly;
+
+
+                img {
+                    cursor: pointer;
+                }
+
+                img:hover {
+                    background-color: rgba(131, 128, 128, 0.452);
+                }
+            }
+        }
+    }
+}
+
+.profileError {
+    color: red;
+}
