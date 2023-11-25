@@ -10,7 +10,7 @@ export interface AuthState {
 const authSlice = createSlice({
     name: 'auth',
     initialState: {
-        isLoggedIn: false
+        isLoggedIn: true
     } as AuthState,
     reducers: {
         registerFail: (state, action: PayloadAction<string>) => {

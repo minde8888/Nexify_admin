@@ -1,4 +1,4 @@
-import loader from '../../../assets/images/loader.svg';
+import loader from '../../assets/svg/eclipse.svg';
 
 let Preloader = () => {
     return (

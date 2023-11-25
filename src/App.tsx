@@ -1,6 +1,7 @@
 import { useCallback, useEffect } from 'react';
 // import Main from './components/main.component';
 import { useAppDispatch } from './hooks/useRedux';
+import Routing from './routes/Routing';
 // import { getProducts } from './redux/slice/productsSlice';
 // import { getAllProducts } from './services/products.services/products.services';
 // import style from './App.module.scss';
@@ -24,7 +25,7 @@ function App(): JSX.Element {
 
     return (
         <div >
-            {/* <Main /> */}
+            <Routing />
         </div>
     );
 }

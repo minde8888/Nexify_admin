@@ -37,11 +37,11 @@ const Sidebar: FunctionComponent<SidebarProps> = () => {
                 {isLoggedIn ? (
                     <>
                         <div className="nav_button">
-                            <NavLink className="nav_link" to={'/add-products'}></NavLink>
+                            <NavLink className="nav_link" to={'/add-product'}></NavLink>
                         </div>
                         <span className="home2 nav">add products</span>
                         <div className="nav_button">
-                            <NavLink className="nav_link" to={'/edit-products'}></NavLink>
+                            <NavLink className="nav_link" to={'add-categories'}></NavLink>
                         </div>
                     </>
                 ) : (

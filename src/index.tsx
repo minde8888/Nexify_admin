@@ -9,7 +9,7 @@ let root = ReactDOMClient.createRoot(document.getElementById('root') as HTMLElem
 root.render(
     <BrowserRouter>
         <Provider store={store}>
-            <App />
+            <App />            
         </Provider>
     </BrowserRouter>
 );

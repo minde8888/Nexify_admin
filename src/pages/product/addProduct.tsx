@@ -104,7 +104,7 @@ const InnerForm: React.FC<Props> = ({
   );
 };
 
-const EditProduct: React.FC = () => {
+const AddProduct: React.FC = () => {
   const [isSubmitting, setIsSubmitting] = useState(false);
 
   const handleSubmit = async (
@@ -157,4 +157,4 @@ const appendDataToFormData = (values: Product): FormData => {
   return formData;
 };
 
-export default EditProduct;
+export default AddProduct;

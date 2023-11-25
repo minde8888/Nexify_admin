@@ -1,11 +1,11 @@
 import React, { useCallback, useMemo, useState } from "react";
 import UploadImage from "../UploadImage/UploadImage";
 import MarkDownEditor from "../MarkDownEditor/MarkDownEditor";
-import styles from "../../styles/categoryProperty.module.scss";
 import CategoryFormProperty from "../../types/categoryFormProperty";
 import CategoriesProperty from "./CategoriesProperty";
 import { ImageFile } from "../../types/imageFile";
 import PropertyImagePreview from "../PropertyImagePreview/PropertyImagePreview";
+import styles from "../../styles/categoryProperty.module.scss";
 
 interface PropertyItemProps {
   prefix: string;

@@ -1,5 +1,5 @@
 import { useFormikContext, getIn } from 'formik';
-const { v4: uuidv4 } = require('uuid');
+import { v4 as uuidv4 } from 'uuid';
 import DynamicFormProperty from '../types/categoryFormProperty';
 import { ImageFile } from '../types/imageFile';
 

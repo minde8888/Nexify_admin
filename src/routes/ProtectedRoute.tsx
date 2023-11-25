@@ -7,7 +7,7 @@ interface Props {}
 export const ProtectedRoute: React.FC<Props> = () => {
     let { isLoggedIn } = useAppSelector((state) => state.data.auth);
 
-    if (isLoggedIn) {
+    if (!isLoggedIn) {
         return <AccessDenied />;
     }
     if (isLoggedIn) {

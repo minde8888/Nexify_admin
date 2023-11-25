@@ -1,9 +1,10 @@
-import { Suspense } from 'react';
+import React, { Suspense } from 'react';
 import { Routes, Route } from 'react-router-dom';
-import { ProtectedRoute } from './ProtectedRoute';;
+import { ProtectedRoute } from './ProtectedRoute';
 import Preloader from '../pages/preloader/preloader';
 import AddCategories from '../pages/category/addCategories';
 import AdminLayout from '../components/Layout/AdminLayout';
+import AddProduct from '../pages/product/addProduct';
 
 const Routing = (): JSX.Element => {
     return (
@@ -12,13 +13,12 @@ const Routing = (): JSX.Element => {
                 <Routes>
                     <Route element={<ProtectedRoute />}>
                         <Route path="/add-categories" element={<AddCategories />} />
-                        {/* <Route path="/profile/:id" element={<Profile />} />
-                        <Route path="/edit-products" element={<EditAllProducts />} />
+                        <Route path="/add-product" element={<AddProduct />} />
+                        {/* <Route path="/edit-products" element={<EditAllProducts />} />
                         <Route path="/edit-products/:id" element={<EditProduct />} /> */}
                     </Route>
                 </Routes>
             </Suspense>
-            {/* <Footer /> */}
         </AdminLayout>
     );
 }
