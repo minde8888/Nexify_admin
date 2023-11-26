@@ -1,4 +1,4 @@
-import React, { useCallback, useMemo, useState } from "react";
+import React, { useCallback, useState } from "react";
 import UploadImage from "../UploadImage/UploadImage";
 import MarkDownEditor from "../MarkDownEditor/MarkDownEditor";
 import CategoryFormProperty from "../../types/categoryFormProperty";
@@ -33,7 +33,7 @@ const PropertyItem: React.FC<PropertyItemProps> = ({
 
   const handleToggleSection = useCallback((clickedIndex: number) => {
     setOpenSectionIndex((prev) => (prev === clickedIndex ? null : clickedIndex));
-  }, [index]);
+  }, []);
 
   const handleRemoveProperty = useCallback(() => {
     onRemove(index);

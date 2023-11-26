@@ -43,5 +43,10 @@ yarn.lock
 
 /assets
 
+/build
+
+/.yarn
+
+*.yarnrc
 
 
