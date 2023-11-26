@@ -5,7 +5,10 @@ import CategoryFormProperty from "../../types/categoryFormProperty";
 import CategoriesProperty from "./CategoriesProperty";
 import { ImageFile } from "../../types/imageFile";
 import PropertyImagePreview from "../PropertyImagePreview/PropertyImagePreview";
+import { Modal } from "../Modal/Modal";
 import styles from "../../styles/categoryProperty.module.scss";
+import { useModal } from "../../hooks/useModal";
+
 
 interface PropertyItemProps {
   prefix: string;
@@ -21,23 +24,18 @@ const PropertyItem: React.FC<PropertyItemProps> = ({
   prefix,
   property,
   index,
-  showAddButton,
   onRemove,
   onAddImage,
   onAddContent,
 }) => {
   const propertyPrefix = `${prefix}properties[${index}].`;
 
-  const [openSectionIndex, setOpenSectionIndex] = useState<number | null>(null);
-  const [imagePreviewUrl, setImagePreviewUrl] = useState<string>('');
+  const { isOpen, open, close } = useModal(1);
 
-  const handleToggleSection = useCallback((clickedIndex: number) => {
-    setOpenSectionIndex((prev) => (prev === clickedIndex ? null : clickedIndex));
-  }, []);
+  const [imagePreviewUrl, setImagePreviewUrl] = useState<string>('');
 
   const handleRemoveProperty = useCallback(() => {
     onRemove(index);
-    setOpenSectionIndex(null);
   }, [onRemove, index]);
 
   const handleAddImage = useCallback((images: ImageFile[]) => {
@@ -51,28 +49,25 @@ const PropertyItem: React.FC<PropertyItemProps> = ({
           -
         </button>
       </div>
-
-      <button type="button" onClick={() => handleToggleSection(index)}>
-        {openSectionIndex === index ? "Close" : "Add Content"}
-      </button>
       <>
         <CategoriesProperty prefix={propertyPrefix} />
-        {showAddButton && openSectionIndex === index && (
-          <div>
-            <UploadImage
-              setImagePreviewUrl={setImagePreviewUrl}
-              handleAddImage={handleAddImage}
-            />
-            <PropertyImagePreview imagePreviewUrl={imagePreviewUrl} />
-            <MarkDownEditor
-              content={property.content}
-              setContent={(value) => onAddContent(index, value)}
-              showEditor={true}
-              addContent={onAddContent}
-              index={index}
-            />
-          </div>
-        )}
+        <button type="button" onClick={() => open(index)}>Open Modal {index}</button>
+        <Modal isOpen={isOpen(index)} open={() => open(index)}>
+          <UploadImage
+            setImagePreviewUrl={setImagePreviewUrl}
+            handleAddImage={handleAddImage}
+          />
+          <PropertyImagePreview imagePreviewUrl={imagePreviewUrl} />
+          <MarkDownEditor
+            content={property.content}
+            setContent={(value) => onAddContent(index, value)}
+            showEditor={true}
+            addContent={onAddContent}
+            index={index}
+          />
+          <button type="button" onClick={() => close(index)}>Close Modal {index}</button>
+          <div>Modal Content {index}</div>
+        </Modal>
       </>
     </div>
   );

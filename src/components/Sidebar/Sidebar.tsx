@@ -41,7 +41,7 @@ const Sidebar: FunctionComponent<SidebarProps> = () => {
                         </div>
                         <span className="home2 nav">add products</span>
                         <div className="nav_button">
-                            <NavLink className="nav_link" to={'add-categories'}></NavLink>
+                            <NavLink className="nav_link" to={'/add-categories'}></NavLink>
                         </div>
                     </>
                 ) : (

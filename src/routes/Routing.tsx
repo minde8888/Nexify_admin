@@ -11,9 +11,9 @@ const Routing = (): JSX.Element => {
         <AdminLayout>
             <Suspense fallback={<Preloader />}>
                 <Routes>
-                    <Route element={<ProtectedRoute />}>
-                        <Route path="/add-categories" element={<AddCategories />} />
+                    <Route element={<ProtectedRoute />}>                       
                         <Route path="/add-product" element={<AddProduct />} />
+                        <Route path="/add-categories" element={<AddCategories />} />
                         {/* <Route path="/edit-products" element={<EditAllProducts />} />
                         <Route path="/edit-products/:id" element={<EditProduct />} /> */}
                     </Route>

@@ -1,3 +1,4 @@
+import { useCallback } from "react";
 import DynamicFormProperty from "../types/categoryFormProperty";
  
 function useDynamicForm() {
@@ -9,9 +10,10 @@ function useDynamicForm() {
       image: []
   };
  
-  const handleSubmit = (values: DynamicFormProperty) => {
+  const handleSubmit = useCallback((values: DynamicFormProperty) => {
     console.log(values);
-  };
+    // You can perform additional actions or callbacks here if needed
+  }, []); 
  
   return {
     initialValues,
