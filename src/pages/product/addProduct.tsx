@@ -6,7 +6,6 @@ import UploadImages from '../../components/UploadImages/UploadImages';
 import ProductContent from '../../components/ProductContent/ProductContent';
 import type { Product } from '../../types/product';
 import type { ImageFile } from '../../types/imageFile';
-import AdminLayout from '../../components/Layout/AdminLayout';
 import { submitProduct } from '../../api/productAPI';
 
 interface ResetFunctions {
@@ -80,7 +79,7 @@ const InnerForm: React.FC<Props> = ({
         stock: Yup.number(),
       })}
     >
-      <AdminLayout>
+  
         <div className={styles.container}>
           <Form>
             <div className={styles.columns}>
@@ -99,7 +98,6 @@ const InnerForm: React.FC<Props> = ({
             </div>
           </Form>
         </div>
-      </AdminLayout>
     </Formik>
   );
 };

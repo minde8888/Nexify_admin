@@ -1,4 +1,4 @@
-import React, { Suspense } from 'react';
+import { Suspense } from 'react';
 import { Routes, Route } from 'react-router-dom';
 import { ProtectedRoute } from './ProtectedRoute';
 import Preloader from '../pages/preloader/preloader';
@@ -11,7 +11,7 @@ const Routing = (): JSX.Element => {
         <AdminLayout>
             <Suspense fallback={<Preloader />}>
                 <Routes>
-                    <Route element={<ProtectedRoute />}>                       
+                    <Route element={<ProtectedRoute />}>
                         <Route path="/add-product" element={<AddProduct />} />
                         <Route path="/add-categories" element={<AddCategories />} />
                         {/* <Route path="/edit-products" element={<EditAllProducts />} />
