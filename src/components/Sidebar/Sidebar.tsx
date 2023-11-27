@@ -1,5 +1,4 @@
-import { FunctionComponent, MouseEventHandler } from 'react';
-import { Outlet } from 'react-router-dom';
+import { FunctionComponent } from 'react';
 import { NavLink } from 'react-router-dom';
 import { useAppSelector } from '../../hooks/useRedux';
 import { useAppDispatch } from '../../redux/store';
@@ -8,6 +7,10 @@ import { userLogout } from '../../redux/slice/authSlice';
 // import { logout } from '../../services/auth.services/auth.services';
 // import { getAllProducts } from '../../services/products.services/products.services';
 import './sidebar.scss';
+import home from '../../assets/svg/house_icon.svg';
+import card from '../../assets/svg/shopping_cart_thin_icon.svg';
+import category from '../../assets/svg/category_new_icon.svg';
+import settings from '../../assets/svg/setting_smartphone_icon.svg';
 
 interface SidebarProps { }
 
@@ -16,10 +19,10 @@ const Sidebar: FunctionComponent<SidebarProps> = () => {
     let { isLoggedIn } = useAppSelector((state) => state.data.auth);
     // let { surname, name, id } = useAppSelector((state) => state.data.user);
 
-    const toggleClickHandler: MouseEventHandler<HTMLButtonElement> = (event) => {
-        event.stopPropagation();
-        event.currentTarget.classList.toggle('open');
-    };
+    // const toggleClickHandler: MouseEventHandler<HTMLButtonElement> = (event) => {
+    //     event.stopPropagation();
+    //     event.currentTarget.classNameList.toggle('open');
+    // };
 
     const onLogout = () => {
         dispatch(userLogout());
@@ -32,62 +35,155 @@ const Sidebar: FunctionComponent<SidebarProps> = () => {
     };
 
     return (
-        <div className="navBar">
-            <button className="menu" onClick={toggleClickHandler}>
-                {isLoggedIn ? (
-                    <>
-                        <div className="nav_button">
-                            <NavLink className="nav_link" to={'/add-product'}></NavLink>
-                        </div>
-                        <span className="home2 nav">add products</span>
-                        <div className="nav_button">
-                            <NavLink className="nav_link" to={'/add-categories'}></NavLink>
-                        </div>
-                    </>
-                ) : (
-                    <>
-                        <div className="nav_button">
-                            <NavLink className="nav_link" to={'/'}></NavLink>
-                        </div>
-                        <span className="home nav">home</span>
-                        <div className="nav_button">
-                            <NavLink className="nav_link" to={'/products'}></NavLink>
-                        </div>
-                        <span className="home1 nav">products</span>
-                    </>
-                )}
-                <div className="nav_button"></div>
-                <div className="nav_button"></div>
-                <div className="nav_button"></div>
-                <div className="nav_button"></div>
-                <div className="nav_button"></div>
-            </button>
-            <NavLink to={'/'} className="logo">
-                LOGO
-            </NavLink>
-            <div className="links">
-                {!isLoggedIn ? (
-                    <>
-                        <NavLink to={'/login'} className="login">
-                            Login
-                        </NavLink>
-                        <NavLink to={'/signup'} className="signup">
-                            Sign Up
-                        </NavLink>
-                    </>
-                ) : (
-                    <>
-                        {/* <NavLink to={`profile/${id}`} className="profile">
-                            {name} {surname}
-                        </NavLink> */}
-                        <button onClick={onLogout} className="userLogout">
-                            Logout
-                        </button>
-                    </>
-                )}
-            </div>
-            <Outlet />
-        </div>
+        <>
+            <section className="app">
+                <aside className="sidebar">
+                    <header>
+                        Menu
+                    </header>
+                    <nav className="sidebar-nav">
+
+                        <ul>
+                            <li>
+                                <NavLink to={'/'}>
+                                    <i className="ion-bag">
+                                        <img src={home} alt="imgAltText" />
+                                    </i>
+                                    <span>Dashboard</span>
+                                </NavLink>
+                                <ul className="nav-flyout">
+                                    <li>
+                                        <NavLink to={'/'}><i className="ion-ios-color-filter-outline"></i>Derps</NavLink>
+                                    </li>
+                                    <li>
+                                        <NavLink to={'/'}><i className="ion-ios-clock-outline"></i>Times</NavLink>
+                                    </li>
+                                    <li>
+                                        <NavLink to={'/'}><i className="ion-android-star-outline"></i>Hates</NavLink>
+                                    </li>
+                                    <li>
+                                        <NavLink to={'/'}><i className="ion-heart-broken"></i>Beat</NavLink>
+                                    </li>
+                                </ul>
+                            </li>
+                            <li>
+                                <NavLink to={'/'}>
+                                    <i className="ion-ios-settings">
+                                        <img src={category} alt="imgAltText" />
+                                    </i>
+                                    <span className="">Categories</span>
+                                </NavLink>
+                                <ul className="nav-flyout">
+                                    <li>
+                                        <NavLink to={'/'}><i className="ion-ios-flame-outline"></i>Burn</NavLink>
+                                    </li>
+                                    <li>
+                                        <NavLink to={'/'}><i className="ion-ios-lightbulb-outline"></i>Bulbs</NavLink>
+                                    </li>
+                                    <li>
+                                        <NavLink to={'/'}><i className="ion-ios-location-outline"></i>Where You</NavLink>
+                                    </li>
+                                    <li>
+                                        <NavLink to={'/'}><i className="ion-ios-locked-outline"></i>On Lock</NavLink>
+                                    </li>
+                                    <li>
+                                        <NavLink to={'/'}><i className="ion-ios-navigate-outline"></i>Ghostface</NavLink>
+                                    </li>
+                                </ul>
+                            </li>
+                            <li>
+                                <NavLink to={'/'}>
+                                    <i className="ion-ios-settings">
+                                        <img src={card} alt="imgAltText" />
+                                    </i>
+                                    <span className="">Products</span>
+                                </NavLink>
+                                <ul className="nav-flyout">
+                                    <li>
+                                        <NavLink to={'/'}><i className="ion-ios-alarm-outline"></i>Watch</NavLink>
+                                    </li>
+                                    <li>
+                                        <NavLink to={'/'}><i className="ion-ios-camera-outline"></i>Creeper</NavLink>
+                                    </li>
+                                    <li>
+                                        <NavLink to={'/'}><i className="ion-ios-chatboxes-outline"></i>Hate</NavLink>
+                                    </li>
+                                    <li>
+                                        <NavLink to={'/'}><i className="ion-ios-cog-outline"></i>Grinder</NavLink>
+                                    </li>
+                                </ul>
+                            </li>
+                            <li>
+                                <NavLink to={'/'}>
+                                    <i className="ion-ios-settings">
+                                        <img src={settings} alt="imgAltText" />
+                                    </i>
+                                    <span className="">Settings</span>
+                                </NavLink>
+                                <ul className="nav-flyout">
+                                    <li>
+                                        <NavLink to={'/'}><i className="ion-ios-timer-outline"></i>Timers</NavLink>
+                                    </li>
+                                    <li>
+                                        <NavLink to={'/'}><i className="ion-arrow-graph-down-left"></i>You Lose</NavLink>
+                                    </li>
+                                    <li>
+                                        <NavLink to={'/'}><i className="ion-ios-partlysunny-outline"></i>Stormy</NavLink>
+                                    </li>
+                                    <li>
+                                        <NavLink to={'/'}><i className="ion-ios-timer-outline"></i>Lookie Look</NavLink>
+                                    </li>
+                                    <li>
+                                        <NavLink to={'/'}><i className="ion-ios-game-controller-a-outline"></i>Dork Mfer</NavLink>
+                                    </li>
+                                </ul>
+                            </li>
+                            <li>
+                                <NavLink to={'/'}><i className="ion-ios-paper-outline"></i> <span className="">Papers</span></NavLink>
+                                <ul className="nav-flyout">
+                                    <li>
+                                        <NavLink to={'/'}><i className="ion-ios-filing-outline"></i>File Cab</NavLink>
+                                    </li>
+                                    <li>
+                                        <NavLink to={'/'}><i className="ion-ios-information-outline"></i>Infos</NavLink>
+                                    </li>
+                                    <li>
+                                        <NavLink to={'/'}><i className="ion-ios-paperplane-outline"></i>Planes</NavLink>
+                                    </li>
+                                    <li>
+                                        <NavLink to={'/'}><i className="ion-android-star-outline"></i>Shop</NavLink>
+                                    </li>
+                                </ul>
+                            </li>
+                            <li>
+                                <NavLink to={'/'}><i className="ion-ios-navigate-outline"></i> <span className="">Ass Finder</span></NavLink>
+                                <ul className="nav-flyout">
+                                    <li>
+                                        <NavLink to={'/'}><i className="ion-ios-flame-outline"></i>Burn</NavLink>
+                                    </li>
+                                    <li>
+                                        <NavLink to={'/'}><i className="ion-ios-lightbulb-outline"></i>Bulbs</NavLink>
+                                    </li>
+                                    <li>
+                                        <NavLink to={'/'}><i className="ion-ios-location-outline"></i>Where You</NavLink>
+                                    </li>
+                                    <li>
+                                        <NavLink to={'/'}><i className="ion-ios-locked-outline"></i>On Lock</NavLink>
+                                    </li>
+                                    <li>
+                                        <NavLink to={'/'}><i className="ion-ios-navigate-outline"></i>Ghostface</NavLink>
+                                    </li>
+                                </ul>
+                            </li>
+                            <li>
+                                <NavLink to={'/'}><i className="ion-ios-medical-outline"></i> <span className="">Cocaine</span></NavLink>
+                            </li>
+                        </ul>
+                    </nav>
+                </aside>
+            </section>
+        </>
+
     );
 };
 

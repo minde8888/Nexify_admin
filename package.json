@@ -17,6 +17,7 @@
     "@uiw/react-md-editor": "^4.0.0",
     "axios": "^1.6.2",
     "axios-auth-refresh": "^3.3.6",
+    "bourbon": "^7.3.0",
     "formik": "^2.4.5",
     "react": "^18.2.0",
     "react-dom": "^18.2.0",
