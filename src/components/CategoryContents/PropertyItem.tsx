@@ -6,9 +6,8 @@ import CategoriesProperty from "./CategoriesProperty";
 import { ImageFile } from "../../types/imageFile";
 import PropertyImagePreview from "../PropertyImagePreview/PropertyImagePreview";
 import { Modal } from "../Modal/Modal";
-import styles from "../../styles/categoryProperty.module.scss";
 import { useModal } from "../../hooks/useModal";
-
+import styles from "../../styles/categoryProperty.module.scss";
 
 interface PropertyItemProps {
   prefix: string;
@@ -51,13 +50,10 @@ const PropertyItem: React.FC<PropertyItemProps> = ({
       </div>
       <>
         <CategoriesProperty prefix={propertyPrefix} />
-        <button type="button" onClick={() => open(index)}>Open Modal {index}</button>
-        <Modal isOpen={isOpen(index)} open={() => open(index)}>
-          <UploadImage
-            setImagePreviewUrl={setImagePreviewUrl}
-            handleAddImage={handleAddImage}
-          />
-          <PropertyImagePreview imagePreviewUrl={imagePreviewUrl} />
+        <div className={styles.buttonAdd}>
+          <button type="button" onClick={() => open(index)}>Add Content</button>
+        </div>
+        <Modal isOpen={isOpen(index)} open={() => open(index)} >
           <MarkDownEditor
             content={property.content}
             setContent={(value) => onAddContent(index, value)}
@@ -65,8 +61,14 @@ const PropertyItem: React.FC<PropertyItemProps> = ({
             addContent={onAddContent}
             index={index}
           />
-          <button type="button" onClick={() => close(index)}>Close Modal {index}</button>
-          <div>Modal Content {index}</div>
+          <PropertyImagePreview imagePreviewUrl={imagePreviewUrl} />
+          <UploadImage
+            setImagePreviewUrl={setImagePreviewUrl}
+            handleAddImage={handleAddImage}
+          />
+          <div className={styles.cancelButton}>
+            <button type="button" onClick={() => close(index)}>❌</button>
+          </div>
         </Modal>
       </>
     </div>

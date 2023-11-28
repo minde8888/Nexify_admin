@@ -51,20 +51,6 @@ const Sidebar: FunctionComponent<SidebarProps> = () => {
                                     </i>
                                     <span>Dashboard</span>
                                 </NavLink>
-                                <ul className="nav-flyout">
-                                    <li>
-                                        <NavLink to={'/'}><i className="ion-ios-color-filter-outline"></i>Derps</NavLink>
-                                    </li>
-                                    <li>
-                                        <NavLink to={'/'}><i className="ion-ios-clock-outline"></i>Times</NavLink>
-                                    </li>
-                                    <li>
-                                        <NavLink to={'/'}><i className="ion-android-star-outline"></i>Hates</NavLink>
-                                    </li>
-                                    <li>
-                                        <NavLink to={'/'}><i className="ion-heart-broken"></i>Beat</NavLink>
-                                    </li>
-                                </ul>
                             </li>
                             <li>
                                 <NavLink to={'/'}>
@@ -75,7 +61,10 @@ const Sidebar: FunctionComponent<SidebarProps> = () => {
                                 </NavLink>
                                 <ul className="nav-flyout">
                                     <li>
-                                        <NavLink to={'/'}><i className="ion-ios-flame-outline"></i>Burn</NavLink>
+                                        <NavLink to={'/add-categories'}>
+                                            <i className="ion-ios-flame-outline"></i>
+                                            Add Categories
+                                        </NavLink>
                                     </li>
                                     <li>
                                         <NavLink to={'/'}><i className="ion-ios-lightbulb-outline"></i>Bulbs</NavLink>
@@ -100,7 +89,10 @@ const Sidebar: FunctionComponent<SidebarProps> = () => {
                                 </NavLink>
                                 <ul className="nav-flyout">
                                     <li>
-                                        <NavLink to={'/'}><i className="ion-ios-alarm-outline"></i>Watch</NavLink>
+                                        <NavLink to={'/add-product'}>
+                                            <i className="ion-ios-alarm-outline"></i>
+                                            Add Product
+                                        </NavLink>
                                     </li>
                                     <li>
                                         <NavLink to={'/'}><i className="ion-ios-camera-outline"></i>Creeper</NavLink>

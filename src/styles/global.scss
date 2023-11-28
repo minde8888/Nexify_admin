@@ -23,14 +23,13 @@ body {
   overflow-x: hidden;
 }
 
-.button-container {
+.addButton {
   display: flex;
   margin : 10px;
 
   button {
     background-color: $preview_button_color;
     color           : $text;
-    padding         : 10px 20px;
     font-size       : 16px;
     font-weight     : bold;
     text-align      : center;
@@ -39,7 +38,7 @@ body {
     border-radius   : 5px;
     border          : none;
     transition      : background-color 0.3s ease;
-    width           : 100px;
+    width           : 30px;
   }
 
   button:hover {
@@ -77,9 +76,7 @@ body {
   margin : 10px;
 
   button {
-    background-color: $save_button_color;
-    color           : $text;
-    padding         : 10px 20px;
+    padding         : 10px;
     font-size       : 16px;
     font-weight     : bold;
     text-align      : center;
@@ -88,17 +85,15 @@ body {
     border-radius   : 5px;
     border          : none;
     transition      : background-color 0.3s ease;
-    width           : 100px;
-
 
     &:hover {
-      background-color: rgba(9, 92, 9, 0.8);
+      background-color: rgba(245, 201, 193, 0.8);
     }
   }
 }
 
 .removeButton {
-  height : 10px;
+  margin : 10px;
 
   button {
     background-color: $remove_button_color;
@@ -112,7 +107,6 @@ body {
     border          : none;
     transition      : background-color 0.3s ease;
     width           : 30px;
-
 
     &:hover {
       background-color: rgba(141, 51, 15, 0.8);

@@ -1,10 +1,9 @@
-import React from "react";
 import { FunctionComponent } from "react";
 import { TextInputField } from "../../utils/validation/TextInputField";
 import useFormProperty from "../../hooks/useFormProperty";
-import  styles from "../../styles/categoryProperty.module.scss";
 import PropertyItem from "./PropertyItem";
 import CategoryFormProperty from "../../types/categoryFormProperty";
+import styles from "../../styles/categoryProperty.module.scss";
 
 interface PropertyListProps {
   prefix: string;
@@ -35,17 +34,21 @@ const PropertyList: FunctionComponent<PropertyListProps> = ({
     <div className={styles.wrapper}>
       <div className={styles.labelContainer}>
         {showAddButton && (
-          <button type="button" onClick={addNewProperty}>
-            +
-          </button>
+          <div className={styles.addButton}>
+            <button type="button" onClick={addNewProperty}>
+              +
+            </button>
+          </div>
         )}
         {prefix && (
-          <TextInputField
-            name={`${prefix}`}
-            className=""
-            label=""
-            id={`${prefix}label`}
-          />
+          <div className={styles.textField}>
+            <TextInputField
+              name={`${prefix}`}
+              className=""
+              label=""
+              id={`${prefix}label`}
+            />
+          </div>
         )}
       </div>
       {properties.map(renderProperty)}

@@ -78,8 +78,7 @@ const InnerForm: React.FC<Props> = ({
         discount: Yup.number(),
         stock: Yup.number(),
       })}
-    >
-  
+    >  
         <div className={styles.container}>
           <Form>
             <div className={styles.columns}>
