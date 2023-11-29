@@ -9,10 +9,11 @@ $grid-max-width  : 400px;
 $base-font-family: 'Helvetica Neue',
 sans-serif;
 $grid-width          : 100%;
-$preview_button_color: #3498db;
+$add_button_color    : #3498db;
 $save_button_color   : #459747;
 $remove_button_color : #d9534f;
-
+$border-radius       : 5px;
+$buttonTransition    : background-color 0.3s ease;
 
 html,
 body {
@@ -28,7 +29,7 @@ body {
   margin : 10px;
 
   button {
-    background-color: $preview_button_color;
+    background-color: $add_button_color;
     color           : $text;
     font-size       : 16px;
     font-weight     : bold;
@@ -37,7 +38,7 @@ body {
     cursor          : pointer;
     border-radius   : 5px;
     border          : none;
-    transition      : background-color 0.3s ease;
+    transition      : $buttonTransition;
     width           : 30px;
   }
 
@@ -53,7 +54,7 @@ body {
   button {
     background-color: $save_button_color;
     color           : $text;
-    padding         : 10px 20px;
+    padding         : 6px;
     font-size       : 16px;
     font-weight     : bold;
     text-align      : center;
@@ -61,8 +62,8 @@ body {
     cursor          : pointer;
     border-radius   : 5px;
     border          : none;
-    transition      : background-color 0.3s ease;
-    width           : 100px;
+    transition      : $buttonTransition;
+    width           : 80px;
 
 
     &:hover {
@@ -76,15 +77,15 @@ body {
   margin : 10px;
 
   button {
-    padding         : 10px;
-    font-size       : 16px;
-    font-weight     : bold;
-    text-align      : center;
-    text-decoration : none;
-    cursor          : pointer;
-    border-radius   : 5px;
-    border          : none;
-    transition      : background-color 0.3s ease;
+    padding        : 10px;
+    font-size      : 16px;
+    font-weight    : bold;
+    text-align     : center;
+    text-decoration: none;
+    cursor         : pointer;
+    border-radius  : 5px;
+    border         : none;
+    transition     : $buttonTransition;
 
     &:hover {
       background-color: rgba(245, 201, 193, 0.8);
@@ -93,7 +94,7 @@ body {
 }
 
 .removeButton {
-  margin : 10px;
+  margin: 10px;
 
   button {
     background-color: $remove_button_color;
@@ -105,7 +106,7 @@ body {
     cursor          : pointer;
     border-radius   : 5px;
     border          : none;
-    transition      : background-color 0.3s ease;
+    transition      : $buttonTransition;
     width           : 30px;
 
     &:hover {

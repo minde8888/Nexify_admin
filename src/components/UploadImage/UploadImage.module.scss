@@ -1,0 +1,24 @@
+@import '../../styles/global.scss';
+
+.icons {
+    display        : flex;
+    width          : 200px;
+    justify-content: space-evenly;
+
+    img {
+        width: 30px;
+    }
+
+    label {
+        cursor: pointer;
+
+        input[type="file"] {
+            display: none;
+        }
+    }
+
+    div {
+        cursor: pointer;
+    }
+
+}

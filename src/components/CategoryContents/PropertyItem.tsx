@@ -40,17 +40,16 @@ const PropertyItem: React.FC<PropertyItemProps> = ({
   const handleAddImage = useCallback((images: ImageFile[]) => {
     onAddImage(index, images);
   }, [onAddImage, index]);
-
   return (
     <div className={styles.propertyContainer} key={property.id}>
-      <div className={styles.removeButton}>
+      <div className={styles.buttonRemove}>
         <button type="button" onClick={handleRemoveProperty}>
           -
         </button>
       </div>
       <>
         <CategoriesProperty prefix={propertyPrefix} />
-        <div className={styles.buttonAdd}>
+        <div className={`${styles.addContent} ${styles.content} `}>
           <button type="button" onClick={() => open(index)}>Add Content</button>
         </div>
         <Modal isOpen={isOpen(index)} open={() => open(index)} >
@@ -61,12 +60,12 @@ const PropertyItem: React.FC<PropertyItemProps> = ({
             addContent={onAddContent}
             index={index}
           />
-          <PropertyImagePreview imagePreviewUrl={imagePreviewUrl} />
           <UploadImage
             setImagePreviewUrl={setImagePreviewUrl}
             handleAddImage={handleAddImage}
           />
-          <div className={styles.cancelButton}>
+          <PropertyImagePreview imagePreviewUrl={imagePreviewUrl} />
+          <div className={styles.closeButton}>
             <button type="button" onClick={() => close(index)}>❌</button>
           </div>
         </Modal>

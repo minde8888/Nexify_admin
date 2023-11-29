@@ -14,8 +14,8 @@ const PropertyImagePreview: React.FC<PropertyImagePreviewProps> = ({
           src={imagePreviewUrl}
           alt="Preview"
           style={{
-            width: "200px",
-            height: "200px",
+            width: "300px",
+            height: "250px",
             objectFit: "contain",
           }}
         />

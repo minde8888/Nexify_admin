@@ -1,12 +1,11 @@
 @import './global.scss';
 
 .wrapper {
-  display          : flex;
-  padding          : 10px;
-  // border-bottom : 1px solid #ccc;
-  margin-bottom    : 20px;
-  flex-direction   : column;
-  width            : 100%;
+  display       : flex;
+  padding       : 10px;
+  margin-bottom : 20px;
+  flex-direction: column;
+  width         : 100%;
 
   .labelContainer {
     display        : flex;
@@ -22,26 +21,28 @@
     margin-bottom: 10px;
     border-bottom: 1px solid #ccc;
 
-    .textField {
-      width           : 100%;
-      // border-bottom: 1px solid #ccc;
-      // padding      : 5px;
+    .label {
+      font-size: 12px;
     }
 
-    .removeButton {
-      margin-top: 15px;
+    .textField {
+      width: 160px;
+    }
+
+    .buttonRemove {
+      margin-top: 10px;
 
       button {
-        background-color: #d9534f;
-        color           : #fff;
-        font-size       : 16px;
+        background-color: $remove_button_color;
+        color           : $text;
+        font-size       : $base-font-size;
         font-weight     : bold;
         text-align      : center;
         text-decoration : none;
         cursor          : pointer;
-        border-radius   : 5px;
+        border-radius   : $border-radius;
         border          : none;
-        transition      : background-color 0.3s ease;
+        transition      : $buttonTransition;
         width           : 30px;
 
         &:hover {
@@ -50,31 +51,91 @@
       }
     }
 
-    .buttonAdd {
+    .addContent {
       display: flex;
-      margin-top: 15px;
-    
+
       button {
-        background-color: $preview_button_color;
+        background-color: $add_button_color;
         color           : $text;
-        // font-size       : 16px;
         font-weight     : bold;
         text-align      : center;
         text-decoration : none;
         cursor          : pointer;
-        border-radius   : 5px;
+        border-radius   : $border-radius;
         border          : none;
-        transition      : background-color 0.3s ease;
-        height           : 30px;
+        transition      : $buttonTransition;
+        height          : 40px;
       }
-    
+
       button:hover {
         background-color: #2980b9;
       }
     }
 
-    .wrapper {
-      margin-right: 10px;
+    .buttonAdd {
+      display: flex;
+      margin : 0 10px 0 0;
+
+      button {
+        background-color: $add_button_color;
+        ;
+        color          : $text;
+        font-size      : $base-font-size;
+        font-weight    : bold;
+        text-align     : center;
+        text-decoration: none;
+        cursor         : pointer;
+        border-radius  : $border-radius;
+        border         : none;
+        transition     : $buttonTransition;
+        width          : 30px;
+      }
+
+      button:hover {
+        background-color: #2980b9;
+      }
     }
+  }
+
+  .buttonAdd {
+    display: flex;
+    margin : 0 10px 0 0;
+
+    button {
+      background-color: $add_button_color;
+      color           : $text;
+      font-size       : $base-font-size;
+      font-weight     : bold;
+      text-align      : center;
+      text-decoration : none;
+      cursor          : pointer;
+      border-radius   : $border-radius;
+      border          : none;
+      transition      : $buttonTransition;
+      width           : 30px;
+    }
+
+    button:hover {
+      background-color: #2980b9;
+    }
+  }
+}
+
+.closeButton {
+  position : absolute;
+  top      : 5%;
+  left     : 95%;
+  transform: translate(-50%, -50%);
+
+  button {
+    cursor          : pointer;
+    background-color: white;
+    border          : none;
+    width           : 30px;
+  }
+
+  button:hover {
+    background-color: white;
+    font-size       : $base-font-size;
   }
 }

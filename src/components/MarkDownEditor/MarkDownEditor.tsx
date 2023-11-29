@@ -1,5 +1,5 @@
-import React from "react";
-import MDEditor from "@uiw/react-md-editor";
+import React, { useEffect } from "react";
+import MDEditor from '@uiw/react-md-editor';
 
 interface MarkDownEditorProps {
   setContent: (value: string) => void;
@@ -16,8 +16,9 @@ const MarkDownEditor: React.FC<MarkDownEditorProps> = ({
   addContent,
   index,
 }) => {
+
   const handleChange = (newValue: string | undefined) => {
-    if (newValue) {
+    if (typeof newValue !== 'undefined') {
       setContent(newValue);
       if (addContent && index)
         addContent(index, newValue);
@@ -27,11 +28,15 @@ const MarkDownEditor: React.FC<MarkDownEditorProps> = ({
   return (
     <div style={{ width: "95%" }}>
       {showEditor && (
-        <MDEditor
-          value={content || ''}
-          onChange={handleChange}
-          style={{ backgroundColor: 'white', color: 'black' }}
-        />
+        <div data-color-mode="light">
+          <MDEditor
+            value={content || ''}
+            onChange={handleChange}
+            textareaProps={{
+              placeholder: "Please enter Markdown text"
+            }}
+          />
+        </div>
       )}
     </div>
   );

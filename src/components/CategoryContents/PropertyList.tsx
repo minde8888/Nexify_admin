@@ -33,8 +33,9 @@ const PropertyList: FunctionComponent<PropertyListProps> = ({
   return (
     <div className={styles.wrapper}>
       <div className={styles.labelContainer}>
+
         {showAddButton && (
-          <div className={styles.addButton}>
+          <div className={styles.buttonAdd}>
             <button type="button" onClick={addNewProperty}>
               +
             </button>
@@ -50,6 +51,8 @@ const PropertyList: FunctionComponent<PropertyListProps> = ({
             />
           </div>
         )}
+        {showAddButton && (<span className={styles.label}>Category</span>)}
+        {!showAddButton && (<span className={styles.label}>Subcategory</span>)}
       </div>
       {properties.map(renderProperty)}
     </div>

@@ -1,13 +1,16 @@
 import React, { ChangeEvent } from 'react';
 import { isValidFileType, isValidFileSize } from '../../utils/validation/ImageFileValidation';
 import { ImageFile } from '../../types/imageFile';
+import remove from '../../assets/svg/closeIcon.svg'
+import upload from '../../assets/svg/uploadIcon.svg'
+import styles from './UploadImage.module.scss'
 
-interface ImageUploadProps {
+interface UploadImageProps {
   setImagePreviewUrl: (imagePreviewUrl: string) => void;
   handleAddImage: (images: ImageFile[]) => void;
 }
 
-const ImageUpload: React.FC<ImageUploadProps> = ({ setImagePreviewUrl, handleAddImage }) => {
+const UploadImage: React.FC<UploadImageProps> = ({ setImagePreviewUrl, handleAddImage }) => {
 
   const handleImageChange = (e: ChangeEvent<HTMLInputElement>) => {
     e.preventDefault();
@@ -37,11 +40,16 @@ const ImageUpload: React.FC<ImageUploadProps> = ({ setImagePreviewUrl, handleAdd
   };
 
   return (
-    <div>
-      <input type="file" onChange={handleImageChange} />
-      <button type='button' onClick={handleUploadClick}>Remove Image</button>
+    <div className={styles.icons}>
+      <label htmlFor="inputTag">
+        <img src={upload} alt="imgAltText" />
+        <input id="inputTag" type="file" onChange={handleImageChange} accept="image/png, image/jpg, image/gif, image/jpeg" />
+      </label>
+      <div >
+        <img src={remove} alt="imgAltText" onClick={handleUploadClick} />
+      </div>
     </div>
   );
 };
 
-export default ImageUpload;
+export default UploadImage;
