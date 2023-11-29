@@ -26,6 +26,7 @@ const PropertyItem: React.FC<PropertyItemProps> = ({
   onRemove,
   onAddImage,
   onAddContent,
+  showAddButton
 }) => {
   const propertyPrefix = `${prefix}properties[${index}].`;
 
@@ -40,7 +41,10 @@ const PropertyItem: React.FC<PropertyItemProps> = ({
   const handleAddImage = useCallback((images: ImageFile[]) => {
     onAddImage(index, images);
   }, [onAddImage, index]);
-  return (
+
+  console.log( property.properties.length);
+
+    return (
     <div className={styles.propertyContainer} key={property.id}>
       <div className={styles.buttonRemove}>
         <button type="button" onClick={handleRemoveProperty}>
@@ -49,9 +53,10 @@ const PropertyItem: React.FC<PropertyItemProps> = ({
       </div>
       <>
         <CategoriesProperty prefix={propertyPrefix} />
-        <div className={`${styles.addContent} ${styles.content} `}>
+        <div className={`${styles.addContent} ${showAddButton ? styles.content : null}`}>
           <button type="button" onClick={() => open(index)}>Add Content</button>
         </div>
+
         <Modal isOpen={isOpen(index)} open={() => open(index)} >
           <MarkDownEditor
             content={property.content}

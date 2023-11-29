@@ -1,4 +1,4 @@
-import React, { useEffect } from "react";
+import React, { useCallback, useEffect } from "react";
 import MDEditor from '@uiw/react-md-editor';
 
 interface MarkDownEditorProps {
@@ -17,13 +17,16 @@ const MarkDownEditor: React.FC<MarkDownEditorProps> = ({
   index,
 }) => {
 
-  const handleChange = (newValue: string | undefined) => {
-    if (typeof newValue !== 'undefined') {
-      setContent(newValue);
-      if (addContent && index)
-        addContent(index, newValue);
+  const handleChange = useCallback((newValue: string | undefined) => {
+    if (typeof newValue === 'undefined') return;
+
+    setContent(newValue);
+
+    if (addContent && index !== undefined) {
+      addContent(index, newValue);
     }
-  };
+  }, [addContent, index]);
+
 
   return (
     <div style={{ width: "95%" }}>

@@ -33,7 +33,6 @@ const PropertyList: FunctionComponent<PropertyListProps> = ({
   return (
     <div className={styles.wrapper}>
       <div className={styles.labelContainer}>
-
         {showAddButton && (
           <div className={styles.buttonAdd}>
             <button type="button" onClick={addNewProperty}>

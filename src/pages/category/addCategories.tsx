@@ -8,7 +8,7 @@ const AddCategories = () => {
     return (
         <Formik onSubmit={handleSubmit} initialValues={initialValues}>
             <Form >
-                <h2>Add Categories</h2>
+                <h2>Categories</h2>
                 <CategoriesProperty />
                 <div className={styles.saveButton}>
                     <button type="submit">
