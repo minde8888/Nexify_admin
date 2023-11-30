@@ -8,6 +8,7 @@ import PropertyImagePreview from "../PropertyImagePreview/PropertyImagePreview";
 import { Modal } from "../Modal/Modal";
 import { useModal } from "../../hooks/useModal";
 import styles from "../../styles/categoryProperty.module.scss";
+import { CATEGORY_DEPTH } from "../../constants/categoryConst";
 
 interface PropertyItemProps {
   prefix: string;
@@ -25,12 +26,14 @@ const PropertyItem: React.FC<PropertyItemProps> = ({
   index,
   onRemove,
   onAddImage,
-  onAddContent,
-  showAddButton
+  onAddContent
 }) => {
   const propertyPrefix = `${prefix}properties[${index}].`;
 
-  const { isOpen, open, close } = useModal(1);
+  const styleButton = propertyPrefix.length === CATEGORY_DEPTH ? 'content1' : 'content2';
+  
+
+  const { isOpen, open, close } = useModal();
 
   const [imagePreviewUrl, setImagePreviewUrl] = useState<string>('');
 
@@ -42,8 +45,6 @@ const PropertyItem: React.FC<PropertyItemProps> = ({
     onAddImage(index, images);
   }, [onAddImage, index]);
 
-  console.log( property.properties.length);
-
     return (
     <div className={styles.propertyContainer} key={property.id}>
       <div className={styles.buttonRemove}>
@@ -53,8 +54,8 @@ const PropertyItem: React.FC<PropertyItemProps> = ({
       </div>
       <>
         <CategoriesProperty prefix={propertyPrefix} />
-        <div className={`${styles.addContent} ${showAddButton ? styles.content : null}`}>
-          <button type="button" onClick={() => open(index)}>Add Content</button>
+        <div className={`${styles.addContent} ${styles[styleButton]}`}>
+          <button type="button" onClick={() => open(index)}>Content</button>
         </div>
 
         <Modal isOpen={isOpen(index)} open={() => open(index)} >
