@@ -68,9 +68,7 @@
     "preset": "ts-jest",
     "transformIgnorePatterns": [
       "node_modules/(?!(remark-gfm)/)"
-    ],
-    "setupFilesAfterEnv": [
-      "jest-localstorage-mock"
     ]
-  }  
+  }
+   
 }
