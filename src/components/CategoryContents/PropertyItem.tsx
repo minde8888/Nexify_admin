@@ -60,7 +60,7 @@ const PropertyItem: React.FC<PropertyItemProps> = ({
 
         <Modal isOpen={isOpen(index)} open={() => open(index)} >
           <MarkDownEditor
-            content={property.content}
+            content={property.description}
             setContent={(value) => onAddContent(index, value)}
             showEditor={true}
             addContent={onAddContent}

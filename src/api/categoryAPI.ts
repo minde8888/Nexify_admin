@@ -3,7 +3,7 @@ import api from './instanceAPI';
 import { ServerError } from '../types/serverError';
 import { CATEGORIES_URL } from '../constants/apiConst';
 
-export const submitCategory = async (formData: FormData): Promise<void> => {
+export const submitCategory = async (formData: any): Promise<void> => {
     try {
         await api.post(CATEGORIES_URL, formData);
     } catch (error) {

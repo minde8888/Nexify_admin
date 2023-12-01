@@ -37,6 +37,7 @@ const UploadImage: React.FC<UploadImageProps> = ({ setImagePreviewUrl, handleAdd
 
   const handleUploadClick = () => {
     setImagePreviewUrl('');
+    handleAddImage([]);
   };
 
   return (

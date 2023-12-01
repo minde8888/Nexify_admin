@@ -1,9 +1,10 @@
 interface CategoryFormProperty {
     id: string;
-    label: string;
-    content?: string;
+    categoryName: string;
+    description?: string;
     image?: ImageFile[];
     properties: DynamicFormProperty[];
+    "": string;
   }
    
   export default CategoryFormProperty;

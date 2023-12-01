@@ -15,10 +15,11 @@ const useFormProperty = (prefix: string) => {
     const addNewProperty = () => {
         const newProperty: DynamicFormProperty = {
             id: uuidv4(),
-            label: '',
-            content: '',
+            categoryName: '',
+            description: '',
             image: [],
-            properties: []
+            properties: [],
+            "": ''
         };
 
         const newProperties = [...properties, newProperty];
@@ -39,7 +40,7 @@ const useFormProperty = (prefix: string) => {
 
     const addContent = (propertyIndex: number, content: string) => {
         const newProperties = [...properties];
-        newProperties[propertyIndex].content = content;
+        newProperties[propertyIndex].description = content;
         updateProperties(newProperties);
     };
 
