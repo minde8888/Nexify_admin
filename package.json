@@ -63,12 +63,6 @@
     "sass": "^1.69.5",
     "ts-jest": "^29.1.1",
     "ts-loader": "^9.5.1"
-  },
-  "jest": {
-    "preset": "ts-jest",
-    "transformIgnorePatterns": [
-      "node_modules/(?!(remark-gfm)/)"
-    ]
   }
    
 }
