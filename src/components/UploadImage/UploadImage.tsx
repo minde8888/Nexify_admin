@@ -10,6 +10,10 @@ interface UploadImageProps {
   handleAddImage: (images: ImageFile[]) => void;
 }
 
+interface ImageFileWithFile {
+  file?: File;
+}
+
 const UploadImage: React.FC<UploadImageProps> = ({ setImagePreviewUrl, handleAddImage }) => {
 
   const handleImageChange = (e: ChangeEvent<HTMLInputElement>) => {
@@ -23,8 +27,8 @@ const UploadImage: React.FC<UploadImageProps> = ({ setImagePreviewUrl, handleAdd
         const reader = new FileReader();
 
         reader.onloadend = () => {
-          const imageFile: ImageFile = { ...newFile, data_url: reader.result as string };
-          handleAddImage([imageFile]);
+          const imageFile: ImageFileWithFile = { file: newFile };
+          handleAddImage([imageFile]);;
           setImagePreviewUrl(reader.result as string);
         };
 

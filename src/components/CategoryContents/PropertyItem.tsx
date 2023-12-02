@@ -42,6 +42,9 @@ const PropertyItem: React.FC<PropertyItemProps> = ({
   }, [onRemove, index]);
 
   const handleAddImage = useCallback((images: ImageFile[]) => {
+    console.log('====================================');
+    console.log('images', images);
+    console.log('====================================');
     onAddImage(index, images);
   }, [onAddImage, index]);
 

@@ -1,4 +1,4 @@
 export interface ImageFile {
     file?: File;
-    data_url: string;
+    data_url?: string;
 }
