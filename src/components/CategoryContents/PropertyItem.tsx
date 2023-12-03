@@ -31,7 +31,7 @@ const PropertyItem: React.FC<PropertyItemProps> = ({
   const propertyPrefix = `${prefix}properties[${index}].`;
 
   const styleButton = propertyPrefix.length === CATEGORY_DEPTH ? 'content1' : 'content2';
-  
+
 
   const { isOpen, open, close } = useModal();
 
@@ -42,13 +42,10 @@ const PropertyItem: React.FC<PropertyItemProps> = ({
   }, [onRemove, index]);
 
   const handleAddImage = useCallback((images: ImageFile[]) => {
-    console.log('====================================');
-    console.log('images', images);
-    console.log('====================================');
     onAddImage(index, images);
   }, [onAddImage, index]);
 
-    return (
+  return (
     <div className={styles.propertyContainer} key={property.id}>
       <div className={styles.buttonRemove}>
         <button type="button" onClick={handleRemoveProperty}>

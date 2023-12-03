@@ -1,11 +1,10 @@
 import App from './App';
 import { renderBrowserWithContext } from './testUtils/RenderBrowserWithContext';
 
-jest.mock('react-markdown', () => ({
-    ...jest.requireActual('react-markdown'), 
-    Markdown: ({ children }: any) => <div>{children}</div>,
-  }));
-  
+jest.mock('@uiw/react-md-editor', () => ({
+  ...jest.requireActual('@uiw/react-md-editor'),
+  default: ({ children }: any) => <div>{children}</div>,
+}));
 
 describe('<App />', () => {
   test('renders', () => {

@@ -9,6 +9,7 @@ const appendFormData = (formData: FormData, key: string, value?: string): void =
 export const processCategory = (formData: FormData, category: CategoryFormProperty, categoryIndex: number): void =>{
     const categoryDtoKey = `categories[${categoryIndex}]`;
 
+    appendFormData(formData, `${categoryDtoKey}.categoryId`, category.id);
     appendFormData(formData, `${categoryDtoKey}.categoryName`, category['']);
     appendFormData(formData, `${categoryDtoKey}.description`, category.description);
 
@@ -19,6 +20,7 @@ export const processCategory = (formData: FormData, category: CategoryFormProper
     category.properties.forEach((subcategory, subcategoryIndex) => {
         const subcategoryDtoKey = `${categoryDtoKey}.subcategories[${subcategoryIndex}]`;
 
+        appendFormData(formData, `${subcategoryDtoKey}.subCategoryId`, subcategory.id);
         appendFormData(formData, `${subcategoryDtoKey}.subCategoryName`, subcategory['']);
         appendFormData(formData, `${subcategoryDtoKey}.description`, subcategory.description);
 
