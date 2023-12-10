@@ -6,6 +6,7 @@ import AddCategories from '../pages/category/addCategories';
 import AdminLayout from '../components/Layout/AdminLayout';
 import AddProduct from '../pages/product/addProduct';
 import Dashboard from '../pages/dashboard/dashboard';
+import EditCategories from '../pages/category/editCategories';
 
 const Routing = (): JSX.Element => {
     return (
@@ -16,8 +17,8 @@ const Routing = (): JSX.Element => {
                         <Route path="/" element={<Dashboard />} />
                         <Route path="/add-product" element={<AddProduct />} />
                         <Route path="/add-categories" element={<AddCategories />} />
-                        {/* <Route path="/edit-products" element={<EditAllProducts />} />
-                        <Route path="/edit-products/:id" element={<EditProduct />} /> */}
+                        <Route path="/edit-categories" element={<EditCategories />} />
+                        {/* <Route path="/edit-products/:id" element={<EditProduct />} /> */}
                     </Route>
                 </Routes>
             </Suspense>

@@ -4,16 +4,17 @@ import { submitCategory } from '../api/categoryAPI';
 import { processCategory } from '../utils/helpers/processCategory';
 
 function useDynamicForm() {
+    
     const initialValues: DynamicFormProperty = {
         categoryName: '',
         properties: [],
         id: '',
         description: '',
         image: [],
-        "": ''
+        '': ''
     };
 
-    const handleSubmit = useCallback((values: DynamicFormProperty) => {
+    const handleSubmit = useCallback((values: DynamicFormProperty, slug: string = '') => {
 
         const formData = new FormData();
         const categoryList = values.properties || [];
@@ -21,7 +22,7 @@ function useDynamicForm() {
         categoryList.forEach((category, categoryIndex) => {
             processCategory(formData, category, categoryIndex);
         });
-        submitCategory(formData);
+        submitCategory(formData, slug);
     }, []);
 
     return {
@@ -31,7 +32,3 @@ function useDynamicForm() {
 }
 
 export default useDynamicForm;
-
-
-
-

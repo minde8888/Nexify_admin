@@ -12,6 +12,7 @@ $grid-width          : 100%;
 $add_button_color    : #3498db;
 $save_button_color   : #459747;
 $remove_button_color : #d9534f;
+$edit_button_color   : #ddd;
 $border-radius       : 5px;
 $buttonTransition    : background-color 0.3s ease;
 
@@ -115,4 +116,26 @@ body {
   }
 }
 
-;
+.buttonEdit {
+  justify-content: center;
+
+  button {
+    margin          : 0 10px;
+    border          : none;
+    background      : none;
+    cursor          : pointer;
+    transition      : background-color 0.3s ease;
+    background-color: text;
+
+    img {
+      width : 30px;
+      height: 30px;
+      margin: 0 0 0 10px;
+    }
+
+    img:hover {
+      border-radius   : 5px;
+      background-color: $edit_button_color;
+    }
+  }
+}

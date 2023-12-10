@@ -1,5 +1,5 @@
 import { FunctionComponent } from "react";
-import { CATEGORY_DEPTH } from "../../constants/categoryConst";
+import { CATEGORY_DEPTH } from "../../../constants/categoryConst";
 import PropertyList from "./PropertyList";
 
 interface CategoriesPropertyProps {

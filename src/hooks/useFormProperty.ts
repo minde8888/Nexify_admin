@@ -9,7 +9,7 @@ const useFormProperty = (prefix: string) => {
     const properties: DynamicFormProperty[] = getIn(values, `${prefix}properties`);
 
     const updateProperties = (newProperties: DynamicFormProperty[]) => {
-        setFieldValue(`${prefix}properties`, newProperties);
+         setFieldValue(`${prefix}properties`, newProperties);
     };
 
     const addNewProperty = () => {
@@ -19,16 +19,10 @@ const useFormProperty = (prefix: string) => {
             description: '',
             image: [],
             properties: [],
-            "": ''
+            '': ''
         };
 
         const newProperties = [...properties, newProperty];
-        updateProperties(newProperties);
-    };
-
-    const updateProperty = (propertyIndex: number, updatedProperty: DynamicFormProperty) => {
-        const newProperties = [...properties];
-        newProperties[propertyIndex] = updatedProperty;
         updateProperties(newProperties);
     };
 
@@ -55,7 +49,6 @@ const useFormProperty = (prefix: string) => {
         addNewProperty,
         addContent,
         addImage,
-        updateProperty,
         removeProperty
     };
 };

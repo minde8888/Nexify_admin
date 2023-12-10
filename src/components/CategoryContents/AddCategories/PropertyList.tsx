@@ -1,9 +1,9 @@
 import { FunctionComponent } from "react";
-import { TextInputField } from "../../utils/validation/TextInputField";
-import useFormProperty from "../../hooks/useFormProperty";
+import { TextInputField } from "../../../utils/validation/TextInputField";
+import useFormProperty from "../../../hooks/useFormProperty";
 import PropertyItem from "./PropertyItem";
-import CategoryFormProperty from "../../types/categoryFormProperty";
-import styles from "../../styles/categoryProperty.module.scss";
+import CategoryFormProperty from "../../../types/categoryFormProperty";
+import styles from "../../../styles/categoryProperty.module.scss";
 
 interface PropertyListProps {
   prefix: string;
@@ -14,8 +14,13 @@ const PropertyList: FunctionComponent<PropertyListProps> = ({
   prefix,
   showAddButton,
 }) => {
-  const { properties, addNewProperty, removeProperty, addImage, addContent } =
-    useFormProperty(prefix);
+  const {
+    addNewProperty,
+    removeProperty,
+    addImage,
+    addContent,
+    properties
+  } = useFormProperty(prefix);
 
   const renderProperty = (property: CategoryFormProperty, index: number) => (
     <PropertyItem

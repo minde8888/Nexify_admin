@@ -25,7 +25,7 @@ const MarkDownEditor: React.FC<MarkDownEditorProps> = ({
     if (addContent && index !== undefined) {
       addContent(index, newValue);
     }
-  }, [addContent, index]);
+  }, [addContent, index, setContent]);
 
 
   return (

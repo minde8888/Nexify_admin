@@ -9,3 +9,19 @@ export interface Category {
 export interface Categories {
     products: Category[];
 }
+
+
+interface SubCategory {
+    subCategoryId: string;
+    subCategoryName: string;
+    description: string;
+    imageSrc: string;
+}
+
+export interface CategoryResponse {
+    categoryId: string;
+    categoryName: string;
+    description: string;
+    imageSrc: string;
+    subcategories: SubCategory[];
+}
