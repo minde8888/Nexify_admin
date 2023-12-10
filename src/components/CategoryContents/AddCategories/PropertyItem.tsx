@@ -5,8 +5,8 @@ import CategoryFormProperty from "../../../types/categoryFormProperty";
 import AddProperty from "./CategoriesProperty";
 import { ImageFile } from "../../../types/imageFile";
 import PropertyImagePreview from "../../PropertyImagePreview/PropertyImagePreview";
-import { Modal } from "../../Modal/Modal";
-import { useModal } from "../../../hooks/useModal";
+import { CustomModal } from "../../Modal/CustomModal";
+import { useCustomModal } from "../../../hooks/useCustomModal";
 import styles from "../../../styles/categoryProperty.module.scss";
 import { CATEGORY_DEPTH } from "../../../constants/categoryConst";
 
@@ -33,7 +33,7 @@ const PropertyItem: React.FC<PropertyItemProps> = ({
 
   const styleButton = propertyPrefix.length === CATEGORY_DEPTH ? 'content1' : 'content2';
 
-  const { isOpen, open, close } = useModal();
+  const { isOpen, open, close } = useCustomModal();
 
   const [imagePreviewUrl, setImagePreviewUrl] = useState<string>('');
 
@@ -58,7 +58,7 @@ const PropertyItem: React.FC<PropertyItemProps> = ({
           <button type="button" onClick={() => open(index)}>Content</button>
         </div>
 
-        <Modal isOpen={isOpen(index)} open={() => open(index)} >
+        <CustomModal isOpen={isOpen(index)} open={() => open(index)} >
           <MarkDownEditor
             content={property.description}
             setContent={(value) => onAddContent(index, value)}
@@ -71,10 +71,10 @@ const PropertyItem: React.FC<PropertyItemProps> = ({
             handleAddImage={handleAddImage}
           />
           <PropertyImagePreview imagePreviewUrl={imagePreviewUrl} />
-          <div className={styles.closeButton}>
+          <div className={styles.closeModalButton}>
             <button type="button" onClick={() => close(index)}>❌</button>
           </div>
-        </Modal>
+        </CustomModal>
       </>
     </div>
   );

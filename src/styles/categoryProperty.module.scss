@@ -133,21 +133,3 @@
   }
 }
 
-.closeButton {
-  position : absolute;
-  top      : 5%;
-  left     : 95%;
-  transform: translate(-50%, -50%);
-
-  button {
-    cursor          : pointer;
-    background-color: white;
-    border          : none;
-    width           : 30px;
-  }
-
-  button:hover {
-    background-color: white;
-    font-size       : $base-font-size;
-  }
-}

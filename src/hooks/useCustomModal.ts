@@ -1,6 +1,6 @@
 import { useState } from 'react';
 
-export const useModal = (initialModalsCount = 1) => {
+export function useCustomModal(initialModalsCount = 1) {
     const [modals, setModals] = useState(new Array(initialModalsCount).fill(false));
 
     const open = (index: number) => {
@@ -26,4 +26,4 @@ export const useModal = (initialModalsCount = 1) => {
         open,
         close
     };
-};
+}

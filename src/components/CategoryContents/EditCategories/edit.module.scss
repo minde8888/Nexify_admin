@@ -44,7 +44,7 @@
       justify-content: center;
 
       button {
-        margin          : 0 10px;
+        margin          : 0 10px 0 0 ;
         border          : none;
         background      : none;
         cursor          : pointer;
@@ -58,7 +58,7 @@
         }
 
         img:hover {
-          border-radius: 5px;
+          border-radius   : 5px;
           background-color: $edit_button_color;
         }
       }
@@ -71,7 +71,7 @@
     .subcategoryRow {
       border         : 1px solid #ddd;
       padding        : 8px;
-      margin-top     : 5px;
+      margin         : 5px 0 0 30px;
       display        : flex;
       justify-content: space-between;
       align-items    : center;
@@ -98,7 +98,7 @@
 
         button {
           display        : flex;
-          margin         : 0 10px;
+          margin          : 0 10px 0 0 ;
           border         : none;
           background     : none;
           cursor         : pointer;
@@ -112,7 +112,7 @@
           }
 
           img:hover {
-            border-radius: 5px;
+            border-radius   : 5px;
             background-color: $edit_button_color;
           }
         }
