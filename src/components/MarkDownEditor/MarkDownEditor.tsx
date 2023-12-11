@@ -1,4 +1,4 @@
-import React, { useCallback, useEffect } from "react";
+import React, { useCallback } from "react";
 import MDEditor from '@uiw/react-md-editor';
 
 interface MarkDownEditorProps {

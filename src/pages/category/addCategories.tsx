@@ -1,12 +1,21 @@
 import { Formik, Form } from 'formik';
 import CategoriesProperty from '../../components/CategoryContents/AddCategories/CategoriesProperty';
-import useDynamicForm from '../../hooks/useDynamicForm';
 import styles from '../../styles/productContent.module.scss';
+import useForm from '../../hooks/useForm';
+import CategoryFormProperty from '../../types/categoryFormProperty';
+import { v4 as uuidv4 } from 'uuid';
 
 const AddCategories = () => {
-    const { handleSubmit, initialValues } = useDynamicForm();
+    const { handleSubmit } = useForm<CategoryFormProperty>('category');
     return (
-        <Formik onSubmit={(values) => handleSubmit(values)} initialValues={initialValues}>
+        <Formik onSubmit={(values) => handleSubmit(values)} initialValues={{
+            id: uuidv4(),
+            categoryName: '',
+            description: '',
+            image: [],
+            properties: [],
+            '': ''
+        }}>
             <Form >
                 <h2>Categories</h2>
                 <CategoriesProperty />

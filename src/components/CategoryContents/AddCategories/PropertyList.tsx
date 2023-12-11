@@ -1,6 +1,6 @@
 import { FunctionComponent } from "react";
 import { TextInputField } from "../../../utils/validation/TextInputField";
-import useFormProperty from "../../../hooks/useFormProperty";
+import useCategoriesFormProperty from "../../../hooks/useCategoriesFormProperty";
 import PropertyItem from "./PropertyItem";
 import CategoryFormProperty from "../../../types/categoryFormProperty";
 import styles from "../../../styles/categoryProperty.module.scss";
@@ -20,7 +20,7 @@ const PropertyList: FunctionComponent<PropertyListProps> = ({
     addImage,
     addContent,
     properties
-  } = useFormProperty(prefix);
+  } = useCategoriesFormProperty(prefix);
 
   const renderProperty = (property: CategoryFormProperty, index: number) => (
     <PropertyItem

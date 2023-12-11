@@ -7,7 +7,7 @@ import styles from './UploadImage.module.scss'
 
 interface UploadImageProps {
   setImagePreviewUrl: (imagePreviewUrl: string) => void;
-  handleAddImage: (images: ImageFile[]) => void;
+  handleAddImage?: (images: ImageFile[]) => void;
 }
 
 interface ImageFileWithFile {
@@ -28,7 +28,7 @@ const UploadImage: React.FC<UploadImageProps> = ({ setImagePreviewUrl, handleAdd
 
         reader.onloadend = () => {
           const imageFile: ImageFileWithFile = { file: newFile };
-          handleAddImage([imageFile]);;
+          if (handleAddImage) { handleAddImage([imageFile]); }
           setImagePreviewUrl(reader.result as string);
         };
 
@@ -41,7 +41,9 @@ const UploadImage: React.FC<UploadImageProps> = ({ setImagePreviewUrl, handleAdd
 
   const handleUploadClick = () => {
     setImagePreviewUrl('');
-    handleAddImage([]);
+    if (handleAddImage) {
+      handleAddImage([]);
+    }
   };
 
   return (
