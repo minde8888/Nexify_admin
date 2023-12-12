@@ -3,6 +3,7 @@ import api from './instanceAPI';
 import { ServerError } from '../types/serverError';
 import { CATEGORIES_URL } from '../constants/apiConst';
 import { CategoryResponse } from '../types/category';
+import { CategoryError } from '../errorHandler/categoryError';
 
 export const submitCategory = async (formData: FormData, slug: string = ''): Promise<void> => {
     const url = CATEGORIES_URL + slug;

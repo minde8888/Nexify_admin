@@ -1,36 +1,37 @@
 @import './global.scss';
 
 .container {
-  width: 100%;
+  width : 100%;
   margin: 80px 0 0 0;
 
   form {
     display: flex;
 
     .columns {
-      width: 50%;
-      display: flex;
-      align-items: flex-start;
-      flex-direction: column;
-      flex-wrap: wrap;
+      width          : 50%;
+      display        : flex;
+      align-items    : flex-start;
+      flex-direction : column;
+      flex-wrap      : wrap;
       justify-content: center;
-      align-items: center;
+      align-items    : center;
       justify-content: flex-start;
 
       summary {
         margin: 10px 0 10px 0;
       }
-      .preview{
-        display: flex;
-        justify-content: flex-end; 
-        width: 90%;
+
+      .preview {
+        display        : flex;
+        justify-content: flex-end;
+        width          : 90%;
       }
 
       .items {
-        display: flex;
-        align-items: center;
+        display       : flex;
+        align-items   : center;
         flex-direction: column;
-        width: 95%;
+        width         : 95%;
 
         .profileInput,
         .profileTextArea {
@@ -39,17 +40,17 @@
 
         .numberItem,
         .profileInput {
-          border: 2px solid $base_color;
+          border       : 2px solid $base_color;
           border-radius: 4px;
-          margin: 8px 0;
-          outline: none;
-          padding: 8px;
-          box-sizing: border-box;
-          transition: 0.3s;
+          margin       : 8px 0;
+          outline      : none;
+          padding      : 8px;
+          box-sizing   : border-box;
+          transition   : 0.3s;
 
           &:focus {
             border-color: $base_color;
-            box-shadow: 0 0 8px 0 $base_color;
+            box-shadow  : 0 0 8px 0 $base_color;
           }
         }
 
@@ -58,52 +59,52 @@
         }
 
         .numberItems {
-          width: 95%;
-          display: flex;
-          flex-direction: row;
-          flex-wrap: wrap;
+          width          : 95%;
+          display        : flex;
+          flex-direction : row;
+          flex-wrap      : wrap;
           justify-content: space-between;
 
           .profileInputNumber {
             .numberItem:focus {
-              position: relative;
+              position    : relative;
               border-color: $base_color;
-              box-shadow: 0 0 8px 0 $base_color;
+              box-shadow  : 0 0 8px 0 $base_color;
             }
 
             label {
-              position: absolute;
-              top: -16px;
+              position  : absolute;
+              top       : -16px;
               text-align: 16px;
             }
           }
         }
 
         select {
-          border: 2px solid $base_color;
+          border       : 2px solid $base_color;
           border-radius: 4px;
-          margin: 8px 0;
-          padding: 8px;
-          box-sizing: border-box;
-          color: rgb(85, 84, 84);
-          outline: none;
+          margin       : 8px 0;
+          padding      : 8px;
+          box-sizing   : border-box;
+          color        : rgb(85, 84, 84);
+          outline      : none;
 
           &:focus {
-            position: relative;
+            position    : relative;
             border-color: $base_color;
-            box-shadow: 0 0 8px 0 $base_color;
+            box-shadow  : 0 0 8px 0 $base_color;
           }
         }
 
         .profileTextArea {
-          border: 2px solid $base_color;
+          border       : 2px solid $base_color;
           border-radius: 4px;
-          outline: none;
+          outline      : none;
 
           &:focus {
-            position: relative;
+            position    : relative;
             border-color: $base_color;
-            box-shadow: 0 0 8px 0 $base_color;
+            box-shadow  : 0 0 8px 0 $base_color;
           }
         }
       }

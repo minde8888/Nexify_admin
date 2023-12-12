@@ -23,17 +23,18 @@
     .content1 {
       position: absolute;
       left    : 400px;
-      top     : 10px;
+      top     : 20px;
     }
 
     .content2 {
       position: absolute;
       left    : 360px;
-      top     : 10px;
+      top     : 20px;
     }
 
     .label {
-      font-size: 12px;
+      font-size: 16px;
+      margin: 0  0 0 10px;
     }
 
     .textField {
@@ -41,7 +42,7 @@
     }
 
     .buttonRemove {
-      margin-top: 10px;
+      margin-top: 20px;
 
       button {
         background-color: $remove_button_color;
@@ -132,4 +133,3 @@
     }
   }
 }
-

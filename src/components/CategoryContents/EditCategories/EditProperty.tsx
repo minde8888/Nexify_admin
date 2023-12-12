@@ -1,4 +1,4 @@
-import { FunctionComponent, useState } from "react";
+import { FunctionComponent, useCallback, useState } from "react";
 import { CategoryResponse, SubcategoryResponse } from "../../../types/category";
 import Category from "./Category";
 import { Modal } from "../../Modal/Modal";
@@ -9,6 +9,7 @@ import { useModal } from "../../../hooks/useModel";
 import { TextInputField } from "../../../utils/validation/TextInputField";
 import UploadImage from "../../UploadImage/UploadImage";
 import PropertyImagePreview from "../../PropertyImagePreview/PropertyImagePreview";
+import CategoryFormProperty from "../../../types/categoryFormProperty";
 
 interface EditPropertyProps {
     categories: CategoryResponse[];
@@ -23,17 +24,18 @@ const EditProperty: FunctionComponent<EditPropertyProps> = ({ categories }) => {
     const { isOpen, toggle } = useModal();
     const onCancel = () => toggle();
 
-    const handleEdit = (id: string) => {
+    const handleEdit = useCallback((id: string) => {
         toggle();
         const category = findCategoryById(id, Object.values(categories));
         const subcategory = findSubcategoryById(id, Object.values(categories));
-        if (category) {
+        // setInitialValues({
+        //     categoryName: category?.categoryName || subcategory?.subCategoryName || '',
+        //     description: category?.description || subcategory?.description || '',
+        // } as CategoryFormProperty);
 
-        }
-        if (subcategory) {
+        setContent(category?.description || subcategory?.description || '',);
 
-        }
-    };
+    }, [categories, toggle]);
 
 
     const onRemove = (id: string) => {
@@ -41,31 +43,31 @@ const EditProperty: FunctionComponent<EditPropertyProps> = ({ categories }) => {
         // Add logic for removing category or subcategory
     };
 
-
     return (
         <div className={styles.editPropertyContainer}>
             <Modal isOpen={isOpen} toggle={toggle}>
+                <TextInputField
+                    name={"Title"}
+                    className={styles.titleField}
+                    id={'Title'}
+                    label={"Title"}
+                />
+                <PropertyImagePreview imagePreviewUrl={imagePreviewUrl} />
+                <UploadImage
+                    setImagePreviewUrl={setImagePreviewUrl}
+                />
+                <MarkDownEditor
+                    content={content}
+                    setContent={setContent}
+                    showEditor={true}
+                />
+                <div className={styles.saveButton}>
+                    <button type="submit">Submit</button>
+                </div>
                 <div className={styles.closeModalButton}>
                     <button data-testid="test-close-id" onClick={onCancel} type="button">
                         ❌
                     </button>
-                    <div>
-                        <TextInputField
-                            name={"Title"}
-                            className=""
-                            label="Title"
-                            id={''}
-                        />
-                        <MarkDownEditor
-                            content={content}
-                            setContent={setContent}
-                            showEditor={true}
-                        />
-                        <UploadImage
-                            setImagePreviewUrl={setImagePreviewUrl}
-                        />
-                        <PropertyImagePreview imagePreviewUrl={imagePreviewUrl} />
-                    </div>
                 </div>
             </Modal>
             {Object.values(categories).map(category => (

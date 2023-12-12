@@ -59,6 +59,11 @@ const PropertyItem: React.FC<PropertyItemProps> = ({
         </div>
 
         <CustomModal isOpen={isOpen(index)} open={() => open(index)} >
+          <UploadImage
+            setImagePreviewUrl={setImagePreviewUrl}
+            handleAddImage={handleAddImage}
+          />
+          <PropertyImagePreview imagePreviewUrl={imagePreviewUrl} />
           <MarkDownEditor
             content={property.description}
             setContent={(value) => onAddContent(index, value)}
@@ -66,11 +71,6 @@ const PropertyItem: React.FC<PropertyItemProps> = ({
             addContent={onAddContent}
             index={index}
           />
-          <UploadImage
-            setImagePreviewUrl={setImagePreviewUrl}
-            handleAddImage={handleAddImage}
-          />
-          <PropertyImagePreview imagePreviewUrl={imagePreviewUrl} />
           <div className={styles.closeModalButton}>
             <button type="button" onClick={() => close(index)}>❌</button>
           </div>

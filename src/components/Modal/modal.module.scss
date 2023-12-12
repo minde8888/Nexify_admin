@@ -23,9 +23,9 @@
         height         : 70%;
         padding        : 1rem;
         border-radius  : 1rem;
-        flex-direction : column-reverse;
         flex-wrap      : wrap;
         align-items    : center;
         justify-content: space-evenly;
+        flex-direction: column;
     }
 }

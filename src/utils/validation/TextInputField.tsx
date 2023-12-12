@@ -1,14 +1,14 @@
-import React from 'react';
 import { ErrorMessage, useField } from 'formik';
 
 interface PropsType {
-  className: string;
+  className?: string;
   name: string;
-  label: string;
+  label?: string;
   id: string;
+  placeholder?: string;
 }
 
-export const TextInputField = ({ label, id, ...props }: PropsType) => {
+export const TextInputField = ({placeholder, label, id, ...props }: PropsType) => {
   
   const [field] = useField(props);
 
@@ -20,9 +20,8 @@ export const TextInputField = ({ label, id, ...props }: PropsType) => {
       <input
         {...field}
         {...props}
-        // name={filed.name}
         autoComplete="off"
-        placeholder={label}
+        placeholder={placeholder}
         id={id}
         value={initialValue} 
       />

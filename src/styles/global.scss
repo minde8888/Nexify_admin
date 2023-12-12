@@ -158,3 +158,18 @@ body {
     font-size       : $base-font-size;
   }
 }
+
+.titleField {
+  line-height  : $base-line-height;
+  border-radius: 10px;
+  text-align   : center;
+  width        : $grid-width / 2;
+  margin       : 10px 0 0 0;
+}
+
+.inputField {
+  line-height  : $base-line-height;
+  border-radius: 10px;
+  text-align   : center;
+  width        : $grid-width ;
+}

@@ -49,9 +49,8 @@ const PropertyList: FunctionComponent<PropertyListProps> = ({
           <div className={styles.textField}>
             <TextInputField
               name={`${prefix}`}
-              className=""
-              label=""
               id={`${prefix}label`}
+              className={styles.inputField}
             />
           </div>
         )}
