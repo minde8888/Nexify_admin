@@ -1,4 +1,4 @@
-import { useCallback, useEffect, useState } from 'react';
+import { useCallback, useEffect } from 'react';
 import { Formik, Form } from 'formik';
 import useForm from '../../hooks/useForm';
 import { fetchAllCategories } from '../../api/categoryAPI';
@@ -12,7 +12,7 @@ import validationSchema from '../../utils/validation/categoryValidationSchema';
 
 const EditCategories = () => {
 
-    const { handleSubmit } = useForm<CategoryFormProperty>('update');
+    const { handleSubmit, handleChange, resetForm } = useForm<CategoryFormProperty>('update');
 
     const initialCategoryFormProperty: CategoryFormProperty = {
         id: '',
@@ -38,13 +38,15 @@ const EditCategories = () => {
 
     return (
         categories ? (
-            <Formik onSubmit={(values) => handleSubmit(values)}
+            <Formik onSubmit={() => handleSubmit()} 
                 initialValues={initialCategoryFormProperty} >
                 <Form>
                     <h2>Edit/Remove Categories</h2>
                     <EditProperty
                         categories={categories}
-                        dispatch={dispatch}                       
+                        dispatch={dispatch}    
+                        handleChange={handleChange}   
+                        resetForm={resetForm}                
                     />
                 </Form>
             </Formik>

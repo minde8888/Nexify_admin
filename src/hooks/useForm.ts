@@ -1,4 +1,4 @@
-import { useCallback } from 'react';
+import { useCallback, useState, useMemo } from 'react';
 import { submitCategory } from '../api/categoryAPI';
 import { processCategory } from '../utils/helpers/processCategory';
 import CategoryFormProperty from '../types/categoryFormProperty';
@@ -21,26 +21,38 @@ const slugHandlers: Record<string, SlugHandler<any>> = {
 };
 
 function useForm<T>(slug: string) {
-    const initialValues: T = {} as T;
+    const initialValues: T = useMemo(() => ({} as T), []); // Use useMemo to memoize initialValues
+    const [formValues, setFormValues] = useState<T>(initialValues);
 
     const handleSubmit = useCallback(
-        (values: T) => {
+        () => {
             const formData = new FormData();
             const handler = slugHandlers[slug];
             if (handler) {
-                handler(formData, values);
+                handler(formData, formValues);
             } else {
                 throw new SlugError(`Unsupported slug: ${slug}`);
             }
 
             // submitCategory(formData, slug);
         },
-        [slug]
+        [slug, formValues]
     );
+
+    const resetForm = useCallback(() => {
+        setFormValues(initialValues);
+    }, [initialValues]);
+
+    const handleChange = useCallback((newValues: T) => {
+        setFormValues(newValues);
+    }, []);
 
     return {
         initialValues,
-        handleSubmit
+        formValues,
+        handleChange,
+        handleSubmit,
+        resetForm
     };
 }
 

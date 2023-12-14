@@ -9,7 +9,7 @@ import validationSchema from '../../utils/validation/categoryValidationSchema';
 const AddCategories = () => {
     const { handleSubmit } = useForm<CategoryFormProperty>('category');
     return (
-        <Formik onSubmit={(values) => handleSubmit(values)} initialValues={{
+        <Formik onSubmit={() => handleSubmit()} initialValues={{
             id: uuidv4(),
             categoryName: '',
             description: '',

@@ -6,7 +6,6 @@ import defaultImage from "../../../assets/svg/gallery_image_photo_photography_pi
 import styles from './edit.module.scss';
 import { SubcategoryResponse } from "../../../types/category";
 
-
 interface SubcategoryProps {
     subcategory: SubcategoryResponse;
     onRemove: (id: string) => void;

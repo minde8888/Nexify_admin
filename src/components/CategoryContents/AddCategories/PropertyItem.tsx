@@ -57,7 +57,6 @@ const PropertyItem: React.FC<PropertyItemProps> = ({
         <div className={`${styles.addContent} ${styles[styleButton]}`}>
           <button type="button" onClick={() => open(index)}>Content</button>
         </div>
-
         <CustomModal isOpen={isOpen(index)} open={() => open(index)} >
           <UploadImage
             setImagePreviewUrl={setImagePreviewUrl}

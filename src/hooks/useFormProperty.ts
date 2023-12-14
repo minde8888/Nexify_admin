@@ -3,7 +3,7 @@ import { v4 as uuidv4 } from 'uuid';
 import DynamicFormProperty from '../types/categoryFormProperty';
 import { ImageFile } from '../types/imageFile';
 
-const useCategoriesFormProperty = (prefix: string) => {
+const useFormProperty = (prefix : string) => {
     const { values, setFieldValue } = useFormikContext();
 
     const properties: DynamicFormProperty[] = getIn(values, `${prefix}properties`);
@@ -53,4 +53,4 @@ const useCategoriesFormProperty = (prefix: string) => {
     };
 };
 
-export default useCategoriesFormProperty;
+export default useFormProperty;

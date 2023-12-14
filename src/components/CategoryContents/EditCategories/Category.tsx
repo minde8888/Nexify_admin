@@ -22,7 +22,6 @@ const Category: FunctionComponent<CategoryProps> = ({ category, onRemove, onEdit
             <div>
                 <ButtonWithIcon icon={editIcon} altText="Edit" style={styles.buttonEdit} onClick={() => onEdit(category.categoryId)} />
                 <RemoveButton onClick={() => onRemove(category.categoryId)} style={styles.removeButton} />
-
             </div>
         </div>
         {category.subcategories && <Subcategories
