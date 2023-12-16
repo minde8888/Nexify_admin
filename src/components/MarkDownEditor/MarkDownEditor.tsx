@@ -27,7 +27,6 @@ const MarkDownEditor: React.FC<MarkDownEditorProps> = ({
     }
   }, [addContent, index, setContent]);
 
-
   return (
     <div style={{ width: "95%" }}>
       {showEditor && (

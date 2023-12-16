@@ -16,7 +16,7 @@ export const processCategory = (formData: FormData, category: CategoryFormProper
         formData.append(`${categoryDtoKey}.image`, category.image[0].file);
     }
 
-    category.properties.forEach((subcategory, subcategoryIndex) => {
+    (category.properties ?? []).forEach((subcategory, subcategoryIndex) => {
         const subcategoryDtoKey = `${categoryDtoKey}.subcategories[${subcategoryIndex}]`;
 
         appendFormData(formData, `${subcategoryDtoKey}.subCategoryName`, subcategory['']);

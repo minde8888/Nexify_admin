@@ -23,7 +23,7 @@ export const TextInputField: React.FC<TextInputFieldProps> = ({
     ...props,
     autoComplete: "off",
     placeholder,
-    value: field.value !== undefined ? field.value : initialValue,
+    value: field.value !== '' ? field.value : initialValue,
   };
 
   return (
