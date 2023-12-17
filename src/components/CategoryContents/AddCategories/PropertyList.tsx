@@ -1,5 +1,5 @@
 import { FunctionComponent } from "react";
-import { TextInputField } from "../../../utils/validation/TextInputField";
+import { TextInputField } from "../../../utils/inputFields/TextInputField";
 import useFormProperty from "../../../hooks/useFormProperty";
 import PropertyItem from "./PropertyItem";
 import CategoryFormProperty from "../../../types/categoryFormProperty";
@@ -46,11 +46,12 @@ const PropertyList: FunctionComponent<PropertyListProps> = ({
           </div>
         )}
         {prefix && (
-          <div className={styles.textField}>
+          <div >
             <TextInputField
               name={`${prefix}`}
               id={`${prefix}label`}
               className={styles.inputField}
+              initialValue={''}
             />
           </div>
         )}

@@ -1,25 +1,26 @@
 import { useFormikContext, getIn } from 'formik';
 
-const useFormikValues = <T>(initialValues: string) => {
-    const { values, setFieldValue } = useFormikContext<{ values: T[] }>(); // Replace any with the actual type of values
+interface FormValues {
+    [key: string]: any;
+}
 
-    const initial: T[] = Array.isArray(getIn(values, initialValues)) ? getIn(values, initialValues) : [];
+const useFormikValues = (initialValues: string) => {
+    const { values, setFieldValue } = useFormikContext<{ values: FormValues[] }>();
 
-    const updateValues = (newValues: T[]) => {
-        return setFieldValue('values', newValues);
+    const initial: FormValues[] = Array.isArray(getIn(values, initialValues)) ? getIn(values, initialValues) : [];
+
+    const updateValues = (newValues: FormValues[]) => {
+        const filteredValues = Array.isArray(newValues) ? newValues.filter((value) => value !== null && value !== undefined) : [];
+
+        filteredValues.forEach((value: FormValues) => {
+            Object.entries(value).forEach(([key, val]) => {
+                setFieldValue(key, val);
+            });
+        });
     };
 
-    const addNewValue = (value: T) => {
-        console.log('values:', values);
-        console.log('value:', value);
-
-        const newValues = [...initial, value];
-        return updateValues(newValues);
-    };
-
-    const removeValue = (valueIndex: number) => {
-        const newValues = [...initial.slice(0, valueIndex), ...initial.slice(valueIndex + 1)];
-        return updateValues(newValues);
+    const addNewValue = (value: FormValues) => {
+        return updateValues([value]);
     };
 
     const resetValues = () => {
@@ -29,7 +30,6 @@ const useFormikValues = <T>(initialValues: string) => {
     return {
         initial,
         addNewValue,
-        removeValue,
         resetValues
     };
 };

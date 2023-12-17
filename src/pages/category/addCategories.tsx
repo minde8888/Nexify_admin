@@ -4,7 +4,7 @@ import styles from '../../styles/productContent.module.scss';
 import useForm from '../../hooks/useForm';
 import CategoryFormProperty from '../../types/categoryFormProperty';
 import { v4 as uuidv4 } from 'uuid';
-import validationSchema from '../../utils/validation/categoryValidationSchema';
+import validationSchema from '../../utils/validation/addCategoryValidationSchema';
 
 const AddCategories = () => {
     const { handleSubmit } = useForm<CategoryFormProperty>('category');
@@ -16,7 +16,7 @@ const AddCategories = () => {
             image: [],
             properties: [],
             '': ''
-        }} >
+        }}  validationSchema={validationSchema}>
             <Form >
                 <h2>Categories</h2>
                 <CategoriesProperty />

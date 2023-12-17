@@ -22,7 +22,7 @@ const useFormProperty = (prefix : string) => {
             '': ''
         };
 
-        const newProperties = [...properties, newProperty];
+        const newProperties = [...properties, newProperty];        
         updateProperties(newProperties);
     };
 

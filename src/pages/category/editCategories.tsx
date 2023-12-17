@@ -7,14 +7,14 @@ import { CategoryResponse } from '../../types/category';
 import { getCategories } from '../../redux/slice/categoriesSlice';
 import { useAppDispatch, useAppSelector } from '../../hooks/useRedux';
 import CategoryFormProperty from '../../types/categoryFormProperty';
-import validationSchema from '../../utils/validation/categoryValidationSchema';
+import validationSchema from '../../utils/validation/addCategoryValidationSchema';
 import useForm from '../../hooks/useForm';
 
 const EditCategories = () => {
     const dispatch = useAppDispatch();
     const categories = useAppSelector((state) => state.data.categories);
 
-    const { handleSubmit} = useForm<CategoryFormProperty>('update');
+    const { handleSubmit } = useForm<CategoryFormProperty>('update');
 
     const fetchData = useCallback(async () => {
         const fetchedCategories: CategoryResponse[] = await fetchAllCategories();
@@ -27,21 +27,22 @@ const EditCategories = () => {
 
     const initialCategoryFormProperty: CategoryFormProperty = {
         id: '',
-        categoryName: '',  
+        categoryName: '',
         description: '',
         image: [],
-    };     
+    };
 
     return (
-        <Formik onSubmit={(values) => handleSubmit(values)}  initialValues={initialCategoryFormProperty}>
+        <Formik onSubmit={(values) => handleSubmit(values)}
+            initialValues={initialCategoryFormProperty}
+            validationSchema={validationSchema}
+        >
             <Form>
                 <h2>Edit/Remove Categories</h2>
                 {categories ? (
                     <EditProperty
                         categories={categories}
                         dispatch={dispatch}
-                        // handleChange={handleChange}
-                        // resetForm={resetForm}                       
                     />
                 ) : (
                     <Preloader />

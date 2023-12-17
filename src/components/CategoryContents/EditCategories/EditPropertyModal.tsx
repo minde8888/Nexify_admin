@@ -1,6 +1,6 @@
 import React, { FunctionComponent, useState } from 'react';
 import { Modal } from '../../Modal/Modal';
-import { TextInputField } from '../../../utils/validation/TextInputField';
+import { TextInputField } from '../../../utils/inputFields/TextInputField';
 import UploadImage from '../../UploadImage/UploadImage';
 import PropertyImagePreview from '../../PropertyImagePreview/PropertyImagePreview';
 import MarkDownEditor from '../../MarkDownEditor/MarkDownEditor';
@@ -15,6 +15,8 @@ interface EditPropertyModalProps {
     content: string;
     setContent: (content: string) => void;
     handleAddImage?: (file: ImageFile[]) => void;
+    setImagePreviewUrl: (imagePreviewUrl: string) => void;
+    imagePreviewUrl: string;
 }
 
 const EditPropertyModal: FunctionComponent<EditPropertyModalProps> = ({
@@ -25,8 +27,9 @@ const EditPropertyModal: FunctionComponent<EditPropertyModalProps> = ({
     content,
     setContent,
     handleAddImage,
+    setImagePreviewUrl,
+    imagePreviewUrl,
 }) => {
-    const [imagePreviewUrl, setImagePreviewUrl] = useState<string>('');
 
     const buttonStyles = {
         saveButton: styles.saveButton,

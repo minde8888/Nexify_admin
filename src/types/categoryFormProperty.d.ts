@@ -5,6 +5,7 @@ interface CategoryFormProperty {
     image?: ImageFile[];
     properties?: DynamicFormProperty[];
     ""?: string;
+    imageSrc?: string;
   }
    
   export default CategoryFormProperty;
