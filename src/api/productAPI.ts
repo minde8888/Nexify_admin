@@ -2,6 +2,7 @@ import axios, { AxiosError } from 'axios';
 import api from './instanceAPI';
 import { ServerError } from '../types/serverError';
 import { PRODUCTS_URL } from '../constants/apiConst';
+import { ProductError } from '../errorHandler/productError';
 
 export const submitProduct = async (formData: FormData): Promise<void> => {
     try {

@@ -35,6 +35,8 @@ function useForm<T>(slug: string) {
                 throw new SlugError(`Unsupported slug: ${slug}`);
             }
             console.log(Object.fromEntries(formData));
+            console.log("slug", slug);
+            
             // submitCategory(formData, slug);
         },
         [slug]
