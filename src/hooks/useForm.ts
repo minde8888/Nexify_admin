@@ -1,17 +1,18 @@
 import { useCallback } from 'react';
-import { submitCategory } from '../api/categoryAPI';
 import { processCategory } from '../utils/helpers/processCategory';
 import CategoryFormProperty from '../types/categoryFormProperty';
 import { SlugError } from '../errorHandler/slugError';
 import { createFormData } from '../utils/helpers/createFormData';
+import { handlePostRequest, handlePutRequest } from '../api/apiHandle';
+import { UseFormError } from '../errorHandler/useFormError';
 
 type SlugHandler<T> = (formData: FormData, values: T) => void;
 
 const slugHandlers: Record<string, SlugHandler<any>> = {
-    category: (formData, values) => {
-        console.log('category', values);
-        
-        const categoryList = values.properties || [];
+    category: (formData, { properties }) => {
+        console.log('category', properties);
+
+        const categoryList = properties || [];
         categoryList.forEach((category: CategoryFormProperty, categoryIndex: number) => {
             processCategory(formData, category, categoryIndex);
         });
@@ -21,11 +22,9 @@ const slugHandlers: Record<string, SlugHandler<any>> = {
     }
 };
 
-function useForm<T>(slug: string) {
-    const initialValues: T = {} as T;
-
+function useForm<T>(slug: string, post?: boolean) {
     const handleSubmit = useCallback(
-        (values: T) => {
+        async (values: T) => {
             const formData = new FormData();
 
             const handler = slugHandlers[slug];
@@ -34,16 +33,21 @@ function useForm<T>(slug: string) {
             } else {
                 throw new SlugError(`Unsupported slug: ${slug}`);
             }
-            console.log(Object.fromEntries(formData));
-            console.log("slug", slug);
-            
-            // submitCategory(formData, slug);
+
+            try {
+                if (post) {
+                    await handlePostRequest<T>(slug, formData);
+                } else {
+                    await handlePutRequest<T>(slug, formData);
+                }
+            } catch (error) {
+                throw new UseFormError(`Error handling form submission: ${error}`);
+            }
         },
         [slug]
     );
 
     return {
-        initialValues,
         handleSubmit
     };
 }

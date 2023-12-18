@@ -1,6 +1,6 @@
 import { useCallback, useEffect } from 'react';
 import { Formik, Form } from 'formik';
-import { fetchAllCategories } from '../../api/categoryAPI';
+import { handleGetAllRequest } from '../../api/apiHandle';
 import Preloader from '../preloader/preloader';
 import EditProperty from '../../components/CategoryContents/EditCategories/EditProperty';
 import { CategoryResponse } from '../../types/category';
@@ -17,7 +17,8 @@ const EditCategories = () => {
     const { handleSubmit } = useForm<CategoryFormProperty>('update');
 
     const fetchData = useCallback(async () => {
-        const fetchedCategories: CategoryResponse[] = await fetchAllCategories();
+        const fetchedCategories: CategoryResponse[] | undefined = await handleGetAllRequest('category');
+        if (!fetchedCategories) return;
         dispatch(getCategories(fetchedCategories));
     }, [dispatch]);
 
