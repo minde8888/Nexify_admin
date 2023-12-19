@@ -1,37 +1,42 @@
-import { useFormikContext, getIn } from 'formik';
+import { useFormikContext, setIn } from 'formik';
 
 interface FormValues {
-    [key: string]: any;
+  [key: string]: any;
 }
 
-const useFormikValues = (initialValues: string) => {
-    const { values, setFieldValue } = useFormikContext<{ values: FormValues[] }>();
+const useFormikValues = () => {
+  const { setValues } = useFormikContext<{ values: FormValues[] }>();
 
-    const initial: FormValues[] = Array.isArray(getIn(values, initialValues)) ? getIn(values, initialValues) : [];
+  const initial: FormValues[] = [];
 
-    const updateValues = (newValues: FormValues[]) => {
-        const filteredValues = Array.isArray(newValues) ? newValues.filter((value) => value !== null && value !== undefined) : [];
+  const updateValues = (newValues: FormValues[]) => {
+    const filteredValues = Array.isArray(newValues)
+      ? newValues.filter((value) => value !== null && value !== undefined)
+      : [];
 
-        filteredValues.forEach((value: FormValues) => {
-            Object.entries(value).forEach(([key, val]) => {
-                setFieldValue(key, val);
-            });
+    setValues((prevValues) => {
+      let updatedValues = { ...prevValues };
+      filteredValues.forEach((value: FormValues) => {
+        Object.entries(value).forEach(([key, val]) => {
+          updatedValues = setIn(updatedValues, key, val);
         });
-    };
+      });
+      return updatedValues;
+    });
+  };
 
-    const addNewValue = (value: FormValues) => {
-        return updateValues([value]);
-    };
+  const addNewValue = (value: FormValues) => {
+    return updateValues([value]);
+  };
 
-    const resetValues = () => {
-        return updateValues([...initial]);
-    };
+  const resetValues = () => {
+    setValues({ values: initial });
+  };
 
-    return {
-        initial,
-        addNewValue,
-        resetValues
-    };
+  return {
+    addNewValue,
+    resetValues,
+  };
 };
 
 export default useFormikValues;

@@ -1,5 +1,4 @@
 import { FunctionComponent, useCallback, useEffect, useState } from 'react';
-import { Dispatch, AnyAction } from '@reduxjs/toolkit';
 import { CategoryResponse } from '../../../types/category';
 import { useModal } from '../../../hooks/useModel';
 import Category from './Category';
@@ -12,10 +11,9 @@ import styles from './edit.module.scss';
 
 interface EditPropertyProps {
   categories: CategoryResponse[];
-  dispatch: Dispatch<AnyAction>;
 }
 
-const EditProperty: FunctionComponent<EditPropertyProps> = ({ categories, dispatch }) => {
+const EditProperty: FunctionComponent<EditPropertyProps> = ({ categories }) => {
   const { isOpen, toggle } = useModal();
 
   const [content, setContent] = useState<string>('');
@@ -26,17 +24,20 @@ const EditProperty: FunctionComponent<EditPropertyProps> = ({ categories, dispat
     id: '',
     categoryName: '',
     description: '',
+    accept: true
   });
 
-  const { addNewValue } = useFormikValues('categoryName');
+  const { addNewValue } = useFormikValues();
 
   useEffect(() => {
     setValues((prevValues) => ({ ...prevValues, categoryName: original.categoryName }));
-    setImagePreviewUrl(original.imageSrc);   
-  }, [original]);
+    setImagePreviewUrl(original.imageSrc);
+  }, [original, categories]);
 
   useEffect(() => {
-    addNewValue({ id: values.id, description: content, image: file });
+    addNewValue({ id: values.id, description: content, image: file, accept: values.accept });
+    setValues((prevValues) => ({ ...prevValues, categoryName: original.categoryName }));
+    setImagePreviewUrl(original.imageSrc);
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [values.id, content, file]);
 
@@ -49,6 +50,7 @@ const EditProperty: FunctionComponent<EditPropertyProps> = ({ categories, dispat
       categoryName: category?.categoryName || subcategory?.subCategoryName || '',
       description: category?.description || subcategory?.description || '',
       imageSrc: category?.imageSrc || subcategory?.imageSrc || '',
+      accept: category ? true : false
     };
 
     setOriginal({ categoryName: updatedValues.categoryName || '', imageSrc: updatedValues.imageSrc || '' });

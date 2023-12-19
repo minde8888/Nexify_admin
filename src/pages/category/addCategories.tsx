@@ -7,7 +7,7 @@ import { v4 as uuidv4 } from 'uuid';
 import validationSchema from '../../utils/validation/addCategoryValidationSchema';
 
 const AddCategories = () => {
-    const { handleSubmit } = useForm<CategoryFormProperty>('category', true);
+    const { handleSubmit } = useForm<CategoryFormProperty>('post', 'category', true);
     return (
         <Formik onSubmit={(values) => handleSubmit(values)} initialValues={{
             id: uuidv4(),
@@ -16,7 +16,7 @@ const AddCategories = () => {
             image: [],
             properties: [],
             '': ''
-        }}  validationSchema={validationSchema}>
+        }} validationSchema={validationSchema}>
             <Form >
                 <h2>Categories</h2>
                 <CategoriesProperty />

@@ -1,50 +1,58 @@
 import { useCallback } from 'react';
 import { processCategory } from '../utils/helpers/processCategory';
 import CategoryFormProperty from '../types/categoryFormProperty';
-import { SlugError } from '../errorHandler/slugError';
+import { MethodError } from '../errorHandler/methodError';
 import { createFormData } from '../utils/helpers/createFormData';
 import { handlePostRequest, handlePutRequest } from '../api/apiHandle';
 import { UseFormError } from '../errorHandler/useFormError';
+import { updateCategory, updateSubcategory } from '../redux/slice/categoriesSlice';
+import { useAppDispatch } from '../redux/store';
+import { AnyAction, Dispatch } from '@reduxjs/toolkit';
 
-type SlugHandler<T> = (formData: FormData, values: T) => void;
+type MethodHandler<T> = (formData: FormData, values: T, dispatch: Dispatch<AnyAction>) => void;
 
-const slugHandlers: Record<string, SlugHandler<any>> = {
-    category: (formData, { properties }) => {
-        console.log('category', properties);
-
+const methodHandlers: Record<string, MethodHandler<any>> = {
+    post: (formData, { properties }) => {
         const categoryList = properties || [];
         categoryList.forEach((category: CategoryFormProperty, categoryIndex: number) => {
             processCategory(formData, category, categoryIndex);
         });
     },
-    update: (formData, values) => {
-        createFormData(values, formData);
+    update: (formData, values, dispatch) => {
+        // console.log('====================================');
+        // console.log('values', values);
+        // console.log('====================================');
+        // createFormData(values, formData);
+        if (values.accept) {
+            dispatch(updateCategory(values));
+        }
+       dispatch(updateSubcategory(values));
+       
     }
 };
 
-function useForm<T>(slug: string, post?: boolean) {
+function useForm<T>(method: string, url: string, post?: boolean) {
+    const dispatch = useAppDispatch();
+
     const handleSubmit = useCallback(
         async (values: T) => {
             const formData = new FormData();
 
-            const handler = slugHandlers[slug];
+            const handler = methodHandlers[method];
             if (handler) {
-                handler(formData, values);
+                handler(formData, values, dispatch);
             } else {
-                throw new SlugError(`Unsupported slug: ${slug}`);
+                throw new MethodError(`Unsupported method: ${method}`);
             }
 
             try {
-                if (post) {
-                    await handlePostRequest<T>(slug, formData);
-                } else {
-                    await handlePutRequest<T>(slug, formData);
-                }
+                const requestHandler = post ? handlePostRequest : handlePutRequest;
+                await requestHandler<T>(url, formData);
             } catch (error) {
                 throw new UseFormError(`Error handling form submission: ${error}`);
             }
         },
-        [slug]
+        [method, url, post, dispatch]
     );
 
     return {

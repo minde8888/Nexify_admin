@@ -14,7 +14,7 @@ const EditCategories = () => {
     const dispatch = useAppDispatch();
     const categories = useAppSelector((state) => state.data.categories);
 
-    const { handleSubmit } = useForm<CategoryFormProperty>('update');
+    const { handleSubmit } = useForm<CategoryFormProperty>('update', "category/update");
 
     const fetchData = useCallback(async () => {
         const fetchedCategories: CategoryResponse[] | undefined = await handleGetAllRequest('category');
@@ -43,7 +43,6 @@ const EditCategories = () => {
                 {categories ? (
                     <EditProperty
                         categories={categories}
-                        dispatch={dispatch}
                     />
                 ) : (
                     <Preloader />
