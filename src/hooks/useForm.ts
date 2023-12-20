@@ -1,63 +1,56 @@
 import { useCallback } from 'react';
-import { processCategory } from '../utils/helpers/processCategory';
-import CategoryFormProperty from '../types/categoryFormProperty';
-import { MethodError } from '../errorHandler/methodError';
-import { createFormData } from '../utils/helpers/createFormData';
-import { handlePostRequest, handlePutRequest } from '../api/apiHandle';
+import { useDispatch } from 'react-redux';
 import { UseFormError } from '../errorHandler/useFormError';
-import { updateCategory, updateSubcategory } from '../redux/slice/categoriesSlice';
-import { useAppDispatch } from '../redux/store';
-import { AnyAction, Dispatch } from '@reduxjs/toolkit';
+import CategoryFormProperty from '../types/categoryFormProperty';
+import { processCategory } from '../utils/helpers/processCategory';
+import { createFormData } from '../utils/helpers/createFormData';
+import { postAction, putAction } from '../redux/actions/actions';
 
-type MethodHandler<T> = (formData: FormData, values: T, dispatch: Dispatch<AnyAction>) => void;
 
-const methodHandlers: Record<string, MethodHandler<any>> = {
-    post: (formData, { properties }) => {
-        const categoryList = properties || [];
-        categoryList.forEach((category: CategoryFormProperty, categoryIndex: number) => {
-            processCategory(formData, category, categoryIndex);
-        });
-    },
-    update: (formData, values, dispatch) => {
-        // console.log('====================================');
-        // console.log('values', values);
-        // console.log('====================================');
-        // createFormData(values, formData);
-        if (values.accept) {
-            dispatch(updateCategory(values));
-        }
-       dispatch(updateSubcategory(values));
-       
-    }
+type MethodHandler<T> = (formData: FormData, values: T) => void;
+
+const postHandler: MethodHandler<any> = (formData, values) => {
+  const categoryList = values.properties || [];
+  categoryList.forEach((category: CategoryFormProperty, categoryIndex: number) => {
+    // Assuming processCategory is a synchronous function
+    processCategory(formData, category, categoryIndex);
+  });
 };
 
-function useForm<T>(method: string, url: string, post?: boolean) {
-    const dispatch = useAppDispatch();
+const putHandler: MethodHandler<any> = (formData, values) => {
+  // Assuming createFormData is a synchronous function
+  createFormData(values, formData);
+};
 
-    const handleSubmit = useCallback(
-        async (values: T) => {
-            const formData = new FormData();
+function useForm<T>(method: string, url: string, post?: boolean, bool?: boolean) {
+  const dispatch = useDispatch();
 
-            const handler = methodHandlers[method];
-            if (handler) {
-                handler(formData, values, dispatch);
-            } else {
-                throw new MethodError(`Unsupported method: ${method}`);
-            }
+  const handleSubmit = useCallback(
+    async (values: T) => {
+      const formData = new FormData();
 
-            try {
-                const requestHandler = post ? handlePostRequest : handlePutRequest;
-                await requestHandler<T>(url, formData);
-            } catch (error) {
-                throw new UseFormError(`Error handling form submission: ${error}`);
-            }
-        },
-        [method, url, post, dispatch]
-    );
+      const handler = post ? postHandler : putHandler;
 
-    return {
-        handleSubmit
-    };
+      if (handler) {
+        handler(formData, values);
+      } else {
+        throw new UseFormError(`Unsupported method: ${method}`);
+      }
+
+      try {
+        // Dispatch actions using middleware
+        const action = post ? postAction(formData, url) : putAction(formData, url, bool);
+        dispatch(action);
+      } catch (error) {
+        throw new UseFormError(`Error handling form submission: ${error}`);
+      }
+    },
+    [bool, dispatch, method, post, url]
+  );
+
+  return {
+    handleSubmit,
+  };
 }
 
 export default useForm;

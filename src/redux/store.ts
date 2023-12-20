@@ -1,7 +1,9 @@
-import { configureStore } from '@reduxjs/toolkit';
+import { Middleware, configureStore } from '@reduxjs/toolkit';
 import { useDispatch } from 'react-redux';
 import rootReducer from './reducers';
 import { AuthState } from './slice/authSlice';
+import apiMiddleware from '../middleware/apiMiddleware';
+
 
 type ImmutableCheck = { warnAfter: number };
 type GetDefaultMiddlewareFn = (arg0: { immutableCheck: ImmutableCheck }) => any;
@@ -25,7 +27,7 @@ const reHydrateStore = () => {
     }
 };
 
-export const store = configureStore({
+export const store: any = configureStore({
     reducer: {
         data: rootReducer
     },
@@ -33,7 +35,7 @@ export const store = configureStore({
     middleware: (getDefaultMiddleware: GetDefaultMiddlewareFn) => [
         ...getDefaultMiddleware({
             immutableCheck: { warnAfter: 200 }
-        }).concat(localStorageMiddleware),
+        }).concat(localStorageMiddleware, apiMiddleware as Middleware<{}, RootState>),
     ]
 });
 

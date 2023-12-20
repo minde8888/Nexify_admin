@@ -9,12 +9,13 @@ import { useAppDispatch, useAppSelector } from '../../hooks/useRedux';
 import CategoryFormProperty from '../../types/categoryFormProperty';
 import validationSchema from '../../utils/validation/addCategoryValidationSchema';
 import useForm from '../../hooks/useForm';
+import { CATEGORY_UPDATE_URL, PUT_METHOD } from '../../constants/apiConst';
 
 const EditCategories = () => {
     const dispatch = useAppDispatch();
     const categories = useAppSelector((state) => state.data.categories);
 
-    const { handleSubmit } = useForm<CategoryFormProperty>('update', "category/update");
+    const { handleSubmit } = useForm<CategoryFormProperty>(PUT_METHOD, CATEGORY_UPDATE_URL);
 
     const fetchData = useCallback(async () => {
         const fetchedCategories: CategoryResponse[] | undefined = await handleGetAllRequest('category');

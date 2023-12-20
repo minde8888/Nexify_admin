@@ -5,9 +5,10 @@ import useForm from '../../hooks/useForm';
 import CategoryFormProperty from '../../types/categoryFormProperty';
 import { v4 as uuidv4 } from 'uuid';
 import validationSchema from '../../utils/validation/addCategoryValidationSchema';
+import { CATEGORIES_URL, POST_METHOD } from '../../constants/apiConst';
 
 const AddCategories = () => {
-    const { handleSubmit } = useForm<CategoryFormProperty>('post', 'category', true);
+    const { handleSubmit } = useForm<CategoryFormProperty>(POST_METHOD, CATEGORIES_URL, true);
     return (
         <Formik onSubmit={(values) => handleSubmit(values)} initialValues={{
             id: uuidv4(),
