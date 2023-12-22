@@ -3,6 +3,7 @@ import axios, { AxiosRequestConfig } from 'axios';
 import createAuthRefreshInterceptor from 'axios-auth-refresh';
 import { changeRefreshToken } from '../redux/slice/authSlice';
 import authHeader from '../utils/authHeader';
+import { API_URL } from '../constants/globalConst';
 
 export interface Response {
     $id: string;
@@ -23,7 +24,7 @@ interface Token {
 }
 
 const api = axios.create({
-    baseURL: 'https://localhost:9002/api/v1/'
+    baseURL: API_URL
 });
 
 api.interceptors.request.use(

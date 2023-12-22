@@ -35,7 +35,7 @@ function useForm<T>(method: string, url: string, post?: boolean, bool?: boolean)
             }
 
             try {
-                const action = post ? postAction(formData, values, url) : putAction(formData, values, url, bool ? bool : false);
+                const action = post ? postAction(formData, url) : putAction(formData, values, url, bool ? bool : false);
                 dispatch(action);
             } catch (error) {
                 throw new UseFormError(`Error handling form submission: ${error}`);

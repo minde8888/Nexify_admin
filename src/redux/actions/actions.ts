@@ -1,6 +1,6 @@
-import { POST_REQUEST, PUT_REQUEST } from './../../constants/actionConst';
+import { GET_ALL_REQUEST, POST_REQUEST, PUT_REQUEST } from './../../constants/actionConst';
 
-export const postAction = (formData: FormData, values: any, url: string) => ({
+export const postAction = (formData: FormData, url: string) => ({
     type: POST_REQUEST,
     meta: {
         api: {
@@ -28,3 +28,12 @@ export const putAction = (formData: FormData, values: any, url: string, bool?: b
     };
 };
 
+export const getAllAction = (url: string) => ({
+    type: GET_ALL_REQUEST,
+    meta: {
+        api: {
+            method: 'get',
+            url: url
+        }
+    }
+});

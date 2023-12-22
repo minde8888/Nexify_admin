@@ -1,31 +1,32 @@
-import { handlePostRequest, handlePutRequest } from '../api/apiHandle';
+import { handleDeleteRequest, handleGetAllRequest, handlePostRequest, handlePutRequest } from '../api/apiHandle';
 import { MethodError } from '../errorHandler/methodError';
-import { updateCategory, updateSubcategory } from '../redux/slice/categoriesSlice';
 import { RootState } from '../redux/store';
-import { AnyAction, Dispatch, Middleware } from '@reduxjs/toolkit';
+import { Middleware } from '@reduxjs/toolkit';
+import { handleUpdateRequests } from './handleUpdateRequests';
+import { getAll } from './handleGetAllRequest';
 
 const apiMiddleware: Middleware<{}, RootState> =
     ({ dispatch }) =>
     (next) =>
     async (action: ApiAction) => {
         if (action.meta?.api) {
-            const { method, url, formData, bool } = action.meta.api;
+            const { method, url, formData, bool, id } = action.meta.api;
 
             switch (method) {
                 case 'post':
                     await handlePostRequest(url, formData);
                     break;
                 case 'put':
-                    handleUpdateRequests(dispatch, action.payload, bool);
-               
-
-                    // if (formData) {
-                    //     console.log(Object.fromEntries(formData));
-                    // }
-                   
-                    // await handlePutRequest(url, formData);
+                    handleUpdateRequests({ dispatch, payload: action.payload, bool, url });
+                    handlePutRequest(url, formData);
                     break;
-                // Add cases for other HTTP methods if needed
+                case 'get':
+                    const values = await handleGetAllRequest(url);
+                    getAll({ dispatch, payload: values, url });
+                    break;
+                case 'delete':
+                    handleDeleteRequest(url, id ?? '');
+                    break;
                 default:
                     throw new MethodError(`Unsupported method: ${method}`);
             }
@@ -33,14 +34,5 @@ const apiMiddleware: Middleware<{}, RootState> =
 
         return next(action);
     };
-
-const handleUpdateRequests = (dispatch: Dispatch<AnyAction>, payload: any, bool?: boolean) => {
-
-     if (!bool) {
-        dispatch(updateCategory(payload));
-    }else{
-        dispatch(updateSubcategory(payload));
-    }
-};
 
 export default apiMiddleware;

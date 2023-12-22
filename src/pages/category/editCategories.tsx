@@ -1,15 +1,14 @@
 import { useCallback, useEffect } from 'react';
 import { Formik, Form } from 'formik';
-import { handleGetAllRequest } from '../../api/apiHandle';
 import Preloader from '../preloader/preloader';
 import EditProperty from '../../components/CategoryContents/EditCategories/EditProperty';
 import { CategoryResponse } from '../../types/category';
-import { getCategories } from '../../redux/slice/categoriesSlice';
 import { useAppDispatch, useAppSelector } from '../../hooks/useRedux';
 import CategoryFormProperty from '../../types/categoryFormProperty';
 import validationSchema from '../../utils/validation/addCategoryValidationSchema';
 import useForm from '../../hooks/useForm';
-import { CATEGORY_UPDATE_URL, PUT_METHOD } from '../../constants/apiConst';
+import { CATEGORIES_URL, CATEGORY_UPDATE_URL, PUT_METHOD } from '../../constants/apiConst';
+import { getAllAction } from '../../redux/actions/actions';
 
 const EditCategories = () => {
     const dispatch = useAppDispatch();
@@ -18,9 +17,8 @@ const EditCategories = () => {
     const { handleSubmit } = useForm<CategoryFormProperty>(PUT_METHOD, CATEGORY_UPDATE_URL);
 
     const fetchData = useCallback(async () => {
-        const fetchedCategories: CategoryResponse[] | undefined = await handleGetAllRequest('category');
-        if (!fetchedCategories) return;
-        dispatch(getCategories(fetchedCategories));
+        const fetchedCategories: CategoryResponse[] | undefined = dispatch(getAllAction(CATEGORIES_URL));
+        if (!fetchedCategories) return;      
     }, [dispatch]);
 
     useEffect(() => {
