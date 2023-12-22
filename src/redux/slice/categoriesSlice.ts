@@ -1,5 +1,5 @@
 import { createSlice, PayloadAction } from '@reduxjs/toolkit';
-import { CategoryResponse, SubcategoryResponse } from '../../types/category';
+import { CategoryResponse } from '../../types/category';
 import CategoryFormProperty from '../../types/categoryFormProperty';
 
 const categoriesSlice = createSlice({
@@ -25,17 +25,20 @@ const categoriesSlice = createSlice({
         updateSubcategory: (state, action: PayloadAction<CategoryFormProperty>) => {
             const subcategory = action.payload;
 
-            const categoryIndex = state.findIndex((item) => item.subcategories.some((sub) => sub.subCategoryId === subcategory.id));
+            console.log('====================================');
+            console.log('subcategory', subcategory);
+            console.log('====================================');
+            // const categoryIndex = state.findIndex((item) => item.subcategories.some((sub) => sub.subCategoryId === subcategory.id));
 
-            if (categoryIndex !== -1) {
-                const subcategoryIndex = state[categoryIndex].subcategories.findIndex((item) => item.subCategoryId === subcategory.id);
+            // if (categoryIndex !== -1) {
+            //     const subcategoryIndex = state[categoryIndex].subcategories.findIndex((item) => item.subCategoryId === subcategory.id);
 
-                if (subcategoryIndex !== -1) {
-                    const categoryId = state[categoryIndex].categoryId;
-                    const updatedSubcategory = { ...subcategory, categoryId };
-                    state[categoryIndex].subcategories[subcategoryIndex] = updatedSubcategory;
-                }
-            }
+            //     if (subcategoryIndex !== -1) {
+            //         const categoryId = state[categoryIndex].categoryId;
+            //         const updatedSubcategory = { ...subcategory, categoryId };
+            //         state[categoryIndex].subcategories[subcategoryIndex] = updatedSubcategory;
+            //     }
+            // }
         },
 
         removeCategory: (state, action: PayloadAction<string>) => {

@@ -1,12 +1,11 @@
-import { Middleware, configureStore } from '@reduxjs/toolkit';
+import { configureStore } from '@reduxjs/toolkit';
 import { useDispatch } from 'react-redux';
 import rootReducer from './reducers';
 import { AuthState } from './slice/authSlice';
 import apiMiddleware from '../middleware/apiMiddleware';
 
-
 type ImmutableCheck = { warnAfter: number };
-type GetDefaultMiddlewareFn = (arg0: { immutableCheck: ImmutableCheck }) => any;
+type GetDefaultMiddlewareFn = (arg0: { immutableCheck: ImmutableCheck; serializableCheck: boolean }) => any;
 
 interface Action {
     type: string;
@@ -32,11 +31,11 @@ export const store: any = configureStore({
         data: rootReducer
     },
     preloadedState: reHydrateStore(),
-    middleware: (getDefaultMiddleware: GetDefaultMiddlewareFn) => [
-        ...getDefaultMiddleware({
-            immutableCheck: { warnAfter: 200 }
-        }).concat(localStorageMiddleware, apiMiddleware as Middleware<{}, RootState>),
-    ]
+    middleware: (getDefaultMiddleware: GetDefaultMiddlewareFn) =>
+        getDefaultMiddleware({
+            immutableCheck: { warnAfter: 200 },
+            serializableCheck: false
+        }).concat(localStorageMiddleware, apiMiddleware)
 });
 
 export type RootState = ReturnType<typeof store.getState>;
