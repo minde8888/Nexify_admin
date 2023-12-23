@@ -23,5 +23,5 @@ export interface CategoryResponse {
     categoryName: string;
     description: string;
     imageSrc: string;
-    subcategories: SubCategory[];
+    subcategories: SubcategoryResponse[];
 }

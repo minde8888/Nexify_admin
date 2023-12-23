@@ -3,7 +3,7 @@ export const createFormData = (data: Record<string, any>, formData: FormData, pa
         const currentKey = parentKey ? `${parentKey}[${key}]` : key;
 
         if (value instanceof File) {
-            formData.append(currentKey, value);
+            formData.append("Image", value);
         } else if (typeof value === 'object' && value !== null) {
             createFormData(value, formData, currentKey);
         } else {

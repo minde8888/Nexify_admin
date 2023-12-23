@@ -10,12 +10,19 @@ type MethodHandler<T> = (formData: FormData, values: T) => void;
 
 const postHandler: MethodHandler<any> = (formData, values) => {
     const categoryList = values.properties || [];
-    categoryList.forEach((category: CategoryFormProperty, categoryIndex: number) => {
-        processCategory(formData, category, categoryIndex);
-    });
+    if (categoryList.length === 0) {
+        categoryList.forEach((category: CategoryFormProperty, categoryIndex: number) => {
+            processCategory(formData, category, categoryIndex);
+        });
+    } else {
+        createFormData(values, formData);
+    }
 };
 
 const putHandler: MethodHandler<any> = (formData, values) => {
+    console.log('====================================');
+    console.log('values', values);
+    console.log('====================================');
     createFormData(values, formData);
 };
 

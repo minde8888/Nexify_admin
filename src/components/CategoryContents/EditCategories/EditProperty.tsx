@@ -35,9 +35,11 @@ const EditProperty: FunctionComponent<EditPropertyProps> = ({ categories }) => {
   }, [original, categories]);
 
   useEffect(() => {
-    addNewValue({ id: values.id, description: content, image: file, accept: values.accept });
-    setValues((prevValues) => ({ ...prevValues, categoryName: original.categoryName }));
-    setImagePreviewUrl(original.imageSrc);
+    addNewValue({ id: values.id,
+       categoryName: values.categoryName, 
+       description: content, 
+       image: file, 
+       accept: values.accept });
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [values.id, content, file]);
 
@@ -67,6 +69,7 @@ const EditProperty: FunctionComponent<EditPropertyProps> = ({ categories }) => {
   }, []);
 
   const handleCancel = useCallback(() => {
+
     toggle();
   }, [toggle]);
 

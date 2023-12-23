@@ -1,4 +1,4 @@
-import { handleDeleteRequest, handleGetAllRequest, handlePostRequest, handlePutRequest } from '../api/apiHandle';
+import { handleDeleteRequest, handleGetAllRequest, handlePostRequest, handlePutRequest } from '../api/handleAPI';
 import { MethodError } from '../errorHandler/methodError';
 import { RootState } from '../redux/store';
 import { Middleware } from '@reduxjs/toolkit';
@@ -17,8 +17,12 @@ const apiMiddleware: Middleware<{}, RootState> =
                     await handlePostRequest(url, formData);
                     break;
                 case 'put':
+                    // if (formData) {
+                    //     console.log(Object.fromEntries(formData));
+                    // }
+                    
                     handleUpdateRequests({ dispatch, payload: action.payload, bool, url });
-                    handlePutRequest(url, formData);
+                    handlePutRequest(url, formData);                 
                     break;
                 case 'get':
                     const values = await handleGetAllRequest(url);
