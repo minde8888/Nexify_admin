@@ -42,6 +42,7 @@ const EditCategories = () => {
                 {categories ? (
                     <EditProperty
                         categories={categories}
+                        dispatch={dispatch}
                     />
                 ) : (
                     <Preloader />

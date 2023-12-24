@@ -1,3 +1,4 @@
+import { remove } from './../../middleware/remove';
 import { createSlice, PayloadAction } from '@reduxjs/toolkit';
 import { CategoryResponse } from '../../types/category';
 import CategoryFormProperty from '../../types/categoryFormProperty';
@@ -47,10 +48,22 @@ const categoriesSlice = createSlice({
             if (index !== -1) {
                 state.splice(index, 1);
             }
+        },
+        removeSubcategory: (state, action: PayloadAction<string>) => {
+            const subcategoryId = action.payload;
+            const categoryIndex = state.findIndex((item) => item.subcategories.some((sub) => sub.subCategoryId === subcategoryId));
+
+            if (categoryIndex !== -1) {
+                const subcategoryIndex = state[categoryIndex].subcategories.findIndex((item) => item.subCategoryId === subcategoryId);
+
+                if (subcategoryIndex !== -1) {
+                    state[categoryIndex].subcategories.splice(subcategoryIndex, 1);
+                }
+            }
         }
     }
 });
 
-export const { getCategories, updateCategory, updateSubcategory } = categoriesSlice.actions;
+export const { getCategories, updateCategory, updateSubcategory, removeCategory, removeSubcategory } = categoriesSlice.actions;
 
 export default categoriesSlice.reducer;

@@ -19,10 +19,7 @@ const postHandler: MethodHandler<any> = (formData, values) => {
     }
 };
 
-const putHandler: MethodHandler<any> = (formData, values) => {
-    console.log('====================================');
-    console.log('values', values);
-    console.log('====================================');
+const putHandler: MethodHandler<any> = (formData, values) => {    
     createFormData(values, formData);
 };
 

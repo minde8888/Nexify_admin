@@ -2,8 +2,9 @@ import { handleDeleteRequest, handleGetAllRequest, handlePostRequest, handlePutR
 import { MethodError } from '../errorHandler/methodError';
 import { RootState } from '../redux/store';
 import { Middleware } from '@reduxjs/toolkit';
-import { handleUpdateRequests } from './handleUpdateRequests';
-import { getAll } from './handleGetAllRequest';
+import { update } from './update';
+import { getAll } from './getAll';
+import { remove } from './remove';
 
 const apiMiddleware: Middleware<{}, RootState> =
     ({ dispatch }) =>
@@ -21,7 +22,7 @@ const apiMiddleware: Middleware<{}, RootState> =
                     //     console.log(Object.fromEntries(formData));
                     // }
                     
-                    handleUpdateRequests({ dispatch, payload: action.payload, bool, url });
+                    update({ dispatch, payload: action.payload, bool, url });
                     handlePutRequest(url, formData);                 
                     break;
                 case 'get':
@@ -30,6 +31,7 @@ const apiMiddleware: Middleware<{}, RootState> =
                     break;
                 case 'delete':
                     handleDeleteRequest(url, id ?? '');
+                    remove({ dispatch, bool, url, id: id ?? '' });
                     break;
                 default:
                     throw new MethodError(`Unsupported method: ${method}`);

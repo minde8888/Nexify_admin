@@ -8,12 +8,16 @@ import CategoryFormProperty from '../../../types/categoryFormProperty';
 import useFormikValues from '../../../hooks/useFormikValues';
 import { ImageFile } from '../../../types/imageFile';
 import styles from './edit.module.scss';
+import { AnyAction, Dispatch } from '@reduxjs/toolkit';
+import { CATEGORIES_URL } from '../../../constants/apiConst';
+import { deleteAction } from '../../../redux/actions/actions';
 
 interface EditPropertyProps {
   categories: CategoryResponse[];
+  dispatch: Dispatch<AnyAction>;
 }
 
-const EditProperty: FunctionComponent<EditPropertyProps> = ({ categories }) => {
+const EditProperty: FunctionComponent<EditPropertyProps> = ({ categories, dispatch }) => {
   const { isOpen, toggle } = useModal();
 
   const [content, setContent] = useState<string>('');
@@ -35,11 +39,13 @@ const EditProperty: FunctionComponent<EditPropertyProps> = ({ categories }) => {
   }, [original, categories]);
 
   useEffect(() => {
-    addNewValue({ id: values.id,
-       categoryName: values.categoryName, 
-       description: content, 
-       image: file, 
-       accept: values.accept });
+    addNewValue({
+      id: values.id,
+      categoryName: values.categoryName,
+      description: content,
+      image: file,
+      accept: values.accept
+    });
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [values.id, content, file]);
 
@@ -61,15 +67,14 @@ const EditProperty: FunctionComponent<EditPropertyProps> = ({ categories }) => {
   }, [toggle, categories]);
 
   const onRemove = useCallback((id: string) => {
-    console.log('onRemove', id);
-  }, []);
+    dispatch(deleteAction(CATEGORIES_URL, id, !!values.accept))
+  }, [dispatch, values.accept]);
 
   const handleAddImage = useCallback((newFile: ImageFile[]) => {
     setFile(newFile);
   }, []);
 
   const handleCancel = useCallback(() => {
-
     toggle();
   }, [toggle]);
 

@@ -37,3 +37,15 @@ export const getAllAction = (url: string) => ({
         }
     }
 });
+
+export const deleteAction = (url: string, id: string, bool: boolean) => ({
+    type: 'DELETE_REQUEST',
+    meta: {
+        api: {
+            method: 'delete',
+            url: url,
+            id: id,
+            bool: bool
+        }
+    }
+});
