@@ -36,18 +36,18 @@ const EditProperty: FunctionComponent<EditPropertyProps> = ({ categories, dispat
   useEffect(() => {
     setValues((prevValues) => ({ ...prevValues, categoryName: original.categoryName }));
     setImagePreviewUrl(original.imageSrc);
-  }, [original, categories]);
+  }, [original]);
 
   useEffect(() => {
     addNewValue({
       id: values.id,
-      categoryName: values.categoryName,
       description: content,
       image: file,
-      accept: values.accept
+      accept: values.accept,
+      imageSrc: imagePreviewUrl
     });
     // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [values.id, content, file]);
+  }, [values.id, content, file, values.accept]);
 
   const handleEdit = useCallback((id: string) => {
     toggle();
@@ -67,8 +67,9 @@ const EditProperty: FunctionComponent<EditPropertyProps> = ({ categories, dispat
   }, [toggle, categories]);
 
   const onRemove = useCallback((id: string) => {
-    dispatch(deleteAction(CATEGORIES_URL, id, !!values.accept))
-  }, [dispatch, values.accept]);
+    const bool = categories.some((category) => category.categoryId === id);
+    dispatch(deleteAction(CATEGORIES_URL, id, bool))
+  }, [categories, dispatch]);
 
   const handleAddImage = useCallback((newFile: ImageFile[]) => {
     setFile(newFile);

@@ -1,5 +1,5 @@
 import { AnyAction, Dispatch } from '@reduxjs/toolkit';
-import { CATEGORY_UPDATE_URL, PRODUCT_UPDATE_URL } from '../constants/apiConst';
+import { CATEGORIES_URL, PRODUCTS_URL } from '../constants/apiConst';
 import { removeCategory, removeSubcategory } from '../redux/slice/categoriesSlice';
 
 interface DeleteProps {
@@ -11,14 +11,14 @@ interface DeleteProps {
 
 export const remove = ({ dispatch, bool, url, id }: DeleteProps) => {
     switch (url) {
-        case CATEGORY_UPDATE_URL:
-            if (!bool) {
+        case CATEGORIES_URL:
+            if (bool) {
                 dispatch(removeCategory(id));
             } else {
                 dispatch(removeSubcategory(id));
             }
             break;
-        case PRODUCT_UPDATE_URL: {
+        case PRODUCTS_URL: {
             break;
         }
     }

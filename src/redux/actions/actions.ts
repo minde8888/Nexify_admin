@@ -11,7 +11,7 @@ export const postAction = (formData: FormData, url: string) => ({
     }
 });
 
-export const putAction = (formData: FormData, values: any, url: string, bool?: boolean) => {
+export const putAction = (formData: FormData, values: any, url: string) => {
     const { image, ...filteredValues } = values;
 
     return {
@@ -21,8 +21,7 @@ export const putAction = (formData: FormData, values: any, url: string, bool?: b
             api: {
                 method: 'put',
                 url: url,
-                formData,
-                bool: bool
+                formData
             }
         }
     };

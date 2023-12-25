@@ -21,8 +21,7 @@ const apiMiddleware: Middleware<{}, RootState> =
                     // if (formData) {
                     //     console.log(Object.fromEntries(formData));
                     // }
-                    
-                    update({ dispatch, payload: action.payload, bool, url });
+                    update({ dispatch, payload: action.payload,url });
                     handlePutRequest(url, formData);                 
                     break;
                 case 'get':

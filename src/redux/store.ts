@@ -15,14 +15,20 @@ interface Action {
 const localStorageMiddleware = ({ getState }: any) => {
     return (next: (arg0: any) => any) => (action: Action) => {
         const result = next(action);
-        localStorage.setItem('auth', JSON.stringify(getState()));
+        const authState = getState().data.auth; 
+        localStorage.setItem('auth', JSON.stringify(authState));
+
         return result;
     };
 };
 
 const reHydrateStore = () => {
     if (localStorage.getItem('auth') !== null) {
-        return JSON.parse(localStorage.getItem('auth') || 'null');
+        return {
+            data: {
+                auth: JSON.parse(localStorage.getItem('auth') || 'null')
+            }
+        };
     }
 };
 
