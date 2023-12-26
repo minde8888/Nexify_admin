@@ -7,8 +7,6 @@ interface FormValues {
 const useFormikValues = () => {
   const { setValues } = useFormikContext<{ values: FormValues[] }>();
 
-  const initial: FormValues[] = [];
-
   const updateValues = (newValues: FormValues[]) => {
     const filteredValues = Array.isArray(newValues)
       ? newValues.filter((value) => value !== null && value !== undefined)
@@ -26,11 +24,12 @@ const useFormikValues = () => {
   };
 
   const addNewValue = (value: FormValues) => {
+        
     return updateValues([value]);
   };
 
   const resetValues = () => {
-    setValues({ values: initial });
+    setValues({ values: [] });
   };
 
   return {

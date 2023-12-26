@@ -11,6 +11,8 @@ import home from '../../assets/svg/house_icon.svg';
 import card from '../../assets/svg/shopping_cart_thin_icon.svg';
 import category from '../../assets/svg/category_new_icon.svg';
 import settings from '../../assets/svg/setting_smartphone_icon.svg';
+import blog from '../../assets/svg/blog_web_article_articles_internet_icon.svg';
+import order from '../../assets/svg/analytics_dollar_growth_growth traffic_business_icon.svg';
 
 interface SidebarProps { }
 
@@ -111,9 +113,31 @@ const Sidebar: FunctionComponent<SidebarProps> = () => {
                             <li>
                                 <NavLink to={'/'}>
                                     <i className="ion-ios-settings">
-                                        <img src={settings} alt="imgAltText" />
+                                        <img src={blog} alt="imgAltText" />
                                     </i>
-                                    <span className="">Settings</span>
+                                    <span className="">Blog</span>
+                                </NavLink>
+                                <ul className="nav-flyout">
+                                    <li>
+                                        <NavLink to={'/'}><i className="ion-ios-filing-outline"></i>Add Post</NavLink>
+                                    </li>
+                                    <li>
+                                        <NavLink to={'/'}><i className="ion-ios-information-outline"></i>Edit Post</NavLink>
+                                    </li>
+                                    <li>
+                                        <NavLink to={'/'}><i className="ion-ios-paperplane-outline"></i>Planes</NavLink>
+                                    </li>
+                                    <li>
+                                        <NavLink to={'/'}><i className="ion-android-star-outline"></i>Shop</NavLink>
+                                    </li>
+                                </ul>
+                            </li>
+                            <li>
+                                <NavLink to={'/'}>
+                                    <i className="ion-ios-settings">
+                                        <img src={order} alt="imgAltText" />
+                                    </i>
+                                    <span className="">Orders</span>
                                 </NavLink>
                                 <ul className="nav-flyout">
                                     <li>
@@ -134,24 +158,12 @@ const Sidebar: FunctionComponent<SidebarProps> = () => {
                                 </ul>
                             </li>
                             <li>
-                                <NavLink to={'/'}><i className="ion-ios-paper-outline"></i> <span className="">Papers</span></NavLink>
-                                <ul className="nav-flyout">
-                                    <li>
-                                        <NavLink to={'/'}><i className="ion-ios-filing-outline"></i>File Cab</NavLink>
-                                    </li>
-                                    <li>
-                                        <NavLink to={'/'}><i className="ion-ios-information-outline"></i>Infos</NavLink>
-                                    </li>
-                                    <li>
-                                        <NavLink to={'/'}><i className="ion-ios-paperplane-outline"></i>Planes</NavLink>
-                                    </li>
-                                    <li>
-                                        <NavLink to={'/'}><i className="ion-android-star-outline"></i>Shop</NavLink>
-                                    </li>
-                                </ul>
-                            </li>
-                            <li>
-                                <NavLink to={'/'}><i className="ion-ios-navigate-outline"></i> <span className="">Ass Finder</span></NavLink>
+                                <NavLink to={'/'}>
+                                    <i className="ion-ios-settings">
+                                        <img src={settings} alt="imgAltText" />
+                                    </i>
+                                    <span className="">Settings</span>
+                                </NavLink> <NavLink to={'/'}><i className="ion-ios-navigate-outline"></i> <span className="">Ass Finder</span></NavLink>
                                 <ul className="nav-flyout">
                                     <li>
                                         <NavLink to={'/'}><i className="ion-ios-flame-outline"></i>Burn</NavLink>

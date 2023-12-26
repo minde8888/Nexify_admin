@@ -11,6 +11,7 @@ import { CATEGORIES_URL, CATEGORY_UPDATE_URL, PUT_METHOD } from '../../constants
 import { getAllAction } from '../../redux/actions/actions';
 
 const EditCategories = () => {
+    
     const dispatch = useAppDispatch();
     const categories = useAppSelector((state) => state.data.categories);
 
@@ -18,7 +19,7 @@ const EditCategories = () => {
 
     const fetchData = useCallback(async () => {
         const fetchedCategories: CategoryResponse[] | undefined = dispatch(getAllAction(CATEGORIES_URL));
-        if (!fetchedCategories) return;      
+        if (!fetchedCategories) return;
     }, [dispatch]);
 
     useEffect(() => {
@@ -32,10 +33,11 @@ const EditCategories = () => {
         image: [],
     };
 
-    return (
+   return (
         <Formik onSubmit={(values) => handleSubmit(values)}
             initialValues={initialCategoryFormProperty}
             validationSchema={validationSchema}
+            disabled={false}
         >
             <Form>
                 <h2>Edit/Remove Categories</h2>

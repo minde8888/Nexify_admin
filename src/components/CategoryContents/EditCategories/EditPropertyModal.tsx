@@ -35,6 +35,7 @@ const EditPropertyModal: FunctionComponent<EditPropertyModalProps> = ({
         saveButton: styles.saveButton,
         closeModalButton: styles.closeModalButton,
     };
+console.log(categoryName);
 
     return (
         <Modal isOpen={isOpen} toggle={toggle}>

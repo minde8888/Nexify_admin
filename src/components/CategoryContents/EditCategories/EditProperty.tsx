@@ -22,7 +22,7 @@ const EditProperty: FunctionComponent<EditPropertyProps> = ({ categories, dispat
 
   const [content, setContent] = useState<string>('');
   const [file, setFile] = useState<ImageFile[]>([]);
-  const [original, setOriginal] = useState({ categoryName: '', imageSrc: '' });
+
   const [imagePreviewUrl, setImagePreviewUrl] = useState<string>('');
   const [values, setValues] = useState<CategoryFormProperty>({
     id: '',
@@ -32,11 +32,6 @@ const EditProperty: FunctionComponent<EditPropertyProps> = ({ categories, dispat
   });
 
   const { addNewValue } = useFormikValues();
-
-  useEffect(() => {
-    setValues((prevValues) => ({ ...prevValues, categoryName: original.categoryName }));
-    setImagePreviewUrl(original.imageSrc);
-  }, [original]);
 
   useEffect(() => {
     addNewValue({
@@ -51,6 +46,7 @@ const EditProperty: FunctionComponent<EditPropertyProps> = ({ categories, dispat
 
   const handleEdit = useCallback((id: string) => {
     toggle();
+   
     const category = findCategoryById(id, categories);
     const subcategory = findSubcategoryById(id, categories);
     const updatedValues: CategoryFormProperty = {
@@ -60,11 +56,11 @@ const EditProperty: FunctionComponent<EditPropertyProps> = ({ categories, dispat
       imageSrc: category?.imageSrc || subcategory?.imageSrc || '',
       accept: category ? true : false
     };
-
-    setOriginal({ categoryName: updatedValues.categoryName || '', imageSrc: updatedValues.imageSrc || '' });
+    addNewValue({ categoryName:  updatedValues.categoryName ?? ''});
+    setImagePreviewUrl(updatedValues.imageSrc || '');
     setValues(updatedValues);
     setContent(updatedValues.description || '');
-  }, [toggle, categories]);
+  }, [toggle, categories, addNewValue]);
 
   const onRemove = useCallback((id: string) => {
     const bool = categories.some((category) => category.categoryId === id);
@@ -85,9 +81,9 @@ const EditProperty: FunctionComponent<EditPropertyProps> = ({ categories, dispat
         isOpen={isOpen}
         toggle={toggle}
         onCancel={handleCancel}
-        categoryName={values.categoryName}
         content={content}
         setContent={setContent}
+        categoryName={values.categoryName}
         handleAddImage={handleAddImage}
         setImagePreviewUrl={setImagePreviewUrl}
         imagePreviewUrl={imagePreviewUrl}
