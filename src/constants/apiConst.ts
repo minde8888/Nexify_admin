@@ -4,5 +4,7 @@ export const CATEGORIES_URL = 'category';
 export const CATEGORY_UPDATE_URL = 'category/update';
 export const SUBCATEGORIES_URL = 'subcategory';
 export const SUBCATEGORY_UPDATE_URL = 'subcategory/update';
+export const POSTS_URL = 'post';
+export const POST_UPDATE_URL = 'post/update';
 export const POST_METHOD = 'post';
 export const PUT_METHOD = 'put';

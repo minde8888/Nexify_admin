@@ -15,9 +15,10 @@ import { deleteAction } from '../../../redux/actions/actions';
 interface EditPropertyProps {
   categories: CategoryResponse[];
   dispatch: Dispatch<AnyAction>;
+  disabled: boolean;
 }
 
-const EditProperty: FunctionComponent<EditPropertyProps> = ({ categories, dispatch }) => {
+const EditProperty: FunctionComponent<EditPropertyProps> = ({ categories, dispatch, disabled }) => {
   const { isOpen, toggle } = useModal();
 
   const [content, setContent] = useState<string>('');
@@ -87,6 +88,7 @@ const EditProperty: FunctionComponent<EditPropertyProps> = ({ categories, dispat
         handleAddImage={handleAddImage}
         setImagePreviewUrl={setImagePreviewUrl}
         imagePreviewUrl={imagePreviewUrl}
+        disabled={disabled}
       />
       {Object.values(categories).map((category) => (
         <Category

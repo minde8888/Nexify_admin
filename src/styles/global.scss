@@ -15,6 +15,19 @@ $remove_button_color : #d9534f;
 $edit_button_color   : #ddd;
 $border-radius       : 5px;
 $buttonTransition    : background-color 0.3s ease;
+$two-columns         : calc(#{$grid-width} / 2);
+$three-columns       : calc(#{$grid-width} / 3);
+$four-columns        : calc(#{$grid-width} / 4);
+$five-columns        : calc(#{$grid-width} / 5);
+$six-columns         : calc(#{$grid-width} / 6);
+$seven-columns       : calc(#{$grid-width} / 7);
+$eight-columns       : calc(#{$grid-width} / 8);
+$nine-columns        : calc(#{$grid-width} / 9);
+$ten-columns         : calc(#{$grid-width} / 10);
+$eleven-columns      : calc(#{$grid-width} / 11);
+$twelve-columns      : calc(#{$grid-width} / 12);
+$thirteen-columns    : calc(#{$grid-width} / 13);
+$fourteen-columns    : calc(#{$grid-width} / 14);
 
 html,
 body {
@@ -23,6 +36,12 @@ body {
   margin    : 0;
   padding   : 0;
   overflow-x: hidden;
+}
+
+%container {
+  width: 100%;
+  max-width: 1200px;
+  margin: 0 auto;
 }
 
 .addButton {
@@ -163,7 +182,7 @@ body {
   line-height  : $base-line-height;
   border-radius: 10px;
   text-align   : center;
-  width        : $grid-width / 2;
+  width        : $two-columns;
   margin       : 10px 0 0 0;
 }
 

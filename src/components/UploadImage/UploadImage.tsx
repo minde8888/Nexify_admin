@@ -4,6 +4,7 @@ import { ImageFile } from '../../types/imageFile';
 import remove from '../../assets/svg/closeIcon.svg'
 import upload from '../../assets/svg/uploadIcon.svg'
 import styles from './UploadImage.module.scss'
+import { FileReadError } from '../../errorHandler/fileReadError';
 
 interface UploadImageProps {
   setImagePreviewUrl: (imagePreviewUrl: string) => void;
@@ -34,7 +35,7 @@ const UploadImage: React.FC<UploadImageProps> = ({ setImagePreviewUrl, handleAdd
 
         reader.readAsDataURL(newFile);
       } else {
-        console.error('Invalid file. Please select a valid image file within the specified size limit.');
+        new FileReadError('Invalid file. Please select a valid image file within the specified size limit.');
       }
     }
   };

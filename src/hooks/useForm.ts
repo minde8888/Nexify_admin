@@ -1,4 +1,4 @@
-import { useCallback } from 'react';
+import { useCallback, useState } from 'react';
 import { useDispatch } from 'react-redux';
 import { UseFormError } from '../errorHandler/useFormError';
 import CategoryFormProperty from '../types/categoryFormProperty';
@@ -25,10 +25,12 @@ const putHandler: MethodHandler<any> = (formData, values) => {
 
 function useForm<T>(method: string, url: string, post?: boolean, bool?: boolean) {
     const dispatch = useDispatch();
+    const [disabled, setDisabled] = useState(false);
 
     const handleSubmit = useCallback(
         async (values: T) => {
             const formData = new FormData();
+            setDisabled(true);
 
             const handler = post ? postHandler : putHandler;
 
@@ -41,6 +43,7 @@ function useForm<T>(method: string, url: string, post?: boolean, bool?: boolean)
             try {
                 const action = post ? postAction(formData, url) : putAction(formData, values, url);
                 dispatch(action);
+                setDisabled(false);
             } catch (error) {
                 throw new UseFormError(`Error handling form submission: ${error}`);
             }
@@ -49,7 +52,8 @@ function useForm<T>(method: string, url: string, post?: boolean, bool?: boolean)
     );
 
     return {
-        handleSubmit
+        handleSubmit,
+        disabled
     };
 }
 

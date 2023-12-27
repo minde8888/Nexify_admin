@@ -7,6 +7,8 @@ interface MarkDownEditorProps {
   showEditor: boolean;
   addContent?: (propertyIndex: number, content: string) => void;
   index?: number;
+  width?: string;
+  editorHeight?: number; 
 }
 
 const MarkDownEditor: React.FC<MarkDownEditorProps> = ({
@@ -15,8 +17,9 @@ const MarkDownEditor: React.FC<MarkDownEditorProps> = ({
   showEditor,
   addContent,
   index,
+  width,
+  editorHeight
 }) => {
-
   const handleChange = useCallback((newValue: string | undefined) => {
     if (typeof newValue === 'undefined') return;
 
@@ -28,15 +31,16 @@ const MarkDownEditor: React.FC<MarkDownEditorProps> = ({
   }, [addContent, index, setContent]);
 
   return (
-    <div style={{ width: "95%" }}>
+    <div style={{ width: width }}>
       {showEditor && (
         <div data-color-mode="light">
           <MDEditor
-            value={content || ''}
+            value={content}
             onChange={handleChange}
             textareaProps={{
               placeholder: "Please enter Markdown text"
             }}
+            height={editorHeight}
           />
         </div>
       )}

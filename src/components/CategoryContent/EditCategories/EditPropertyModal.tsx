@@ -17,6 +17,7 @@ interface EditPropertyModalProps {
     handleAddImage?: (file: ImageFile[]) => void;
     setImagePreviewUrl: (imagePreviewUrl: string) => void;
     imagePreviewUrl: string;
+    disabled: boolean;
 }
 
 const EditPropertyModal: FunctionComponent<EditPropertyModalProps> = ({
@@ -29,13 +30,13 @@ const EditPropertyModal: FunctionComponent<EditPropertyModalProps> = ({
     handleAddImage,
     setImagePreviewUrl,
     imagePreviewUrl,
+    disabled
 }) => {
 
     const buttonStyles = {
         saveButton: styles.saveButton,
         closeModalButton: styles.closeModalButton,
     };
-console.log(categoryName);
 
     return (
         <Modal isOpen={isOpen} toggle={toggle}>
@@ -52,9 +53,9 @@ console.log(categoryName);
                 setImagePreviewUrl={setImagePreviewUrl}
                 handleAddImage={handleAddImage}
             />
-            <MarkDownEditor content={content} setContent={setContent} showEditor={true} />
+            <MarkDownEditor content={content} setContent={setContent} showEditor={true} width='95%'/>
             <div className={buttonStyles.saveButton}>
-                <button type="submit">Submit</button>
+                <button disabled={disabled} type="submit">Submit</button>
             </div>
             <div className={buttonStyles.closeModalButton}>
                 <button data-testid="test-close-id" onClick={onCancel} type="button">

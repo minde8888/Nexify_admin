@@ -119,7 +119,10 @@ const Sidebar: FunctionComponent<SidebarProps> = () => {
                                 </NavLink>
                                 <ul className="nav-flyout">
                                     <li>
-                                        <NavLink to={'/'}><i className="ion-ios-filing-outline"></i>Add Post</NavLink>
+                                        <NavLink to={'/add-post'}>
+                                            <i className="ion-ios-flame-outline"></i>
+                                            Add Post
+                                        </NavLink>
                                     </li>
                                     <li>
                                         <NavLink to={'/'}><i className="ion-ios-information-outline"></i>Edit Post</NavLink>

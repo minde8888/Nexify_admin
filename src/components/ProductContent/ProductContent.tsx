@@ -30,6 +30,7 @@ const ProductContent = ({ setContent, content}: Props) => {
                     setContent={setContent}
                     content={content}
                     showEditor={showEditor}
+                    width="100%"
                 />
                 {showEditor && (
                     <div className={styles.numberItems}>

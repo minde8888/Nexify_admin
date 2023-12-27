@@ -1,7 +1,7 @@
 import { useCallback, useEffect } from 'react';
 import { Formik, Form } from 'formik';
 import Preloader from '../preloader/preloader';
-import EditProperty from '../../components/CategoryContents/EditCategories/EditProperty';
+import EditProperty from '../../components/CategoryContent/EditCategories/EditProperty';
 import { CategoryResponse } from '../../types/category';
 import { useAppDispatch, useAppSelector } from '../../hooks/useRedux';
 import CategoryFormProperty from '../../types/categoryFormProperty';
@@ -15,7 +15,7 @@ const EditCategories = () => {
     const dispatch = useAppDispatch();
     const categories = useAppSelector((state) => state.data.categories);
 
-    const { handleSubmit } = useForm<CategoryFormProperty>(PUT_METHOD, CATEGORY_UPDATE_URL);
+    const { handleSubmit, disabled } = useForm<CategoryFormProperty>(PUT_METHOD, CATEGORY_UPDATE_URL);
 
     const fetchData = useCallback(async () => {
         const fetchedCategories: CategoryResponse[] | undefined = dispatch(getAllAction(CATEGORIES_URL));
@@ -37,7 +37,7 @@ const EditCategories = () => {
         <Formik onSubmit={(values) => handleSubmit(values)}
             initialValues={initialCategoryFormProperty}
             validationSchema={validationSchema}
-            disabled={false}
+            isSubmitting={false}
         >
             <Form>
                 <h2>Edit/Remove Categories</h2>
@@ -45,6 +45,7 @@ const EditCategories = () => {
                     <EditProperty
                         categories={categories}
                         dispatch={dispatch}
+                        disabled={disabled}
                     />
                 ) : (
                     <Preloader />

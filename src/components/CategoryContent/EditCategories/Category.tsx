@@ -1,5 +1,5 @@
 import { FunctionComponent } from "react";
-import ButtonWithIcon from "../../ButtonWithIcon/ButtonWithIcon";
+import ButtonWithIcon from "../../Buttons/ButtonWithIcon";
 import RemoveButton from "../../RemoveButton/RemoveButton";
 import Subcategories from "./Subcategories";
 import { CategoryResponse } from "../../../types/category";
