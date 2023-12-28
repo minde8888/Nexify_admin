@@ -8,6 +8,7 @@ import AddProduct from '../pages/product/addProduct';
 import Dashboard from '../pages/dashboard/dashboard';
 import EditCategories from '../pages/category/editCategories';
 import AddPost from '../pages/blog/addPost';
+import AddPostCategories from '../pages/category/addPostCategories';
 
 const Routing = (): JSX.Element => {
     return (
@@ -20,6 +21,7 @@ const Routing = (): JSX.Element => {
                         <Route path="/add-categories" element={<AddCategories />} />
                         <Route path="/edit-categories" element={<EditCategories />} />
                         <Route path="/add-post" element={<AddPost />} />
+                        <Route path="/add-post-categories" element={<AddPostCategories />} />
                         {/* <Route path="/edit-products/:id" element={<EditProduct />} /> */}
                     </Route>
                 </Routes>

@@ -8,17 +8,17 @@ import CategoryFormProperty from '../../../types/categoryFormProperty';
 import useFormikValues from '../../../hooks/useFormikValues';
 import { ImageFile } from '../../../types/imageFile';
 import styles from './edit.module.scss';
-import { AnyAction, Dispatch } from '@reduxjs/toolkit';
 import { CATEGORIES_URL } from '../../../constants/apiConst';
 import { deleteAction } from '../../../redux/actions/actions';
+import { useAppDispatch } from '../../../hooks/useRedux';
 
 interface EditPropertyProps {
   categories: CategoryResponse[];
-  dispatch: Dispatch<AnyAction>;
   disabled: boolean;
 }
 
-const EditProperty: FunctionComponent<EditPropertyProps> = ({ categories, dispatch, disabled }) => {
+const EditProperty: FunctionComponent<EditPropertyProps> = ({ categories, disabled }) => {
+  const dispatch = useAppDispatch();
   const { isOpen, toggle } = useModal();
 
   const [content, setContent] = useState<string>('');

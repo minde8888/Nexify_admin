@@ -1,4 +1,3 @@
-import React from 'react';
 import { ErrorMessage, useField } from 'formik';
 import { useEffect } from 'react';
 import { HTMLProps } from 'react';
@@ -12,7 +11,7 @@ export const SelectField = ({ label, ...props }: PropsType) => {
 
     useEffect(() => {
         getFieldProps.setValue(props.value);
-    }, [props.value]);
+    }, [getFieldProps, props.value]);
 
     return (
         <>

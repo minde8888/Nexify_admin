@@ -4,6 +4,7 @@ import { Post } from "../../types/post";
 import { POSTS_URL, POST_METHOD } from "../../constants/apiConst";
 import styles from "../../styles/postContent.module.scss";
 import AddPostContent from "../../components/PostContent/AddPosts/AddPostContent";
+import validationSchema from "../../utils/validation/addPostValidationSchema";
 
 const AddPost = () => {
     const { handleSubmit, disabled } = useForm<Post>(POST_METHOD, POSTS_URL);
@@ -13,7 +14,7 @@ const AddPost = () => {
             content: '',
             image: []
         }}
-        // validationSchema={validationSchema}
+        validationSchema={validationSchema}
         >
             <Form >
                 <h2>Add Post</h2>

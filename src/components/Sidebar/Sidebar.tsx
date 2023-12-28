@@ -75,7 +75,10 @@ const Sidebar: FunctionComponent<SidebarProps> = () => {
                                         </NavLink>
                                     </li>
                                     <li>
-                                        <NavLink to={'/'}><i className="ion-ios-location-outline"></i>Where You</NavLink>
+                                        <NavLink to={'/add-post-categories'}>
+                                            <i className="ion-ios-flame-outline"></i>
+                                            Add Post Categories
+                                        </NavLink>
                                     </li>
                                     <li>
                                         <NavLink to={'/'}><i className="ion-ios-locked-outline"></i>On Lock</NavLink>
