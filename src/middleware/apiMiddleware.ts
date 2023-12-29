@@ -14,13 +14,13 @@ const apiMiddleware: Middleware<{}, RootState> =
             const { method, url, formData, bool, id } = action.meta.api;
 
             switch (method) {
-                case 'post':
-                    await handlePostRequest(url, formData);
-                    break;
-                case 'put':
+                case 'post':                   
                     // if (formData) {
                     //     console.log(Object.fromEntries(formData));
                     // }
+                    await handlePostRequest(url, formData);                  
+                    break;
+                case 'put':
                     update({ dispatch, payload: action.payload, url, formData: formData ?? new FormData() });
                     break;
                 case 'get':

@@ -77,7 +77,7 @@ const Sidebar: FunctionComponent<SidebarProps> = () => {
                                     <li>
                                         <NavLink to={'/add-post-categories'}>
                                             <i className="ion-ios-flame-outline"></i>
-                                            Add Post Categories
+                                            Add Blog Categories
                                         </NavLink>
                                     </li>
                                     <li>

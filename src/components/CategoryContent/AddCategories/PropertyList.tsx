@@ -8,11 +8,15 @@ import styles from "../../../styles/categoryProperty.module.scss";
 interface PropertyListProps {
   prefix: string;
   showAddButton: boolean;
+  level: number;
+  setPrefix: (value: boolean) => void;
 }
 
 const PropertyList: FunctionComponent<PropertyListProps> = ({
   prefix,
   showAddButton,
+  level,
+  setPrefix
 }) => {
   const {
     addNewProperty,
@@ -32,6 +36,8 @@ const PropertyList: FunctionComponent<PropertyListProps> = ({
       onRemove={removeProperty}
       onAddImage={addImage}
       onAddContent={addContent}
+      level={level}
+      setPrefix={setPrefix}
     />
   );
 
@@ -55,8 +61,6 @@ const PropertyList: FunctionComponent<PropertyListProps> = ({
             />
           </div>
         )}
-        {showAddButton && (<span className={styles.label}>Category</span>)}
-        {!showAddButton && (<span className={styles.label}>Subcategory</span>)}
       </div>
       {properties.map(renderProperty)}
     </div>

@@ -18,6 +18,8 @@ interface PropertyItemProps {
   onRemove: (index: number) => void;
   onAddImage: (index: number, images: ImageFile[]) => void;
   onAddContent: (index: number, content: string) => void;
+  level: number;
+  setPrefix: (value: boolean) => void;
 }
 
 const PropertyItem: React.FC<PropertyItemProps> = ({
@@ -26,9 +28,11 @@ const PropertyItem: React.FC<PropertyItemProps> = ({
   index,
   onRemove,
   onAddImage,
-  onAddContent
+  onAddContent,
+  level,
+  setPrefix
 }) => {
-
+  
   const propertyPrefix = `${prefix}properties[${index}].`;
 
   const styleButton = propertyPrefix.length === CATEGORY_DEPTH ? 'content1' : 'content2';
@@ -53,7 +57,7 @@ const PropertyItem: React.FC<PropertyItemProps> = ({
         </button>
       </div>
       <>
-        <AddProperty prefix={propertyPrefix} />
+        <AddProperty prefix={propertyPrefix} level={level} setPrefix={setPrefix} />
         <div className={`${styles.addContent} ${styles[styleButton]}`}>
           <button type="button" onClick={() => open(index)}>Content</button>
         </div>

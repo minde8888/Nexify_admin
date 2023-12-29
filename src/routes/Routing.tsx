@@ -8,7 +8,7 @@ import AddProduct from '../pages/product/addProduct';
 import Dashboard from '../pages/dashboard/dashboard';
 import EditCategories from '../pages/category/editCategories';
 import AddPost from '../pages/blog/addPost';
-import AddPostCategories from '../pages/category/addPostCategories';
+import AddPostCategories from '../pages/category/addBlogCategories';
 
 const Routing = (): JSX.Element => {
     return (

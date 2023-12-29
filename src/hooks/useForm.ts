@@ -10,7 +10,7 @@ type MethodHandler<T> = (formData: FormData, values: T) => void;
 
 const postHandler: MethodHandler<any> = (formData, values) => {
     const categoryList = values.properties || [];
-    if (categoryList.length === 0) {
+    if (categoryList.length !== 0) {        
         categoryList.forEach((category: CategoryFormProperty, categoryIndex: number) => {
             processCategory(formData, category, categoryIndex);
         });
