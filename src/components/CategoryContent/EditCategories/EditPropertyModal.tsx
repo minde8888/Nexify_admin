@@ -1,4 +1,4 @@
-import React, { FunctionComponent } from 'react';
+import { FunctionComponent } from 'react';
 import { Modal } from '../../Modal/Modal';
 import { TextInputField } from '../../../utils/inputFields/TextInputField';
 import UploadImage from '../../UploadImage/UploadImage';

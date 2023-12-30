@@ -8,16 +8,16 @@ import CategoryFormProperty from '../../../types/categoryFormProperty';
 import useFormikValues from '../../../hooks/useFormikValues';
 import { ImageFile } from '../../../types/imageFile';
 import styles from './edit.module.scss';
-import { CATEGORIES_URL } from '../../../constants/apiConst';
 import { deleteAction } from '../../../redux/actions/actions';
 import { useAppDispatch } from '../../../hooks/useRedux';
 
 interface EditPropertyProps {
   categories: CategoryResponse[];
   disabled: boolean;
+  URL: string;
 }
 
-const EditProperty: FunctionComponent<EditPropertyProps> = ({ categories, disabled }) => {
+const EditProperty: FunctionComponent<EditPropertyProps> = ({ categories, disabled, URL }) => {
   const dispatch = useAppDispatch();
   const { isOpen, toggle } = useModal();
 
@@ -47,7 +47,7 @@ const EditProperty: FunctionComponent<EditPropertyProps> = ({ categories, disabl
 
   const handleEdit = useCallback((id: string) => {
     toggle();
-   
+
     const category = findCategoryById(id, categories);
     const subcategory = findSubcategoryById(id, categories);
     const updatedValues: CategoryFormProperty = {
@@ -57,16 +57,16 @@ const EditProperty: FunctionComponent<EditPropertyProps> = ({ categories, disabl
       imageSrc: category?.imageSrc || subcategory?.imageSrc || '',
       accept: category ? true : false
     };
-    addNewValue({ categoryName:  updatedValues.categoryName ?? ''});
+    addNewValue({ categoryName: updatedValues.categoryName ?? '' });
     setImagePreviewUrl(updatedValues.imageSrc || '');
     setValues(updatedValues);
     setContent(updatedValues.description || '');
   }, [toggle, categories, addNewValue]);
 
-  const onRemove = useCallback((id: string) => {
+  const onRemove = useCallback((id: string) => {    
     const bool = categories.some((category) => category.categoryId === id);
-    dispatch(deleteAction(CATEGORIES_URL, id, bool))
-  }, [categories, dispatch]);
+    dispatch(deleteAction(URL, id, bool))
+  }, [URL, categories, dispatch]);
 
   const handleAddImage = useCallback((newFile: ImageFile[]) => {
     setFile(newFile);
@@ -90,9 +90,9 @@ const EditProperty: FunctionComponent<EditPropertyProps> = ({ categories, disabl
         imagePreviewUrl={imagePreviewUrl}
         disabled={disabled}
       />
-      {Object.values(categories).map((category) => (
+      {Object.values(categories).map((category, index) => (
         <Category
-          key={category.categoryId}
+          key={index}
           category={category}
           onEdit={handleEdit}
           onRemove={onRemove}

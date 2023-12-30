@@ -1,4 +1,4 @@
-import { FunctionComponent } from "react";
+import { FunctionComponent, useEffect } from "react";
 import { CATEGORY_DEPTH } from "../../../constants/categoryConst";
 import PropertyList from "./PropertyList";
 
@@ -15,7 +15,10 @@ const CategoriesProperty: FunctionComponent<CategoriesPropertyProps> = ({
 }) => {
   const twoLevelsCategory = CATEGORY_DEPTH * level;
   const showAddButton = prefix.length < twoLevelsCategory;
-  setPrefix((!prefix))
+  
+  useEffect(() => {
+    setPrefix((!prefix));
+  }, [prefix, setPrefix]);
 
   return <PropertyList
     prefix={prefix}

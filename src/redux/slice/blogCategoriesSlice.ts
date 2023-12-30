@@ -8,11 +8,11 @@ const blogCategoriesSlice = createSlice({
     initialState: [] as CategoryResponse[],
 
     reducers: {
-        getCategories: (state, action: PayloadAction<CategoryResponse[]>) => {
+        getPostCategories: (state, action: PayloadAction<CategoryResponse[]>) => {
             return action.payload;
         },
 
-        updateCategory: (state: CategoryResponse[], action: PayloadAction<CategoryFormProperty>) => {
+        updatePostCategory: (state: CategoryResponse[], action: PayloadAction<CategoryFormProperty>) => {
             const updatedCategory = action.payload;
 
             const categoryIndex = findIndexById(state, updatedCategory.id, 'categoryId');
@@ -22,22 +22,7 @@ const blogCategoriesSlice = createSlice({
             }
         },
 
-        updateSubcategory: (state: CategoryResponse[], action: PayloadAction<CategoryFormProperty>) => {
-            const updatedSubcategory = action.payload;
-
-            state.forEach((category) => {
-                const subcategoryIndex = findIndexById(category.subcategories, updatedSubcategory.id, 'subCategoryId');
-
-                if (subcategoryIndex !== -1) {
-                    category.subcategories[subcategoryIndex] = {
-                        ...category.subcategories[subcategoryIndex],
-                        ...updatedSubcategory
-                    };
-                }
-            });
-        },
-
-        removeCategory: (state: CategoryResponse[], action: PayloadAction<string>) => {
+        removePostCategory: (state: CategoryResponse[], action: PayloadAction<string>) => {
             const categoryId = action.payload;
 
             const categoryIndex = findIndexById(state, categoryId, 'categoryId');
@@ -46,21 +31,9 @@ const blogCategoriesSlice = createSlice({
                 state.splice(categoryIndex, 1);
             }
         },
-
-        removeSubcategory: (state, action: PayloadAction<string>) => {
-            const subcategoryId = action.payload;
-
-            state.forEach((category) => {
-                const subcategoryIndex = category.subcategories.findIndex((item) => item.subCategoryId === subcategoryId);
-
-                if (subcategoryIndex !== -1) {
-                    category.subcategories.splice(subcategoryIndex, 1);
-                }
-            });
-        }
     }
 });
 
-export const { getCategories, updateCategory, updateSubcategory, removeCategory, removeSubcategory } = blogCategoriesSlice.actions;
+export const { getPostCategories, updatePostCategory, removePostCategory } = blogCategoriesSlice.actions;
 
 export default blogCategoriesSlice.reducer;

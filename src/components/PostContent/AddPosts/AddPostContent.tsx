@@ -6,13 +6,14 @@ import MarkDownEditor from "../../MarkDownEditor/MarkDownEditor";
 import { SelectField } from "../../../utils/inputFields/SelectField";
 import { TextInputField } from "../../../utils/inputFields/TextInputField";
 import styles from "../../../styles/postContent.module.scss";
+import CategoryFormProperty from "../../../types/categoryFormProperty";
 
 const AddPostContent = () => {
     const [images, setImages] = useState<Array<ImageFile>>([]);
     const [content, setContent] = useState<string>("");
     const [value, setValue] = useState<string>("");
     const windowSize = useRef(window.innerHeight / 2 - 82);
-    const categories = useAppSelector((state) => state.data.categories);
+    const categories: CategoryFormProperty[] = useAppSelector((state) => state.data.blogCategories);
 
     const getImagesData = async (files: ImageFile[]): Promise<void> => {
         if (files.length !== 0) {
@@ -20,14 +21,13 @@ const AddPostContent = () => {
         }
     };
 
-    const CategoryOptions = categories.map((category: string, key: number) => {
-        console.log(category);
+    const CategoryOptions = categories.map((category: CategoryFormProperty, key: number) => {
 
         return (
-            <option value={category} key={key}>
-                {/* {category} */}
+            <option value={category.id} key={key}>
+                {category.categoryName}
             </option>
-        )
+        );
     });
 
     const handleSelectChange = (e: FormEvent<HTMLSelectElement>): void => {
@@ -62,7 +62,7 @@ const AddPostContent = () => {
                         value={value}
                         onChange={(e: React.FormEvent<HTMLSelectElement>) => handleSelectChange(e)}
                     >
-                        <option>Choice Category</option>
+                        <option>Choose Category</option>
                         {CategoryOptions}
                     </SelectField>
                 </div>

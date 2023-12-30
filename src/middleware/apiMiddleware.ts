@@ -24,7 +24,7 @@ const apiMiddleware: Middleware<{}, RootState> =
                     update({ dispatch, payload: action.payload, url, formData: formData ?? new FormData() });
                     break;
                 case 'get':
-                    const values = await handleGetAllRequest(url);
+                    const values = await handleGetAllRequest(url);       
                     getAll({ dispatch, payload: values, url });
                     break;
                 case 'delete':
