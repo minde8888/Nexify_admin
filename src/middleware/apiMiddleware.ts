@@ -15,9 +15,9 @@ const apiMiddleware: Middleware<{}, RootState> =
 
             switch (method) {
                 case 'post':                   
-                    // if (formData) {
-                    //     console.log(Object.fromEntries(formData));
-                    // }
+                    if (formData) {
+                        console.log(Object.fromEntries(formData));
+                    }
                     await handlePostRequest(url, formData);                  
                     break;
                 case 'put':

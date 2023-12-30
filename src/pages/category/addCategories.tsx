@@ -12,7 +12,7 @@ import { useNavigate } from 'react-router-dom';
 const AddCategories = () => {
     const navigate = useNavigate();
     const [prefix, setPrefix] = useState(false);
-    const { handleSubmit, disabled } = useForm<CategoryFormProperty>(POST_METHOD, CATEGORIES_URL, true);
+    const { handleSubmit, disabled } = useForm<CategoryFormProperty>(POST_METHOD, CATEGORIES_URL);
 
     return (
         <Formik onSubmit={(values) => { handleSubmit(values); navigate('/'); }} initialValues={{

@@ -14,7 +14,7 @@ const postHandler: MethodHandler<any> = (formData, values) => {
         categoryList.forEach((category: CategoryFormProperty, categoryIndex: number) => {
             processCategory(formData, category, categoryIndex);
         });
-    } else {
+    } else {        
         createFormData(values, formData);
     }
 };
@@ -23,7 +23,7 @@ const putHandler: MethodHandler<any> = (formData, values) => {
     createFormData(values, formData);
 };
 
-function useForm<T>(method: string, url: string, post?: boolean, bool?: boolean) {
+function useForm<T>(method: string, url: string) {
     const dispatch = useDispatch();
     const [disabled, setDisabled] = useState(false);
 
@@ -32,7 +32,7 @@ function useForm<T>(method: string, url: string, post?: boolean, bool?: boolean)
             const formData = new FormData();
             setDisabled(true);
 
-            const handler = post ? postHandler : putHandler;
+            const handler = method === 'post' ? postHandler : putHandler;
 
             if (handler) {
                 handler(formData, values);
@@ -41,14 +41,14 @@ function useForm<T>(method: string, url: string, post?: boolean, bool?: boolean)
             }
 
             try {
-                const action = post ? postAction(formData, url) : putAction(formData, values, url);
+                const action = method === 'post' ? postAction(formData, url) : putAction(formData, values, url);
                 dispatch(action);
                 setDisabled(false);
             } catch (error) {
                 throw new UseFormError(`Error handling form submission: ${error}`);
             }
         },
-        [dispatch, method, post, url]
+        [dispatch, method, url]
     );
 
     return {

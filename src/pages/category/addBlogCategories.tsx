@@ -4,7 +4,7 @@ import useForm from '../../hooks/useForm';
 import CategoryFormProperty from '../../types/categoryFormProperty';
 import { v4 as uuidv4 } from 'uuid';
 import validationSchema from '../../utils/validation/addCategoryValidationSchema';
-import { POSTS_URL, POST_METHOD } from '../../constants/apiConst';
+import { BLOG_CATEGORIES_URL, POST_METHOD } from '../../constants/apiConst';
 import styles from '../../styles/productContent.module.scss';
 import { useNavigate } from 'react-router-dom';
 import { useState } from 'react';
@@ -12,7 +12,7 @@ import { useState } from 'react';
 const AddBlogCategories = () => {
     const navigate = useNavigate();
     const [prefix, setPrefix] = useState(false);
-    const { handleSubmit, disabled } = useForm<CategoryFormProperty>(POST_METHOD, POSTS_URL, true);
+    const { handleSubmit, disabled } = useForm<CategoryFormProperty>(POST_METHOD, BLOG_CATEGORIES_URL);
 
     return (
         <Formik onSubmit={(values) => { handleSubmit(values); navigate('/'); }} initialValues={{

@@ -4,26 +4,24 @@ import { HTMLProps } from 'react';
 
 interface PropsType extends HTMLProps<HTMLSelectElement> {
     name: string;
+    className?: string;
 }
 
-export const SelectField = ({ label, ...props }: PropsType) => {
-    const [field, meta, getFieldProps] = useField(props);
+export const SelectField = ({ label, value, ...props }: PropsType) => {
+    const [field, , getFieldProps] = useField(props);
 
     useEffect(() => {
-        getFieldProps.setValue(props.value);
-    }, [getFieldProps, props.value]);
+        getFieldProps.setValue(value);
+    }, [getFieldProps, value]);
 
     return (
         <>
-            <select {...field} {...props} />
+            <select {...field} {...props} value={value} />
             <div style={{
                 color: "red",
                 fontSize: '11px'
             }}>
-                <ErrorMessage
-                    component="div"
-                    name={field.name}
-                />
+                <ErrorMessage component="div" name={field?.name} />
             </div >
         </>
     );

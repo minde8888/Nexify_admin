@@ -1,4 +1,4 @@
-import React, { FormEvent, useRef, useState } from "react";
+import React, { FormEvent, useCallback, useRef, useState } from "react";
 import { ImageFile } from "../../../types/imageFile";
 import { useAppSelector } from "../../../hooks/useRedux";
 import UploadImages from "../../UploadImages/UploadImages";
@@ -7,32 +7,37 @@ import { SelectField } from "../../../utils/inputFields/SelectField";
 import { TextInputField } from "../../../utils/inputFields/TextInputField";
 import styles from "../../../styles/postContent.module.scss";
 import CategoryFormProperty from "../../../types/categoryFormProperty";
+import useFormikValues from "../../../hooks/useFormikValues";
 
 const AddPostContent = () => {
-    const [images, setImages] = useState<Array<ImageFile>>([]);
+
+    const { addNewValue } = useFormikValues();
+
     const [content, setContent] = useState<string>("");
-    const [value, setValue] = useState<string>("");
+
     const windowSize = useRef(window.innerHeight / 2 - 82);
     const categories: CategoryFormProperty[] = useAppSelector((state) => state.data.blogCategories);
 
     const getImagesData = async (files: ImageFile[]): Promise<void> => {
         if (files.length !== 0) {
-            setImages(files);
+            addNewValue({ images: files });
         }
     };
 
-    const CategoryOptions = categories.map((category: CategoryFormProperty, key: number) => {
+    const CategoryOptions = categories.map((category: CategoryFormProperty, key: number) => (
+        <option value={category.id} key={key}>
+            {category.categoryName}
+        </option>
+    ));
 
-        return (
-            <option value={category.id} key={key}>
-                {category.categoryName}
-            </option>
-        );
-    });
+    const handleSelectChange = useCallback((e: FormEvent<HTMLSelectElement>): void => {
+        addNewValue({ categoryId: (e.target as HTMLSelectElement).value });
+    }, [addNewValue]);
 
-    const handleSelectChange = (e: FormEvent<HTMLSelectElement>): void => {
-        setValue((e.target as HTMLSelectElement).value);
-    };
+    const handleContentChange = useCallback((newContent: string): void => {
+        setContent(newContent);
+        addNewValue({ context: newContent });
+    }, [addNewValue]);
 
     return (
         <div className={styles.container}>
@@ -46,9 +51,10 @@ const AddPostContent = () => {
                         className={styles.profileInput}
                         name="title"
                         id="title"
+                        initialValue={''}
                     />
                     <MarkDownEditor
-                        setContent={setContent}
+                        setContent={handleContentChange}
                         content={content}
                         showEditor={true}
                         width="100%"
@@ -59,8 +65,16 @@ const AddPostContent = () => {
                     <SelectField
                         name="categories"
                         as="select"
-                        value={value}
                         onChange={(e: React.FormEvent<HTMLSelectElement>) => handleSelectChange(e)}
+                        style={{
+                            padding: '10px',
+                            fontSize: '16px',
+                            border: '1px solid #ccc',
+                            borderRadius: '5px',
+                            width: '100%',
+                            marginBottom: '10px',
+                            height: '46px'
+                        }}
                     >
                         <option>Choose Category</option>
                         {CategoryOptions}
