@@ -1,34 +1,52 @@
-import { Form, Formik } from "formik";
-import useForm from "../../hooks/useForm";
-import { Post } from "../../types/post";
-import {  BLOG_CATEGORIES_URL, BLOG_URL, POST_METHOD } from "../../constants/apiConst";
-import styles from "../../styles/postContent.module.scss";
-import AddPostContent from "../../components/PostContent/AddPosts/AddPostContent";
-import validationSchema from "../../utils/validation/addPostValidationSchema";
-import useFetchData from "../../hooks/useDataFetching";
-import { useEffect } from "react";
-import Preloader from "../preloader/preloader";
+import { useEffect, useRef, useState } from 'react';
+import { Form, Formik } from 'formik';
+import { BLOG_CATEGORIES_URL, BLOG_URL, POST_METHOD } from '../../constants/apiConst';
+import styles from '../../styles/postContent.module.scss';
+import AddPostContent from '../../components/PostContent/AddPosts/AddPostContent';
+import validationSchema from '../../utils/validation/addPostValidationSchema';
+import useFetchData from '../../hooks/useDataFetching';
+import Preloader from '../preloader/preloader';
+import useForm from '../../hooks/useForm';
 
 const AddPost = () => {
-    const { handleSubmit, disabled } = useForm<Post>(POST_METHOD, BLOG_URL);
+    const { handleSubmit, disabled } = useForm(POST_METHOD, BLOG_URL);
     const { loading, fetchData } = useFetchData(BLOG_CATEGORIES_URL);
+    const [content, setContent] = useState<string>("");
+    const selectRef = useRef<HTMLSelectElement | null>(null);
 
     useEffect(() => {
         fetchData();
     }, [fetchData]);
 
+    const handleFormSubmit = async (values: unknown, { resetForm }: any) => {
+        await handleSubmit(values, { resetForm });
+        setContent('');
+        if (selectRef.current) {
+            selectRef.current.value = 'Choose Category';
+        }
+        console.log('====================================');
+        console.log(selectRef);
+        console.log('====================================');
+    };
+
     return (
         <Preloader isLoading={loading}>
-            <Formik onSubmit={(values) => handleSubmit(values)} initialValues={{
-                title: '',
-                content: '',
-                images: []
-            }}
+            <Formik
+                onSubmit={handleFormSubmit}
+                initialValues={{
+                    title: '',
+                    context: '',
+                    images: [],
+                }}
                 validationSchema={validationSchema}
             >
-                <Form >
+                <Form>
                     <h2>Add Post</h2>
-                    <AddPostContent />
+                    <AddPostContent
+                        setContent={setContent}
+                        content={content}
+                        selectRef={selectRef}
+                    />
                     <div className={styles.saveButton}>
                         <button disabled={disabled} type="submit">
                             Save

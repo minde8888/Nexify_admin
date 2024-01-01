@@ -18,7 +18,7 @@ const apiMiddleware: Middleware<{}, RootState> =
                     if (formData) {
                         console.log(Object.fromEntries(formData));
                     }
-                    await handlePostRequest(url, formData);                  
+                    // await handlePostRequest(url, formData);                  
                     break;
                 case 'put':
                     update({ dispatch, payload: action.payload, url, formData: formData ?? new FormData() });

@@ -6,20 +6,18 @@ import { processCategory } from '../utils/helpers/processCategory';
 import { createFormData } from '../utils/helpers/createFormData';
 import { postAction, putAction } from '../redux/actions/actions';
 
-type MethodHandler<T> = (formData: FormData, values: T) => void;
+type MethodHandler<T> = (formData: FormData, values: T) => Promise<void>;
 
-const postHandler: MethodHandler<any> = (formData, values) => {
+const postHandler: MethodHandler<any> = async (formData, values) => {
     const categoryList = values.properties || [];
-    if (categoryList.length !== 0) {        
-        categoryList.forEach((category: CategoryFormProperty, categoryIndex: number) => {
-            processCategory(formData, category, categoryIndex);
-        });
-    } else {        
+    if (categoryList.length !== 0) {
+        await Promise.all(categoryList.map((category: CategoryFormProperty, categoryIndex: number) => processCategory(formData, category, categoryIndex)));
+    } else {
         createFormData(values, formData);
     }
 };
 
-const putHandler: MethodHandler<any> = (formData, values) => {
+const putHandler: MethodHandler<any> = async (formData, values) => {
     createFormData(values, formData);
 };
 
@@ -28,14 +26,20 @@ function useForm<T>(method: string, url: string) {
     const [disabled, setDisabled] = useState(false);
 
     const handleSubmit = useCallback(
-        async (values: T) => {
+        async (values: T, { resetForm }: { resetForm: () => void }) => {
             const formData = new FormData();
-            setDisabled(true);
-
             const handler = method === 'post' ? postHandler : putHandler;
 
             if (handler) {
-                handler(formData, values);
+                try {
+                    setDisabled(true);
+                    await handler(formData, values);
+                } catch (error) {
+                    throw new UseFormError(`Error handling form submission: ${error}`);
+                } finally {
+                    setDisabled(false);
+                    resetForm();
+                }
             } else {
                 throw new UseFormError(`Unsupported method: ${method}`);
             }
@@ -43,9 +47,8 @@ function useForm<T>(method: string, url: string) {
             try {
                 const action = method === 'post' ? postAction(formData, url) : putAction(formData, values, url);
                 dispatch(action);
-                setDisabled(false);
             } catch (error) {
-                throw new UseFormError(`Error handling form submission: ${error}`);
+                throw new UseFormError(`Error dispatching action: ${error}`);
             }
         },
         [dispatch, method, url]

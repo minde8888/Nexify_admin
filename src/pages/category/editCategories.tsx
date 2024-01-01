@@ -30,7 +30,7 @@ const EditCategories = () => {
 
     return (
         <Preloader isLoading={loading}>
-            <Formik onSubmit={(values) => handleSubmit(values)}
+            <Formik  onSubmit={(values, { resetForm }) => handleSubmit(values, { resetForm })}
                 initialValues={initialCategoryFormProperty}
                 validationSchema={validationSchema}
                 isSubmitting={false}

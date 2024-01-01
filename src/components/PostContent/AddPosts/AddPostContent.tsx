@@ -1,4 +1,4 @@
-import React, { FormEvent, useCallback, useRef, useState } from "react";
+import React, { FormEvent, useCallback, useRef } from "react";
 import { ImageFile } from "../../../types/imageFile";
 import { useAppSelector } from "../../../hooks/useRedux";
 import UploadImages from "../../UploadImages/UploadImages";
@@ -9,18 +9,26 @@ import styles from "../../../styles/postContent.module.scss";
 import CategoryFormProperty from "../../../types/categoryFormProperty";
 import useFormikValues from "../../../hooks/useFormikValues";
 
-const AddPostContent = () => {
+interface AddPostContentProps {
+    setContent: (content: string) => void;
+    content: string;
+    selectRef: React.RefObject<HTMLSelectElement | null>;
+}
 
+const AddPostContent = React.forwardRef<HTMLSelectElement | null, AddPostContentProps>(({
+    setContent,
+    content,
+    selectRef,
+}: AddPostContentProps, ref) => {
     const { addNewValue } = useFormikValues();
 
-    const [content, setContent] = useState<string>("");
-
     const windowSize = useRef(window.innerHeight / 2 - 82);
+
     const categories: CategoryFormProperty[] = useAppSelector((state) => state.data.blogCategories);
 
     const getImagesData = async (files: ImageFile[]): Promise<void> => {
         if (files.length !== 0) {
-            addNewValue({ images: files });
+            addNewValue({ images: files.map(file => file.file) });
         }
     };
 
@@ -31,13 +39,14 @@ const AddPostContent = () => {
     ));
 
     const handleSelectChange = useCallback((e: FormEvent<HTMLSelectElement>): void => {
-        addNewValue({ categoryId: (e.target as HTMLSelectElement).value });
+        const selectedValue = (e.target as HTMLSelectElement).value;
+        addNewValue({ categoryId: selectedValue });
     }, [addNewValue]);
 
     const handleContentChange = useCallback((newContent: string): void => {
         setContent(newContent);
         addNewValue({ context: newContent });
-    }, [addNewValue]);
+    }, [addNewValue, setContent]);
 
     return (
         <div className={styles.container}>
@@ -63,6 +72,7 @@ const AddPostContent = () => {
                 </div>
                 <div className={styles.columns}>
                     <SelectField
+                        ref={selectRef as React.RefObject<HTMLSelectElement> | null}
                         name="categories"
                         as="select"
                         onChange={(e: React.FormEvent<HTMLSelectElement>) => handleSelectChange(e)}
@@ -83,6 +93,6 @@ const AddPostContent = () => {
             </div>
         </div>
     );
-};
+});
 
 export default AddPostContent;

@@ -7,15 +7,14 @@ import validationSchema from '../../utils/validation/addCategoryValidationSchema
 import { CATEGORIES_URL, POST_METHOD } from '../../constants/apiConst';
 import styles from '../../styles/productContent.module.scss';
 import { useState } from 'react';
-import { useNavigate } from 'react-router-dom';
 
 const AddCategories = () => {
-    const navigate = useNavigate();
     const [prefix, setPrefix] = useState(false);
     const { handleSubmit, disabled } = useForm<CategoryFormProperty>(POST_METHOD, CATEGORIES_URL);
 
     return (
-        <Formik onSubmit={(values) => { handleSubmit(values); navigate('/'); }} initialValues={{
+        <Formik onSubmit={(values, { resetForm }) => handleSubmit(values, { resetForm })}
+        initialValues={{
             id: uuidv4(),
             categoryName: '',
             description: '',
