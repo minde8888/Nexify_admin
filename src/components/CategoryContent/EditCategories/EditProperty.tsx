@@ -63,7 +63,7 @@ const EditProperty: FunctionComponent<EditPropertyProps> = ({ categories, disabl
     setContent(updatedValues.description || '');
   }, [toggle, categories, addNewValue]);
 
-  const onRemove = useCallback((id: string) => {    
+  const onRemove = useCallback((id: string) => {
     const bool = categories.some((category) => category.categoryId === id);
     dispatch(deleteAction(URL, id, bool))
   }, [URL, categories, dispatch]);

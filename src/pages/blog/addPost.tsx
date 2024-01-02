@@ -1,4 +1,4 @@
-import { useEffect, useRef, useState } from 'react';
+import { useEffect, useState } from 'react';
 import { Form, Formik } from 'formik';
 import { BLOG_CATEGORIES_URL, BLOG_URL, POST_METHOD } from '../../constants/apiConst';
 import styles from '../../styles/postContent.module.scss';
@@ -12,7 +12,8 @@ const AddPost = () => {
     const { handleSubmit, disabled } = useForm(POST_METHOD, BLOG_URL);
     const { loading, fetchData } = useFetchData(BLOG_CATEGORIES_URL);
     const [content, setContent] = useState<string>("");
-    const selectRef = useRef<HTMLSelectElement | null>(null);
+    const [selectValue, setSelectValue] = useState<string>("default");
+    const [resetImages, setResetImages] = useState<boolean>(false);
 
     useEffect(() => {
         fetchData();
@@ -21,12 +22,8 @@ const AddPost = () => {
     const handleFormSubmit = async (values: unknown, { resetForm }: any) => {
         await handleSubmit(values, { resetForm });
         setContent('');
-        if (selectRef.current) {
-            selectRef.current.value = 'Choose Category';
-        }
-        console.log('====================================');
-        console.log(selectRef);
-        console.log('====================================');
+        setSelectValue('default');
+        setResetImages(!resetImages);
     };
 
     return (
@@ -45,7 +42,9 @@ const AddPost = () => {
                     <AddPostContent
                         setContent={setContent}
                         content={content}
-                        selectRef={selectRef}
+                        setSelectValue={setSelectValue}
+                        selectValue={selectValue}
+                        resetImages={resetImages}
                     />
                     <div className={styles.saveButton}>
                         <button disabled={disabled} type="submit">

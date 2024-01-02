@@ -12,15 +12,20 @@ import useFormikValues from "../../../hooks/useFormikValues";
 interface AddPostContentProps {
     setContent: (content: string) => void;
     content: string;
-    selectRef: React.RefObject<HTMLSelectElement | null>;
+    setSelectValue: (value: string) => void;
+    selectValue: string;
+    resetImages: boolean;
 }
 
-const AddPostContent = React.forwardRef<HTMLSelectElement | null, AddPostContentProps>(({
+const AddPostContent = ({
     setContent,
     content,
-    selectRef,
-}: AddPostContentProps, ref) => {
-    const { addNewValue } = useFormikValues();
+    setSelectValue,
+    selectValue,
+    resetImages
+}: AddPostContentProps) => {
+
+    const { addNewValue } = useFormikValues();    
 
     const windowSize = useRef(window.innerHeight / 2 - 82);
 
@@ -40,8 +45,8 @@ const AddPostContent = React.forwardRef<HTMLSelectElement | null, AddPostContent
 
     const handleSelectChange = useCallback((e: FormEvent<HTMLSelectElement>): void => {
         const selectedValue = (e.target as HTMLSelectElement).value;
-        addNewValue({ categoryId: selectedValue });
-    }, [addNewValue]);
+        setSelectValue(selectedValue)
+    }, [setSelectValue]);
 
     const handleContentChange = useCallback((newContent: string): void => {
         setContent(newContent);
@@ -52,7 +57,7 @@ const AddPostContent = React.forwardRef<HTMLSelectElement | null, AddPostContent
         <div className={styles.container}>
             <div className={styles.items}>
                 <div className={styles.columns}>
-                    <UploadImages getImages={getImagesData} maxNumber={1} />
+                    <UploadImages getImages={getImagesData} maxNumber={1} resetImages={resetImages}/>
                 </div>
                 <div className={styles.columns}>
                     <TextInputField
@@ -72,8 +77,8 @@ const AddPostContent = React.forwardRef<HTMLSelectElement | null, AddPostContent
                 </div>
                 <div className={styles.columns}>
                     <SelectField
-                        ref={selectRef as React.RefObject<HTMLSelectElement> | null}
-                        name="categories"
+                        value={selectValue}
+                        name="categoryId"
                         as="select"
                         onChange={(e: React.FormEvent<HTMLSelectElement>) => handleSelectChange(e)}
                         style={{
@@ -86,13 +91,13 @@ const AddPostContent = React.forwardRef<HTMLSelectElement | null, AddPostContent
                             height: '46px'
                         }}
                     >
-                        <option>Choose Category</option>
+                        <option value={"default"}>Choose Category</option>
                         {CategoryOptions}
                     </SelectField>
                 </div>
             </div>
         </div>
     );
-});
+};
 
 export default AddPostContent;

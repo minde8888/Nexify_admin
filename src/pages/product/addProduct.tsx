@@ -82,7 +82,7 @@ const InnerForm: React.FC<Props> = ({
         <div className={styles.container}>
           <Form>
             <div className={styles.columns}>
-              <UploadImages getImages={getImagesData}  maxNumber={10} />
+              <UploadImages getImages={getImagesData}  maxNumber={10} resetImages/>
             </div>
             <div className={styles.columns}>
               <ProductContent

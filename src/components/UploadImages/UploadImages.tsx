@@ -1,4 +1,4 @@
-import React, { useCallback, useState } from 'react';
+import React, { useCallback, useEffect, useState } from 'react';
 import ImageUploading, { ImageListType } from 'react-images-uploading';
 import { ImageFile } from '../../types/imageFile';
 import closeIcon from '../../assets/svg/closeIcon.svg';
@@ -10,15 +10,23 @@ import { IconButton } from '../Buttons/IconButton';
 interface ImagesProps {
     getImages: (ImageData: Array<ImageFile>) => void;
     maxNumber: number;
+    resetImages: boolean;
 }
 
-const UploadImages: React.FC<ImagesProps> = ({ getImages, maxNumber }) => {
+const UploadImages: React.FC<ImagesProps> = ({ getImages, maxNumber, resetImages }) => {
     const [images, setImages] = useState([]);
+
 
     const onChange = useCallback((imageList: ImageListType): void => {
         setImages(imageList as []);
         getImages(imageList as ImageFile[]);
     }, [getImages]);
+
+    useEffect(() => {
+        if (resetImages) {
+            setImages([]);
+        }
+    }, [resetImages]);
 
     return (
         <div className={uploadImagesStyles.image}>
@@ -30,7 +38,7 @@ const UploadImages: React.FC<ImagesProps> = ({ getImages, maxNumber }) => {
                 dataURLKey="data_url"
                 acceptType={['jpg', 'gif', 'png', 'gif']}
             >
-                {({ imageList, onImageUpload, onImageUpdate, onImageRemove, onImageRemoveAll, isDragging, dragProps, errors }) => (
+                {({ imageList, onImageUpload, onImageUpdate, onImageRemove, isDragging, dragProps, errors }) => (
                     <div className={uploadImagesStyles.upload_image}>
                         <div
                             className={uploadImagesStyles.clickDrop}
