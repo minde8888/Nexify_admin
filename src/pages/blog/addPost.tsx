@@ -23,7 +23,7 @@ const AddPost = () => {
         await handleSubmit(values, { resetForm });
         setContent('');
         setSelectValue('default');
-        setResetImages(!resetImages);
+        setResetImages(true);
     };
 
     return (
@@ -45,6 +45,7 @@ const AddPost = () => {
                         setSelectValue={setSelectValue}
                         selectValue={selectValue}
                         resetImages={resetImages}
+                        setResetImages={setResetImages}
                     />
                     <div className={styles.saveButton}>
                         <button disabled={disabled} type="submit">

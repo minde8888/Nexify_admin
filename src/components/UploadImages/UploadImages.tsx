@@ -11,9 +11,10 @@ interface ImagesProps {
     getImages: (ImageData: Array<ImageFile>) => void;
     maxNumber: number;
     resetImages: boolean;
+    setResetImages: (value: boolean) => void;
 }
 
-const UploadImages: React.FC<ImagesProps> = ({ getImages, maxNumber, resetImages }) => {
+const UploadImages: React.FC<ImagesProps> = ({ getImages, maxNumber, resetImages, setResetImages }) => {
     const [images, setImages] = useState([]);
 
 
@@ -25,8 +26,9 @@ const UploadImages: React.FC<ImagesProps> = ({ getImages, maxNumber, resetImages
     useEffect(() => {
         if (resetImages) {
             setImages([]);
+            setResetImages(false);
         }
-    }, [resetImages]);
+    }, [resetImages, setResetImages]);
 
     return (
         <div className={uploadImagesStyles.image}>

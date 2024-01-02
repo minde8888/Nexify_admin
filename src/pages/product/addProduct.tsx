@@ -32,6 +32,7 @@ const InnerForm: React.FC<Props> = ({
 }: Props) => {
   const [images, setImages] = useState<Array<ImageFile>>([]);
   const [content, setContent] = useState<string>('');
+  const [resetImages, setResetImages] = useState<boolean>(false);
 
   const getImagesData = async (files: ImageFile[]): Promise<void> => {
     if (files.length !== 0) {
@@ -82,7 +83,7 @@ const InnerForm: React.FC<Props> = ({
         <div className={styles.container}>
           <Form>
             <div className={styles.columns}>
-              <UploadImages getImages={getImagesData}  maxNumber={10} resetImages/>
+              <UploadImages getImages={getImagesData}  maxNumber={10} resetImages={resetImages} setResetImages={setResetImages}/>
             </div>
             <div className={styles.columns}>
               <ProductContent

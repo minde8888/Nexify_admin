@@ -1,4 +1,4 @@
-import { TextInputField } from '../../utils/inputFields/TextInputField';
+import { TextInputField } from '../InputFields/TextInputField';
 import styles from '../../styles/productContent.module.scss'
 import { useState } from 'react';
 import MarkDownEditor from '../MarkDownEditor/MarkDownEditor';

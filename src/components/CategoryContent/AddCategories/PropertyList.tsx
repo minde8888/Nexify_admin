@@ -1,5 +1,5 @@
 import { FunctionComponent } from "react";
-import { TextInputField } from "../../../utils/inputFields/TextInputField";
+import { TextInputField } from "../../InputFields/TextInputField";
 import useFormProperty from "../../../hooks/useFormProperty";
 import PropertyItem from "./PropertyItem";
 import CategoryFormProperty from "../../../types/categoryFormProperty";

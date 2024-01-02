@@ -1,6 +1,6 @@
 import { FunctionComponent } from 'react';
 import { Modal } from '../../Modal/Modal';
-import { TextInputField } from '../../../utils/inputFields/TextInputField';
+import { TextInputField } from '../../InputFields/TextInputField';
 import UploadImage from '../../UploadImage/UploadImage';
 import PropertyImagePreview from '../../PropertyImagePreview/PropertyImagePreview';
 import MarkDownEditor from '../../MarkDownEditor/MarkDownEditor';

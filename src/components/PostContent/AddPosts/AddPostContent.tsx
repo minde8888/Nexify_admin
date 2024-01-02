@@ -3,18 +3,19 @@ import { ImageFile } from "../../../types/imageFile";
 import { useAppSelector } from "../../../hooks/useRedux";
 import UploadImages from "../../UploadImages/UploadImages";
 import MarkDownEditor from "../../MarkDownEditor/MarkDownEditor";
-import { SelectField } from "../../../utils/inputFields/SelectField";
-import { TextInputField } from "../../../utils/inputFields/TextInputField";
+import { SelectField } from "../../InputFields/SelectField";
+import { TextInputField } from "../../InputFields/TextInputField";
 import styles from "../../../styles/postContent.module.scss";
 import CategoryFormProperty from "../../../types/categoryFormProperty";
 import useFormikValues from "../../../hooks/useFormikValues";
 
 interface AddPostContentProps {
-    setContent: (content: string) => void;
+    setContent: (Content: string) => void;
     content: string;
     setSelectValue: (value: string) => void;
     selectValue: string;
     resetImages: boolean;
+    setResetImages: (value: boolean) => void;
 }
 
 const AddPostContent = ({
@@ -22,10 +23,11 @@ const AddPostContent = ({
     content,
     setSelectValue,
     selectValue,
-    resetImages
+    resetImages,
+    setResetImages
 }: AddPostContentProps) => {
 
-    const { addNewValue } = useFormikValues();    
+    const { addNewValue } = useFormikValues();
 
     const windowSize = useRef(window.innerHeight / 2 - 82);
 
@@ -57,7 +59,11 @@ const AddPostContent = ({
         <div className={styles.container}>
             <div className={styles.items}>
                 <div className={styles.columns}>
-                    <UploadImages getImages={getImagesData} maxNumber={1} resetImages={resetImages}/>
+                    <UploadImages
+                        getImages={getImagesData}
+                        maxNumber={1}
+                        resetImages={resetImages}
+                        setResetImages={setResetImages} />
                 </div>
                 <div className={styles.columns}>
                     <TextInputField
