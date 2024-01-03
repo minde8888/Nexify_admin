@@ -1,5 +1,10 @@
 export interface Post {
+    postId?: string;
     title:string;
-    context: string;
-    images: string[];    
+    content: string;
+    images: string[];  
+    imageSrc?: string[]  
+    imageName?: string;
+    dateCreated?: string;
+    categories?: string[];
 }

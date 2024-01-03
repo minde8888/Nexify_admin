@@ -81,7 +81,7 @@ const Sidebar: FunctionComponent<SidebarProps> = () => {
                                         </NavLink>
                                     </li>
                                     <li>
-                                    <NavLink to={'/edit-post-categories'}>
+                                        <NavLink to={'/edit-post-categories'}>
                                             <i className="ion-ios-flame-outline"></i>
                                             Edit Blog Categories
                                         </NavLink>
@@ -131,7 +131,10 @@ const Sidebar: FunctionComponent<SidebarProps> = () => {
                                         </NavLink>
                                     </li>
                                     <li>
-                                        <NavLink to={'/'}><i className="ion-ios-information-outline"></i>Edit Post</NavLink>
+                                        <NavLink to={'/edit-post'}>
+                                            <i className="ion-ios-information-outline"></i>
+                                            Edit Post
+                                        </NavLink>
                                     </li>
                                     <li>
                                         <NavLink to={'/'}><i className="ion-ios-paperplane-outline"></i>Planes</NavLink>

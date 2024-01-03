@@ -10,6 +10,7 @@ import EditCategories from '../pages/category/editCategories';
 import AddPost from '../pages/blog/addPost';
 import AddPostCategories from '../pages/category/addBlogCategories';
 import EditPostCategories from '../pages/category/editPostCategories';
+import EditPost from '../pages/blog/editPost';
 
 const Routing = (): JSX.Element => {
     return (
@@ -22,8 +23,9 @@ const Routing = (): JSX.Element => {
                         <Route path="/add-categories" element={<AddCategories />} />
                         <Route path="/edit-categories" element={<EditCategories />} />
                         <Route path="/add-post" element={<AddPost />} />
+                        <Route path="/edit-post" element={<EditPost />} />
                         <Route path="/add-post-categories" element={<AddPostCategories />} />
-                        <Route path="/edit-post-categories" element={<EditPostCategories />} />
+                        <Route path="/edit-post-categories" element={<EditPostCategories />} />        
                         {/* <Route path="/edit-products/:id" element={<EditProduct />} /> */}
                     </Route>
                 </Routes>

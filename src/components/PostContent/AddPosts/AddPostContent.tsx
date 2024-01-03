@@ -52,7 +52,7 @@ const AddPostContent = ({
 
     const handleContentChange = useCallback((newContent: string): void => {
         setContent(newContent);
-        addNewValue({ context: newContent });
+        addNewValue({ content: newContent });
     }, [addNewValue, setContent]);
 
     return (

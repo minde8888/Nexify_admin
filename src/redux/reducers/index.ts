@@ -2,11 +2,13 @@ import { combineReducers } from 'redux';
 import authSlice from '../slice/authSlice';
 import categoriesSlice from '../slice/categoriesSlice';
 import blogCategoriesSlice from '../slice/blogCategoriesSlice';
+import postsSlice from '../slice/postsSlice';
 
 const rootReducer = combineReducers({
     auth: authSlice,
     categories: categoriesSlice,
-    blogCategories: blogCategoriesSlice
+    blogCategories: blogCategoriesSlice,
+    posts: postsSlice
 });
 
 export default rootReducer;
