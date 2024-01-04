@@ -7,14 +7,19 @@ import { PUT_METHOD, BLOG_URL, BLOG_UPDATE_URL } from '../../constants/apiConst'
 import Preloader from '../preloader/preloader';
 import useFetchData from '../../hooks/useDataFetching';
 import { Post } from '../../types/post';
+import Pagination from '../../components/Pagination/Pagination';
 
 
 const EditPost = () => {
     const { loading, fetchData } = useFetchData(BLOG_URL);
 
-    const posts:PagedResponse<Post> = useAppSelector((state) => state.data.posts);
+    const posts: PagedResponse<Post> = useAppSelector((state) => state.data.posts);
 
     const { handleSubmit, disabled } = useForm<Post>(PUT_METHOD, BLOG_UPDATE_URL);
+
+    const { nextPage, previousPage, pageNumber, pageSize, totalPages, totalRecords } = posts;
+
+    const size = 5; 
 
     const initialCategoryFormProperty: Post = {
         postId: '',
@@ -33,7 +38,7 @@ const EditPost = () => {
 
     return (
         <Preloader isLoading={loading}>
-            <Formik  onSubmit={(values, { resetForm }) => handleSubmit(values, { resetForm })}
+            <Formik onSubmit={(values, { resetForm }) => handleSubmit(values, { resetForm })}
                 initialValues={initialCategoryFormProperty}
                 validationSchema={validationSchema}
                 isSubmitting={false}
@@ -45,6 +50,17 @@ const EditPost = () => {
                         disabled={disabled}
                         URL={CATEGORIES_URL}
                     /> */}
+                    <Pagination
+                        firstPage={0}
+                        lastPage={0}
+                        nextPage={nextPage ?? 0}
+                        previousPage={previousPage ?? 0}
+                        pageNumber={pageNumber}
+                        pageSize={pageSize}
+                        totalPages={totalPages}
+                        totalRecords={totalRecords}
+                        size={size}
+                        url={BLOG_URL} />
                 </Form>
             </Formik>
         </Preloader>

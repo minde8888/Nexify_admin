@@ -10,3 +10,5 @@ export const BLOG_CATEGORIES_URL = 'blogCategory';
 export const BLOG_CATEGORY_UPDATE_URL = 'blogCategory/update';
 export const POST_METHOD = 'post';
 export const PUT_METHOD = 'put';
+export const GET_METHOD = 'get';
+export const DELETE_METHOD = 'delete';
