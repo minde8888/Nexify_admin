@@ -1,10 +1,10 @@
 export interface Post {
-    postId?: string;
+    postId: string;
     title:string;
-    content: string;
-    images: string[];  
+    content?: string;
+    images?: string[];  
     imageSrc?: string[]  
     imageName?: string;
     dateCreated?: string;
-    categories?: string[];
+    categories?: Categories[];
 }

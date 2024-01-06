@@ -1,10 +1,8 @@
 interface PagedResponse<T> {
-    nextPage: null;
     pageNumber: number;
     pageSize: number;
-    data: T[];
-    length: number;
-    previousPage: null;
+    [key: string]: T[];
+    length: number;  
     totalPages: number;
     totalRecords: number;
-  }
+}

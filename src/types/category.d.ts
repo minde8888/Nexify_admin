@@ -10,7 +10,6 @@ export interface Categories {
     products: Category[];
 }
 
-
 export interface SubcategoryResponse {
     subCategoryId: string;
     subCategoryName: string;
@@ -24,4 +23,12 @@ export interface CategoryResponse {
     description: string;
     imageSrc: string;
     subcategories: SubcategoryResponse[];
+}
+
+export interface Categories {
+    id: string;
+    categoryName: string;
+    description?: string;
+    image?: string;
+    imageName: string;
 }

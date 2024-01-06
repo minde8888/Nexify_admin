@@ -1,38 +1,37 @@
 import React from 'react';
-import { useAppDispatch } from '../../redux/store';
 import { getAllAction } from '../../redux/actions/actions';
+import style from './pagination.module.scss';
+import { AnyAction, Dispatch } from '@reduxjs/toolkit';
 
-
-interface Props {
-    firstPage: number;
-    lastPage: number;
-    nextPage: number;
-    previousPage: number;
+interface PaginationProps {
     pageNumber: number;
     pageSize: number;
     totalPages: number;
     totalRecords: number;
-    size: number;
+    numButtonsDisplayed: number;
     url: string;
+    dispatch: Dispatch<AnyAction>;
 }
 
-const Pagination: React.FC<Props> = ({
-    firstPage,
-    lastPage,
-    nextPage,
-    previousPage,
+const Pagination: React.FC<PaginationProps> = ({
     pageNumber,
     pageSize,
     totalPages,
     totalRecords,
-    size,
-    url
-}: Props) => {
-    const dispatch = useAppDispatch();
+    numButtonsDisplayed,
+    url,
+    dispatch
+}: PaginationProps) => {
 
-    const onClick = async (pageNum: number | null) => {
-        if (true) {
-            dispatch(getAllAction(`${url}?PageNumber=${pageNum}&PageSize=${size}`));
+
+    const numPages = totalPages < numButtonsDisplayed ? totalPages : numButtonsDisplayed;
+
+    const generateQueryString = (pageNum: number) =>
+        `${url}?PageNumber=${pageNum}&PageSize=${pageSize}`;
+
+    const handleButtonClick = async (pageNum: number | null) => {
+        if (pageNum !== null && pageNum >= 1 && pageNum <= totalPages) {
+            dispatch(getAllAction(generateQueryString(pageNum)));
         }
     };
 
@@ -40,21 +39,37 @@ const Pagination: React.FC<Props> = ({
         <button
             type='button'
             key={label}
-            onClick={() => onClick(pageNum)}
-            disabled={pageNum === null || pageNum === pageNumber}
+            onClick={() => handleButtonClick(pageNum)}
+            disabled={pageNum === null || pageNum === pageNumber || pageNum < 1 || pageNum > totalPages}
         >
             {label}
         </button>
     );
 
+    const renderPaginationButtons = () => {
+        const startPage = Math.max(1, pageNumber - numPages);
+        const endPage = Math.min(totalPages, pageNumber + numPages);
+
+        const buttons = Array.from({ length: endPage - startPage + 1 }, (_, index) => {
+            const pageNum = startPage + index;
+            return renderButton(pageNum, pageNum.toString());
+        });
+
+        return (
+            <>
+                {renderButton(pageNumber - 1, 'Previous')}
+                {buttons}
+                {renderButton(pageNumber + 1, 'Next')}
+            </>
+        );
+    };
+
     return (
-        <nav className="pagination" aria-label="Pagination">
-            {renderButton(previousPage, 'Previous')}
-            {[pageNumber - 1, pageNumber, pageNumber + 1]
-                .filter(pageNum => pageNum > 0 && pageNum <= totalPages)
-                .map(pageNum => renderButton(pageNum, pageNum.toString()))
-            }
-            {renderButton(nextPage, 'Next')}
+        <nav className={style.pagination} aria-label="Pagination">
+            {renderPaginationButtons()}
+            <div className={style.totalPosts}>
+                <span>Total Posts: {totalRecords}</span>
+            </div>
         </nav>
     );
 };

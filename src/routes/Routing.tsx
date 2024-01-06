@@ -9,7 +9,7 @@ import Dashboard from '../pages/dashboard/dashboard';
 import EditCategories from '../pages/category/editCategories';
 import AddPost from '../pages/blog/addPost';
 import AddPostCategories from '../pages/category/addBlogCategories';
-import EditPostCategories from '../pages/category/editPostCategories';
+import EditPostCategories from '../pages/category/editBlogCategories';
 import EditPost from '../pages/blog/editPost';
 
 const Routing = (): JSX.Element => {

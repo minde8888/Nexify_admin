@@ -1,0 +1,33 @@
+.pagination {
+    display        : flex;
+    justify-content: center;
+    margin-top     : 20px;
+
+    button {
+        padding         : 8px 12px;
+        margin          : 0 5px;
+        border          : 1px solid #ccc;
+        background-color: #fff;
+        cursor          : pointer;
+
+        &:hover {
+            background-color: #f0f0f0;
+        }
+
+        &:disabled {
+            cursor          : not-allowed;
+            color           : #999;
+            border-color    : #ccc;
+            background-color: #eee;
+        }
+    }
+
+    .totalPosts {
+        margin-top: 10px;
+
+        span {
+            font-size: 14px;
+            color    : #555;
+        }
+    }
+}

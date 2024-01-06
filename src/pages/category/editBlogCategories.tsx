@@ -9,7 +9,7 @@ import useFetchData from '../../hooks/useDataFetching';
 import { useEffect } from 'react';
 import Preloader from '../preloader/preloader';
 
-const EditPostCategories = () => {
+const EditBlogCategories = () => {
     const { loading, fetchData } = useFetchData(BLOG_CATEGORIES_URL);
 
     const categories = useAppSelector((state) => state.data.blogCategories);
@@ -47,4 +47,4 @@ const EditPostCategories = () => {
     );
 };
 
-export default EditPostCategories;
+export default EditBlogCategories;
