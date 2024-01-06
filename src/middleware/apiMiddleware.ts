@@ -5,6 +5,7 @@ import { Middleware } from '@reduxjs/toolkit';
 import { update } from './update';
 import { getAll } from './getAll';
 import { remove } from './remove';
+import { DELETE_METHOD, GET_METHOD, POST_METHOD, PUT_METHOD } from '../constants/apiConst';
 
 const apiMiddleware: Middleware<{}, RootState> =
     ({ dispatch }) =>
@@ -14,20 +15,20 @@ const apiMiddleware: Middleware<{}, RootState> =
             const { method, url, formData, bool, id } = action.meta.api;
 
             switch (method) {
-                case 'post':                   
+                case POST_METHOD:
                     // if (formData) {
                     //     console.log(Object.fromEntries(formData));
                     // }
-                    await handlePostRequest(url, formData);                  
+                    await handlePostRequest(url, formData);
                     break;
-                case 'put':
+                case PUT_METHOD:
                     update({ dispatch, payload: action.payload, url, formData: formData ?? new FormData() });
                     break;
-                case 'get':
-                    const values = await handleGetAllRequest(url);       
+                case GET_METHOD:
+                    const values = await handleGetAllRequest(url);
                     getAll({ dispatch, payload: values, url });
                     break;
-                case 'delete':
+                case DELETE_METHOD:
                     remove({ dispatch, bool, url, id: id ?? '' });
                     break;
                 default:

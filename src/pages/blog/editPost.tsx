@@ -51,15 +51,12 @@ const EditPost = () => {
                         selectValue={selectValue}
                         dispatch={dispatch}
                         url={BLOG_URL}
-                        pageNumber={pageNumber}
                     />
-                    {post && <EditPostProperty posts={post} disabled={false} URL={BLOG_URL} />}
-
-                    {/* <EditProperty
-                    categories={categories}
-                    disabled={disabled}
-                    URL={CATEGORIES_URL}
-                /> */}
+                    {post && <EditPostProperty
+                        posts={post}
+                        disabled={disabled}
+                        URL={BLOG_URL}
+                    />}
                     <Pagination
                         pageNumber={pageNumber}
                         pageSize={pageSize}

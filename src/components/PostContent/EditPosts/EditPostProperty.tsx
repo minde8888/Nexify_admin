@@ -1,11 +1,8 @@
 import { FunctionComponent, useCallback, useEffect, useState } from 'react';
-import { CategoryResponse } from '../../../types/category';
 import { useModal } from '../../../hooks/useModel';
-import { findCategoryById, findSubcategoryById } from '../../../utils/helpers/categoryById';
 import CategoryFormProperty from '../../../types/categoryFormProperty';
 import useFormikValues from '../../../hooks/useFormikValues';
 import { ImageFile } from '../../../types/imageFile';
-// import styles from './edit.module.scss';
 import { deleteAction } from '../../../redux/actions/actions';
 import { useAppDispatch } from '../../../hooks/useRedux';
 import { Post } from '../../../types/post';
@@ -63,10 +60,9 @@ const EditPostProperty: FunctionComponent<EditPostPropertyProps> = ({ posts, dis
     //     setContent(updatedValues.description || '');
     // }, [toggle, categories, addNewValue]);
 
-    // const onRemove = useCallback((id: string) => {
-    //     const bool = categories.some((category) => category.categoryId === id);
-    //     dispatch(deleteAction(URL, id, bool))
-    // }, [URL, categories, dispatch]);
+    const onRemove = useCallback((id: string) => {
+        dispatch(deleteAction(URL, id))
+    }, [URL, dispatch]);
 
     const handleAddImage = useCallback((newFile: ImageFile[]) => {
         setFile(newFile);
@@ -95,7 +91,7 @@ const EditPostProperty: FunctionComponent<EditPostPropertyProps> = ({ posts, dis
                     key={index}
                     post={post}
                     // onEdit={handleEdit}
-                    // onRemove={onRemove}
+                    onRemove={onRemove}
                 />
             ))}
         </div>

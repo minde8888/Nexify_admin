@@ -2,6 +2,7 @@ import React from 'react';
 import { getAllAction } from '../../redux/actions/actions';
 import style from './pagination.module.scss';
 import { AnyAction, Dispatch } from '@reduxjs/toolkit';
+import { generateQueryString } from '../../utils/helpers/generateQueryString';
 
 interface PaginationProps {
     pageNumber: number;
@@ -23,15 +24,11 @@ const Pagination: React.FC<PaginationProps> = ({
     dispatch
 }: PaginationProps) => {
 
-
     const numPages = totalPages < numButtonsDisplayed ? totalPages : numButtonsDisplayed;
-
-    const generateQueryString = (pageNum: number) =>
-        `${url}?PageNumber=${pageNum}&PageSize=${pageSize}`;
 
     const handleButtonClick = async (pageNum: number | null) => {
         if (pageNum !== null && pageNum >= 1 && pageNum <= totalPages) {
-            dispatch(getAllAction(generateQueryString(pageNum)));
+            dispatch(getAllAction(generateQueryString(pageSize, pageNum, url)));
         }
     };
 

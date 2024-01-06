@@ -3,6 +3,7 @@ import api from './instanceAPI';
 import { ServerError } from '../types/serverError';
 import { ApiError } from '../errorHandler/apiError';
 import { HttpMethodError } from '../errorHandler/httpMethodError';
+import { DELETE_METHOD, GET_METHOD, POST_METHOD, PUT_METHOD } from '../constants/apiConst';
 
 const handleRequest = async <T>({ method, url, id, formData }: ApiRequest): Promise<T | undefined> => {
     try {
@@ -10,22 +11,22 @@ const handleRequest = async <T>({ method, url, id, formData }: ApiRequest): Prom
 
         return response.data;
     } catch (error) {
-        handleRequestError(error as ApiRequest); 
+        handleRequestError(error as ApiRequest);
         return undefined;
     }
 };
 
 const makeApiRequest = async <T>({ method, url, id, formData }: ApiRequest): Promise<AxiosResponse<T>> => {
-    const apiUrl = id ? `${url}/${id}` : url;
+    const apiUrl = id ? `${url}/id?id=${id}` : url;
 
     switch (method) {
-        case 'post':
+        case POST_METHOD:
             return await api.post(apiUrl, formData);
-        case 'get':
+        case GET_METHOD:
             return await api.get(apiUrl);
-        case 'put':
+        case PUT_METHOD:
             return await api.put(apiUrl, formData);
-        case 'delete':
+        case DELETE_METHOD:
             return await api.delete(apiUrl);
         default:
             throw new HttpMethodError('Invalid HTTP method');

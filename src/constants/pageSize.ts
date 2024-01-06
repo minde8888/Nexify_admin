@@ -1,1 +1,1 @@
-export const pageSizeOptions = [2, 3, 4, 6];
+export const pageSizeOptions = [10, 25, 50, 100];
