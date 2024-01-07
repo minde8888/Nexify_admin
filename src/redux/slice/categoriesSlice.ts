@@ -51,7 +51,7 @@ const categoriesSlice = createSlice({
             const subcategoryId = action.payload;
 
             state.forEach((category) => {
-                const subcategoryIndex = category.subcategories.findIndex((item) => item.subCategoryId === subcategoryId);
+                const subcategoryIndex = category.subcategories.findIndex((item) => item.Id === subcategoryId);
 
                 if (subcategoryIndex !== -1) {
                     category.subcategories.splice(subcategoryIndex, 1);

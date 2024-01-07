@@ -11,21 +11,23 @@ interface UpdateProps {
 }
 
 export const update = ({ dispatch, payload, url, formData }: UpdateProps) => {
-
     switch (url) {
         case CATEGORY_UPDATE_URL:
             if (payload.accept) {
                 dispatch(updateCategory(payload));
-                handlePutRequest(url, formData); 
+                handlePutRequest(url, formData);
             } else {
                 const modifiedPayload = {
                     ...payload,
-                    subCategoryName: payload.categoryName,
+                    subCategoryName: payload.categoryName
                 };
                 delete modifiedPayload.categoryName;
                 dispatch(updateSubcategory(modifiedPayload));
 
-                handlePutRequest(SUBCATEGORY_UPDATE_URL, formData); 
+                handlePutRequest(SUBCATEGORY_UPDATE_URL, formData);
+                if (formData) {
+                    console.log(Object.fromEntries(formData));
+                }
             }
             break;
         case PRODUCT_UPDATE_URL: {

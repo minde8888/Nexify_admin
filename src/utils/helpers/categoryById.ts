@@ -6,5 +6,5 @@ export const findCategoryById = (categoryId: string, categories: CategoryRespons
 
 export const findSubcategoryById = (subCategoryId: string, categories: CategoryResponse[]): SubcategoryResponse | undefined => {
     const allSubcategories = Object.values(categories).flatMap((category) => category.subcategories || []);
-    return allSubcategories.find((subcategory) => subcategory.subCategoryId === subCategoryId);
+    return allSubcategories.find((subcategory) => subcategory.Id === subCategoryId);
 };
