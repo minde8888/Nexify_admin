@@ -84,7 +84,7 @@ const AddPostContent = ({
                 <div className={styles.columns}>
                     <SelectField
                         value={selectValue}
-                        name="categoryId"
+                        name="id"
                         as="select"
                         onChange={(e: React.FormEvent<HTMLSelectElement>) => handleSelectChange(e)}
                         style={{

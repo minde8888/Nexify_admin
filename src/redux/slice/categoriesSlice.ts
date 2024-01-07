@@ -15,7 +15,7 @@ const categoriesSlice = createSlice({
         updateCategory: (state: CategoryResponse[], action: PayloadAction<CategoryFormProperty>) => {
             const updatedCategory = action.payload;
 
-            const categoryIndex = findIndexById(state, updatedCategory.id, 'categoryId');
+            const categoryIndex = findIndexById(state, updatedCategory.id, 'id');
 
             if (categoryIndex !== -1) {
                  (state[categoryIndex] = { ...state[categoryIndex], ...updatedCategory });
@@ -40,7 +40,7 @@ const categoriesSlice = createSlice({
         removeCategory: (state: CategoryResponse[], action: PayloadAction<string>) => {
             const categoryId = action.payload;
 
-            const categoryIndex = findIndexById(state, categoryId, 'categoryId');
+            const categoryIndex = findIndexById(state, categoryId, 'id');
 
             if (categoryIndex !== -1) {
                 state.splice(categoryIndex, 1);

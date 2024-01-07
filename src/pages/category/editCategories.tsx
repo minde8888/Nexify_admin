@@ -30,13 +30,13 @@ const EditCategories = () => {
 
     return (
         <Preloader isLoading={loading}>
-            <Formik  onSubmit={(values, { resetForm }) => handleSubmit(values, { resetForm })}
+            <Formik onSubmit={(values, { resetForm }) => handleSubmit(values, { resetForm })}
                 initialValues={initialCategoryFormProperty}
                 validationSchema={validationSchema}
                 isSubmitting={false}
             >
                 <Form>
-                    <h2>Edit/Remove Categories</h2>
+                    <h2>Edit/Remove Products Categories</h2>
                     <EditProperty
                         categories={categories}
                         disabled={disabled}

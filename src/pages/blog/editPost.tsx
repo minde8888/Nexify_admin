@@ -11,30 +11,29 @@ import Pagination from '../../components/Pagination/Pagination';
 import EditPostProperty from '../../components/PostContent/EditPosts/EditPostProperty';
 import PageSize from '../../components/PageSize/PageSize';
 import { pageSizeOptions } from '../../constants/pageSize';
+import sortByProperty from '../../utils/helpers/sortByProperty';
 
 const EditPost = () => {
     const dispatch = useAppDispatch();
-
     const { fetchData, loading } = useFetchData(BLOG_URL);
 
-    const [selectValue, setSelectValue] = useState<number>(pageSizeOptions[0]);
-
+    const [selectValue, setSelectValue] = useState(pageSizeOptions[0]);
     const posts: PagedResponse<Post> = useAppSelector((state) => state.data.posts);
-
     const { handleSubmit, disabled } = useForm<Post>(PUT_METHOD, BLOG_UPDATE_URL);
-
     const { pageNumber, pageSize, totalPages, totalRecords, post } = posts;
 
+    useEffect(() => {
+        fetchData();
+    }, [fetchData]);
+
     const initialCategoryFormProperty: Post = {
-        postId: '',
+        id: '',
         title: '',
         content: '',
         images: [],
     };
 
-    useEffect(() => {
-        fetchData();
-    }, [fetchData]);
+    const sortedPosts = post ? sortByProperty(post, 'dateCreated') : undefined;
 
     return (
         <Preloader isLoading={loading}>
@@ -52,11 +51,13 @@ const EditPost = () => {
                         dispatch={dispatch}
                         url={BLOG_URL}
                     />
-                    {post && <EditPostProperty
-                        posts={post}
-                        disabled={disabled}
-                        URL={BLOG_URL}
-                    />}
+                    {sortedPosts && (
+                        <EditPostProperty
+                            posts={sortedPosts}
+                            disabled={disabled}
+                            URL={BLOG_URL}
+                        />
+                    )}
                     <Pagination
                         pageNumber={pageNumber}
                         pageSize={pageSize}

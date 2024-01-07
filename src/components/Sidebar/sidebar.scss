@@ -4,7 +4,7 @@
   height: 90vh;
 
   .sidebar {
-    position           : absolute;
+    position           : fixed;
     width              : 200px;
     height             : 100vh;
     top                : 0;
@@ -24,7 +24,6 @@
   }
 
   .sidebar-nav {
-    position                  : fixed;
     width                     : 208px;
     background-color          : #19222a;
     height                    : 100%;
@@ -103,10 +102,9 @@
     & .nav-flyout {
       position        : absolute;
       background-color: #080D11;
-      z-index         : 9;
+      z-index         : 2;
       left            : 40px;
       top             : 0;
-      height          : 100vh;
       transform       : translateX(100%);
       transition      : all 0.5s ease;
 

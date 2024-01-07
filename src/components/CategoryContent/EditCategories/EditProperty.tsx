@@ -51,7 +51,7 @@ const EditProperty: FunctionComponent<EditPropertyProps> = ({ categories, disabl
     const category = findCategoryById(id, categories);
     const subcategory = findSubcategoryById(id, categories);
     const updatedValues: CategoryFormProperty = {
-      id: category?.categoryId || subcategory?.subCategoryId || '',
+      id: category?.id || subcategory?.subCategoryId || '',
       categoryName: category?.categoryName || subcategory?.subCategoryName || '',
       description: category?.description || subcategory?.description || '',
       imageSrc: category?.imageSrc || subcategory?.imageSrc || '',
@@ -64,7 +64,10 @@ const EditProperty: FunctionComponent<EditPropertyProps> = ({ categories, disabl
   }, [toggle, categories, addNewValue]);
 
   const onRemove = useCallback((id: string) => {
-    const bool = categories.some((category) => category.categoryId === id);
+    console.log('====================================');
+    console.log('id', id);
+    console.log('====================================');
+    const bool = categories.some((category) => category.id === id);
     dispatch(deleteAction(URL, id, bool))
   }, [URL, categories, dispatch]);
 

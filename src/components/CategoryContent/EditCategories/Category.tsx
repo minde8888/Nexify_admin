@@ -14,14 +14,14 @@ interface CategoryProps {
 }
 
 const Category: FunctionComponent<CategoryProps> = ({ category, onRemove, onEdit }) => (
-    <div key={category.categoryId} className={styles.categoryRow}>
+    <div key={category.id} className={styles.categoryRow}>
         <div className={styles.categoryInfo}>
             <div>{category.categoryName}</div>
             <div className={styles.description}>{category.description}</div>
             <img src={category.imageSrc ? category.imageSrc : defaultImage} alt={category.categoryName} />
             <div>
-                <ButtonWithIcon icon={editIcon} altText="Edit" style={styles.buttonEdit} onClick={() => onEdit(category.categoryId)} />
-                <RemoveButton onClick={() => onRemove(category.categoryId)} style={styles.removeButton} />
+                <ButtonWithIcon icon={editIcon} altText="Edit" style={styles.buttonEdit} onClick={() => onEdit(category.id)} />
+                <RemoveButton onClick={() => onRemove(category.id)} style={styles.removeButton} />
             </div>
         </div>
         {category.subcategories && <Subcategories

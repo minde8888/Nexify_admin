@@ -53,9 +53,9 @@ const EditPropertyModal: FunctionComponent<EditPropertyModalProps> = ({
                 setImagePreviewUrl={setImagePreviewUrl}
                 handleAddImage={handleAddImage}
             />
-            <MarkDownEditor content={content} setContent={setContent} showEditor={true} width='95%'/>
+            <MarkDownEditor content={content} setContent={setContent} showEditor={true} width='95%' />
             <div className={buttonStyles.saveButton}>
-                <button disabled={disabled} type="submit">Submit</button>
+                <button disabled={disabled} type="submit">Save</button>
             </div>
             <div className={buttonStyles.closeModalButton}>
                 <button data-testid="test-close-id" onClick={onCancel} type="button">

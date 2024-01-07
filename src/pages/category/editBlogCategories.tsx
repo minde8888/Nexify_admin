@@ -35,7 +35,7 @@ const EditBlogCategories = () => {
                 isSubmitting={false}
             >
                 <Form>
-                    <h2>Edit/Remove Categories</h2>
+                    <h2>Edit/Remove Blog Categories</h2>
                     <EditProperty
                         categories={categories}
                         disabled={disabled}
