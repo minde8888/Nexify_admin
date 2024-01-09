@@ -28,7 +28,7 @@ const EditProperty: FunctionComponent<EditPropertyProps> = ({ categories, disabl
   const [file, setFile] = useState<ImageFile[]>([]);
 
   const [imagePreviewUrl, setImagePreviewUrl] = useState<string>('');
-  const [values, setValues] = useState<CategoryFormProperty>({
+  const [catValues, setCatValues] = useState<CategoryFormProperty>({
     id: '',
     categoryName: '',
     description: '',
@@ -36,20 +36,20 @@ const EditProperty: FunctionComponent<EditPropertyProps> = ({ categories, disabl
     accept: true
   });
 
-  const { addNewValue } = useFormikValues();
+  const { addNewValue, values } = useFormikValues();
 
   useEffect(() => {
 
     addNewValue({
-      id: values.id,
+      id: catValues.id,
       description: content,
-      imageName: file.length === 0 && !isEmptyString(imagePreviewUrl) ? removePartFromUrl(values.imageSrc ?? '', UrlToImages) : null,
+      imageName: file.length === 0 && !isEmptyString(imagePreviewUrl) ? removePartFromUrl(catValues.imageSrc ?? '', UrlToImages) : null,
       image: file,
-      accept: values.accept,
-      imageSrc: imagePreviewUrl
+      accept: catValues.accept,
+      imageSrc: imagePreviewUrl      
     });
     // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [values.id, content, file, values.accept]);
+  }, [catValues.id, content, file, catValues.accept]);
 
   const handleEdit = useCallback((id: string) => {
     toggle();
@@ -67,7 +67,7 @@ const EditProperty: FunctionComponent<EditPropertyProps> = ({ categories, disabl
 
     addNewValue({ categoryName: updatedValues.categoryName ?? '' });
     setImagePreviewUrl(updatedValues.imageSrc || '');
-    setValues(updatedValues);
+    setCatValues(updatedValues);
     setContent(updatedValues.description || '');
   }, [toggle, categories, addNewValue]);
 
@@ -92,18 +92,18 @@ const EditProperty: FunctionComponent<EditPropertyProps> = ({ categories, disabl
         onCancel={handleCancel}
         content={content}
         setContent={setContent}
-        categoryName={values.categoryName}
         handleAddImage={handleAddImage}
         setImagePreviewUrl={setImagePreviewUrl}
         imagePreviewUrl={imagePreviewUrl}
         disabled={disabled}
+        values={values}
       />
       {Object.values(categories).map((category, index) => (
         <Category
           key={index}
           category={category}
           onEdit={handleEdit}
-          onRemove={onRemove}
+          onRemove={onRemove}    
         />
       ))}
     </div>

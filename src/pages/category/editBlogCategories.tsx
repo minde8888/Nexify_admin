@@ -2,7 +2,7 @@ import { Formik, Form } from 'formik';
 import EditProperty from '../../components/CategoryContent/EditCategories/EditProperty';
 import { useAppSelector } from '../../hooks/useRedux';
 import CategoryFormProperty from '../../types/categoryFormProperty';
-import validationSchema from '../../utils/validation/addCategoryValidationSchema';
+import validationSchema from '../../utils/validation/editCategoryValidationSchema';
 import useForm from '../../hooks/useForm';
 import { BLOG_CATEGORIES_URL, PUT_METHOD } from '../../constants/apiConst';
 import useFetchData from '../../hooks/useDataFetching';

@@ -1,4 +1,4 @@
-import { FunctionComponent } from 'react';
+import { FunctionComponent, useEffect } from 'react';
 import { Modal } from '../../Modal/Modal';
 import { TextInputField } from '../../InputFields/TextInputField';
 import UploadImage from '../../UploadImage/UploadImage';
@@ -6,8 +6,9 @@ import PropertyImagePreview from '../../PropertyImagePreview/PropertyImagePrevie
 import MarkDownEditor from '../../MarkDownEditor/MarkDownEditor';
 import styles from './edit.module.scss';
 import { ImageFile } from '../../../types/imageFile';
+import { FormValues } from '../../../hooks/useFormikValues';
 
-interface EditPropertyModalProps {
+interface EditPropertyModalProps extends FormValues {
     isOpen: boolean;
     toggle: () => void;
     onCancel: () => void;
@@ -18,6 +19,7 @@ interface EditPropertyModalProps {
     setImagePreviewUrl: (imagePreviewUrl: string) => void;
     imagePreviewUrl: string;
     disabled: boolean;
+    values: FormValues;
 }
 
 const EditPropertyModal: FunctionComponent<EditPropertyModalProps> = ({
@@ -30,13 +32,20 @@ const EditPropertyModal: FunctionComponent<EditPropertyModalProps> = ({
     handleAddImage,
     setImagePreviewUrl,
     imagePreviewUrl,
-    disabled
+    disabled,
+    values
 }) => {
 
     const buttonStyles = {
         saveButton: styles.saveButton,
         closeModalButton: styles.closeModalButton,
     };
+
+    useEffect(() => {
+        if (disabled) {
+            onCancel();
+        }
+    }, [disabled, onCancel]);
 
     return (
         <Modal isOpen={isOpen} toggle={toggle}>
@@ -46,7 +55,7 @@ const EditPropertyModal: FunctionComponent<EditPropertyModalProps> = ({
                 label="Category Name"
                 id="categoryName"
                 placeholder="Enter category name"
-                initialValue={''}
+                initialValue={values.categoryName}
             />
             <PropertyImagePreview imagePreviewUrl={imagePreviewUrl} />
             <UploadImage
