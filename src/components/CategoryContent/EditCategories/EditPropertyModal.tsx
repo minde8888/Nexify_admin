@@ -46,7 +46,7 @@ const EditPropertyModal: FunctionComponent<EditPropertyModalProps> = ({
                 label="Category Name"
                 id="categoryName"
                 placeholder="Enter category name"
-                initialValue={categoryName}
+                initialValue={''}
             />
             <PropertyImagePreview imagePreviewUrl={imagePreviewUrl} />
             <UploadImage

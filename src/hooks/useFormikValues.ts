@@ -1,4 +1,4 @@
-import { setIn, useFormikContext } from 'formik';
+import {useFormikContext } from 'formik';
 
 interface FormValues {
     [key: string]: any;
@@ -15,17 +15,17 @@ const useFormikValues = () => {
 
     const updateValues = (newValues: FormValues[]) => {
         const filteredValues = Array.isArray(newValues) ? newValues.filter((value) => value !== null && value !== undefined) : [];
-
+      
         setValues((prevValues) => {
-            let updatedValues = { ...prevValues };
-            filteredValues.forEach((value: FormValues) => {
-                Object.entries(value).forEach(([key, val]) => {
-                    updatedValues = setIn(updatedValues, key, val);
-                });
-            });
-            return updatedValues;
+          let updatedValues = { ...prevValues };
+      
+          filteredValues.forEach((value: FormValues) => {
+            updatedValues = { ...updatedValues, ...value };
+          });         
+      
+          return updatedValues;
         });
-    };
+      };     
 
     const addNewValue = (value: FormValues) => {
         return updateValues([value]);

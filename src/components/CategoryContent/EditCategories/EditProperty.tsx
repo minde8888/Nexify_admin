@@ -11,7 +11,7 @@ import styles from './edit.module.scss';
 import { deleteAction } from '../../../redux/actions/actions';
 import { useAppDispatch } from '../../../hooks/useRedux';
 import { removePartFromUrl } from '../../../utils/helpers/removePartFromUrl';
-import { PathToImages } from '../../../constants/imageConst';
+import { UrlToImages } from '../../../constants/imageConst';
 import { isEmptyString } from '../../../utils/helpers/isEmptyString';
 
 interface EditPropertyProps {
@@ -43,7 +43,7 @@ const EditProperty: FunctionComponent<EditPropertyProps> = ({ categories, disabl
     addNewValue({
       id: values.id,
       description: content,
-      imageName: file.length === 0 && !isEmptyString(imagePreviewUrl) ? removePartFromUrl(values.imageSrc ?? '', PathToImages) : null,
+      imageName: file.length === 0 && !isEmptyString(imagePreviewUrl) ? removePartFromUrl(values.imageSrc ?? '', UrlToImages) : null,
       image: file,
       accept: values.accept,
       imageSrc: imagePreviewUrl
