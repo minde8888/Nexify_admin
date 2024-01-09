@@ -10,6 +10,9 @@ import { ImageFile } from '../../../types/imageFile';
 import styles from './edit.module.scss';
 import { deleteAction } from '../../../redux/actions/actions';
 import { useAppDispatch } from '../../../hooks/useRedux';
+import { removePartFromUrl } from '../../../utils/helpers/removePartFromUrl';
+import { PathToImages } from '../../../constants/imageConst';
+import { isEmptyString } from '../../../utils/helpers/isEmptyString';
 
 interface EditPropertyProps {
   categories: CategoryResponse[];
@@ -29,15 +32,18 @@ const EditProperty: FunctionComponent<EditPropertyProps> = ({ categories, disabl
     id: '',
     categoryName: '',
     description: '',
+    imageName: '',
     accept: true
   });
 
   const { addNewValue } = useFormikValues();
 
   useEffect(() => {
+
     addNewValue({
       id: values.id,
       description: content,
+      imageName: file.length === 0 && !isEmptyString(imagePreviewUrl) ? removePartFromUrl(values.imageSrc ?? '', PathToImages) : null,
       image: file,
       accept: values.accept,
       imageSrc: imagePreviewUrl
@@ -50,13 +56,15 @@ const EditProperty: FunctionComponent<EditPropertyProps> = ({ categories, disabl
 
     const category = findCategoryById(id, categories);
     const subcategory = findSubcategoryById(id, categories);
+
     const updatedValues: CategoryFormProperty = {
-      id: category?.id || subcategory?.Id || '',
+      id: category?.id || subcategory?.id || '',
       categoryName: category?.categoryName || subcategory?.subCategoryName || '',
       description: category?.description || subcategory?.description || '',
       imageSrc: category?.imageSrc || subcategory?.imageSrc || '',
       accept: category ? true : false
     };
+
     addNewValue({ categoryName: updatedValues.categoryName ?? '' });
     setImagePreviewUrl(updatedValues.imageSrc || '');
     setValues(updatedValues);

@@ -11,7 +11,7 @@ export interface Categories {
 }
 
 export interface SubcategoryResponse {
-    Id: string;
+    id: string;
     subCategoryName: string;
     description: string;
     imageSrc: string;

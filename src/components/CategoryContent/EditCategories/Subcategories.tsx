@@ -13,7 +13,7 @@ const Subcategories: FunctionComponent<SubcategoriesProps> = ({ subcategories, o
     <div className={styles.subcategoryContainer}>
         {subcategories.map(subcategory => (
             <Subcategory
-                key={subcategory.Id}
+                key={subcategory.id} 
                 subcategory={subcategory}
                 onRemove={onRemove}
                 onEdit={onEdit} />

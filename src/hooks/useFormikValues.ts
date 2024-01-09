@@ -33,7 +33,7 @@ const useFormikValues = () => {
 
     return {
         addNewValue
-    }
+    };
 };
 
 export default useFormikValues;

@@ -23,11 +23,7 @@ export const update = ({ dispatch, payload, url, formData }: UpdateProps) => {
                 };
                 delete modifiedPayload.categoryName;
                 dispatch(updateSubcategory(modifiedPayload));
-
                 handlePutRequest(SUBCATEGORY_UPDATE_URL, formData);
-                if (formData) {
-                    console.log(Object.fromEntries(formData));
-                }
             }
             break;
         case PRODUCT_UPDATE_URL: {

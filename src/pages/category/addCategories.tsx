@@ -16,7 +16,7 @@ const AddCategories = () => {
         <Formik onSubmit={(values, { resetForm }) => handleSubmit(values, { resetForm })}
         initialValues={{
             id: uuidv4(),
-            categoryName: '',
+            categoryName: '',      
             description: '',
             image: [],
             properties: [],

@@ -21,6 +21,7 @@ const EditCategories = () => {
         id: '',
         categoryName: '',
         description: '',
+        imageName: '',
         image: [],
     };
 

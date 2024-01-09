@@ -20,6 +20,7 @@ const EditBlogCategories = () => {
         id: '',
         categoryName: '',
         description: '',
+        imageName: '',
         image: [],
     };
 

@@ -21,7 +21,7 @@ const apiMiddleware: Middleware<{}, RootState> =
                     // }
                     await handlePostRequest(url, formData);
                     break;
-                case PUT_METHOD:
+                case PUT_METHOD:    
                     update({ dispatch, payload: action.payload, url, formData: formData ?? new FormData() });
                     break;
                 case GET_METHOD:

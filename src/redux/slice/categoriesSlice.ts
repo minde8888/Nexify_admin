@@ -26,7 +26,7 @@ const categoriesSlice = createSlice({
             const updatedSubcategory = action.payload;
 
             state.forEach((category) => {
-                const subcategoryIndex = findIndexById(category.subcategories, updatedSubcategory.id, 'subCategoryId');
+                const subcategoryIndex = findIndexById(category.subcategories, updatedSubcategory.id, 'id');
 
                 if (subcategoryIndex !== -1) {
                     category.subcategories[subcategoryIndex] = {
@@ -51,7 +51,7 @@ const categoriesSlice = createSlice({
             const subcategoryId = action.payload;
 
             state.forEach((category) => {
-                const subcategoryIndex = category.subcategories.findIndex((item) => item.Id === subcategoryId);
+                const subcategoryIndex = category.subcategories.findIndex((item) => item.id === subcategoryId);
 
                 if (subcategoryIndex !== -1) {
                     category.subcategories.splice(subcategoryIndex, 1);
