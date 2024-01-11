@@ -1,7 +1,8 @@
 import { AnyAction, Dispatch } from '@reduxjs/toolkit';
 import { updateCategory, updateSubcategory } from '../redux/slice/categoriesSlice';
-import { CATEGORY_UPDATE_URL, PRODUCT_UPDATE_URL, SUBCATEGORY_UPDATE_URL } from '../constants/apiConst';
+import { BLOG_CATEGORIES_URL, CATEGORY_UPDATE_URL, PRODUCT_UPDATE_URL, SUBCATEGORY_UPDATE_URL } from '../constants/apiConst';
 import { handlePutRequest } from '../api/handleAPI';
+import { updatePostCategory } from '../redux/slice/blogCategoriesSlice';
 
 interface UpdateProps {
     dispatch: Dispatch<AnyAction>;
@@ -26,7 +27,9 @@ export const update = ({ dispatch, payload, url, formData }: UpdateProps) => {
                 handlePutRequest(SUBCATEGORY_UPDATE_URL, formData);
             }
             break;
-        case PRODUCT_UPDATE_URL: {
+        case BLOG_CATEGORIES_URL: {
+            dispatch(updatePostCategory(payload));
+            handlePutRequest(url, formData);
             break;
         }
     }

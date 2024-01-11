@@ -7,6 +7,7 @@ import { deleteAction } from '../../../redux/actions/actions';
 import { useAppDispatch } from '../../../hooks/useRedux';
 import { Post } from '../../../types/post';
 import PostContext from './PostContext';
+import EditPostModal from './EditPostModal';
 
 interface EditPostPropertyProps {
     posts: Post[];
@@ -42,23 +43,23 @@ const EditPostProperty: FunctionComponent<EditPostPropertyProps> = ({ posts, dis
         // eslint-disable-next-line react-hooks/exhaustive-deps
     }, [values.id, content, file, values.accept]);
 
-    // const handleEdit = useCallback((id: string) => {
-    //     toggle();
+    const handleEdit = useCallback((id: string) => {
+        toggle();
 
-    //     const category = findCategoryById(id, categories);
-    //     const subcategory = findSubcategoryById(id, categories);
-    //     const updatedValues: CategoryFormProperty = {
-    //         id: category?.categoryId || subcategory?.subCategoryId || '',
-    //         categoryName: category?.categoryName || subcategory?.subCategoryName || '',
-    //         description: category?.description || subcategory?.description || '',
-    //         imageSrc: category?.imageSrc || subcategory?.imageSrc || '',
-    //         accept: category ? true : false
-    //     };
-    //     addNewValue({ categoryName: updatedValues.categoryName ?? '' });
-    //     setImagePreviewUrl(updatedValues.imageSrc || '');
-    //     setValues(updatedValues);
-    //     setContent(updatedValues.description || '');
-    // }, [toggle, categories, addNewValue]);
+        // const category = findCategoryById(id, categories);
+        // const subcategory = findSubcategoryById(id, categories);
+        // const updatedValues: CategoryFormProperty = {
+        //     id: category?.categoryId || subcategory?.subCategoryId || '',
+        //     categoryName: category?.categoryName || subcategory?.subCategoryName || '',
+        //     description: category?.description || subcategory?.description || '',
+        //     imageSrc: category?.imageSrc || subcategory?.imageSrc || '',
+        //     accept: category ? true : false
+        // };
+        // addNewValue({ categoryName: updatedValues.categoryName ?? '' });
+        // setImagePreviewUrl(updatedValues.imageSrc || '');
+        // setValues(updatedValues);
+        // setContent(updatedValues.description || '');
+    }, [toggle, addNewValue]);
 
     const onRemove = useCallback((id: string) => {
         dispatch(deleteAction(URL, id))
@@ -74,23 +75,24 @@ const EditPostProperty: FunctionComponent<EditPostPropertyProps> = ({ posts, dis
 
     return (
         <div className={'styles.editPropertyContainer'}>
-            {/* <EditPropertyModal
-        isOpen={isOpen}
-        toggle={toggle}
-        onCancel={handleCancel}
-        content={content}
-        setContent={setContent}
-        categoryName={values.categoryName}
-        handleAddImage={handleAddImage}
-        setImagePreviewUrl={setImagePreviewUrl}
-        imagePreviewUrl={imagePreviewUrl}
-        disabled={disabled}
-      /> */}
+            <EditPostModal
+                isOpen={isOpen}
+                toggle={toggle}
+                onCancel={handleCancel}
+                content={content}
+                setContent={setContent}
+                categoryName={values.categoryName}
+                handleAddImage={handleAddImage}
+                setImagePreviewUrl={setImagePreviewUrl}
+                imagePreviewUrl={imagePreviewUrl}
+                disabled={disabled}
+                values={values}
+            />
             {Object.values(posts).map((post, index) => (
                 <PostContext
                     key={index}
                     post={post}
-                    // onEdit={handleEdit}
+                    onEdit={handleEdit}
                     onRemove={onRemove}
                 />
             ))}

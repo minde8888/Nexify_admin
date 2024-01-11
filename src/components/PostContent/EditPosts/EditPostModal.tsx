@@ -4,11 +4,11 @@ import { TextInputField } from '../../InputFields/TextInputField';
 import UploadImage from '../../UploadImage/UploadImage';
 import PropertyImagePreview from '../../PropertyImagePreview/PropertyImagePreview';
 import MarkDownEditor from '../../MarkDownEditor/MarkDownEditor';
-import styles from './edit.module.scss';
 import { ImageFile } from '../../../types/imageFile';
 import { FormValues } from '../../../hooks/useFormikValues';
+import styles from './edit.module.scss';
 
-interface EditPropertyModalProps extends FormValues {
+interface EditPostModalProps extends FormValues {
     isOpen: boolean;
     toggle: () => void;
     onCancel: () => void;
@@ -21,7 +21,7 @@ interface EditPropertyModalProps extends FormValues {
     values: FormValues;
 }
 
-const EditPropertyModal: FunctionComponent<EditPropertyModalProps> = ({
+const EditPostModal: FunctionComponent<EditPostModalProps> = ({
     isOpen,
     toggle,
     onCancel,
@@ -73,4 +73,4 @@ const EditPropertyModal: FunctionComponent<EditPropertyModalProps> = ({
     );
 };
 
-export default EditPropertyModal;
+export default EditPostModal;
