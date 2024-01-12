@@ -8,7 +8,7 @@ import Preloader from '../preloader/preloader';
 import useFetchData from '../../hooks/useDataFetching';
 import { Post } from '../../types/post';
 import Pagination from '../../components/Pagination/Pagination';
-import EditPostProperty from '../../components/PostContent/EditPosts/EditPostProperty';
+import EditPostProperty from '../../components/PostContent/AllPosts/EditPostProperty';
 import PageSize from '../../components/PageSize/PageSize';
 import { pageSizeOptions } from '../../constants/pageSize';
 import sortByProperty from '../../utils/helpers/sortByProperty';

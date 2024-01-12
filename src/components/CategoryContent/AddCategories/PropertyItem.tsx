@@ -1,6 +1,5 @@
 import React, { useCallback, useState } from "react";
 import UploadImage from "../../UploadImage/UploadImage";
-import MarkDownEditor from "../../MarkDownEditor/MarkDownEditor";
 import CategoryFormProperty from "../../../types/categoryFormProperty";
 import AddProperty from "./CategoriesProperty";
 import { ImageFile } from "../../../types/imageFile";
@@ -9,6 +8,7 @@ import { CustomModal } from "../../Modal/CustomModal";
 import { useCustomModal } from "../../../hooks/useCustomModal";
 import styles from "../../../styles/categoryProperty.module.scss";
 import { CATEGORY_DEPTH } from "../../../constants/categoryConst";
+import EnhancedMdxEditorComponent from "../../MarkDownEditor/EnhancedMdxEditorComponent";
 
 interface PropertyItemProps {
   prefix: string;
@@ -32,7 +32,7 @@ const PropertyItem: React.FC<PropertyItemProps> = ({
   level,
   setPrefix
 }) => {
-  
+
   const propertyPrefix = `${prefix}properties[${index}].`;
 
   const styleButton = propertyPrefix.length === CATEGORY_DEPTH ? 'content1' : 'content2';
@@ -67,14 +67,13 @@ const PropertyItem: React.FC<PropertyItemProps> = ({
             setImagePreviewUrl={setImagePreviewUrl}
             handleAddImage={handleAddImage}
           />
-          <MarkDownEditor
-            content={property.description}
-            setContent={(value) => onAddContent(index, value)}
-            showEditor={true}
-            addContent={onAddContent}
+          <EnhancedMdxEditorComponent
+            content={property.description ?? ''}
+            setContent={(value: string) => onAddContent(index, value)}
+            width='95%' 
             index={index}
-            width='95%'
-          />
+            addContent={onAddContent}
+            />
           <div className={styles.closeModalButton}>
             <button type="button" onClick={() => close(index)}>❌</button>
           </div>

@@ -3,10 +3,10 @@ import { Modal } from '../../Modal/Modal';
 import { TextInputField } from '../../InputFields/TextInputField';
 import UploadImage from '../../UploadImage/UploadImage';
 import PropertyImagePreview from '../../PropertyImagePreview/PropertyImagePreview';
-import MarkDownEditor from '../../MarkDownEditor/MarkDownEditor';
 import { ImageFile } from '../../../types/imageFile';
 import { FormValues } from '../../../hooks/useFormikValues';
 import styles from './edit.module.scss';
+import EnhancedMdxEditorComponent from '../../MarkDownEditor/EnhancedMdxEditorComponent';
 
 interface EditPostModalProps extends FormValues {
     isOpen: boolean;
@@ -46,7 +46,7 @@ const EditPostModal: FunctionComponent<EditPostModalProps> = ({
     }, [disabled, onCancel]);
 
     return (
-        <Modal isOpen={isOpen} toggle={toggle}>
+        <div>
             <TextInputField
                 className={styles.titleField}
                 name="categoryName"
@@ -60,7 +60,7 @@ const EditPostModal: FunctionComponent<EditPostModalProps> = ({
                 setImagePreviewUrl={setImagePreviewUrl}
                 handleAddImage={handleAddImage}
             />
-            <MarkDownEditor content={content} setContent={setContent} showEditor={true} width='95%' />
+            <EnhancedMdxEditorComponent content={content} setContent={setContent} width='95%' />
             <div className={buttonStyles.saveButton}>
                 <button disabled={disabled} type="submit">Save</button>
             </div>
@@ -69,7 +69,7 @@ const EditPostModal: FunctionComponent<EditPostModalProps> = ({
                     ❌
                 </button>
             </div>
-        </Modal>
+        </div>
     );
 };
 

@@ -1,7 +1,7 @@
 import { FunctionComponent } from "react";
-import styles from './edit.module.scss';
 import Subcategory from "./Subcategory";
 import { SubcategoryResponse } from "../../../types/category";
+import styles from './allCategories.module.scss';
 
 interface SubcategoriesProps {
     subcategories: SubcategoryResponse[];

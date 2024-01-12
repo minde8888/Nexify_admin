@@ -4,8 +4,8 @@ export interface FormValues {
     [key: string]: any;
 }
 
-const useFormikValues = () => {
-    const formik = useFormikContext<{ values: FormValues[] }>();
+const useFormikValues = <T extends FormValues[]>() => {
+    const formik = useFormikContext<{ values: T }>();
 
     if (!formik) {
         throw new Error('useFormikValues must be used within a Formik context');

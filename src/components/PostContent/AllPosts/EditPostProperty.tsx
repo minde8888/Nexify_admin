@@ -7,7 +7,7 @@ import { deleteAction } from '../../../redux/actions/actions';
 import { useAppDispatch } from '../../../hooks/useRedux';
 import { Post } from '../../../types/post';
 import PostContext from './PostContext';
-import EditPostModal from './EditPostModal';
+import EditPostModal from '../EditPosts/EditPostModal';
 
 interface EditPostPropertyProps {
     posts: Post[];

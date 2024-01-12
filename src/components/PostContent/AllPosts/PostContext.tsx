@@ -3,8 +3,8 @@ import ButtonWithIcon from "../../Buttons/ButtonWithIcon";
 import RemoveButton from "../../RemoveButton/RemoveButton";
 import editIcon from "../../../assets/svg/edit document_edit file_edited_editing_icon.svg";
 import defaultImage from "../../../assets/svg/gallery_image_photo_photography_picture_icon.svg";
-import styles from './editPost.module.scss';
 import { Post } from "../../../types/post";
+import styles from './allPost.module.scss';
 
 interface PostProps {
     post: Post;

@@ -5,7 +5,7 @@ import Subcategories from "./Subcategories";
 import { CategoryResponse } from "../../../types/category";
 import editIcon from "../../../assets/svg/edit document_edit file_edited_editing_icon.svg";
 import defaultImage from "../../../assets/svg/gallery_image_photo_photography_picture_icon.svg";
-import styles from './edit.module.scss';
+import styles from './allCategories.module.scss';
 
 interface CategoryProps {
     category: CategoryResponse;

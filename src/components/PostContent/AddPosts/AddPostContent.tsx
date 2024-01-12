@@ -2,12 +2,12 @@ import React, { FormEvent, useCallback, useRef } from "react";
 import { ImageFile } from "../../../types/imageFile";
 import { useAppSelector } from "../../../hooks/useRedux";
 import UploadImages from "../../UploadImages/UploadImages";
-import MarkDownEditor from "../../MarkDownEditor/MarkDownEditor";
 import { SelectField } from "../../InputFields/SelectField";
 import { TextInputField } from "../../InputFields/TextInputField";
 import styles from "../../../styles/postContent.module.scss";
 import CategoryFormProperty from "../../../types/categoryFormProperty";
 import useFormikValues from "../../../hooks/useFormikValues";
+import EnhancedMdxEditorComponent from "../../MarkDownEditor/EnhancedMdxEditorComponent";
 
 interface AddPostContentProps {
     setContent: (Content: string) => void;
@@ -73,13 +73,7 @@ const AddPostContent = ({
                         id="title"
                         initialValue={''}
                     />
-                    <MarkDownEditor
-                        setContent={handleContentChange}
-                        content={content}
-                        showEditor={true}
-                        width="100%"
-                        editorHeight={windowSize.current}
-                    />
+                    <EnhancedMdxEditorComponent content={content} setContent={setContent} width='95%' />
                 </div>
                 <div className={styles.columns}>
                     <SelectField

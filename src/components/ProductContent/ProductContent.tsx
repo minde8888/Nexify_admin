@@ -1,7 +1,7 @@
 import { TextInputField } from '../InputFields/TextInputField';
 import styles from '../../styles/productContent.module.scss'
 import { useState } from 'react';
-import MarkDownEditor from '../MarkDownEditor/MarkDownEditor';
+import EnhancedMdxEditorComponent from '../MarkDownEditor/EnhancedMdxEditorComponent';
 
 interface Props {
     setContent: (content: string) => void;
@@ -26,12 +26,7 @@ const ProductContent = ({ setContent, content}: Props) => {
             </div>
             <div className={styles.items}>
                 {showEditor && (<TextInputField label="" className={styles.profileInput} name="title" id='title' />)}
-                <MarkDownEditor
-                    setContent={setContent}
-                    content={content}
-                    showEditor={showEditor}
-                    width="100%"
-                />
+                <EnhancedMdxEditorComponent content={content} setContent={setContent} width='95%' />
                 {showEditor && (
                     <div className={styles.numberItems}>
                         <div className={styles.profileInputNumber}>

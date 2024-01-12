@@ -1,3 +1,4 @@
+import EnhancedMdxEditorComponent from "../../components/MarkDownEditor/EnhancedMdxEditorComponent";
 
 
 const Dashboard = () => {
