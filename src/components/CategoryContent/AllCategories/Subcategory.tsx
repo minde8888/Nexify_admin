@@ -1,6 +1,6 @@
 import { FunctionComponent } from "react";
 import ButtonWithIcon from "../../Buttons/ButtonWithIcon";
-import RemoveButton from "../../RemoveButton/RemoveButton";
+import RemoveButton from "../../Buttons/RemoveButton";
 import editIcon from "../../../assets/svg/edit document_edit file_edited_editing_icon.svg";
 import defaultImage from "../../../assets/svg/gallery_image_photo_photography_picture_icon.svg";
 import { SubcategoryResponse } from "../../../types/category";
@@ -16,9 +16,9 @@ const Subcategory: FunctionComponent<SubcategoryProps> = ({ subcategory, onRemov
     <div key={subcategory.id} className={styles.subcategoryRow}>
         <div>{subcategory.subCategoryName}</div>
         <div className={styles.description}>{subcategory.description}</div>
-        <img src={subcategory.imageSrc ? subcategory.imageSrc : defaultImage} alt={subcategory.subCategoryName} />
-        <div>
-            <ButtonWithIcon icon={editIcon} altText="Edit" style={styles.buttonEdit} onClick={() => onEdit(subcategory.id)} />
+        <img className={styles.imagesContainer} src={subcategory.imageSrc ? subcategory.imageSrc : defaultImage} alt={subcategory.subCategoryName} />
+        <div className={styles.buttons}>
+            <ButtonWithIcon icon={editIcon} altText="Edit" onClick={() => onEdit(subcategory.id)} style={{ margin: '0' }} />
             <RemoveButton onClick={() => onRemove(subcategory.id)} style={styles.removeButton} />
         </div>
     </div>

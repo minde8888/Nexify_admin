@@ -23,6 +23,21 @@
     align-items    : center;
     gap            : 10px;
 
+    .buttons {
+      display       : flex;
+      gap           : 10px;
+      flex-direction: column;
+      text-align    : center;
+
+      button {
+        img {
+          width : 30px;
+          height: 30px;
+
+        }
+      }
+    }
+
     .description {
       height  : 200px;
       overflow: hidden;
@@ -32,17 +47,16 @@
       margin-bottom: 5px;
     }
 
-    img {
+    .imagesContainer {
       width     : 200px;
       height    : 200px;
       object-fit: cover;
     }
 
     .buttonEdit {
-      justify-content: center;
 
       button {
-        margin          : 0 10px 0 0 ;
+        margin          : 0 10px 0 0;
         border          : none;
         background      : none;
         cursor          : pointer;
@@ -84,7 +98,22 @@
         margin-right: 10px;
       }
 
-      img {
+      .buttons {
+        display       : flex;
+        gap           : 10px;
+        flex-direction: column;
+        text-align    : center;
+
+        button {
+          img {
+            width : 30px;
+            height: 30px;
+
+          }
+        }
+      }
+
+      .imagesContainer {
         width     : 200px;
         height    : 200px;
         object-fit: cover;
@@ -96,7 +125,7 @@
 
         button {
           display        : flex;
-          margin          : 0 10px 0 0 ;
+          margin         : 0 10px 0 0;
           border         : none;
           background     : none;
           cursor         : pointer;

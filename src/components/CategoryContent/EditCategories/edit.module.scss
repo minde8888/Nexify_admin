@@ -1,0 +1,27 @@
+@import '../../../styles/global';
+
+.editCategoryContainer {
+    width     : 100%;
+    margin-top: 50px;
+
+    .colons {
+        display        : flex;
+        align-items    : center;
+        flex-direction : row;
+        justify-content: space-around;
+        margin         : 0 0 40px 0;
+    }
+
+    .wireBorder {
+        width        : 400px;
+        height       : 400px;
+        transition   : transform 1s ease 0s;
+        border-radius: 10px;
+        box-shadow   :
+            rgba(0, 0, 0, 0.024) 0px 0px 0px 1px,
+            rgba(0, 0, 0, 0.05) 0px 1px 0px 0px,
+            rgba(0, 0, 0, 0.03) 0px 0px 8px 0px,
+            rgba(0, 0, 0, 0.1) 0px 20px 30px 0px;
+        overflow: hidden;
+    }
+}

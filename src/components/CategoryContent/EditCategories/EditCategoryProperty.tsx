@@ -22,9 +22,10 @@ interface EditCategoryPropertyProps {
   isCategory: boolean;
   category: CategoryResponse | SubcategoryResponse;
   categoryName: string;
+  disabled: boolean;
 }
 
-const EditCategoryProperty: FunctionComponent<EditCategoryPropertyProps> = ({ isCategory, category, categoryName }) => {
+const EditCategoryProperty: FunctionComponent<EditCategoryPropertyProps> = ({ isCategory, category, categoryName, disabled }) => {
 
   const { addNewValue, values } = useFormikValues<CustomFormValues[]>();
 
@@ -41,36 +42,50 @@ const EditCategoryProperty: FunctionComponent<EditCategoryPropertyProps> = ({ is
       : null;
 
     addNewValue({ ...catValues, description: content, imageName, image: file, imageSrc: imagePreviewUrl });
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [content, file, catValues, imagePreviewUrl]);
+  // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [catValues, content, file, imagePreviewUrl]);
 
   useEffect(() => {
     if (category) {
-      const initialValues = mapCategoryToFormValues(category, isCategory, categoryName);
+      const initialValues = mapCategoryToFormValues(category, isCategory);
       setCatValues(initialValues);
       setContent(initialValues.description || '');
-      setImagePreviewUrl(initialValues.imageSrc || '');
+      setImagePreviewUrl(initialValues.imageName || '');      
     }
+    addNewValue({ categoryName: categoryName });    
+  // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [category, categoryName, isCategory]);
 
   const handleAddImage = useCallback((newFile: ImageFile[]) => setFile(newFile), []);
 
+  console.log(disabled);
+  
+
   return (
     <div className={styles.editCategoryContainer}>
-      <TextInputField
-        className={styles.titleField}
-        name="categoryName"
-        label="Category Name"
-        id="categoryName"
-        placeholder="Enter category name"
-        initialValue={newValues.categoryName}
-      />
-      <PropertyImagePreview imagePreviewUrl={imagePreviewUrl} />
-      <UploadImage setImagePreviewUrl={setImagePreviewUrl} handleAddImage={handleAddImage} />
-      <EnhancedMdxEditorComponent content={content} setContent={setContent} width="95%" />
-      <div className={styles.saveButton}>
-        <button disabled={isDisabled} type="submit">Save</button>
+      <div className={styles.colons}>
+        <div className={styles.wireBorder}>
+          <PropertyImagePreview imagePreviewUrl={imagePreviewUrl} />
+        </div>
+        <UploadImage setImagePreviewUrl={setImagePreviewUrl} handleAddImage={handleAddImage} />
+        <div>
+          <div className={styles.saveButton}>
+            <button disabled={disabled} type="submit">Public</button>
+          </div>
+          <TextInputField
+            className={styles.titleField}
+            name="categoryName"
+            label=""
+            id="categoryName"
+            placeholder="Enter category name"
+            initialValue={newValues.categoryName}
+          />
+        </div>
       </div>
+      <div className={styles.description}>
+        {content && (<EnhancedMdxEditorComponent content={content} setContent={setContent} width="95%" />)}
+      </div>
+
     </div>
   );
 };
@@ -85,15 +100,11 @@ const initialFormState = {
 
 const mapCategoryToFormValues = (
   category: CategoryResponse | SubcategoryResponse,
-  isCategory: boolean,
-  categoryName: string): CategoryFormProperty => ({
+  isCategory: boolean): CategoryFormProperty => ({
     id: category.id,
-    categoryName: categoryName,
     description: category.description,
     imageName: category.imageSrc,
     accept: isCategory
   });
-
-const isDisabled = true;
 
 export default EditCategoryProperty;

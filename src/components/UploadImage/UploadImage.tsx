@@ -1,23 +1,20 @@
-import React, { ChangeEvent } from 'react';
+import React from 'react';
 import { isValidFileType, isValidFileSize } from '../../utils/validation/ImageFileValidation';
 import { ImageFile } from '../../types/imageFile';
-import remove from '../../assets/svg/closeIcon.svg'
-import upload from '../../assets/svg/uploadIcon.svg'
-import styles from './UploadImage.module.scss'
+import remove from '../../assets/svg/closeIcon.svg';
+import upload from '../../assets/svg/uploadIcon.svg';
+import styles from './UploadImage.module.scss';
 import { FileReadError } from '../../errorHandler/fileReadError';
+import CustomFileInput from '../Buttons/CustomFileInput';
+import ButtonWithIcon from '../Buttons/ButtonWithIcon';
 
 interface UploadImageProps {
   setImagePreviewUrl: (imagePreviewUrl: string) => void;
   handleAddImage?: (images: ImageFile[]) => void;
 }
 
-interface ImageFileWithFile {
-  file?: File;
-}
-
 const UploadImage: React.FC<UploadImageProps> = ({ setImagePreviewUrl, handleAddImage }) => {
-
-  const handleImageChange = (e: ChangeEvent<HTMLInputElement>) => {
+  const handleImageChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     e.preventDefault();
 
     const fileInput = e.target;
@@ -28,34 +25,35 @@ const UploadImage: React.FC<UploadImageProps> = ({ setImagePreviewUrl, handleAdd
         const reader = new FileReader();
 
         reader.onloadend = () => {
-          const imageFile: ImageFileWithFile = { file: newFile };
-          if (handleAddImage) { handleAddImage([imageFile]); }
+          const imageFile: ImageFile = { file: newFile };
+          if (handleAddImage) handleAddImage([imageFile]);
           setImagePreviewUrl(reader.result as string);
         };
 
         reader.readAsDataURL(newFile);
       } else {
-        new FileReadError('Invalid file. Please select a valid image file within the specified size limit.');
+        throw new FileReadError('Invalid file. Please select a valid image file within the specified size limit.');
       }
     }
   };
 
-  const handleUploadClick = () => {
+  const handleRemoveImage = () => {
     setImagePreviewUrl('');
-    if (handleAddImage) {
-      handleAddImage([]);
-    }
+    if (handleAddImage) handleAddImage([]);
   };
 
   return (
     <div className={styles.icons}>
-      <label htmlFor="inputTag">
-        <img src={upload} alt="imgAltText" />
-        <input id="inputTag" type="file" onChange={handleImageChange} accept="image/png, image/jpg, image/gif, image/jpeg" />
-      </label>
-      <div >
-        <img src={remove} alt="imgAltText" onClick={handleUploadClick} />
-      </div>
+      <CustomFileInput
+        onChange={handleImageChange}
+        accept="image/png, image/jpg, image/gif, image/jpeg"
+        icon={upload}
+        altText="Upload Icon"
+      />
+      <ButtonWithIcon
+        onClick={handleRemoveImage}
+        icon={remove}
+        altText="Remove Icon" />
     </div>
   );
 };

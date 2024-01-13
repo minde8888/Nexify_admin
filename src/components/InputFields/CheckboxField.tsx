@@ -8,7 +8,7 @@ interface PropsType extends HTMLProps<HTMLInputElement> {
 }
 
 export const CheckboxField = ({ label, value, ...props }: PropsType) => {
-    const [field, , getFieldProps] = useField({ ...props, type: 'checkbox' });
+    const [field , getFieldProps] = useField({ ...props, type: 'checkbox' });
 
     // Ensure value is a boolean
     const isChecked = !!value;

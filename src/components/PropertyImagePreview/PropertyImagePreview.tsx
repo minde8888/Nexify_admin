@@ -2,10 +2,15 @@ import React from "react";
 
 interface PropertyImagePreviewProps {
   imagePreviewUrl: string;
+  width?: string;
+  height?: string;
 }
 
 const PropertyImagePreview: React.FC<PropertyImagePreviewProps> = ({
   imagePreviewUrl,
+  width = "400px",
+  height = "400px",
+
 }) => {
   return (
     <>
@@ -14,8 +19,8 @@ const PropertyImagePreview: React.FC<PropertyImagePreviewProps> = ({
           src={imagePreviewUrl}
           alt="Preview"
           style={{
-            width: "100%",
-            height: "200px",
+            width: width,
+            height: height,
             objectFit: "contain",
           }}
         />

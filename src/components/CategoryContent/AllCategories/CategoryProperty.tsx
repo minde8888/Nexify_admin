@@ -1,4 +1,4 @@
-import { FunctionComponent, useCallback} from 'react';
+import { FunctionComponent, useCallback } from 'react';
 import { CategoryResponse } from '../../../types/category';
 import Category from './Category';
 import styles from './allCategories.module.scss';
@@ -8,11 +8,10 @@ import { useNavigate } from 'react-router-dom';
 
 interface EditPropertyProps {
   categories: CategoryResponse[];
-  disabled: boolean;
   URL: string;
 }
 
-const EditProperty: FunctionComponent<EditPropertyProps> = ({ categories, disabled, URL }) => {
+const CategoryProperty: FunctionComponent<EditPropertyProps> = ({ categories, URL }) => {
   const dispatch = useAppDispatch();
   const navigate = useNavigate();
 
@@ -106,4 +105,4 @@ const EditProperty: FunctionComponent<EditPropertyProps> = ({ categories, disabl
   );
 };
 
-export default EditProperty;
+export default CategoryProperty;

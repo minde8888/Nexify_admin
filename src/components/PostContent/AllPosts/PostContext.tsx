@@ -1,6 +1,6 @@
 import { FunctionComponent } from "react";
 import ButtonWithIcon from "../../Buttons/ButtonWithIcon";
-import RemoveButton from "../../RemoveButton/RemoveButton";
+import RemoveButton from "../../Buttons/RemoveButton";
 import editIcon from "../../../assets/svg/edit document_edit file_edited_editing_icon.svg";
 import defaultImage from "../../../assets/svg/gallery_image_photo_photography_picture_icon.svg";
 import { Post } from "../../../types/post";
@@ -12,15 +12,15 @@ interface PostProps {
     onEdit: (id: string) => void;
 }
 
-const PostContext: FunctionComponent<PostProps> = ({ post, onRemove, onEdit}) => (
+const PostContext: FunctionComponent<PostProps> = ({ post, onRemove, onEdit }) => (
     <div key={post.id} className={styles.postRow}>
         <div className={styles.postInfo}>
             <div>{post.title}</div>
             <div className={styles.description}>{post.content}</div>
             <img src={Array.isArray(post.imageSrc) ? post.imageSrc[0] : post.imageSrc || defaultImage} alt={post.title} />
             <div>
-                <ButtonWithIcon icon={editIcon} altText="Edit" style={styles.buttonEdit} onClick={() => onEdit(post.id)} />
-                <RemoveButton onClick={() => onRemove(post.id)} style={styles.removeButton} /> 
+                <ButtonWithIcon icon={editIcon} altText="Edit" style={{ justifyContent: 'center' }} onClick={() => onEdit(post.id)} />
+                <RemoveButton onClick={() => onRemove(post.id)} style={styles.removeButton} />
             </div>
         </div>
     </div>

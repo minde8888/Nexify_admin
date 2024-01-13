@@ -1,6 +1,6 @@
 import { AnyAction, Dispatch } from '@reduxjs/toolkit';
 import { updateCategory, updateSubcategory } from '../redux/slice/categoriesSlice';
-import { BLOG_CATEGORIES_URL, CATEGORY_UPDATE_URL, PRODUCT_UPDATE_URL, SUBCATEGORY_UPDATE_URL } from '../constants/apiConst';
+import { BLOG_CATEGORIES_URL, CATEGORY_UPDATE_URL, SUBCATEGORY_UPDATE_URL } from '../constants/apiConst';
 import { handlePutRequest } from '../api/handleAPI';
 import { updatePostCategory } from '../redux/slice/blogCategoriesSlice';
 

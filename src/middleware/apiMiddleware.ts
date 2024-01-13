@@ -16,13 +16,13 @@ const apiMiddleware: Middleware<{}, RootState> =
 
             switch (method) {
                 case POST_METHOD:
-                    // if (formData) {
-                    //     console.log(Object.fromEntries(formData));
-                    // }
                     await handlePostRequest(url, formData);
                     break;
-                case PUT_METHOD:    
-                    update({ dispatch, payload: action.payload, url, formData: formData ?? new FormData() });
+                case PUT_METHOD:
+                    if (formData) {
+                        console.log(Object.fromEntries(formData));
+                    }
+                    // update({ dispatch, payload: action.payload, url, formData: formData ?? new FormData() });
                     break;
                 case GET_METHOD:
                     const values = await handleGetAllRequest(url);

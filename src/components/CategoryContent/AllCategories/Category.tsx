@@ -1,6 +1,6 @@
 import { FunctionComponent } from "react";
 import ButtonWithIcon from "../../Buttons/ButtonWithIcon";
-import RemoveButton from "../../RemoveButton/RemoveButton";
+import RemoveButton from "../../Buttons/RemoveButton";
 import Subcategories from "./Subcategories";
 import { CategoryResponse } from "../../../types/category";
 import editIcon from "../../../assets/svg/edit document_edit file_edited_editing_icon.svg";
@@ -18,9 +18,9 @@ const Category: FunctionComponent<CategoryProps> = ({ category, onRemove, onEdit
         <div className={styles.categoryInfo}>
             <div>{category.categoryName}</div>
             <div className={styles.description}>{category.description}</div>
-            <img src={category.imageSrc ? category.imageSrc : defaultImage} alt={category.categoryName} />
-            <div>
-                <ButtonWithIcon icon={editIcon} altText="Edit" style={styles.buttonEdit} onClick={() => onEdit(category.id)} />
+            <img className={styles.imagesContainer} src={category.imageSrc ? category.imageSrc : defaultImage} alt={category.categoryName} />
+            <div className={styles.buttons}>
+                <ButtonWithIcon icon={editIcon} altText="Edit" onClick={() => onEdit(category.id)} style={{ margin: '0' }} />
                 <RemoveButton onClick={() => onRemove(category.id)} style={styles.removeButton} />
             </div>
         </div>
