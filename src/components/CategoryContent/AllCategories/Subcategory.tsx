@@ -14,9 +14,9 @@ interface SubcategoryProps {
 
 const Subcategory: FunctionComponent<SubcategoryProps> = ({ subcategory, onRemove, onEdit }) => (
     <div key={subcategory.id} className={styles.subcategoryRow}>
-        <div>{subcategory.subCategoryName}</div>
+        <div>{subcategory.categoryName}</div>
         <div className={styles.description}>{subcategory.description}</div>
-        <img className={styles.imagesContainer} src={subcategory.imageSrc ? subcategory.imageSrc : defaultImage} alt={subcategory.subCategoryName} />
+        <img className={styles.imagesContainer} src={subcategory.imageSrc ? subcategory.imageSrc : defaultImage} alt={subcategory.categoryName} />
         <div className={styles.buttons}>
             <ButtonWithIcon icon={editIcon} altText="Edit" onClick={() => onEdit(subcategory.id)} style={{ margin: '0' }} />
             <RemoveButton onClick={() => onRemove(subcategory.id)} style={styles.removeButton} />

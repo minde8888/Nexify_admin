@@ -20,7 +20,7 @@ export const update = ({ dispatch, payload, url, formData }: UpdateProps) => {
             } else {
                 const modifiedPayload = {
                     ...payload,
-                    subCategoryName: payload.categoryName
+                    categoryName: payload.categoryName
                 };
                 delete modifiedPayload.categoryName;
                 dispatch(updateSubcategory(modifiedPayload));

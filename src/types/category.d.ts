@@ -12,7 +12,7 @@ export interface Categories {
 
 export interface SubcategoryResponse {
     id: string;
-    subCategoryName: string;
+    categoryName: string;
     description: string;
     imageSrc: string;
 }

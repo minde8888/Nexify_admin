@@ -4,7 +4,7 @@ import { findCategoryById, findSubcategoryById } from "../../../utils/helpers/ca
 import EditCategoryProperty from "../../../components/CategoryContent/EditCategories/EditCategoryProperty";
 import { Formik, Form } from 'formik';
 import CategoryFormProperty from "../../../types/categoryFormProperty";
-import { CATEGORY_UPDATE_URL, PUT_METHOD } from "../../../constants/apiConst";
+import { ALL_CATEGORIES_URL, CATEGORY_UPDATE_URL, PUT_METHOD } from "../../../constants/apiConst";
 import useForm from "../../../hooks/useForm";
 import validationSchema from "../../../utils/validation/editCategoryValidationSchema";
 import { useEffect } from "react";
@@ -15,7 +15,7 @@ const useCategoryData = () => {
     const entityId = id?.toString();
     const category = findCategoryById(entityId!, categories);
     const subcategory = findSubcategoryById(entityId!, categories);
-    const categoryName = category?.categoryName || subcategory?.subCategoryName;
+    const categoryName = category?.categoryName || subcategory?.categoryName;
 
     return { entity: category || subcategory, isCategory: !!category, categoryName };
 };
@@ -27,7 +27,7 @@ const EditCategories = () => {
 
     useEffect(() => {
         if (disabled) {
-            navigate('/admin/categories');
+            navigate(ALL_CATEGORIES_URL);
         }
     }, [disabled, navigate]);
 
@@ -40,7 +40,6 @@ const EditCategories = () => {
         imageName: '',
         image: [],
     };
-
 
     return (
         <Formik onSubmit={(values, { resetForm }) => handleSubmit(values, { resetForm })}

@@ -42,7 +42,7 @@ const EditCategoryProperty: FunctionComponent<EditCategoryPropertyProps> = ({ is
       : null;
 
     addNewValue({ ...catValues, description: content, imageName, image: file, imageSrc: imagePreviewUrl });
-  // eslint-disable-next-line react-hooks/exhaustive-deps
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [catValues, content, file, imagePreviewUrl]);
 
   useEffect(() => {
@@ -50,16 +50,13 @@ const EditCategoryProperty: FunctionComponent<EditCategoryPropertyProps> = ({ is
       const initialValues = mapCategoryToFormValues(category, isCategory);
       setCatValues(initialValues);
       setContent(initialValues.description || '');
-      setImagePreviewUrl(initialValues.imageName || '');      
+      setImagePreviewUrl(initialValues.imageName || '');
     }
-    addNewValue({ categoryName: categoryName });    
-  // eslint-disable-next-line react-hooks/exhaustive-deps
+    addNewValue({ categoryName: categoryName });
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [category, categoryName, isCategory]);
 
   const handleAddImage = useCallback((newFile: ImageFile[]) => setFile(newFile), []);
-
-  console.log(disabled);
-  
 
   return (
     <div className={styles.editCategoryContainer}>
@@ -83,7 +80,7 @@ const EditCategoryProperty: FunctionComponent<EditCategoryPropertyProps> = ({ is
         </div>
       </div>
       <div className={styles.description}>
-        {content && (<EnhancedMdxEditorComponent content={content} setContent={setContent} width="95%" />)}
+        <EnhancedMdxEditorComponent content={content} setContent={setContent} width="95%" />
       </div>
 
     </div>

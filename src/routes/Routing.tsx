@@ -9,9 +9,10 @@ import Dashboard from '../pages/dashboard/dashboard';
 import AllCategories from '../pages/category/all/allCategories';
 import AddPost from '../pages/blog/addPost';
 import AddPostCategories from '../pages/category/add/addBlogCategories';
-import EditPostCategories from '../pages/category/all/allBlogCategories';
 import EditPost from '../pages/blog/editPost';
 import EditCategories from '../pages/category/edit/editCategories';
+import AllBlogCategories from '../pages/category/all/allBlogCategories';
+import EditBlogCategories from '../pages/category/edit/editBlogCategories';
 
 const Routing = (): JSX.Element => {
     return (
@@ -21,13 +22,18 @@ const Routing = (): JSX.Element => {
                     <Route element={<ProtectedRoute />}>
                         <Route path="/" element={<Dashboard />} />
                         <Route path="/add-product" element={<AddProduct />} />
+
                         <Route path="/add-categories" element={<AddCategories />} />
                         <Route path="/all-categories" element={<AllCategories />} />
                         <Route path="/edit-category/:id" element={<EditCategories />} />
+
                         <Route path="/add-post" element={<AddPost />} />
-                        <Route path="/all-post" element={<EditPost />} />
+                        <Route path="/all-post" element={<AllBlogCategories />} />
+                        <Route path="/edit-post/:id" element={<EditPost />} />
+
                         <Route path="/add-post-categories" element={<AddPostCategories />} />
-                        <Route path="/edit-post-categories" element={<EditPostCategories />} />       
+                        <Route path="/all-post-categories" element={<AllBlogCategories />} />
+                        <Route path="/edit-post-categories/:id" element={<EditBlogCategories />} />       
                     </Route>
                 </Routes>
             </Suspense>

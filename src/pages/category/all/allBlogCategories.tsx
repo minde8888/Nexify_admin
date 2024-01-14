@@ -20,6 +20,7 @@ const AllBlogCategories = () => {
             <CategoryProperty
                 categories={categories}
                 URL={BLOG_CATEGORIES_URL}
+                blog={true}
             />
         </Preloader>
     );

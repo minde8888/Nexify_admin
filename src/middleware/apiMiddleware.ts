@@ -19,10 +19,10 @@ const apiMiddleware: Middleware<{}, RootState> =
                     await handlePostRequest(url, formData);
                     break;
                 case PUT_METHOD:
-                    if (formData) {
-                        console.log(Object.fromEntries(formData));
-                    }
-                    // update({ dispatch, payload: action.payload, url, formData: formData ?? new FormData() });
+                    // if (formData) {
+                    //     console.log(Object.fromEntries(formData));
+                    // }
+                    update({ dispatch, payload: action.payload, url, formData: formData ?? new FormData() });
                     break;
                 case GET_METHOD:
                     const values = await handleGetAllRequest(url);
