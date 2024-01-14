@@ -11,8 +11,10 @@ const AllCategories = () => {
     const categories = useAppSelector((state) => state.data.categories);
 
     useEffect(() => {
-        fetchData();
-    }, [fetchData]);
+        if (!categories || categories.length === 0) {
+            fetchData();
+        }
+    }, [categories, fetchData]);
 
     return (
         <Preloader isLoading={loading}>

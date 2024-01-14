@@ -8,6 +8,7 @@ import { ALL_CATEGORIES_URL, CATEGORY_UPDATE_URL, PUT_METHOD } from "../../../co
 import useForm from "../../../hooks/useForm";
 import validationSchema from "../../../utils/validation/editCategoryValidationSchema";
 import { useEffect } from "react";
+import useTrueFalse from "../../../hooks/useTrueFalse";
 
 const useCategoryData = () => {
     const { id } = useParams();
@@ -17,19 +18,20 @@ const useCategoryData = () => {
     const subcategory = findSubcategoryById(entityId!, categories);
     const categoryName = category?.categoryName || subcategory?.categoryName;
 
-    return { entity: category || subcategory, isCategory: !!category, categoryName };
+    return { entity: category || subcategory, isCategory: !!category, categoryName, categories };
 };
 
 const EditCategories = () => {
-    const { entity, isCategory, categoryName } = useCategoryData();
+    const { entity, isCategory, categoryName, categories } = useCategoryData();
     const { handleSubmit, disabled } = useForm<CategoryFormProperty>(PUT_METHOD, CATEGORY_UPDATE_URL);
+
     const navigate = useNavigate();
 
     useEffect(() => {
         if (disabled) {
             navigate(ALL_CATEGORIES_URL);
         }
-    }, [disabled, navigate]);
+    }, [disabled, navigate, categories]);
 
     if (!entity) return null;
 
@@ -49,11 +51,11 @@ const EditCategories = () => {
         >
             <Form>
                 <h2>Edit Products Categories</h2>
-                <EditCategoryProperty 
-                category={entity} 
-                isCategory={isCategory} 
-                categoryName={categoryName ?? ''}
-                disabled={disabled} 
+                <EditCategoryProperty
+                    category={entity}
+                    isCategory={isCategory}
+                    categoryName={categoryName ?? ''}
+                    disabled={disabled}
                 />
             </Form>
         </Formik>

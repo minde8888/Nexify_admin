@@ -98,9 +98,6 @@ const EnhancedMdxEditorComponent: React.FC<MyMdxEditorComponentProps> = ({
     }
   }, [addContent, index, setContent]);
 
-  console.log('content', content);
-  
-
   return (
     <div style={{ width: width }}>
       <MDXEditor

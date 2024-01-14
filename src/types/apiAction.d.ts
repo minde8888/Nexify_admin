@@ -8,6 +8,7 @@ interface ApiAction {
             url: string;
             formData?: FormData;
             bool?: boolean;
+            payload?: any
         };
     };
 }

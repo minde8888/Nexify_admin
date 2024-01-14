@@ -5,9 +5,10 @@ import { ApiError } from '../errorHandler/apiError';
 
 const useFetchData = (url: string) => {
     const dispatch = useDispatch();
-    const [loading, setLoading] = useState(true);
+    const [loading, setLoading] = useState(false); 
 
     const fetchData = useCallback(async () => {
+        setLoading(true); 
         try {
             await dispatch(getAllAction(url));
         } catch (error) {

@@ -12,7 +12,7 @@ const apiMiddleware: Middleware<{}, RootState> =
     (next) =>
     async (action: ApiAction) => {
         if (action.meta?.api) {
-            const { method, url, formData, bool, id } = action.meta.api;
+            const { method, url, formData, bool, id, payload } = action.meta.api;
 
             switch (method) {
                 case POST_METHOD:
@@ -22,7 +22,8 @@ const apiMiddleware: Middleware<{}, RootState> =
                     // if (formData) {
                     //     console.log(Object.fromEntries(formData));
                     // }
-                    update({ dispatch, payload: action.payload, url, formData: formData ?? new FormData() });
+          
+                    update({ dispatch, payload: payload, url, formData: formData ?? new FormData() });
                     break;
                 case GET_METHOD:
                     const values = await handleGetAllRequest(url);
