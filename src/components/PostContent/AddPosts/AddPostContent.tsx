@@ -29,7 +29,7 @@ const AddPostContent = ({
 
     const { addNewValue } = useFormikValues();
 
-    const windowSize = useRef(window.innerHeight / 2 - 82);
+    // const windowSize = useRef(window.innerHeight / 2 - 82);
 
     const categories: CategoryFormProperty[] = useAppSelector((state) => state.data.blogCategories);
 
@@ -50,10 +50,10 @@ const AddPostContent = ({
         setSelectValue(selectedValue)
     }, [setSelectValue]);
 
-    const handleContentChange = useCallback((newContent: string): void => {
-        setContent(newContent);
-        addNewValue({ content: newContent });
-    }, [addNewValue, setContent]);
+    // const handleContentChange = useCallback((newContent: string): void => {
+    //     setContent(newContent);
+    //     addNewValue({ content: newContent });
+    // }, [addNewValue, setContent]);
 
     return (
         <div className={styles.container}>

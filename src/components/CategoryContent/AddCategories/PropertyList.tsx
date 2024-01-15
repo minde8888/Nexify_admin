@@ -4,6 +4,7 @@ import useFormProperty from "../../../hooks/useFormProperty";
 import PropertyItem from "./PropertyItem";
 import CategoryFormProperty from "../../../types/categoryFormProperty";
 import styles from "../../../styles/categoryProperty.module.scss";
+import CustomButton from "../../Buttons/CustomButton";
 
 interface PropertyListProps {
   prefix: string;
@@ -21,8 +22,6 @@ const PropertyList: FunctionComponent<PropertyListProps> = ({
   const {
     addNewProperty,
     removeProperty,
-    addImage,
-    addContent,
     properties
   } = useFormProperty(prefix);
 
@@ -34,8 +33,6 @@ const PropertyList: FunctionComponent<PropertyListProps> = ({
       index={index}
       showAddButton={showAddButton}
       onRemove={removeProperty}
-      onAddImage={addImage}
-      onAddContent={addContent}
       level={level}
       setPrefix={setPrefix}
     />
@@ -45,11 +42,7 @@ const PropertyList: FunctionComponent<PropertyListProps> = ({
     <div className={styles.wrapper}>
       <div className={styles.labelContainer}>
         {showAddButton && (
-          <div className={styles.buttonAdd}>
-            <button type="button" onClick={addNewProperty}>
-              +
-            </button>
-          </div>
+          <CustomButton onClick={addNewProperty} style={styles.buttonAdd} symbol={'+'} />
         )}
         {prefix && (
           <div >

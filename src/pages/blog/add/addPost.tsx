@@ -1,12 +1,14 @@
 import { useEffect, useState } from 'react';
 import { Form, Formik } from 'formik';
-import { BLOG_CATEGORIES_URL, BLOG_URL, POST_METHOD } from '../../constants/apiConst';
-import styles from '../../styles/postContent.module.scss';
-import AddPostContent from '../../components/PostContent/AddPosts/AddPostContent';
-import validationSchema from '../../utils/validation/addPostValidationSchema';
-import useFetchData from '../../hooks/useDataFetching';
-import Preloader from '../preloader/preloader';
-import useForm from '../../hooks/useForm';
+import { BLOG_CATEGORIES_URL, BLOG_URL, POST_METHOD } from '../../../constants/apiConst';
+import AddPostContent from '../../../components/PostContent/AddPosts/AddPostContent';
+import validationSchema from '../../../utils/validation/addPostValidationSchema';
+import useFetchData from '../../../hooks/useDataFetching';
+import Preloader from '../../preloader/preloader';
+import useForm from '../../../hooks/useForm';
+import styles from '../../../styles/postContent.module.scss';
+import { useAppSelector } from '../../../hooks/useRedux';
+import CategoryFormProperty from '../../../types/categoryFormProperty';
 
 const AddPost = () => {
     const { handleSubmit, disabled } = useForm(POST_METHOD, BLOG_URL);
@@ -15,9 +17,13 @@ const AddPost = () => {
     const [selectValue, setSelectValue] = useState<string>("default");
     const [resetImages, setResetImages] = useState<boolean>(false);
 
+    const categories: CategoryFormProperty[] = useAppSelector((state) => state.data.blogCategories);
+
     useEffect(() => {
-        fetchData();
-    }, [fetchData]);
+        if (!categories || categories.length === 0) {
+            fetchData();
+        }
+    }, [categories, fetchData]);
 
     const handleFormSubmit = async (values: unknown, { resetForm }: any) => {
         await handleSubmit(values, { resetForm });

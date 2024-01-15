@@ -179,6 +179,30 @@ body {
   }
 }
 
+.buttonAdd {
+  display: flex;
+  margin : 0 10px 0 0;
+
+  button {
+    background-color: $add_button_color;
+    ;
+    color          : $text;
+    font-size      : $base-font-size;
+    font-weight    : bold;
+    text-align     : center;
+    text-decoration: none;
+    cursor         : pointer;
+    border-radius  : $border-radius;
+    border         : none;
+    transition     : $buttonTransition;
+    width          : 30px;
+  }
+
+  button:hover {
+    background-color: #2980b9;
+  }
+}
+
 .titleField {
   line-height  : $base-line-height;
   border-radius: 10px;

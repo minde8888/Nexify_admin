@@ -15,7 +15,7 @@ const CategoriesProperty: FunctionComponent<CategoriesPropertyProps> = ({
 }) => {
   const twoLevelsCategory = CATEGORY_DEPTH * level;
   const showAddButton = prefix.length < twoLevelsCategory;
-  
+
   useEffect(() => {
     setPrefix((!prefix));
   }, [prefix, setPrefix]);
