@@ -1,8 +1,7 @@
-import { FunctionComponent } from "react";
+import React, { FunctionComponent } from "react";
 import { TextInputField } from "../../InputFields/TextInputField";
 import useFormProperty from "../../../hooks/useFormProperty";
 import PropertyItem from "./PropertyItem";
-import CategoryFormProperty from "../../../types/categoryFormProperty";
 import styles from "../../../styles/categoryProperty.module.scss";
 import CustomButton from "../../Buttons/CustomButton";
 
@@ -19,24 +18,7 @@ const PropertyList: FunctionComponent<PropertyListProps> = ({
   level,
   setPrefix
 }) => {
-  const {
-    addNewProperty,
-    removeProperty,
-    properties
-  } = useFormProperty(prefix);
-
-  const renderProperty = (property: CategoryFormProperty, index: number) => (
-    <PropertyItem
-      key={property.id}
-      prefix={prefix}
-      property={property}
-      index={index}
-      showAddButton={showAddButton}
-      onRemove={removeProperty}
-      level={level}
-      setPrefix={setPrefix}
-    />
-  );
+  const { addNewProperty, removeProperty, properties } = useFormProperty(prefix);
 
   return (
     <div className={styles.wrapper}>
@@ -45,17 +27,26 @@ const PropertyList: FunctionComponent<PropertyListProps> = ({
           <CustomButton onClick={addNewProperty} style={styles.buttonAdd} symbol={'+'} />
         )}
         {prefix && (
-          <div >
-            <TextInputField
-              name={`${prefix}`}
-              id={`${prefix}label`}
-              className={styles.inputField}
-              initialValue={''}
-            />
-          </div>
+          <TextInputField
+            name={`${prefix}`}
+            id={`${prefix}label`}
+            className={styles.inputField}
+            initialValue={''}
+          />
         )}
       </div>
-      {properties.map(renderProperty)}
+      {properties.map((property, index) => (
+        <PropertyItem
+          key={property.id}
+          prefix={prefix}
+          property={property}
+          index={index}
+          showAddButton={showAddButton}
+          onRemove={removeProperty}
+          level={level}
+          setPrefix={setPrefix}
+        />
+      ))}
     </div>
   );
 };

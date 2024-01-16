@@ -3,26 +3,23 @@ import { v4 as uuidv4 } from 'uuid';
 import DynamicFormProperty from '../types/categoryFormProperty';
 import { ImageFile } from '../types/imageFile';
 
-const useFormProperty = (prefix : string) => {
+const useFormProperty = (prefix: string) => {
     const { values, setFieldValue } = useFormikContext();
 
     const properties: DynamicFormProperty[] = getIn(values, `${prefix}properties`);
 
     const updateProperties = (newProperties: DynamicFormProperty[]) => {
-         setFieldValue(`${prefix}properties`, newProperties);
+        setFieldValue(`${prefix}properties`, newProperties);
     };
 
     const addNewProperty = () => {
         const newProperty: DynamicFormProperty = {
             id: uuidv4(),
-            categoryName: '',
-            description: '',
-            image: [],
             properties: [],
             '': ''
         };
 
-        const newProperties = [...properties, newProperty];        
+        const newProperties = [...properties, newProperty];
         updateProperties(newProperties);
     };
 

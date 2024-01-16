@@ -1,13 +1,17 @@
-import { FunctionComponent } from "react";
+import { Dispatch, FunctionComponent, RefObject, SetStateAction } from "react";
 import { CategoryResponse } from "../../../types/category";
 import Subcategory from "./Subcategory";
+import { FormikProps } from "formik";
+import CategoryFormProperty from "../../../types/categoryFormProperty";
 
 interface PropertiesSubcategoriesProps {
     categories: CategoryResponse[];
-    setPrefix: (value: boolean) => void;
+    setPrefix: Dispatch<SetStateAction<boolean>>;
+    disabled: boolean;
+    formikRef:  RefObject<FormikProps<CategoryFormProperty>>
 }
 
-const PropertiesSubcategories: FunctionComponent<PropertiesSubcategoriesProps> = ({ categories, setPrefix }) => (
+const PropertiesSubcategories: FunctionComponent<PropertiesSubcategoriesProps> = ({ categories, setPrefix, disabled, formikRef }) => (
     <>
         {
             Object.values(categories).map((category, index) => (
@@ -17,6 +21,8 @@ const PropertiesSubcategories: FunctionComponent<PropertiesSubcategoriesProps> =
                         id={category.id}
                         subcategories={category.subcategories}
                         setPrefix={setPrefix}
+                        disabled={disabled}
+                        formikRef={formikRef}
                     />
                 </div>
             ))

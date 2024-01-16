@@ -32,9 +32,7 @@ const PropertyItem: React.FC<PropertyItemProps> = ({
   return (
     <div className={styles.propertyContainer} key={property.id}>
       <CustomButton onClick={handleRemoveProperty} style={styles.buttonRemove} symbol={'-'} />
-      <>
-        <AddProperty prefix={propertyPrefix} level={level} setPrefix={setPrefix} />
-      </>
+      <AddProperty prefix={propertyPrefix} level={level} setPrefix={setPrefix} />
     </div>
   );
 };

@@ -36,28 +36,6 @@
       width: 200px;
     }
 
-    .buttonRemove {
-      margin-top: 20px;
-
-      button {
-        background-color: $remove_button_color;
-        color           : $text;
-        font-size       : $base-font-size;
-        font-weight     : bold;
-        text-align      : center;
-        text-decoration : none;
-        cursor          : pointer;
-        border-radius   : $border-radius;
-        border          : none;
-        transition      : $buttonTransition;
-        width           : 30px;
-
-        &:hover {
-          background-color: rgba(141, 51, 15, 0.8);
-        }
-      }
-    }
-
     .addContent {
       display: flex;
 
