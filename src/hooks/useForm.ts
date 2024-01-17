@@ -9,9 +9,11 @@ import { postAction, putAction } from '../redux/actions/actions';
 type MethodHandler<T> = (formData: FormData, values: T) => Promise<void>;
 
 const postHandler: MethodHandler<any> = async (formData, values) => {
+    
     const categoryList = values.properties || [];
     if (categoryList.length !== 0) {
-        await Promise.all(categoryList.map((category: CategoryFormProperty, categoryIndex: number) => processCategory(formData, category, categoryIndex)));
+        await Promise.all(categoryList.map((category: CategoryFormProperty, categoryIndex: number) => 
+        processCategory(formData, category, categoryIndex, values.categoryId)));
     } else {
         createFormData(values, formData);
     }
@@ -27,6 +29,7 @@ function useForm<T>(method: string, url: string) {
 
     const handleSubmit = useCallback(
         async (values: T, { resetForm }: { resetForm: () => void }) => {
+            
             const formData = new FormData();
             const handler = method === 'post' ? postHandler : putHandler;
 

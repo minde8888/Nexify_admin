@@ -6,24 +6,18 @@ const appendFormData = (formData: FormData, key: string, value?: string): void =
     }
 };
 
-export const processCategory = (formData: FormData, category: CategoryFormProperty, categoryIndex: number): void =>{
+export const processCategory = (formData: FormData, category: CategoryFormProperty, categoryIndex: number, id?: string): void => {
     const categoryDtoKey = `categories[${categoryIndex}]`;
 
-    appendFormData(formData, `${categoryDtoKey}.categoryName`, category['']);
-    appendFormData(formData, `${categoryDtoKey}.description`, category.description);
-
-    if (category.image && category.image[0]?.file) {
-        formData.append(`${categoryDtoKey}.image`, category.image[0].file);
+    if (id) {
+        appendFormData(formData, `${categoryDtoKey}.categoryId`, id);
     }
+
+    appendFormData(formData, `${categoryDtoKey}.categoryName`, category['']);
 
     (category.properties ?? []).forEach((subcategory, subcategoryIndex) => {
         const subcategoryDtoKey = `${categoryDtoKey}.subcategories[${subcategoryIndex}]`;
 
         appendFormData(formData, `${subcategoryDtoKey}.categoryName`, subcategory['']);
-        appendFormData(formData, `${subcategoryDtoKey}.description`, subcategory.description);
-
-        if (subcategory.image && subcategory.image[0]?.file) {
-            formData.append(`${subcategoryDtoKey}.image`, subcategory.image[0].file);
-        }
     });
-}
+};

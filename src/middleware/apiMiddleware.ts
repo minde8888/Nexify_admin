@@ -19,7 +19,7 @@ const apiMiddleware: Middleware<{}, RootState> =
                     if (formData) {
                         console.log(Object.fromEntries(formData));
                     }
-                    // await handlePostRequest(url, formData);
+                    await handlePostRequest(url, formData);
                     break;
                 case PUT_METHOD:
                     // if (formData) {

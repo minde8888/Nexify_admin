@@ -1,7 +1,6 @@
 import { useFormikContext, getIn } from 'formik';
 import { v4 as uuidv4 } from 'uuid';
 import DynamicFormProperty from '../types/categoryFormProperty';
-import { ImageFile } from '../types/imageFile';
 
 const useFormProperty = (prefix: string) => {
     const { values, setFieldValue } = useFormikContext();
@@ -15,6 +14,7 @@ const useFormProperty = (prefix: string) => {
     const addNewProperty = () => {
         const newProperty: DynamicFormProperty = {
             id: uuidv4(),
+            categoryId: '',
             properties: [],
             '': ''
         };
@@ -29,23 +29,9 @@ const useFormProperty = (prefix: string) => {
         updateProperties(newProperties);
     };
 
-    const addContent = (propertyIndex: number, content: string) => {
-        const newProperties = [...properties];
-        newProperties[propertyIndex].description = content;
-        updateProperties(newProperties);
-    };
-
-    const addImage = (propertyIndex: number, images: ImageFile[]) => {
-        const newProperties = [...properties];
-        newProperties[propertyIndex].image = images;
-        updateProperties(newProperties);
-    };
-
     return {
         properties,
         addNewProperty,
-        addContent,
-        addImage,
         removeProperty
     };
 };

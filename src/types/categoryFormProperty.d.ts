@@ -8,6 +8,7 @@ interface CategoryFormProperty {
     ''?: string;
     imageSrc?: string;
     accept?: boolean;
+    categoryId?: string;
 }
 
 export default CategoryFormProperty;

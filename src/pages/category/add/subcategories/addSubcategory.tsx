@@ -1,4 +1,4 @@
-import React, { useEffect, useState, forwardRef, useImperativeHandle, createRef, Ref, useRef, RefObject } from 'react';
+import { useEffect, useState, forwardRef, Ref, useRef } from 'react';
 import useFetchData from '../../../../hooks/useDataFetching';
 import { CATEGORIES_URL, POST_METHOD, SUBCATEGORIES_URL } from '../../../../constants/apiConst';
 import { useAppSelector } from '../../../../hooks/useRedux';
@@ -9,6 +9,7 @@ import useForm from '../../../../hooks/useForm';
 import { Form, Formik, FormikProps } from 'formik';
 import { v4 as uuidv4 } from 'uuid';
 import validationSchema from '../../../../utils/validation/addCategoryValidationSchema';
+import { useModal } from '../../../../hooks/useModel';
 
 const AllSubcategories = forwardRef((props, ref) => {
 
@@ -22,11 +23,13 @@ const AllSubcategories = forwardRef((props, ref) => {
 
     const categories = useAppSelector((state) => state.data.categories);
 
+    const { isOpen, toggle } = useModal();
+
     useEffect(() => {
-        if (!categories || categories.length === 0) {
+        if (!categories || categories.length === 0 || disabled) {
             fetchData();
         }
-    }, [categories, fetchData]);
+    }, [categories, fetchData, disabled]);
 
     return (
         <Preloader isLoading={loading}>
@@ -44,7 +47,9 @@ const AllSubcategories = forwardRef((props, ref) => {
                         categories={categories}
                         setPrefix={setPrefix}
                         disabled={disabled || prefix}
-                        formikRef={formikRef as RefObject<FormikProps<CategoryFormProperty>>}
+                        formikRef={formikRef}
+                        toggle={toggle}
+                        isOpen={isOpen}
                     />
                 </Form>
             </Formik>
