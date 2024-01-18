@@ -6,13 +6,13 @@ import AddCategories from '../pages/category/add/categories/addCategories';
 import AdminLayout from '../components/Layout/AdminLayout';
 import AddProduct from '../pages/product/addProduct';
 import Dashboard from '../pages/dashboard/dashboard';
-import AllCategories from '../pages/category/all/allCategories';
+import AllCategories from '../pages/category/all/product/allCategories';
 import AddPost from '../pages/blog/add/addPost';
 import AddPostCategories from '../pages/category/add/blog/addBlogCategories';
 import EditPost from '../pages/blog/edit/editPost';
-import EditCategories from '../pages/category/edit/editCategories';
-import AllBlogCategories from '../pages/category/all/allBlogCategories';
-import EditBlogCategories from '../pages/category/edit/editBlogCategories';
+import EditCategories from '../pages/category/edit/product/editCategories';
+import AllBlogCategories from '../pages/category/all/blog/allBlogCategories';
+import EditBlogCategories from '../pages/category/edit/blog/editBlogCategories';
 import AllSubcategories from '../pages/category/add/subcategories/addSubcategory';
 
 const Routing = (): JSX.Element => {

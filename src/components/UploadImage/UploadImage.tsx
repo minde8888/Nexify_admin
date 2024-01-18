@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { ChangeEvent, useCallback, useState } from 'react';
 import { isValidFileType, isValidFileSize } from '../../utils/validation/ImageFileValidation';
 import { ImageFile } from '../../types/imageFile';
 import remove from '../../assets/svg/closeIcon.svg';
@@ -7,54 +7,70 @@ import styles from './UploadImage.module.scss';
 import { FileReadError } from '../../errorHandler/fileReadError';
 import CustomFileInput from '../Buttons/CustomFileInput';
 import ButtonWithIcon from '../Buttons/ButtonWithIcon';
+import { compressImage } from '../../utils/helpers/compressImage';
+import { dataURLtoFile } from '../../utils/helpers/dataURLtoFile';
+import { DEFAULT_IMAGE_SIZE } from '../../constants/imageConst';
 
 interface UploadImageProps {
   setImagePreviewUrl: (imagePreviewUrl: string) => void;
   handleAddImage?: (images: ImageFile[]) => void;
+  targetSizeKB?: number;
 }
 
-const UploadImage: React.FC<UploadImageProps> = ({ setImagePreviewUrl, handleAddImage }) => {
-  const handleImageChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+const UploadImage: React.FC<UploadImageProps> = ({
+  setImagePreviewUrl,
+  handleAddImage,
+  targetSizeKB = DEFAULT_IMAGE_SIZE
+}) => {
+  const [error, setError] = useState<string>('');
+
+  const handleImageChange = useCallback((e: ChangeEvent<HTMLInputElement>) => {
+    setError('');
     e.preventDefault();
+    const file = e.target.files?.[0];
+    if (!file) return;
 
-    const fileInput = e.target;
-    if (fileInput.files && fileInput.files[0]) {
-      const newFile = fileInput.files[0];
-
-      if (isValidFileType(newFile) && isValidFileSize(newFile)) {
-        const reader = new FileReader();
-
-        reader.onloadend = () => {
-          const imageFile: ImageFile = { file: newFile };
-          if (handleAddImage) handleAddImage([imageFile]);
-          setImagePreviewUrl(reader.result as string);
-        };
-
-        reader.readAsDataURL(newFile);
-      } else {
-        throw new FileReadError('Invalid file. Please select a valid image file within the specified size limit.');
-      }
+    if (!isValidFileType(file) || !isValidFileSize(file)) {
+      throw new FileReadError('Invalid file. Please select a valid image file within the specified size limit.');
     }
-  };
 
-  const handleRemoveImage = () => {
+    compressImage(file, targetSizeKB, (compressedDataUrl) => {
+      if (compressedDataUrl) {
+        setImagePreviewUrl(compressedDataUrl);
+        if (handleAddImage) {
+          const compressedFile = dataURLtoFile(compressedDataUrl, file.name);
+          handleAddImage([{ file: compressedFile }]);
+        }
+      } else {
+        setError('Could not compress the image to the desired size.');
+      }
+    });
+
+  }, [targetSizeKB, setImagePreviewUrl, handleAddImage]);
+
+  const handleRemoveImage = useCallback(() => {
+    setError('');
     setImagePreviewUrl('');
     if (handleAddImage) handleAddImage([]);
-  };
+  }, [setImagePreviewUrl, handleAddImage]);
 
   return (
-    <div className={styles.icons}>
-      <CustomFileInput
-        onChange={handleImageChange}
-        accept="image/png, image/jpg, image/gif, image/jpeg"
-        icon={upload}
-        altText="Upload Icon"
-      />
-      <ButtonWithIcon
-        onClick={handleRemoveImage}
-        icon={remove}
-        altText="Remove Icon" />
-    </div>
+    <>
+      {error && <div>{error}</div>}
+      <div className={styles.icons}>
+        <CustomFileInput
+          onChange={handleImageChange}
+          accept="image/png, image/jpg, image/gif, image/jpeg"
+          icon={upload}
+          altText="Upload Icon"
+        />
+        <ButtonWithIcon
+          onClick={handleRemoveImage}
+          icon={remove}
+          altText="Remove Icon"
+        />
+      </div>
+    </>
   );
 };
 

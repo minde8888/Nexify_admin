@@ -20,33 +20,32 @@ const categoriesSlice = createSlice({
     reducers: {
         getCategories: (state, action: PayloadAction<CategoryResponse[]>) => {
             state.data = action.payload;
+            state.lastRequestStatus = null;
             return state;
         },
 
         updateCategory: (state, action: PayloadAction<CategoryFormProperty>) => {
+            state.lastRequestStatus = false;
             const updatedCategory = action.payload;
             const categoryIndex = findIndexById(state.data, updatedCategory.id, 'id');
             if (categoryIndex !== -1) {
                 state.data[categoryIndex] = { ...state.data[categoryIndex], ...updatedCategory };
-                state.lastRequestStatus = true;
                 return state;
             }
-            state.lastRequestStatus = false;
             return state;
         },
 
         updateSubcategory: (state, action: PayloadAction<CategoryFormProperty>) => {
+            state.lastRequestStatus = false;
             const updatedSubcategory = action.payload;
 
             state.data.forEach((category) => {
                 const subcategoryIndex = findIndexById(category.subcategories, updatedSubcategory.id, 'id');
                 if (subcategoryIndex !== -1) {
                     category.subcategories[subcategoryIndex] = { ...category.subcategories[subcategoryIndex], ...updatedSubcategory };
-                    state.lastRequestStatus = true;
                     return state;
                 }
             });
-            state.lastRequestStatus = false;
             return state;
         },
 
@@ -55,10 +54,8 @@ const categoriesSlice = createSlice({
             const categoryIndex = findIndexById(state.data, categoryId, 'id');
             if (categoryIndex !== -1) {
                 state.data.splice(categoryIndex, 1);
-                state.lastRequestStatus = true;
                 return state;
             }
-            state.lastRequestStatus = false;
             return state;
         },
 
@@ -68,17 +65,15 @@ const categoriesSlice = createSlice({
                 const subcategoryIndex = category.subcategories.findIndex((item) => item.id === subcategoryId);
                 if (subcategoryIndex !== -1) {
                     category.subcategories.splice(subcategoryIndex, 1);
-                    state.lastRequestStatus = true;
                     return state;
                 }
             });
-            state.lastRequestStatus = false;
             return state;
         },
 
-        requestStatus: (state, action : PayloadAction<boolean>) => {
+        requestStatus: (state, action: PayloadAction<boolean>) => {
             state.lastRequestStatus = action.payload;
-            return state
+            return state;
         }
     }
 });

@@ -25,17 +25,12 @@ const AllSubcategories = forwardRef((props, ref) => {
 
     const { isOpen, toggle } = useModal();
 
-
-
-
-    // Fetch data initially or when data is empty
     useEffect(() => {
         if (!data || data.length === 0) {
             fetchData();
         }
     }, [data, fetchData, disabled]);
 
-    // Fetch data when lastRequestStatus changes to true
     useEffect(() => {
         if (lastRequestStatus === true) {
             fetchData();
@@ -44,14 +39,14 @@ const AllSubcategories = forwardRef((props, ref) => {
 
     return (
         <Preloader isLoading={loading}>
-            <Formik 
+            <Formik
                 innerRef={formikRef as Ref<FormikProps<CategoryFormProperty>>}
                 onSubmit={(values, { resetForm }) => handleSubmit(values, { resetForm })}
                 initialValues={{
                     id: uuidv4(),
                     properties: [],
                     '': ''
-                }} 
+                }}
                 validationSchema={validationSchema}
             >
                 <Form>

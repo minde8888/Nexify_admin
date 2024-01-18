@@ -17,24 +17,27 @@ const apiMiddleware: Middleware<{}, RootState> =
 
             switch (method) {
                 case POST_METHOD:
-                    const response = await handlePostRequest(url, formData);
-                    console.log(response);
-                    
-                    dispatch(requestStatus(response === 200));
-                    break;
-                case PUT_METHOD:
                     // if (formData) {
                     //     console.log(Object.fromEntries(formData));
                     // }
+                    const responsePost = await handlePostRequest(url, formData);
+                    dispatch(requestStatus(responsePost === 200));
+                    break;
+                case PUT_METHOD:
+                    if (formData) {
+                        console.log(Object.fromEntries(formData));
+                    }
 
-                    update({ dispatch, payload: payload, url, formData: formData ?? new FormData() });
+                    const responseUpdate = await update({ dispatch, payload: payload, url, formData: formData ?? new FormData() });
+                    dispatch(requestStatus(responseUpdate === 200));
                     break;
                 case GET_METHOD:
                     const values = await handleGetRequest(url);
                     getAll({ dispatch, payload: values, url });
                     break;
                 case DELETE_METHOD:
-                    remove({ dispatch, bool, url, id: id ?? '' });
+                    const responseDelete = await remove({ dispatch, bool, url, id: id ?? '' });
+                    dispatch(requestStatus(responseDelete === 200));
                     break;
                 default:
                     throw new MethodError(`Unsupported method: ${method}`);

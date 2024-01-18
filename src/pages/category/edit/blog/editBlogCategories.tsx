@@ -1,12 +1,12 @@
 import { useNavigate, useParams } from "react-router-dom";
-import { useAppSelector } from "../../../hooks/useRedux";
-import { findCategoryById } from "../../../utils/helpers/categoryById";
-import EditCategoryProperty from "../../../components/CategoryContent/EditCategories/EditCategoryProperty";
+import { useAppSelector } from "../../../../hooks/useRedux";
+import { findCategoryById } from "../../../../utils/helpers/categoryById";
+import EditCategoryProperty from "../../../../components/CategoryContent/EditCategories/EditCategoryProperty";
 import { Formik, Form } from 'formik';
-import CategoryFormProperty from "../../../types/categoryFormProperty";
-import { ALL_BLOG_CATEGORIES_URL, BLOG_CATEGORY_UPDATE_URL, PUT_METHOD } from "../../../constants/apiConst";
-import useForm from "../../../hooks/useForm";
-import validationSchema from "../../../utils/validation/editCategoryValidationSchema";
+import CategoryFormProperty from "../../../../types/categoryFormProperty";
+import { ALL_BLOG_CATEGORIES_URL, BLOG_CATEGORY_UPDATE_URL, PUT_METHOD } from "../../../../constants/apiConst";
+import useForm from "../../../../hooks/useForm";
+import validationSchema from "../../../../utils/validation/editCategoryValidationSchema";
 import { useEffect } from "react";
 
 const useCategoryData = () => {

@@ -1,9 +1,9 @@
-import CategoryProperty from '../../../components/CategoryContent/AllCategories/CategoryProperty';
-import { useAppSelector } from '../../../hooks/useRedux';
-import { BLOG_CATEGORIES_URL } from '../../../constants/apiConst';
-import useFetchData from '../../../hooks/useDataFetching';
+import CategoryProperty from '../../../../components/CategoryContent/AllCategories/CategoryProperty';
+import { useAppSelector } from '../../../../hooks/useRedux';
+import { BLOG_CATEGORIES_URL } from '../../../../constants/apiConst';
+import useFetchData from '../../../../hooks/useDataFetching';
 import { useEffect } from 'react';
-import Preloader from '../../preloader/preloader';
+import Preloader from '../../../preloader/preloader';
 
 const AllBlogCategories = () => {
     const { loading, fetchData } = useFetchData(BLOG_CATEGORIES_URL);

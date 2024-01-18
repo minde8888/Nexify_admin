@@ -32,8 +32,8 @@ export const handlePostRequest = async (url: string, formData?: FormData): Promi
     return handleRequest({ method: POST_METHOD, url, formData }, false);
 };
 
-export const handlePutRequest = async <T>(url: string, formData?: FormData): Promise<T> => {
-    return handleRequest({ method: PUT_METHOD, url, formData }, true);
+export const handlePutRequest = async (url: string, formData?: FormData): Promise<number> => {
+    return handleRequest({ method: PUT_METHOD, url, formData }, false);
 };
 
 export const handleGetRequest = async <T>(url: string): Promise<T> => {

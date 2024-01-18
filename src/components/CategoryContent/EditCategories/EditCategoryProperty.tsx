@@ -7,10 +7,10 @@ import { CategoryResponse, SubcategoryResponse } from '../../../types/category';
 import useFormikValues from '../../../hooks/useFormikValues';
 import { ImageFile } from '../../../types/imageFile';
 import CategoryFormProperty from '../../../types/categoryFormProperty';
-import { isEmptyString } from '../../../utils/helpers/isEmptyString';
 import { removePartFromUrl } from '../../../utils/helpers/removePartFromUrl';
 import { UrlToImages } from '../../../constants/imageConst';
 import styles from './edit.module.scss';
+import { isValidBase64Image } from '../../../utils/validation/isValidBase64Image';
 
 interface CustomFormValues {
   categoryName: string;
@@ -37,7 +37,7 @@ const EditCategoryProperty: FunctionComponent<EditCategoryPropertyProps> = ({ is
   const [catValues, setCatValues] = useState<CategoryFormProperty>(initialFormState);
 
   useEffect(() => {
-    const imageName = file.length === 0 && !isEmptyString(imagePreviewUrl)
+    const imageName = file.length === 0 && !isValidBase64Image(imagePreviewUrl)
       ? removePartFromUrl(imagePreviewUrl, UrlToImages)
       : null;
 
@@ -63,7 +63,7 @@ const EditCategoryProperty: FunctionComponent<EditCategoryPropertyProps> = ({ is
       <div className={styles.colons}>
         <div className={styles.wireBorder}>
           <PropertyImagePreview imagePreviewUrl={imagePreviewUrl} />
-        </div>
+        </div>              
         <UploadImage setImagePreviewUrl={setImagePreviewUrl} handleAddImage={handleAddImage} />
         <div>
           <div className={styles.saveButton}>

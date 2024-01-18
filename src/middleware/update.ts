@@ -11,26 +11,19 @@ interface UpdateProps {
     formData: FormData;
 }
 
-export const update = ({ dispatch, payload, url, formData }: UpdateProps) => {
+export const update = async ({ dispatch, payload, url, formData }: UpdateProps) => {
     switch (url) {
         case CATEGORY_UPDATE_URL:
             if (payload.accept) {
                 dispatch(updateCategory(payload));
-                handlePutRequest(url, formData);
+                return await handlePutRequest(url, formData);
             } else {
-                const modifiedPayload = {
-                    ...payload,
-                    categoryName: payload.categoryName
-                };
-                delete modifiedPayload.categoryName;
-                dispatch(updateSubcategory(modifiedPayload));
-                handlePutRequest(SUBCATEGORY_UPDATE_URL, formData);
+                dispatch(updateSubcategory(payload));
+                return await handlePutRequest(SUBCATEGORY_UPDATE_URL, formData);
             }
-            break;
         case BLOG_CATEGORIES_URL: {
             dispatch(updatePostCategory(payload));
-            handlePutRequest(url, formData);
-            break;
+            return await handlePutRequest(url, formData);
         }
     }
 };

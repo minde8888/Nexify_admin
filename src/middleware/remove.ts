@@ -14,30 +14,27 @@ interface DeleteProps {
     id: string;
 }
 
-export const remove = ({ dispatch, bool, url, id }: DeleteProps) => {
+export const remove = async ({ dispatch, bool, url, id }: DeleteProps) => {
     if (!id) {
         throw new VariableNotExistError('ID');
     }
-    
+
     switch (url) {
         case CATEGORIES_URL:
             if (bool) {
                 dispatch(removeCategory(id));
-                handleDeleteRequest(url, id);
+                return await handleDeleteRequest(url, id);
             } else {
                 dispatch(removeSubcategory(id));
-                handleDeleteRequest(SUBCATEGORIES_URL, id);
+                return await handleDeleteRequest(SUBCATEGORIES_URL, id);
             }
-            break;
-        case BLOG_URL:{
+        case BLOG_URL: {
             dispatch(removePost(id));
-            handleDeleteRequest(url, id);
-            break;
+            return await handleDeleteRequest(url, id);
         }
         case BLOG_CATEGORIES_URL: {
             dispatch(removePostCategory(id));
-            handleDeleteRequest(url, id);
-            break;
+            return await handleDeleteRequest(url, id);
         }
         case PRODUCTS_URL: {
             break;
@@ -46,5 +43,3 @@ export const remove = ({ dispatch, bool, url, id }: DeleteProps) => {
             throw new UrlError('No such url');
     }
 };
-
-
