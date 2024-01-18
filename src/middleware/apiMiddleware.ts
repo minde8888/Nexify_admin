@@ -1,4 +1,4 @@
-import { handleGetAllRequest, handlePostRequest } from '../api/handleAPI';
+import { handleGetRequest, handlePostRequest } from '../api/handleAPI';
 import { MethodError } from '../errorHandler/methodError';
 import { RootState } from '../redux/store';
 import { Middleware } from '@reduxjs/toolkit';
@@ -6,6 +6,7 @@ import { update } from './update';
 import { getAll } from './getAll';
 import { remove } from './remove';
 import { DELETE_METHOD, GET_METHOD, POST_METHOD, PUT_METHOD } from '../constants/apiConst';
+import { requestStatus } from '../redux/slice/categoriesSlice';
 
 const apiMiddleware: Middleware<{}, RootState> =
     ({ dispatch }) =>
@@ -16,10 +17,10 @@ const apiMiddleware: Middleware<{}, RootState> =
 
             switch (method) {
                 case POST_METHOD:
-                    if (formData) {
-                        console.log(Object.fromEntries(formData));
-                    }
-                    await handlePostRequest(url, formData);
+                    const response = await handlePostRequest(url, formData);
+                    console.log(response);
+                    
+                    dispatch(requestStatus(response === 200));
                     break;
                 case PUT_METHOD:
                     // if (formData) {
@@ -29,7 +30,7 @@ const apiMiddleware: Middleware<{}, RootState> =
                     update({ dispatch, payload: payload, url, formData: formData ?? new FormData() });
                     break;
                 case GET_METHOD:
-                    const values = await handleGetAllRequest(url);
+                    const values = await handleGetRequest(url);
                     getAll({ dispatch, payload: values, url });
                     break;
                 case DELETE_METHOD:

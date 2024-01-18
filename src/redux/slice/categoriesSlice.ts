@@ -3,81 +3,86 @@ import { CategoryResponse } from '../../types/category';
 import CategoryFormProperty from '../../types/categoryFormProperty';
 import { findIndexById } from '../../utils/helpers/findIndexById';
 
+interface CategoriesState {
+    data: CategoryResponse[];
+    lastRequestStatus: boolean | null;
+}
+
+const initialState: CategoriesState = {
+    data: [],
+    lastRequestStatus: null
+};
+
 const categoriesSlice = createSlice({
     name: 'categories',
-    initialState: [] as CategoryResponse[],
+    initialState,
 
     reducers: {
         getCategories: (state, action: PayloadAction<CategoryResponse[]>) => {
-            return action.payload;
-        },
-
-        updateCategory: (state: CategoryResponse[], action: PayloadAction<CategoryFormProperty>) => {
-            const updatedCategory = action.payload;
-     
-            const categoryIndex = findIndexById(state, updatedCategory.id, 'id');
-   
-            if (categoryIndex !== -1) {
-                const newState = [...state];
-                newState[categoryIndex] = { ...newState[categoryIndex], ...updatedCategory };
-                return newState;
-            }
+            state.data = action.payload;
             return state;
         },
 
-        updateSubcategory: (state: CategoryResponse[], action: PayloadAction<CategoryFormProperty>) => {
-            const updatedSubcategory = action.payload;
-            let isUpdated = false;
-            const newState = state.map((category) => {
-                const subcategoryIndex = findIndexById(category.subcategories, updatedSubcategory.id, 'id');
-
-                if (subcategoryIndex !== -1) {
-                    isUpdated = true;
-                    return {
-                        ...category,
-                        subcategories: category.subcategories.map((subcat, index) => 
-                            index === subcategoryIndex ? { ...subcat, ...updatedSubcategory } : subcat
-                        ),
-                    };
-                }
-                return category;
-            });
-
-            return isUpdated ? newState : state;
+        updateCategory: (state, action: PayloadAction<CategoryFormProperty>) => {
+            const updatedCategory = action.payload;
+            const categoryIndex = findIndexById(state.data, updatedCategory.id, 'id');
+            if (categoryIndex !== -1) {
+                state.data[categoryIndex] = { ...state.data[categoryIndex], ...updatedCategory };
+                state.lastRequestStatus = true;
+                return state;
+            }
+            state.lastRequestStatus = false;
+            return state;
         },
 
-        removeCategory: (state: CategoryResponse[], action: PayloadAction<string>) => {
-            const categoryId = action.payload;
-            const categoryIndex = findIndexById(state, categoryId, 'id');
+        updateSubcategory: (state, action: PayloadAction<CategoryFormProperty>) => {
+            const updatedSubcategory = action.payload;
 
+            state.data.forEach((category) => {
+                const subcategoryIndex = findIndexById(category.subcategories, updatedSubcategory.id, 'id');
+                if (subcategoryIndex !== -1) {
+                    category.subcategories[subcategoryIndex] = { ...category.subcategories[subcategoryIndex], ...updatedSubcategory };
+                    state.lastRequestStatus = true;
+                    return state;
+                }
+            });
+            state.lastRequestStatus = false;
+            return state;
+        },
+
+        removeCategory: (state, action: PayloadAction<string>) => {
+            const categoryId = action.payload;
+            const categoryIndex = findIndexById(state.data, categoryId, 'id');
             if (categoryIndex !== -1) {
-                const newState = [...state];
-                newState.splice(categoryIndex, 1);
-                return newState;
+                state.data.splice(categoryIndex, 1);
+                state.lastRequestStatus = true;
+                return state;
             }
+            state.lastRequestStatus = false;
             return state;
         },
 
         removeSubcategory: (state, action: PayloadAction<string>) => {
             const subcategoryId = action.payload;
-            let isRemoved = false;
-            const newState = state.map((category) => {
+            state.data.forEach((category) => {
                 const subcategoryIndex = category.subcategories.findIndex((item) => item.id === subcategoryId);
-
                 if (subcategoryIndex !== -1) {
-                    isRemoved = true;
-                    const newSubcategories = [...category.subcategories];
-                    newSubcategories.splice(subcategoryIndex, 1);
-                    return { ...category, subcategories: newSubcategories };
+                    category.subcategories.splice(subcategoryIndex, 1);
+                    state.lastRequestStatus = true;
+                    return state;
                 }
-                return category;
             });
+            state.lastRequestStatus = false;
+            return state;
+        },
 
-            return isRemoved ? newState : state;
+        requestStatus: (state, action : PayloadAction<boolean>) => {
+            state.lastRequestStatus = action.payload;
+            return state
         }
     }
 });
 
-export const { getCategories, updateCategory, updateSubcategory, removeCategory, removeSubcategory } = categoriesSlice.actions;
+export const { getCategories, updateCategory, updateSubcategory, removeCategory, removeSubcategory, requestStatus } = categoriesSlice.actions;
 
 export default categoriesSlice.reducer;

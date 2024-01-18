@@ -1,55 +1,45 @@
-import axios, { AxiosError, AxiosResponse } from 'axios';
+import { AxiosError, AxiosResponse } from 'axios';
 import api from './instanceAPI';
-import { ServerError } from '../types/serverError';
-import { ApiError } from '../errorHandler/apiError';
-import { HttpMethodError } from '../errorHandler/httpMethodError';
 import { DELETE_METHOD, GET_METHOD, POST_METHOD, PUT_METHOD } from '../constants/apiConst';
 
-const handleRequest = async <T>({ method, url, id, formData }: ApiRequest): Promise<T | undefined> => {
+const handleRequest = async (request: ApiRequest, isDataExpected: boolean): Promise<any> => {
     try {
-        const response: AxiosResponse<T> = await makeApiRequest<T>({ method, url, id, formData });
-
-        return response.data;
+        const response: AxiosResponse<any> = await makeApiRequest(request);
+        return isDataExpected ? response.data : response.status;
     } catch (error) {
-        handleRequestError(error as ApiRequest);
-        return undefined;
+        const axiosError = error as AxiosError;
+        return axiosError.response?.status || 500;
     }
 };
 
-const makeApiRequest = async <T>({ method, url, id, formData }: ApiRequest): Promise<AxiosResponse<T>> => {
-    const apiUrl = id ? `${url}/id?id=${id}` : url;
-
-    switch (method) {
+const makeApiRequest = async (request: ApiRequest): Promise<AxiosResponse<any>> => {
+    const apiUrl = request.id ? `${request.url}/id?id=${request.id}` : request.url;
+    switch (request.method) {
         case POST_METHOD:
-            return await api.post(apiUrl, formData);
+            return await api.post(apiUrl, request.formData);
         case GET_METHOD:
             return await api.get(apiUrl);
         case PUT_METHOD:
-            return await api.put(apiUrl, formData);
+            return await api.put(apiUrl, request.formData);
         case DELETE_METHOD:
             return await api.delete(apiUrl);
         default:
-            throw new HttpMethodError('Invalid HTTP method');
+            throw new Error('Invalid HTTP method');
     }
 };
 
-const handleRequestError = (error: any): never => {
-    if (axios.isAxiosError(error)) {
-        const serverError = error as AxiosError<ServerError>;
-        if (serverError.response?.data) {
-            const errorMessage = serverError.response.data.errors.$values[0];
-            throw new ApiError(`An error occurred: ${errorMessage}`);
-        }
-    }
-    throw new ApiError('An error occurred.');
+export const handlePostRequest = async (url: string, formData?: FormData): Promise<number> => {
+    return handleRequest({ method: POST_METHOD, url, formData }, false);
 };
 
-export const handlePostRequest = async <T>(url: string, formData?: FormData): Promise<T | undefined> => handleRequest<T>({ method: 'post', url, formData });
+export const handlePutRequest = async <T>(url: string, formData?: FormData): Promise<T> => {
+    return handleRequest({ method: PUT_METHOD, url, formData }, true);
+};
 
-export const handlePutRequest = async <T>(url: string, formData?: FormData): Promise<T | undefined> => handleRequest<T>({ method: 'put', url, formData });
+export const handleGetRequest = async <T>(url: string): Promise<T> => {
+    return handleRequest({ method: GET_METHOD, url }, true);
+};
 
-export const handleGetRequest = async <T>(url: string): Promise<T | undefined> => handleRequest<T>({ method: 'get', url });
-
-export const handleGetAllRequest = async <T>(url: string): Promise<T | undefined> => handleRequest<T>({ method: 'get', url });
-
-export const handleDeleteRequest = async <T>(url: string, id: string): Promise<T | undefined> => handleRequest<T>({ method: 'delete', url, id });
+export const handleDeleteRequest = async (url: string, id: string): Promise<number> => {
+    return handleRequest({ method: DELETE_METHOD, url, id }, false);
+};

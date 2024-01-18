@@ -21,30 +21,43 @@ const AllSubcategories = forwardRef((props, ref) => {
 
     const formikRef = useRef<FormikProps<CategoryFormProperty>>(null);
 
-    const categories = useAppSelector((state) => state.data.categories);
+    const { data, lastRequestStatus } = useAppSelector((state) => state.data.categories);
 
     const { isOpen, toggle } = useModal();
 
+
+
+
+    // Fetch data initially or when data is empty
     useEffect(() => {
-        if (!categories || categories.length === 0 || disabled) {
+        if (!data || data.length === 0) {
             fetchData();
         }
-    }, [categories, fetchData, disabled]);
+    }, [data, fetchData, disabled]);
+
+    // Fetch data when lastRequestStatus changes to true
+    useEffect(() => {
+        if (lastRequestStatus === true) {
+            fetchData();
+        }
+    }, [lastRequestStatus, fetchData]);
 
     return (
         <Preloader isLoading={loading}>
-            <Formik innerRef={formikRef as Ref<FormikProps<CategoryFormProperty>>}
+            <Formik 
+                innerRef={formikRef as Ref<FormikProps<CategoryFormProperty>>}
                 onSubmit={(values, { resetForm }) => handleSubmit(values, { resetForm })}
                 initialValues={{
                     id: uuidv4(),
                     properties: [],
                     '': ''
-                }} validationSchema={validationSchema}
+                }} 
+                validationSchema={validationSchema}
             >
-                <Form >
+                <Form>
                     <h2>Add Products Subcategories</h2>
                     <PropertiesSubcategories
-                        categories={categories}
+                        categories={data}
                         setPrefix={setPrefix}
                         disabled={disabled || prefix}
                         formikRef={formikRef}
