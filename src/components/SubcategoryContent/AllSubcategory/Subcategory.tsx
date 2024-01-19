@@ -3,13 +3,13 @@ import { SubcategoryResponse } from '../../../types/category';
 import styles from './subcategory.module.scss';
 
 interface SubcategoryPropertiesProps {
-    subcategories: SubcategoryResponse[];
+    subcategories?: SubcategoryResponse[];
 }
 
 const Subcategory: FunctionComponent<SubcategoryPropertiesProps> =
     ({ subcategories }) => (
         <>
-            {subcategories.map((subcategory) => (
+            {subcategories?.map((subcategory) => (
                 <div key={subcategory.id} className={styles.subcategory}>
                     <div>{subcategory.categoryName}</div>
                 </div>

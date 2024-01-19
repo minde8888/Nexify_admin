@@ -1,6 +1,6 @@
 export const removePartFromUrl = (url: string, prefixToRemove: string): string => {
     if (!url || !prefixToRemove) {
-        return url; 
+        return url;
     }
 
     const normalizedPrefix = prefixToRemove.endsWith('/') ? prefixToRemove : `${prefixToRemove}/`;

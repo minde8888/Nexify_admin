@@ -8,7 +8,7 @@ import { useNavigate } from 'react-router-dom';
 import { EDIT_BLOG_CATEGORY_URL, EDIT_CATEGORY_URL } from '../../../constants/apiConst';
 
 interface EditPropertyProps {
-  categories: CategoryResponse[];
+  categories?: CategoryResponse[];
   URL: string;
   blog?: boolean;
 }
@@ -18,7 +18,7 @@ const CategoryProperty: FunctionComponent<EditPropertyProps> = ({ categories, UR
   const navigate = useNavigate();
 
   const onRemove = useCallback((id: string) => {
-    const bool = categories.some((category) => category.id === id);
+    const bool = categories?.some((category) => category.id === id);
     dispatch(deleteAction(URL, id, bool))
   }, [URL, categories, dispatch]);
 
@@ -29,7 +29,7 @@ const CategoryProperty: FunctionComponent<EditPropertyProps> = ({ categories, UR
 
   return (
     <div className={styles.editPropertyContainer}>
-      {Object.values(categories).map((category, index) => (
+      {categories && Object.values(categories).map((category, index) => (
         <Category
           key={index}
           category={category}

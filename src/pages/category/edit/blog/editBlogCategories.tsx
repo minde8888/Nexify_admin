@@ -8,27 +8,36 @@ import { ALL_BLOG_CATEGORIES_URL, BLOG_CATEGORY_UPDATE_URL, PUT_METHOD } from ".
 import useForm from "../../../../hooks/useForm";
 import validationSchema from "../../../../utils/validation/editCategoryValidationSchema";
 import { useEffect } from "react";
+import Preloader from "../../../preloader/preloader";
 
 const useCategoryData = () => {
     const { id } = useParams();
-    const categories = useAppSelector((state) => state.data.blogCategories);
+    const { data, lastRequestStatus } = useAppSelector((state) => state.data.blogCategories);
     const entityId = id?.toString();
-    const category = findCategoryById(entityId!, categories);
+    const category = findCategoryById(entityId!, data);
     const categoryName = category?.categoryName;
 
-    return { entity: category, isCategory: !!category, categoryName };
+    return {
+        entity: category,
+        isCategory: !!category,
+        categoryName,
+        data,
+        lastRequestStatus
+    };
 };
 
 const EditBlogCategories = () => {
-    const { entity, isCategory, categoryName } = useCategoryData();
-    const { handleSubmit, disabled } = useForm<CategoryFormProperty>(PUT_METHOD, BLOG_CATEGORY_UPDATE_URL);
+    const { entity, isCategory, categoryName, data, lastRequestStatus } = useCategoryData();
+
+    const { handleSubmit } = useForm<CategoryFormProperty>(PUT_METHOD, BLOG_CATEGORY_UPDATE_URL);
+    
     const navigate = useNavigate();
 
     useEffect(() => {
-        if (disabled) {
+        if (lastRequestStatus) {
             navigate(ALL_BLOG_CATEGORIES_URL);
         }
-    }, [disabled, navigate]);
+    }, [lastRequestStatus, navigate, data]);
 
     if (!entity) return null;
 
@@ -41,21 +50,23 @@ const EditBlogCategories = () => {
     };
 
     return (
-        <Formik onSubmit={(values, { resetForm }) => handleSubmit(values, { resetForm })}
-            initialValues={initialCategoryFormProperty}
-            validationSchema={validationSchema}
-            isSubmitting={false}
-        >
-            <Form>
-                <h2>Edit Products Categories</h2>
-                <EditCategoryProperty
-                    category={entity}
-                    isCategory={isCategory}
-                    categoryName={categoryName ?? ''}
-                    disabled={disabled}
-                />
-            </Form>
-        </Formik>
+        <Preloader isLoading={(lastRequestStatus === false)}>
+            <Formik onSubmit={(values, { resetForm }) => handleSubmit(values, { resetForm })}
+                initialValues={initialCategoryFormProperty}
+                validationSchema={validationSchema}
+                isSubmitting={false}
+            >
+                <Form>
+                    <h2>Edit Products Categories</h2>
+                    <EditCategoryProperty
+                        category={entity}
+                        isCategory={isCategory}
+                        categoryName={categoryName ?? ''}
+                        disabled={lastRequestStatus === false}
+                    />
+                </Form>
+            </Formik>
+        </Preloader>
     );
 };
 

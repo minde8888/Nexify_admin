@@ -29,7 +29,7 @@ function useForm<T>(method: string, url: string) {
 
     const handleSubmit = useCallback(
         async (values: T, { resetForm }: { resetForm: () => void }) => {
-            
+
             const formData = new FormData();
             const handler = method === 'post' ? postHandler : putHandler;
 

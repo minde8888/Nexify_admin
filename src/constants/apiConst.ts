@@ -12,6 +12,7 @@ export const ALL_SUBCATEGORIES_URL = '/all-subcategories';
 
 export const BLOG_URL = 'blog';
 export const BLOG_UPDATE_URL = 'blog/update';
+
 export const BLOG_CATEGORIES_URL = 'blogCategory';
 export const BLOG_CATEGORY_UPDATE_URL = 'blogCategory/update';
 export const ALL_BLOG_CATEGORIES_URL = '/all-post';

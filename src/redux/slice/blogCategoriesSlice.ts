@@ -3,37 +3,56 @@ import { CategoryResponse } from '../../types/category';
 import CategoryFormProperty from '../../types/categoryFormProperty';
 import { findIndexById } from '../../utils/helpers/findIndexById';
 
+interface CategoriesState {
+    data: CategoryResponse[];
+    lastRequestStatus: boolean | null;
+}
+
+const initialState: CategoriesState = {
+    data: [],
+    lastRequestStatus: null
+};
+
 const blogCategoriesSlice = createSlice({
     name: 'blogCategories',
-    initialState: [] as CategoryResponse[],
+    initialState,
 
     reducers: {
         getPostCategories: (state, action: PayloadAction<CategoryResponse[]>) => {
-            return action.payload;
+            state.data = action.payload;
+            state.lastRequestStatus = null;
+            return state;
         },
 
-        updatePostCategory: (state: CategoryResponse[], action: PayloadAction<CategoryFormProperty>) => {
+        updatePostCategory: (state, action: PayloadAction<CategoryFormProperty>) => {
+            state.lastRequestStatus = false;
             const updatedCategory = action.payload;
 
-            const categoryIndex = findIndexById(state, updatedCategory.id, 'id');
-
+            const categoryIndex = findIndexById(state.data, updatedCategory.id, 'id');
             if (categoryIndex !== -1) {
-                 (state[categoryIndex] = { ...state[categoryIndex], ...updatedCategory });
+                state.data[categoryIndex] = { ...state.data[categoryIndex], ...updatedCategory };
+                return state;
             }
+            return state;
         },
 
-        removePostCategory: (state: CategoryResponse[], action: PayloadAction<string>) => {
+        removePostCategory: (state, action: PayloadAction<string>) => {
             const categoryId = action.payload;
-
-            const categoryIndex = findIndexById(state, categoryId, 'id');
-
+            const categoryIndex = findIndexById(state.data, categoryId, 'id');
             if (categoryIndex !== -1) {
-                state.splice(categoryIndex, 1);
+                state.data.splice(categoryIndex, 1);
+                return state;
             }
+            return state;
         },
+
+        requestBlogCategoryStatus: (state, action: PayloadAction<boolean>) => {
+            state.lastRequestStatus = action.payload;
+            return state;
+        }
     }
 });
 
-export const { getPostCategories, updatePostCategory, removePostCategory } = blogCategoriesSlice.actions;
+export const { getPostCategories, updatePostCategory, removePostCategory, requestBlogCategoryStatus } = blogCategoriesSlice.actions;
 
 export default blogCategoriesSlice.reducer;

@@ -1,8 +1,8 @@
 import { AnyAction, Dispatch } from '@reduxjs/toolkit';
-import { updateCategory, updateSubcategory } from '../redux/slice/categoriesSlice';
-import { BLOG_CATEGORIES_URL, CATEGORY_UPDATE_URL, SUBCATEGORY_UPDATE_URL } from '../constants/apiConst';
+import { requestCategoryStatus, updateCategory, updateSubcategory } from '../redux/slice/categoriesSlice';
+import { BLOG_CATEGORY_UPDATE_URL, CATEGORY_UPDATE_URL, SUBCATEGORY_UPDATE_URL } from '../constants/apiConst';
 import { handlePutRequest } from '../api/handleAPI';
-import { updatePostCategory } from '../redux/slice/blogCategoriesSlice';
+import { requestBlogCategoryStatus, updatePostCategory } from '../redux/slice/blogCategoriesSlice';
 
 interface UpdateProps {
     dispatch: Dispatch<AnyAction>;
@@ -16,14 +16,22 @@ export const update = async ({ dispatch, payload, url, formData }: UpdateProps) 
         case CATEGORY_UPDATE_URL:
             if (payload.accept) {
                 dispatch(updateCategory(payload));
-                return await handlePutRequest(url, formData);
+
+                const responseCategoryUpdate = await handlePutRequest(url, formData);
+                dispatch(requestCategoryStatus(responseCategoryUpdate === 200));
             } else {
                 dispatch(updateSubcategory(payload));
-                return await handlePutRequest(SUBCATEGORY_UPDATE_URL, formData);
+
+                const responseSubcategoryUpdate = await handlePutRequest(SUBCATEGORY_UPDATE_URL, formData);
+                dispatch(requestCategoryStatus(responseSubcategoryUpdate === 200));
             }
-        case BLOG_CATEGORIES_URL: {
+            break;
+        case BLOG_CATEGORY_UPDATE_URL: {
             dispatch(updatePostCategory(payload));
-            return await handlePutRequest(url, formData);
+
+            const responsePostCategoryUpdate = await handlePutRequest(url, formData);
+            dispatch(requestBlogCategoryStatus(responsePostCategoryUpdate === 200));
+            break;
         }
     }
 };

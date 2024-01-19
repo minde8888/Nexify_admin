@@ -225,6 +225,52 @@ body {
   }
 }
 
+.buttonPublic {
+  text-align: center;
+  margin-top: 20px;
+
+  button {
+    background-image: linear-gradient(to right, #6dd5ed, #2193b0);
+    border          : none;
+    border-radius   : 5px;
+    color           : white;
+    cursor          : pointer;
+    font-size       : 16px;
+    font-weight     : bold;
+    padding         : 10px 20px;
+    text-transform  : uppercase;
+    transition      : transform 0.3s ease, box-shadow 0.3s ease;
+    position        : relative;
+    overflow        : hidden;
+  }
+
+  button::before {
+    content         : '';
+    position        : absolute;
+    top             : 50%;
+    left            : 50%;
+    width           : 300%;
+    height          : 300%;
+    background-image: radial-gradient(circle, rgba(255, 255, 255, 0.5), rgba(255, 255, 255, 0));
+    transform       : translate(-50%, -50%) scale(0);
+    transition      : transform 0.3s ease;
+  }
+
+  button:hover::before {
+    transform: translate(-50%, -50%) scale(1);
+  }
+
+  button:hover {
+    transform : scale(1.05);
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+  }
+
+  button:disabled {
+    background-image: linear-gradient(to right, #cccccc, #999999);
+    cursor          : default;
+  }
+}
+
 .removeDefaultButton {
   button {
     background: none;

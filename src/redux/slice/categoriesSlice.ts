@@ -71,13 +71,13 @@ const categoriesSlice = createSlice({
             return state;
         },
 
-        requestStatus: (state, action: PayloadAction<boolean>) => {
+        requestCategoryStatus: (state, action: PayloadAction<boolean>) => {
             state.lastRequestStatus = action.payload;
             return state;
         }
     }
 });
 
-export const { getCategories, updateCategory, updateSubcategory, removeCategory, removeSubcategory, requestStatus } = categoriesSlice.actions;
+export const { getCategories, updateCategory, updateSubcategory, removeCategory, removeSubcategory, requestCategoryStatus } = categoriesSlice.actions;
 
 export default categoriesSlice.reducer;

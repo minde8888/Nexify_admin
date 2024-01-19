@@ -13,7 +13,7 @@ import EditPost from '../pages/blog/edit/editPost';
 import EditCategories from '../pages/category/edit/product/editCategories';
 import AllBlogCategories from '../pages/category/all/blog/allBlogCategories';
 import EditBlogCategories from '../pages/category/edit/blog/editBlogCategories';
-import AllSubcategories from '../pages/category/add/subcategories/addSubcategory';
+import AllSubcategories from '../pages/category/all/subcategories/allSubcategory';
 
 const Routing = (): JSX.Element => {
     return (

@@ -9,7 +9,7 @@ import CustomButton from "../../Buttons/CustomButton";
 import useFormikValues from "../../../hooks/useFormikValues";
 
 interface PropertiesSubcategoriesProps {
-    categories: CategoryResponse[];
+    categories?: CategoryResponse[];
     toggle: () => void;
     isOpen: boolean;
     disabled: boolean;
@@ -20,7 +20,7 @@ interface PropertiesSubcategoriesProps {
 const PropertiesSubcategories: FunctionComponent<PropertiesSubcategoriesProps> =
     ({ categories, toggle, setPrefix, disabled, isOpen, formikRef }) => {
         const { addNewValue } = useFormikValues();
-
+      
         const [id, setId] = useState('');        
 
         const onAddNewProperty = useCallback((categoryId: string) => {
@@ -31,7 +31,7 @@ const PropertiesSubcategories: FunctionComponent<PropertiesSubcategoriesProps> =
 
         return (
             <>
-                {categories.map((category, index) => (
+                {categories?.map((category, index) => (
                     <div key={category.id || index} className={styles.container}>
                         <div className={styles.category}>
                             {category.categoryName}

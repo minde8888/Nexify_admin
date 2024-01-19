@@ -66,7 +66,7 @@ const EditCategoryProperty: FunctionComponent<EditCategoryPropertyProps> = ({ is
         </div>              
         <UploadImage setImagePreviewUrl={setImagePreviewUrl} handleAddImage={handleAddImage} />
         <div>
-          <div className={styles.saveButton}>
+          <div className={styles.buttonPublic}>
             <button disabled={disabled} type="submit">Public</button>
           </div>
           <TextInputField

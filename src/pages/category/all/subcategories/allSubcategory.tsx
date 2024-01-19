@@ -10,6 +10,8 @@ import { Form, Formik, FormikProps } from 'formik';
 import { v4 as uuidv4 } from 'uuid';
 import validationSchema from '../../../../utils/validation/addCategoryValidationSchema';
 import { useModal } from '../../../../hooks/useModel';
+import { CategoryResponse, DataResponse } from '../../../../types/category';
+import sortByProperty from '../../../../utils/helpers/sortByProperty';
 
 const AllSubcategories = forwardRef((props, ref) => {
 
@@ -21,15 +23,26 @@ const AllSubcategories = forwardRef((props, ref) => {
 
     const formikRef = useRef<FormikProps<CategoryFormProperty>>(null);
 
-    const { data, lastRequestStatus } = useAppSelector((state) => state.data.categories);
+    const { data, lastRequestStatus }: DataResponse = useAppSelector((state) => state.data.categories);
 
     const { isOpen, toggle } = useModal();
 
+    const sortedCategories = data ? sortByProperty(data, 'dateCreated', false) : undefined;
+
+    const updatedSortedCategories = sortedCategories?.map((category) => {
+        const sortedSubcategories = category.subcategories ? sortByProperty(category.subcategories, 'dateCreated', false) : undefined;
+
+        return {
+            ...category,
+            subcategories: sortedSubcategories,
+        };
+    });
+
     useEffect(() => {
-        if (!data || data.length === 0) {
+        if (!updatedSortedCategories || updatedSortedCategories.length === 0) {
             fetchData();
         }
-    }, [data, fetchData, disabled]);
+    }, [updatedSortedCategories, fetchData, disabled]);
 
     useEffect(() => {
         if (lastRequestStatus === true) {
@@ -52,7 +65,7 @@ const AllSubcategories = forwardRef((props, ref) => {
                 <Form>
                     <h2>Add Products Subcategories</h2>
                     <PropertiesSubcategories
-                        categories={data}
+                        categories={updatedSortedCategories as CategoryResponse[]}
                         setPrefix={setPrefix}
                         disabled={disabled || prefix}
                         formikRef={formikRef}

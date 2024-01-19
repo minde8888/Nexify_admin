@@ -1,3 +1,8 @@
+export interface DataResponse {
+    data: CategoryResponse[];
+    lastRequestStatus: boolean;
+}
+
 export interface Category {
     id?: number | null;
     categoryName: string;
@@ -15,6 +20,7 @@ export interface SubcategoryResponse {
     categoryName: string;
     description: string;
     imageSrc: string;
+    dateCreated: string;
 }
 
 export interface CategoryResponse {
@@ -22,6 +28,7 @@ export interface CategoryResponse {
     categoryName: string;
     description: string;
     imageSrc: string;
+    dateCreated: string;
     subcategories: SubcategoryResponse[];
 }
 

@@ -40,6 +40,6 @@ export const handleGetRequest = async <T>(url: string): Promise<T> => {
     return handleRequest({ method: GET_METHOD, url }, true);
 };
 
-export const handleDeleteRequest = async (url: string, id: string): Promise<number> => {
-    return handleRequest({ method: DELETE_METHOD, url, id }, false);
+export const handleDeleteRequest = async <T>(url: string, id: string): Promise<T> => {
+    return handleRequest({ method: DELETE_METHOD, url, id }, true);
 };
