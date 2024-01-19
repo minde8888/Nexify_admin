@@ -8,22 +8,27 @@ import Preloader from '../../preloader/preloader';
 import useForm from '../../../hooks/useForm';
 import styles from '../../../styles/postContent.module.scss';
 import { useAppSelector } from '../../../hooks/useRedux';
-import CategoryFormProperty from '../../../types/categoryFormProperty';
+import sortByProperty from '../../../utils/helpers/sortByProperty';
+import { CategoryResponse } from '../../../types/category';
 
 const AddPost = () => {
-    const { handleSubmit, disabled } = useForm(POST_METHOD, BLOG_URL);
+    const { handleSubmit } = useForm(POST_METHOD, BLOG_URL);
+
     const { loading, fetchData } = useFetchData(BLOG_CATEGORIES_URL);
+    
     const [content, setContent] = useState<string>("");
     const [selectValue, setSelectValue] = useState<string>("default");
     const [resetImages, setResetImages] = useState<boolean>(false);
 
-    const categories: CategoryFormProperty[] = useAppSelector((state) => state.data.blogCategories);
+    const {data, lastRequestStatus } = useAppSelector((state) => state.data.blogCategories);
 
+    const sortedCategories = data ? sortByProperty(data, 'dateCreated') : undefined;
+    
     useEffect(() => {
-        if (!categories || categories.length === 0) {
+        if (!sortedCategories || sortedCategories.length === 0) {
             fetchData();
         }
-    }, [categories, fetchData]);
+    }, [sortedCategories, fetchData]);
 
     const handleFormSubmit = async (values: unknown, { resetForm }: any) => {
         await handleSubmit(values, { resetForm });
@@ -52,10 +57,11 @@ const AddPost = () => {
                         selectValue={selectValue}
                         resetImages={resetImages}
                         setResetImages={setResetImages}
+                        categories={sortedCategories as CategoryResponse[]}
                     />
-                    <div className={styles.saveButton}>
-                        <button disabled={disabled} type="submit">
-                            Save
+                    <div className={styles.buttonPublic}>
+                        <button disabled={lastRequestStatus} type="submit">
+                            Public
                         </button>
                     </div>
                 </Form>

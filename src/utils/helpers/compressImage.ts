@@ -36,5 +36,3 @@ export const compressImage = (file: File, targetSizeKB: number, callback: (resul
     };
     reader.readAsDataURL(file);
 };
-
-

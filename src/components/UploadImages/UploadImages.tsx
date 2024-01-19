@@ -1,26 +1,45 @@
 import React, { useCallback, useEffect, useState } from 'react';
-import ImageUploading, { ImageListType } from 'react-images-uploading';
-import { ImageFile } from '../../types/imageFile';
+import ImageUploading, { ImageListType, ImageType } from 'react-images-uploading';
 import closeIcon from '../../assets/svg/closeIcon.svg';
 import uploadIcon from '../../assets/svg/uploadIcon.svg';
 import tempImage from '../../assets/svg/tempImage.svg';
 import uploadImagesStyles from '../../styles/uploadImages.module.scss';
 import { IconButton } from '../Buttons/IconButton';
+import { compressImage } from '../../utils/helpers/compressImage';
+import { dataURLtoFile } from '../../utils/helpers/dataURLtoFile';
+import { ImageFile } from '../../types/imageFile';
+import { DEFAULT_IMAGE_SIZE } from '../../constants/imageConst';
 
 interface ImagesProps {
-    getImages: (ImageData: Array<ImageFile>) => void;
+    getImages: (ImageData: ImageFile[]) => void;
     maxNumber: number;
     resetImages: boolean;
     setResetImages: (value: boolean) => void;
 }
 
 const UploadImages: React.FC<ImagesProps> = ({ getImages, maxNumber, resetImages, setResetImages }) => {
-    const [images, setImages] = useState([]);
+    const [images, setImages] = useState<ImageType[]>([]);
 
+    const compressImages = async (imageList: ImageType[]): Promise<ImageFile[]> => {
+        const promises = imageList.map(async image => {
+            if (!image.file) return { file: image.file, data_url: image.data_url }; // Return as ImageFile
+            const compressedDataURL = await new Promise<string | null>(resolve => {
+                if (image.file) {
+                    compressImage(image.file, DEFAULT_IMAGE_SIZE, resolve);
+                } else {
+                    resolve(null);
+                }
+            });
+            return { file: compressedDataURL ? dataURLtoFile(compressedDataURL, image.file.name) : image.file, data_url: image.data_url };
+        });
 
-    const onChange = useCallback((imageList: ImageListType): void => {
-        setImages(imageList as []);
-        getImages(imageList as ImageFile[]);
+        return Promise.all(promises);
+    };
+
+    const onChange = useCallback(async (imageList: ImageListType) => {
+        const compressedFiles = await compressImages(imageList as ImageType[]);
+        getImages(compressedFiles);
+        setImages(imageList);
     }, [getImages]);
 
     useEffect(() => {
@@ -76,7 +95,5 @@ const UploadImages: React.FC<ImagesProps> = ({ getImages, maxNumber, resetImages
         </div>
     );
 };
-
-
 
 export default UploadImages;

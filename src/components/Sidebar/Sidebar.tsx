@@ -92,9 +92,6 @@ const Sidebar: FunctionComponent<SidebarProps> = () => {
                                             Edit Blog Categories
                                         </NavLink>
                                     </li>
-                                    <li>
-                                        <NavLink to={'/'}><i className="ion-ios-navigate-outline"></i>Ghostface</NavLink>
-                                    </li>
                                 </ul>
                             </li>
                             <li>
