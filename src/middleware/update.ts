@@ -1,8 +1,9 @@
 import { AnyAction, Dispatch } from '@reduxjs/toolkit';
 import { requestCategoryStatus, updateCategory, updateSubcategory } from '../redux/slice/categoriesSlice';
-import { BLOG_CATEGORY_UPDATE_URL, CATEGORY_UPDATE_URL, SUBCATEGORY_UPDATE_URL } from '../constants/apiConst';
+import { BLOG_CATEGORY_UPDATE_URL, BLOG_UPDATE_URL, CATEGORY_UPDATE_URL, SUBCATEGORY_UPDATE_URL } from '../constants/apiConst';
 import { handlePutRequest } from '../api/handleAPI';
 import { requestBlogCategoryStatus, updatePostCategory } from '../redux/slice/blogCategoriesSlice';
+import { UrlError } from '../errorHandler/urlError';
 
 interface UpdateProps {
     dispatch: Dispatch<AnyAction>;
@@ -33,5 +34,12 @@ export const update = async ({ dispatch, payload, url, formData }: UpdateProps) 
             dispatch(requestBlogCategoryStatus(responsePostCategoryUpdate === 200));
             break;
         }
+        case BLOG_UPDATE_URL:{
+            const responseBlogUpdate = await handlePutRequest(url, formData);
+            console.log(responseBlogUpdate);
+            break;
+        }
+        default:
+            throw new UrlError('Unsupported url');
     }
 };

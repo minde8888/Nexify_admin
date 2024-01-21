@@ -1,28 +1,30 @@
-import { ErrorMessage, useField } from 'formik';
-import { HTMLProps } from 'react';
+import { useCheckboxContext } from "../Context/CheckboxProvider";
 
-interface PropsType extends HTMLProps<HTMLInputElement> {
-    name: string;
-    className?: string;
-    label?: string;
+interface CheckboxFieldProps {
+  name: string;
+  label?: string;
+  className?: string;
 }
 
-export const CheckboxField = ({ label, value, ...props }: PropsType) => {
-    const [field , getFieldProps] = useField({ ...props, type: 'checkbox' });
+export const CheckboxField = ({ name, label, className }: CheckboxFieldProps) => {
+  const { checkedCategories, setCheckedCategories } = useCheckboxContext();
 
-    // Ensure value is a boolean
-    const isChecked = !!value;
+  const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+    setCheckedCategories({
+      ...checkedCategories,
+      [e.target.name]: e.target.checked,
+    });
+  };
 
-    return (
-        <>
-            <input {...field} {...props} type="checkbox" checked={isChecked} />
-            <label htmlFor={field.name}>{label}</label>
-            <div style={{
-                color: "red",
-                fontSize: '11px'
-            }}>
-                <ErrorMessage component="div" name={field?.name} />
-            </div>
-        </>
-    );
+  return (
+    <div className={className}>
+      <input 
+        type="checkbox" 
+        name={name} 
+        checked={checkedCategories[name] || false} 
+        onChange={handleChange} 
+      />
+      <label htmlFor={name}>{label}</label>
+    </div>
+  );
 };

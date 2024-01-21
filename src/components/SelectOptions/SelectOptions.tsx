@@ -1,39 +1,49 @@
 import React from 'react';
 import { SelectField } from "../InputFields/SelectField";
+import { useSelectFieldContext } from '../Context/SelectFieldContext';
 
 interface SelectOptionsProps {
-    options?: any[];
-    selectValue: string;
-    displayKey: string;
-    handleSelectChange: (event: React.FormEvent<HTMLSelectElement>) => void;
-    styles?: Record<string, string>;
+  options?: any[];
+  displayKey?: string;
+  styles?: Record<string, string>;
+  name?: string;
 }
 
 const SelectOptions: React.FC<SelectOptionsProps> = ({
-    options,
-    selectValue,
-    displayKey,
-    handleSelectChange,
-    styles 
+  options,
+  displayKey,
+  styles,
+  name
 }) => {
-    const optionElements = options?.map((option, index) => (
-        <option value={option.id} key={index}>
-            {option[displayKey]}
-        </option>
-    ));
+  const { selectValue, setSelectValue } = useSelectFieldContext();
+  const isObjectArray = options && options.length > 0 && typeof options[0] === 'object';
+
+  const optionElements = options?.map((option, index) => {
+    const value = isObjectArray ? option.id : option;
+    const displayText = isObjectArray && displayKey ? option[displayKey] : option;
 
     return (
-        <SelectField
-            value={selectValue}
-            name="id"
-            as="select"
-            onChange={handleSelectChange}
-            style={styles} 
-        >
-            <option value="">Choose an option</option>
-            {optionElements}
-        </SelectField>
+      <option value={value} key={index}>
+        {displayText}
+      </option>
     );
+  });
+
+  const handleSelectChange = (event: React.FormEvent<HTMLSelectElement>) => {
+    setSelectValue(event.currentTarget.value);
+  };
+
+  return (
+    <SelectField
+      value={selectValue}
+      name={name || "select"}
+      onChange={handleSelectChange}
+      style={styles}
+    >
+      <option value="">Choose an option</option>
+      {optionElements}
+    </SelectField>
+  );
 };
 
 export default SelectOptions;

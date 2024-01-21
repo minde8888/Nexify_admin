@@ -4,7 +4,7 @@ import { findCategoryById } from "../../../../utils/helpers/categoryById";
 import EditCategoryProperty from "../../../../components/CategoryContent/EditCategories/EditCategoryProperty";
 import { Formik, Form } from 'formik';
 import CategoryFormProperty from "../../../../types/categoryFormProperty";
-import { ALL_BLOG_CATEGORIES_URL, BLOG_CATEGORY_UPDATE_URL, PUT_METHOD } from "../../../../constants/apiConst";
+import { ALL_BLOG_POSTS_URL, BLOG_CATEGORY_UPDATE_URL, PUT_METHOD } from "../../../../constants/apiConst";
 import useForm from "../../../../hooks/useForm";
 import validationSchema from "../../../../utils/validation/editCategoryValidationSchema";
 import { useEffect } from "react";
@@ -35,7 +35,7 @@ const EditBlogCategories = () => {
 
     useEffect(() => {
         if (lastRequestStatus) {
-            navigate(ALL_BLOG_CATEGORIES_URL);
+            navigate(ALL_BLOG_POSTS_URL);
         }
     }, [lastRequestStatus, navigate, data]);
 

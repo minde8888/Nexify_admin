@@ -1,9 +1,10 @@
-import { AnyAction, Dispatch } from "@reduxjs/toolkit";
-import { UrlError } from "../errorHandler/urlError";
-import { BLOG_CATEGORIES_URL, CATEGORIES_URL, SUBCATEGORIES_URL } from "../constants/apiConst";
-import { requestCategoryStatus } from "../redux/slice/categoriesSlice";
-import { handlePostRequest } from "../api/handleAPI";
-import { requestBlogCategoryStatus } from "../redux/slice/blogCategoriesSlice";
+import { AnyAction, Dispatch } from '@reduxjs/toolkit';
+import { UrlError } from '../errorHandler/urlError';
+import { BLOG_CATEGORIES_URL, BLOG_URL, CATEGORIES_URL, SUBCATEGORIES_URL } from '../constants/apiConst';
+import { requestCategoryStatus } from '../redux/slice/categoriesSlice';
+import { handlePostRequest } from '../api/handleAPI';
+import { requestBlogCategoryStatus } from '../redux/slice/blogCategoriesSlice';
+import { requestBlogStatus } from '../redux/slice/postsSlice';
 
 interface PostProps {
     dispatch: Dispatch<AnyAction>;
@@ -11,7 +12,6 @@ interface PostProps {
     formData: FormData;
 }
 export const post = async ({ dispatch, formData, url }: PostProps) => {
-
     switch (url) {
         case CATEGORIES_URL:
             const responseCategory = await handlePostRequest(url, formData);
@@ -24,6 +24,10 @@ export const post = async ({ dispatch, formData, url }: PostProps) => {
         case BLOG_CATEGORIES_URL:
             const responseBlogCategory = await handlePostRequest(url, formData);
             dispatch(requestBlogCategoryStatus(responseBlogCategory === 200));
+            break;
+        case BLOG_URL:
+            const responseBlog = await handlePostRequest(url, formData);
+            dispatch(requestBlogStatus(responseBlog === 200));
             break;
         default:
             throw new UrlError('Unsupported Post url');

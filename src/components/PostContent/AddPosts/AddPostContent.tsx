@@ -1,4 +1,4 @@
-import { FormEvent, useCallback } from "react";
+import { FormEvent, useCallback, useEffect, useState } from "react";
 import { ImageFile } from "../../../types/imageFile";
 import UploadImages from "../../UploadImages/UploadImages";
 import { TextInputField } from "../../InputFields/TextInputField";
@@ -7,12 +7,15 @@ import EnhancedMdxEditorComponent from "../../MarkDownEditor/EnhancedMdxEditorCo
 import { CategoryResponse } from "../../../types/category";
 import SelectOptions from "../../SelectOptions/SelectOptions";
 import styles from "../../../styles/postContent.module.scss";
+import { CheckboxField } from "../../InputFields/CheckboxField";
+import { useCheckboxContext } from "../../Context/CheckboxProvider";
+import { useSelectFieldContext } from "../../Context/SelectFieldContext";
 
 interface AddPostContentProps {
     setContent: (Content: string) => void;
     content: string;
-    setSelectValue: (value: string) => void;
-    selectValue: string;
+    // setSelectValue: (value: string) => void;
+    // selectValue: string;
     resetImages: boolean;
     setResetImages: (value: boolean) => void;
     categories?: CategoryResponse[];
@@ -21,8 +24,8 @@ interface AddPostContentProps {
 const AddPostContent = ({
     setContent,
     content,
-    setSelectValue,
-    selectValue,
+    // setSelectValue,
+    // selectValue,
     resetImages,
     setResetImages,
     categories
@@ -30,17 +33,32 @@ const AddPostContent = ({
 
     const { addNewValue } = useFormikValues();
 
+    const { selectValue } = useSelectFieldContext();
+
+    const { checkedCategories } = useCheckboxContext();
+
+    const handleAction = () => {
+
+        const checkedCategoryIds = Object.entries(checkedCategories)
+            .filter(([_, checked]) => checked)
+            .map(([categoryId, _]) => categoryId);
+
+        addNewValue({ categoryId: checkedCategoryIds });
+    };
+
+    useEffect(() => {
+        addNewValue({ content });
+        handleAction();
+
+        // eslint-disable-next-line react-hooks/exhaustive-deps
+    }, [content]);
+
     const getImagesData = async (files: ImageFile[]): Promise<void> => {
-        
+
         if (files.length !== 0) {
             addNewValue({ images: files.map(file => file.file) });
         }
     };
-
-    const handleSelectChange = useCallback((e: FormEvent<HTMLSelectElement>): void => {
-        const selectedValue = (e.target as HTMLSelectElement).value;
-        setSelectValue(selectedValue)
-    }, [setSelectValue]);
 
     const optionStyles = {
         padding: '10px',
@@ -60,7 +78,8 @@ const AddPostContent = ({
                         getImages={getImagesData}
                         maxNumber={1}
                         resetImages={resetImages}
-                        setResetImages={setResetImages} />
+                        setResetImages={setResetImages}
+                    />
                 </div>
                 <div className={styles.columns}>
                     <TextInputField
@@ -75,11 +94,18 @@ const AddPostContent = ({
                 <div className={styles.columns}>
                     <SelectOptions
                         options={categories}
-                        selectValue={selectValue}
                         displayKey="categoryName"
-                        handleSelectChange={handleSelectChange}
                         styles={optionStyles}
+                        name={"categoryId"}
                     />
+                    {categories?.map((category) => (
+                        <CheckboxField
+                            key={category.id}
+                            name={category.id}
+                            label={category.categoryName}
+                            className={styles.checkbox}
+                        />
+                    ))}
                 </div>
             </div>
         </div>

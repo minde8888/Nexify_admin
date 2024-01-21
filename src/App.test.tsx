@@ -1,9 +1,12 @@
 import App from './App';
 import { renderBrowserWithContext } from './testUtils/RenderBrowserWithContext';
 
-jest.mock('@uiw/react-md-editor', () => ({
-  ...jest.requireActual('@uiw/react-md-editor'),
-  default: ({ children }: any) => <div>{children}</div>,
+jest.mock('uuid', () => ({
+  v4: jest.fn().mockReturnValue('mock-uuid'),
+}));
+
+jest.mock('@mdxeditor/editor', () => ({
+  MDXEditor: () => 'MockedMDXEditor',
 }));
 
 describe('<App />', () => {

@@ -1,4 +1,4 @@
-import { handleGetRequest, handlePostRequest } from '../api/handleAPI';
+import { handleGetRequest } from '../api/handleAPI';
 import { MethodError } from '../errorHandler/methodError';
 import { RootState } from '../redux/store';
 import { Middleware } from '@reduxjs/toolkit';
@@ -20,10 +20,10 @@ const apiMiddleware: Middleware<{}, RootState> =
                     post({ dispatch, url, formData: formData ?? new FormData() });                    
                     break;
                 case PUT_METHOD:
-                    // if (formData) {
-                    //     console.log(Object.fromEntries(formData));
-                    // }
-                    update({ dispatch, payload: payload, url, formData: formData ?? new FormData() });                    
+                    if (formData) {
+                        console.log(Object.fromEntries(formData));
+                    }
+                    // update({ dispatch, payload: payload, url, formData: formData ?? new FormData() });                    
                     break;
                 case GET_METHOD:
                     const values = await handleGetRequest(url);

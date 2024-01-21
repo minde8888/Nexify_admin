@@ -15,14 +15,31 @@ interface ImagesProps {
     maxNumber: number;
     resetImages: boolean;
     setResetImages: (value: boolean) => void;
+    initialImages?: string[];
 }
 
-const UploadImages: React.FC<ImagesProps> = ({ getImages, maxNumber, resetImages, setResetImages }) => {
+const UploadImages: React.FC<ImagesProps> = ({ getImages, maxNumber, resetImages, setResetImages, initialImages }) => {
     const [images, setImages] = useState<ImageType[]>([]);
+
+    useEffect(() => {
+        if (resetImages) {
+            setImages([]);
+            setResetImages(false);
+        }
+    }, [resetImages, setResetImages]);
+
+    useEffect(() => {
+        if (initialImages) {
+            const initialImageList = initialImages.map((url) => ({
+                data_url: url,
+            }));
+            setImages(initialImageList);
+        }
+    }, [initialImages]);
 
     const compressImages = async (imageList: ImageType[]): Promise<ImageFile[]> => {
         const promises = imageList.map(async image => {
-            if (!image.file) return { file: image.file, data_url: image.data_url }; // Return as ImageFile
+            if (!image.file) return { file: image.file, data_url: image.data_url };
             const compressedDataURL = await new Promise<string | null>(resolve => {
                 if (image.file) {
                     compressImage(image.file, DEFAULT_IMAGE_SIZE, resolve);

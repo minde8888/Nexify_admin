@@ -14,6 +14,7 @@ import EditCategories from '../pages/category/edit/product/editCategories';
 import AllBlogCategories from '../pages/category/all/blog/allBlogCategories';
 import EditBlogCategories from '../pages/category/edit/blog/editBlogCategories';
 import AllSubcategories from '../pages/category/all/subcategories/allSubcategory';
+import AllPost from '../pages/blog/all/allPosts';
 
 const Routing = (): JSX.Element => {
     return (
@@ -32,7 +33,7 @@ const Routing = (): JSX.Element => {
                         <Route path="/add-subcategories/:id" element={<AllSubcategories />} />
 
                         <Route path="/add-post" element={<AddPost />} />
-                        <Route path="/all-post" element={<AllBlogCategories />} />
+                        <Route path="/all-post" element={<AllPost />} />
                         <Route path="/edit-post/:id" element={<EditPost />} />
 
                         <Route path="/add-post-categories" element={<AddPostCategories />} />

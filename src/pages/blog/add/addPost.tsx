@@ -14,16 +14,16 @@ import { CategoryResponse } from '../../../types/category';
 const AddPost = () => {
     const { handleSubmit } = useForm(POST_METHOD, BLOG_URL);
 
-    const { loading, fetchData } = useFetchData(BLOG_CATEGORIES_URL);
-    
+    const { loading, fetchData } = useFetchData(BLOG_CATEGORIES_URL);  
+
     const [content, setContent] = useState<string>("");
-    const [selectValue, setSelectValue] = useState<string>("default");
+
     const [resetImages, setResetImages] = useState<boolean>(false);
 
-    const {data, lastRequestStatus } = useAppSelector((state) => state.data.blogCategories);
+    const { data, lastRequestStatus } = useAppSelector((state) => state.data.blogCategories);
 
     const sortedCategories = data ? sortByProperty(data, 'dateCreated') : undefined;
-    
+
     useEffect(() => {
         if (!sortedCategories || sortedCategories.length === 0) {
             fetchData();
@@ -33,7 +33,6 @@ const AddPost = () => {
     const handleFormSubmit = async (values: unknown, { resetForm }: any) => {
         await handleSubmit(values, { resetForm });
         setContent('');
-        setSelectValue('default');
         setResetImages(true);
     };
 
@@ -43,7 +42,7 @@ const AddPost = () => {
                 onSubmit={handleFormSubmit}
                 initialValues={{
                     title: '',
-                    context: '',
+                    content: '',
                     images: [],
                 }}
                 validationSchema={validationSchema}
@@ -53,8 +52,6 @@ const AddPost = () => {
                     <AddPostContent
                         setContent={setContent}
                         content={content}
-                        setSelectValue={setSelectValue}
-                        selectValue={selectValue}
                         resetImages={resetImages}
                         setResetImages={setResetImages}
                         categories={sortedCategories as CategoryResponse[]}

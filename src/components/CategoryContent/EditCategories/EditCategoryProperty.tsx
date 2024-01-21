@@ -1,4 +1,4 @@
-import React, { FunctionComponent, useState, useEffect, useCallback } from 'react';
+import { FunctionComponent, useState, useEffect, useCallback } from 'react';
 import { TextInputField } from '../../InputFields/TextInputField';
 import UploadImage from '../../UploadImage/UploadImage';
 import PropertyImagePreview from '../../PropertyImagePreview/PropertyImagePreview';
@@ -25,67 +25,68 @@ interface EditCategoryPropertyProps {
   disabled: boolean;
 }
 
-const EditCategoryProperty: FunctionComponent<EditCategoryPropertyProps> = ({ isCategory, category, categoryName, disabled }) => {
+const EditCategoryProperty: FunctionComponent<EditCategoryPropertyProps> =
+  ({ isCategory, category, categoryName, disabled }) => {
 
-  const { addNewValue, values } = useFormikValues<CustomFormValues[]>();
+    const { addNewValue, values } = useFormikValues<CustomFormValues[]>();
 
-  let newValues = values as unknown as CustomFormValues;
+    let newValues = values as unknown as CustomFormValues;
 
-  const [content, setContent] = useState<string>('');
-  const [file, setFile] = useState<ImageFile[]>([]);
-  const [imagePreviewUrl, setImagePreviewUrl] = useState<string>('');
-  const [catValues, setCatValues] = useState<CategoryFormProperty>(initialFormState);
+    const [content, setContent] = useState<string>('');
+    const [file, setFile] = useState<ImageFile[]>([]);
+    const [imagePreviewUrl, setImagePreviewUrl] = useState<string>('');
+    const [catValues, setCatValues] = useState<CategoryFormProperty>(initialFormState);
 
-  useEffect(() => {
-    const imageName = file.length === 0 && !isValidBase64Image(imagePreviewUrl)
-      ? removePartFromUrl(imagePreviewUrl, UrlToImages)
-      : null;
+    useEffect(() => {
+      const imageName = file.length === 0 && !isValidBase64Image(imagePreviewUrl)
+        ? removePartFromUrl(imagePreviewUrl, UrlToImages)
+        : null;
 
-    addNewValue({ ...catValues, description: content, imageName, image: file, imageSrc: imagePreviewUrl });
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [catValues, content, file, imagePreviewUrl]);
+      addNewValue({ ...catValues, description: content, imageName, image: file, imageSrc: imagePreviewUrl });
+      // eslint-disable-next-line react-hooks/exhaustive-deps
+    }, [catValues, content, file, imagePreviewUrl]);
 
-  useEffect(() => {
-    if (category) {
-      const initialValues = mapCategoryToFormValues(category, isCategory);
-      setCatValues(initialValues);
-      setContent(initialValues.description || '');
-      setImagePreviewUrl(initialValues.imageName || '');
-    }
-    addNewValue({ categoryName: categoryName });
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [category, categoryName, isCategory]);
+    useEffect(() => {
+      if (category) {
+        const initialValues = mapCategoryToFormValues(category, isCategory);
+        setCatValues(initialValues);
+        setContent(initialValues.description || '');
+        setImagePreviewUrl(initialValues.imageName || '');
+      }
+      addNewValue({ categoryName: categoryName });
+      // eslint-disable-next-line react-hooks/exhaustive-deps
+    }, [category, categoryName, isCategory]);
 
-  const handleAddImage = useCallback((newFile: ImageFile[]) => setFile(newFile), []);
+    const handleAddImage = useCallback((newFile: ImageFile[]) => setFile(newFile), []);
 
-  return (
-    <div className={styles.editCategoryContainer}>
-      <div className={styles.colons}>
-        <div className={styles.wireBorder}>
-          <PropertyImagePreview imagePreviewUrl={imagePreviewUrl} />
-        </div>              
-        <UploadImage setImagePreviewUrl={setImagePreviewUrl} handleAddImage={handleAddImage} />
-        <div>
-          <div className={styles.buttonPublic}>
-            <button disabled={disabled} type="submit">Public</button>
+    return (
+      <div className={styles.editCategoryContainer}>
+        <div className={styles.colons}>
+          <div className={styles.wireBorder}>
+            <PropertyImagePreview imagePreviewUrl={imagePreviewUrl} />
           </div>
-          <TextInputField
-            className={styles.titleField}
-            name="categoryName"
-            label=""
-            id="categoryName"
-            placeholder="Enter category name"
-            initialValue={newValues.categoryName}
-          />
+          <UploadImage setImagePreviewUrl={setImagePreviewUrl} handleAddImage={handleAddImage} />
+          <div>
+            <div className={styles.buttonPublic}>
+              <button disabled={disabled} type="submit">Public</button>
+            </div>
+            <TextInputField
+              className={styles.titleField}
+              name="categoryName"
+              label=""
+              id="categoryName"
+              placeholder="Enter category name"
+              initialValue={newValues.categoryName}
+            />
+          </div>
         </div>
-      </div>
-      <div className={styles.description}>
-        <EnhancedMdxEditorComponent content={content} setContent={setContent} width="95%" />
-      </div>
+        <div className={styles.description}>
+          <EnhancedMdxEditorComponent content={content} setContent={setContent} width="95%" />
+        </div>
 
-    </div>
-  );
-};
+      </div>
+    );
+  };
 
 const initialFormState = {
   id: '',

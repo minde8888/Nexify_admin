@@ -13,9 +13,14 @@ export const ALL_SUBCATEGORIES_URL = '/all-subcategories';
 export const BLOG_URL = 'blog';
 export const BLOG_UPDATE_URL = 'blog/update';
 
+export const ADD_BLOG_URL = '/add-post';
+export const ALL_BLOG_POSTS_URL = '/all-post';
+export const EDIT_BLOG_URL = '/edit-post/';
+
 export const BLOG_CATEGORIES_URL = 'blogCategory';
 export const BLOG_CATEGORY_UPDATE_URL = 'blogCategory/update';
-export const ALL_BLOG_CATEGORIES_URL = '/all-post';
+
+export const ADD_BLOG_CATEGORY_URL = '/add-post-category';
 export const EDIT_BLOG_CATEGORY_URL = '/edit-post-categories/';
 
 export const POST_METHOD = 'post';
