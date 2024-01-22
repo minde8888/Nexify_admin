@@ -1,52 +1,60 @@
 import { FunctionComponent, useEffect, useState } from 'react';
 import { TextInputField } from '../../InputFields/TextInputField';
-import { ImageFile } from '../../../types/imageFile';
-import useFormikValues from '../../../hooks/useFormikValues';
-import styles from './edit.module.scss';
-import EnhancedMdxEditorComponent from '../../MarkDownEditor/EnhancedMdxEditorComponent';
 import UploadImages from '../../UploadImages/UploadImages';
+import EnhancedMdxEditorComponent from '../../MarkDownEditor/EnhancedMdxEditorComponent';
+import { CheckboxField } from '../../InputFields/CheckboxField';
+import useFormikValues from '../../../hooks/useFormikValues';
+import { useCheckboxContext } from '../../Context/CheckboxProvider';
+import styles from './edit.module.scss';
 import { Post } from '../../../types/post';
+import { CategoryResponse } from '../../../types/category';
+import { ImageFile } from '../../../types/imageFile';
+import { log } from '../../../utils/helpers/logger';
 
-interface CustomPostProps extends Post {
-    categoriesIds?: string[];
-}
+
 
 interface EditPostPropertyProps extends Post {
     disabled: boolean;
     resetImages: boolean;
     setResetImages: (value: boolean) => void;
     categoriesIds?: string[];
+    categories?: CategoryResponse[];
 }
 
-const initialFormState: CustomPostProps = {
-    id: '',
-    title: '',
-    content: '',
-    images: [],
-    imageName: '',
-    categoriesIds: [],
-};
-
 const EditPostProperty: FunctionComponent<EditPostPropertyProps> = ({
-    id, title, content, imageSrc, disabled, resetImages, setResetImages, categoriesIds
+    id,
+    title,
+    content,
+    imageSrc,
+    disabled,
+    resetImages,
+    setResetImages,
+    categoriesIds,
+    categories
 }) => {
-
     const { addNewValue } = useFormikValues<Post[]>();
-    const [postValues, setPostValues] = useState<CustomPostProps>({ ...initialFormState, id, title, content });
+    const [postValues, setPostValues] = useState({ id, title, content });
+    const { checkedCategories, setCheckedCategories } = useCheckboxContext();
+
+    log('checkedCategories', checkedCategories);
 
     useEffect(() => {
-        setPostValues({ id, title, content });
-    }, [id, title, content]);
+        categoriesIds?.forEach(id => {
+            setCheckedCategories(prev => ({ ...prev, [id]: true }));
+        });
 
-    useEffect(() => {
-        addNewValue({ id, title, content, categoriesIds });
+        addNewValue({ id, title, content });
         // eslint-disable-next-line react-hooks/exhaustive-deps
     }, []);
 
+    const handleContentChange = (newContent: string) => {
+        setPostValues(prev => ({ ...prev, content: newContent }));
+        addNewValue({ content: newContent });
+    };
+
     const getImagesData = async (files: ImageFile[]): Promise<void> => {
-        if (files.length) {
-            addNewValue({ images: files.map(file => file.file) });
-        }
+        const images = files.map(file => file.file);
+        addNewValue({ images });
     };
 
     return (
@@ -67,8 +75,18 @@ const EditPostProperty: FunctionComponent<EditPostPropertyProps> = ({
             />
             <EnhancedMdxEditorComponent
                 content={postValues.content || ''}
-                setContent={(newContent) => setPostValues({ ...postValues, content: newContent })}
+                setContent={handleContentChange}
                 width='95%' />
+            <div className={styles.columns}>
+                {categories?.map((category) => (
+                    <CheckboxField
+                        key={category.id}
+                        name={category.id}
+                        label={category.categoryName}
+                        className={styles.checkbox}
+                    />
+                ))}
+            </div>
             <div className={styles.saveButton}>
                 <button disabled={disabled} type="submit">Save</button>
             </div>

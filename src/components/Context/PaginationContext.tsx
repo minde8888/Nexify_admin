@@ -1,5 +1,4 @@
 import React, { createContext, useState, useContext, useCallback, useEffect } from 'react';
-import { Dispatch, AnyAction } from '@reduxjs/toolkit';
 import { generateQueryString } from '../../utils/helpers/generateQueryString';
 import { getAllAction } from '../../redux/actions/actions';
 import { useAppDispatch } from '../../redux/store';

@@ -17,8 +17,8 @@ const AllPost = () => {
     const dispatch = useAppDispatch();
     const { fetchData, loading } = useFetchData(BLOG_URL);
 
-    const [selectValue, setSelectValue] = useState(pageSizeOptions[0]);
-    const { data, lastRequestStatus } = useAppSelector((state) => state.data.posts);
+    const [selectValue] = useState(pageSizeOptions[0]);
+    const { data } = useAppSelector((state) => state.data.posts);
     const { handleSubmit } = useForm<Post>(PUT_METHOD, BLOG_UPDATE_URL);
     const { pageNumber, pageSize, totalPages, totalRecords, post } = data as PagedResponse<Post>;
 
@@ -38,7 +38,7 @@ const AllPost = () => {
     const sortedPosts = post ? sortByProperty(post, 'dateCreated') : undefined;
 
     return (
-        <Preloader isLoading={loading}>
+        <Preloader isLoading={loading }>
             <Formik
                 onSubmit={(values, { resetForm }) => handleSubmit(values, { resetForm })}
                 initialValues={initialCategoryFormProperty}

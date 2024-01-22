@@ -1,21 +1,17 @@
-import { FormEvent, useCallback, useEffect, useState } from "react";
+import { useEffect } from "react";
 import { ImageFile } from "../../../types/imageFile";
 import UploadImages from "../../UploadImages/UploadImages";
 import { TextInputField } from "../../InputFields/TextInputField";
 import useFormikValues from "../../../hooks/useFormikValues";
 import EnhancedMdxEditorComponent from "../../MarkDownEditor/EnhancedMdxEditorComponent";
 import { CategoryResponse } from "../../../types/category";
-import SelectOptions from "../../SelectOptions/SelectOptions";
 import styles from "../../../styles/postContent.module.scss";
 import { CheckboxField } from "../../InputFields/CheckboxField";
 import { useCheckboxContext } from "../../Context/CheckboxProvider";
-import { useSelectFieldContext } from "../../Context/SelectFieldContext";
 
 interface AddPostContentProps {
     setContent: (Content: string) => void;
     content: string;
-    // setSelectValue: (value: string) => void;
-    // selectValue: string;
     resetImages: boolean;
     setResetImages: (value: boolean) => void;
     categories?: CategoryResponse[];
@@ -24,16 +20,12 @@ interface AddPostContentProps {
 const AddPostContent = ({
     setContent,
     content,
-    // setSelectValue,
-    // selectValue,
     resetImages,
     setResetImages,
     categories
 }: AddPostContentProps) => {
 
     const { addNewValue } = useFormikValues();
-
-    const { selectValue } = useSelectFieldContext();
 
     const { checkedCategories } = useCheckboxContext();
 
@@ -60,16 +52,6 @@ const AddPostContent = ({
         }
     };
 
-    const optionStyles = {
-        padding: '10px',
-        fontSize: '16px',
-        border: '1px solid #ccc',
-        borderRadius: '5px',
-        width: '100%',
-        marginBottom: '10px',
-        height: '46px'
-    }
-
     return (
         <div className={styles.container}>
             <div className={styles.items}>
@@ -92,12 +74,6 @@ const AddPostContent = ({
                     <EnhancedMdxEditorComponent content={content} setContent={setContent} width='95%' />
                 </div>
                 <div className={styles.columns}>
-                    <SelectOptions
-                        options={categories}
-                        displayKey="categoryName"
-                        styles={optionStyles}
-                        name={"categoryId"}
-                    />
                     {categories?.map((category) => (
                         <CheckboxField
                             key={category.id}

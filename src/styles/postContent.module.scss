@@ -28,8 +28,8 @@ Form {
       }
 
       .columns:nth-child(1) {
-        border: 1px solid $base_color;
-        border-radius: $border-radius;        
+        border       : 1px solid $base_color;
+        border-radius: $border-radius;
       }
 
       .columns:nth-child(2) {
@@ -55,6 +55,5 @@ Form {
 
     }
   }
-
-
 }
+

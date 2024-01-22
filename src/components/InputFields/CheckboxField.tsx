@@ -18,11 +18,12 @@ export const CheckboxField = ({ name, label, className }: CheckboxFieldProps) =>
 
   return (
     <div className={className}>
-      <input 
-        type="checkbox" 
-        name={name} 
-        checked={checkedCategories[name] || false} 
-        onChange={handleChange} 
+      <input
+        type="checkbox"
+        name={name}
+        id={name}
+        checked={checkedCategories[name] || false}
+        onChange={handleChange}
       />
       <label htmlFor={name}>{label}</label>
     </div>
