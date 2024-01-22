@@ -1,5 +1,5 @@
 // PageSize.tsx
-import React, { FormEvent, useEffect } from "react";
+import React, {  useEffect } from "react";
 import SelectOptions from "../SelectOptions/SelectOptions";
 import { pageSizeOptions } from "../../constants/pageSize";
 import { usePagination } from "../Context/PaginationContext";
@@ -12,17 +12,17 @@ interface PageSizeProps {
 }
 
 const PageSize: React.FC<PageSizeProps> = ({ url, dispatch }: PageSizeProps) => {
-    const { pageSize, setPageSize, setPageNumber, fetchDataForPage } = usePagination();
+    const { pageSize, setPageSize, setPageNumber, setUrl } = usePagination();
     const { selectValue } = useSelectFieldContext();
     const selectValueNumber = parseInt(selectValue, 10);
 
     useEffect(() => {
-        if (!isNaN(selectValueNumber) && selectValueNumber !== pageSize) {
+        if (!isNaN(selectValueNumber) && selectValueNumber !== pageSize) {        
             setPageSize(selectValueNumber); 
-            setPageNumber(1); // Reset page number when page size changes
-            fetchDataForPage(url, dispatch);
+            setPageNumber(1);     
+            setUrl(url);
         }
-    }, [selectValueNumber, setPageSize, setPageNumber, fetchDataForPage, url, dispatch, pageSize]);
+    }, [selectValueNumber, setPageSize, setPageNumber, url, dispatch, pageSize, setUrl]);
 
 
     const style = {
