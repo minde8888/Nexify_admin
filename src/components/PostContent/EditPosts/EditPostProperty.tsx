@@ -9,9 +9,6 @@ import styles from './edit.module.scss';
 import { Post } from '../../../types/post';
 import { CategoryResponse } from '../../../types/category';
 import { ImageFile } from '../../../types/imageFile';
-import { log } from '../../../utils/helpers/logger';
-
-
 
 interface EditPostPropertyProps extends Post {
     disabled: boolean;
@@ -33,10 +30,16 @@ const EditPostProperty: FunctionComponent<EditPostPropertyProps> = ({
     categories
 }) => {
     const { addNewValue } = useFormikValues<Post[]>();
+
     const [postValues, setPostValues] = useState({ id, title, content });
+
     const { checkedCategories, setCheckedCategories } = useCheckboxContext();
 
-    log('checkedCategories', checkedCategories);
+    useEffect(() => {
+        addNewValue({ categoriesIds: Object.keys(checkedCategories).filter(key => checkedCategories[key]) });
+        // eslint-disable-next-line react-hooks/exhaustive-deps
+    }, [checkedCategories]);
+
 
     useEffect(() => {
         categoriesIds?.forEach(id => {

@@ -1,11 +1,12 @@
 import { createSlice, PayloadAction } from '@reduxjs/toolkit';
 import { Post } from '../../types/post';
 import CategoryFormProperty from '../../types/categoryFormProperty';
+import { findIndexById } from '../../utils/helpers/findIndexById';
 
 interface PagedResponse<T> {
     pageNumber: number;
     pageSize: number;
-    items: T[];
+    post: Post[];
     length: number;
     totalPages: number;
     totalRecords: number;
@@ -20,7 +21,7 @@ const initialState: PostState = {
     data: {
         pageNumber: 0,
         pageSize: 0,
-        items: [],
+        post: [],
         length: 0,
         totalPages: 0,
         totalRecords: 0
@@ -39,17 +40,19 @@ const postsSlice = createSlice({
             return state;
         },
 
-        updatePostCategory: (state, action: PayloadAction<{ postId: string; category: CategoryFormProperty }>) => {
-            const { postId, category } = action.payload;
-            const postIndex = state.data.items.findIndex((post) => post.id === postId);
+        updatePost: (state, action: PayloadAction<Post>) => {
+            state.lastRequestStatus = false;
+            const updatedPost = action.payload;
+            const postIndex = findIndexById(state.data.post, updatedPost.id, 'id');
             if (postIndex !== -1) {
-                // state.data.items[postIndex].categories = [...(state.data.items[postIndex].categories || []), category];
+                state.data.post[postIndex] = { ...state.data.post[postIndex], ...updatedPost };
+                return state;
             }
             return state;
         },
 
         removePost: (state, action: PayloadAction<string>) => {
-            state.data.items = state.data.items.filter((post) => post.id !== action.payload);
+            state.data.post = state.data.post.filter((item) => item.id !== action.payload);
             return state;
         },
 
@@ -60,6 +63,6 @@ const postsSlice = createSlice({
     }
 });
 
-export const { getPosts, updatePostCategory, removePost, requestBlogStatus } = postsSlice.actions;
+export const { getPosts, updatePost, removePost, requestBlogStatus } = postsSlice.actions;
 
 export default postsSlice.reducer;

@@ -75,9 +75,10 @@ const EditPost = () => {
 
     useEffect(() => {
         if (lastRequestStatus) {
+            resetCheckedCategories();
             navigate(ALL_BLOG_POSTS_URL);
         }
-    }, [lastRequestStatus, navigate]);   
+    }, [lastRequestStatus, navigate, resetCheckedCategories]);   
 
     if (!id) return null;
 

@@ -23,7 +23,7 @@ const apiMiddleware: Middleware<{}, RootState> =
                     if (formData) {
                         console.log(Object.fromEntries(formData));
                     }
-                    // update({ dispatch, payload: payload, url, formData: formData ?? new FormData() });                    
+                    update({ dispatch, payload: payload, url, formData: formData ?? new FormData() });                    
                     break;
                 case GET_METHOD:
                     const values = await handleGetRequest(url);
