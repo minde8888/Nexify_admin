@@ -6,6 +6,8 @@ import { Post } from "../../../types/post";
 import CustomButton from "../../Buttons/CustomButton";
 import { LazyLoadImage } from "react-lazy-load-image-component";
 import styles from './allPost.module.scss';
+import MDXToHTMLConverter from "../../MDXToHTMLConverter/MDXToHTMLConverter";
+
 
 interface PostProps {
     post: Post;
@@ -17,7 +19,9 @@ const PostContext: FunctionComponent<PostProps> = ({ post, onRemove, onEdit }) =
     <div key={post.id} className={styles.postRow}>
         <div className={styles.postInfo}>
             <div>{post.title}</div>
-            <div className={styles.description}>{post.content}</div>           
+            <div className={styles.description}>
+                {post.content && <MDXToHTMLConverter mdxString={post.content} />}
+            </div>
             <LazyLoadImage
                 className={styles.imagesContainer}
                 src={Array.isArray(post.imageSrc) ? post.imageSrc[0] : post.imageSrc || defaultImage}
@@ -26,7 +30,7 @@ const PostContext: FunctionComponent<PostProps> = ({ post, onRemove, onEdit }) =
             />
             <div className={styles.buttons}>
                 <ButtonWithIcon icon={editIcon} altText="Edit" style={{ margin: '0' }} onClick={() => onEdit(post.id)} />
-                <CustomButton onClick={() => onRemove(post.id)} style={styles.removeButton} symbol={'-'}/>
+                <CustomButton onClick={() => onRemove(post.id)} style={styles.removeButton} symbol={'-'} />
             </div>
         </div>
     </div>

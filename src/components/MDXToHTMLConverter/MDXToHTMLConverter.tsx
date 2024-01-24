@@ -1,34 +1,22 @@
-import { FC, HTMLAttributes, useMemo } from 'react';
-import { MDXProvider } from '@mdx-js/react';
-import { getMDXComponent } from 'mdx-bundler/client';
+import useMarkdownRenderer from '../../hooks/useMDXComponentsRenderer';
 
-interface MyMDXContentProps {
-    mdxString: string;
+interface MarkdownComponentProps{
+  mdxString: string;
 }
 
-const CustomHeading: FC<HTMLAttributes<HTMLHeadingElement>> = ({ children, ...props }) => {
-    if (!children) return null;
-  
-    return (
-      <h1 {...props} style={{ ...props.style, color: 'blue', fontSize: '24px' }}>
-        {children}
-      </h1>
-    );
+const MDXToHTMLConverter  = ({mdxString}:MarkdownComponentProps) => {
+
+  const customComponents = {
+    h1: (props: any) => <h1 style={{ color: 'blue' }} {...props}>{props.children}</h1>,
   };
-  
 
-const MDXToHTMLConverter: FC<MyMDXContentProps> = ({ mdxString }) => {
-    const MDXContent = useMemo(() => getMDXComponent(mdxString), [mdxString]);
+  const renderedHTML = useMarkdownRenderer(mdxString, customComponents);
 
-    const components = {
-        h1: CustomHeading,
-    };
-
-    return (
-        <MDXProvider components={components}>
-            <MDXContent />
-        </MDXProvider>
-    );
+  return (
+    <div>
+      <div dangerouslySetInnerHTML={{ __html: renderedHTML }} />
+    </div>
+  );
 };
 
 export default MDXToHTMLConverter;

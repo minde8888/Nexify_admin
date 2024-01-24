@@ -1,6 +1,5 @@
 import { createSlice, PayloadAction } from '@reduxjs/toolkit';
 import { Post } from '../../types/post';
-import CategoryFormProperty from '../../types/categoryFormProperty';
 import { findIndexById } from '../../utils/helpers/findIndexById';
 
 interface PagedResponse<T> {
