@@ -140,7 +140,7 @@
       "^(?!.*\\.(js|jsx|mjs|cjs|ts|tsx|css|json)$)": "<rootDir>/config/jest/fileTransform.js"
     },
     "transformIgnorePatterns": [
-      "/node_modules/(?!(@mdxeditor/editor|@mdxeditor/gurx|uuid)).+\\.(js|jsx|mjs|cjs|ts|tsx)$"
+      "/node_modules/(?!(@mdxeditor/editor|@mdxeditor/gurx|uuid|string-width|cliui)).+\\.(js|jsx|mjs|cjs|ts|tsx)$"
     ],
     "modulePaths": [],
     "moduleNameMapper": {
@@ -172,6 +172,9 @@
       "@babel/preset-env",
       "@babel/preset-react",
       "@babel/preset-typescript"
+    ],
+    "plugins": [
+      "@babel/plugin-transform-modules-commonjs"
     ]
   }
 }

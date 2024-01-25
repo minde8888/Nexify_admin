@@ -81,7 +81,7 @@ const EditCategoryProperty: FunctionComponent<EditCategoryPropertyProps> =
           </div>
         </div>
         <div className={styles.description}>
-          <EnhancedMdxEditorComponent content={content} setContent={setContent} width="95%" />
+          <EnhancedMdxEditorComponent width="95%" />
         </div>
 
       </div>

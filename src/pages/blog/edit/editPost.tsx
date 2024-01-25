@@ -12,6 +12,8 @@ import useFetchData from '../../../hooks/useDataFetching';
 import sortByProperty from '../../../utils/helpers/sortByProperty';
 import { CategoryResponse } from '../../../types/category';
 import { useCheckboxContext } from '../../../components/Context/CheckboxProvider';
+import { log } from '../../../utils/helpers/logger';
+
 
 interface Category {
     id: string;
@@ -29,14 +31,14 @@ const usePostData = () => {
     const postArray: Post[] = postData?.post ?? [];
     const entity: Post | null = postArray.find((post) => post.id === id) || null;
 
-    const { title, content, images, categories } = entity || {};
+    const { title, content, imageSrc, categories } = entity || {};
     const checkedCategoriesIds: string[] = categories?.map((category: Category) => category.id) || [];
 
     return {
         lastRequestStatus: postStatus,
         title,
         content,
-        images,
+        imageSrc,
         id,
         checkedCategoriesIds,
         categoryData: categoryData,
@@ -50,7 +52,7 @@ const EditPost = () => {
         lastRequestStatus,
         title,
         content,
-        images,
+        imageSrc,
         id,
         checkedCategoriesIds,
         categoryData,
@@ -103,7 +105,7 @@ const EditPost = () => {
                         id={id}
                         title={title ?? ''}
                         content={content ?? ''}
-                        images={images ?? []}
+                        imageSrc={imageSrc ?? []}
                         disabled={lastRequestStatus === false}
                         resetImages={resetImages}
                         setResetImages={setResetImages}

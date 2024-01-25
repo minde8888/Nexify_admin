@@ -2,6 +2,7 @@ import React, { FC, ReactNode } from "react";
 import { CategoryCheckboxProvider } from "./CheckboxProvider";
 import { SelectFieldProvider } from "./SelectFieldContext";
 import { PaginationProvider } from "./PaginationContext";
+import { MdxEditorProvider } from "./MdxEditorProvider";
 
 interface ComposeProvidersProps {
   children: ReactNode;
@@ -10,11 +11,13 @@ interface ComposeProvidersProps {
 export const ComposeProviders: FC<ComposeProvidersProps> = ({ children }) => {
   return (
     <PaginationProvider>
-      <SelectFieldProvider>
-        <CategoryCheckboxProvider>
-          {children}
-        </CategoryCheckboxProvider>
-      </SelectFieldProvider>
+      <MdxEditorProvider>
+        <SelectFieldProvider>
+          <CategoryCheckboxProvider>
+            {children}
+          </CategoryCheckboxProvider>
+        </SelectFieldProvider>
+      </MdxEditorProvider>
     </PaginationProvider>
   );
 };

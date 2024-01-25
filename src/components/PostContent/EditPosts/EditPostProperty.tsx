@@ -1,4 +1,4 @@
-import { FunctionComponent, useEffect, useState } from 'react';
+import { FunctionComponent, useEffect } from 'react';
 import { TextInputField } from '../../InputFields/TextInputField';
 import UploadImages from '../../UploadImages/UploadImages';
 import EnhancedMdxEditorComponent from '../../MarkDownEditor/EnhancedMdxEditorComponent';
@@ -9,6 +9,7 @@ import styles from './edit.module.scss';
 import { Post } from '../../../types/post';
 import { CategoryResponse } from '../../../types/category';
 import { ImageFile } from '../../../types/imageFile';
+import { useMdxEditorContext } from '../../Context/MdxEditorProvider';
 
 interface EditPostPropertyProps extends Post {
     disabled: boolean;
@@ -31,15 +32,9 @@ const EditPostProperty: FunctionComponent<EditPostPropertyProps> = ({
 }) => {
     const { addNewValue } = useFormikValues<Post[]>();
 
-    const [postValues, setPostValues] = useState({ id, title, content });
-
     const { checkedCategories, setCheckedCategories } = useCheckboxContext();
 
-    useEffect(() => {
-        addNewValue({ categoriesIds: Object.keys(checkedCategories).filter(key => checkedCategories[key]) });
-        // eslint-disable-next-line react-hooks/exhaustive-deps
-    }, [checkedCategories]);
-
+    const { content: text } = useMdxEditorContext();
 
     useEffect(() => {
         categoriesIds?.forEach(id => {
@@ -50,10 +45,15 @@ const EditPostProperty: FunctionComponent<EditPostPropertyProps> = ({
         // eslint-disable-next-line react-hooks/exhaustive-deps
     }, []);
 
-    const handleContentChange = (newContent: string) => {
-        setPostValues(prev => ({ ...prev, content: newContent }));
-        addNewValue({ content: newContent });
-    };
+    useEffect(() => {
+        addNewValue({ categoriesIds: Object.keys(checkedCategories).filter(key => checkedCategories[key]) });
+        // eslint-disable-next-line react-hooks/exhaustive-deps
+    }, [checkedCategories]);
+
+    useEffect(() => {
+        addNewValue({ content: text });
+        // eslint-disable-next-line react-hooks/exhaustive-deps
+    }, [text])
 
     const getImagesData = async (files: ImageFile[]): Promise<void> => {
         const images = files.map(file => file.file);
@@ -67,7 +67,7 @@ const EditPostProperty: FunctionComponent<EditPostPropertyProps> = ({
                 className={styles.profileInput}
                 name="title"
                 id="title"
-                initialValue={postValues.title}
+                initialValue={title}
             />
             <UploadImages
                 getImages={getImagesData}
@@ -76,10 +76,7 @@ const EditPostProperty: FunctionComponent<EditPostPropertyProps> = ({
                 setResetImages={setResetImages}
                 initialImages={imageSrc}
             />
-            <EnhancedMdxEditorComponent
-                content={postValues.content || ''}
-                setContent={handleContentChange}
-                width='95%' />
+            <EnhancedMdxEditorComponent width='95%' initialContent={text} />
             <div className={styles.columns}>
                 {categories?.map((category) => (
                     <CheckboxField

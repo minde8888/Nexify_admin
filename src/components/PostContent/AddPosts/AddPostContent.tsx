@@ -71,7 +71,7 @@ const AddPostContent = ({
                         id="title"
                         initialValue={''}
                     />
-                    <EnhancedMdxEditorComponent content={content} setContent={setContent} width='95%' />
+                    <EnhancedMdxEditorComponent  width='95%' />
                 </div>
                 <div className={styles.columns}>
                     {categories?.map((category) => (

@@ -79,25 +79,22 @@ const InnerForm: React.FC<Props> = ({
         discount: Yup.number(),
         stock: Yup.number(),
       })}
-    >  
-        <div className={styles.container}>
-          <Form>
-            <div className={styles.columns}>
-              {/* <UploadImages getImages={getImagesData}  maxNumber={10} resetImages={resetImages} setResetImages={setResetImages}/> */}
+    >
+      <div className={styles.container}>
+        <Form>
+          <div className={styles.columns}>
+            {/* <UploadImages getImages={getImagesData}  maxNumber={10} resetImages={resetImages} setResetImages={setResetImages}/> */}
+          </div>
+          <div className={styles.columns}>
+            <ProductContent />
+            <div className={styles.saveButton}>
+              <button type="submit" disabled={isSubmitting}>
+                Save
+              </button>
             </div>
-            <div className={styles.columns}>
-              <ProductContent
-                setContent={setContent}
-                content={content}
-              />
-              <div className={styles.saveButton}>
-                <button type="submit" disabled={isSubmitting}>
-                  Save
-                </button>
-              </div>
-            </div>
-          </Form>
-        </div>
+          </div>
+        </Form>
+      </div>
     </Formik>
   );
 };

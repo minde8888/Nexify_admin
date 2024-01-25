@@ -8,6 +8,7 @@ import styles from './allCategories.module.scss';
 import CustomButton from "../../Buttons/CustomButton";
 import { LazyLoadImage } from 'react-lazy-load-image-component';
 import 'react-lazy-load-image-component/src/effects/blur.css';
+import MDXToHTMLConverter from "../../MDXToHTMLConverter/MDXToHTMLConverter";
 
 interface CategoryProps {
     category: CategoryResponse;
@@ -19,7 +20,7 @@ const Category: FunctionComponent<CategoryProps> = ({ category, onRemove, onEdit
     <div key={category.id} className={styles.categoryRow}>
         <div className={styles.categoryInfo}>
             <div>{category.categoryName}</div>
-            <div className={styles.description}>{category.description}</div>
+            {category.description && <MDXToHTMLConverter mdxString={category.description} />}
             <LazyLoadImage
                 className={styles.imagesContainer}
                 src={category.imageSrc ? category.imageSrc : defaultImage}
