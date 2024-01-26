@@ -1,4 +1,5 @@
 import { ErrorMessage, useField } from 'formik';
+import { log } from '../../utils/helpers/logger';
 
 interface TextInputFieldProps {
   className?: string;
@@ -7,6 +8,7 @@ interface TextInputFieldProps {
   id: string;
   placeholder?: string;
   initialValue?: string;
+  autoFocus?: boolean; // New prop for enabling autoFocus
 }
 
 export const TextInputField: React.FC<TextInputFieldProps> = ({
@@ -14,6 +16,7 @@ export const TextInputField: React.FC<TextInputFieldProps> = ({
   label,
   id,
   initialValue,
+  autoFocus,
   ...props
 }) => {
   const [field] = useField({ ...props, name: props.name });
@@ -24,7 +27,10 @@ export const TextInputField: React.FC<TextInputFieldProps> = ({
     autoComplete: "off",
     placeholder,
     value: field.value !== '' ? field.value : initialValue,
+    autoFocus, // Apply autoFocus attribute directly
   };
+
+  // log(inputProps);
 
   return (
     <>

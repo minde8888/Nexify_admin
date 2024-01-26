@@ -7,7 +7,7 @@ interface MarkdownComponentProps{
 const MDXToHTMLConverter  = ({mdxString}:MarkdownComponentProps) => {
 
   const customComponents = {
-    h1: (props: any) => <h1 style={{ color: 'blue' }} {...props}>{props.children}</h1>,
+    h1: (props: any) => <h1 style={{ color: 'black' }} {...props}>{props.children}</h1>,
   };
 
   const renderedHTML = useMarkdownRenderer(mdxString, customComponents);

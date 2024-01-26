@@ -1,6 +1,6 @@
 import React from 'react';
 import { SelectField } from "../InputFields/SelectField";
-import { useSelectFieldContext } from '../Context/SelectFieldContext';
+import { useSelectFieldContext } from '../Context/SelectFieldProvider';
 
 interface SelectOptionsProps {
   options?: any[];

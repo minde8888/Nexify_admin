@@ -22,7 +22,9 @@ const ProductContent = () => {
             </div>
             <div className={styles.items}>
                 {showEditor && (<TextInputField label="" className={styles.profileInput} name="title" id='title' />)}
-                <EnhancedMdxEditorComponent  width='95%' />
+                <EnhancedMdxEditorComponent  width='95%' setContent={function (value: string): void {
+                    throw new Error('Function not implemented.');
+                } } content={''} />
                 {showEditor && (
                     <div className={styles.numberItems}>
                         <div className={styles.profileInputNumber}>

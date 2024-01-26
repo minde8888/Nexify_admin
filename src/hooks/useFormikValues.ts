@@ -1,4 +1,5 @@
 import { useFormikContext } from 'formik';
+import { log } from '../utils/helpers/logger';
 
 export interface FormValues {
     [key: string]: any;
@@ -12,7 +13,7 @@ const useFormikValues = <T extends FormValues[]>() => {
     }
 
     const { values, setValues } = formik;
-
+  
     const updateValues = (newValues: FormValues[]) => {
         const filteredValues = Array.isArray(newValues) ? newValues.filter((value) => value !== null && value !== undefined) : [];
 

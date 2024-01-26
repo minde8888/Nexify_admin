@@ -20,9 +20,9 @@ const apiMiddleware: Middleware<{}, RootState> =
                     post({ dispatch, url, formData: formData ?? new FormData() });                    
                     break;
                 case PUT_METHOD:
-                    if (formData) {
-                        console.log(Object.fromEntries(formData));
-                    }
+                    // if (formData) {
+                    //     console.log(Object.fromEntries(formData), 'update');
+                    // }
                     update({ dispatch, payload: payload, url, formData: formData ?? new FormData() });                    
                     break;
                 case GET_METHOD:

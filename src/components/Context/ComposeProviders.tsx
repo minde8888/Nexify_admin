@@ -1,8 +1,8 @@
 import React, { FC, ReactNode } from "react";
 import { CategoryCheckboxProvider } from "./CheckboxProvider";
-import { SelectFieldProvider } from "./SelectFieldContext";
-import { PaginationProvider } from "./PaginationContext";
-import { MdxEditorProvider } from "./MdxEditorProvider";
+import { SelectFieldProvider } from "./SelectFieldProvider";
+import { PaginationProvider } from "./PaginationProvider";
+
 
 interface ComposeProvidersProps {
   children: ReactNode;
@@ -11,13 +11,11 @@ interface ComposeProvidersProps {
 export const ComposeProviders: FC<ComposeProvidersProps> = ({ children }) => {
   return (
     <PaginationProvider>
-      <MdxEditorProvider>
-        <SelectFieldProvider>
-          <CategoryCheckboxProvider>
-            {children}
-          </CategoryCheckboxProvider>
-        </SelectFieldProvider>
-      </MdxEditorProvider>
+      <SelectFieldProvider>
+        <CategoryCheckboxProvider>
+          {children}
+        </CategoryCheckboxProvider>
+      </SelectFieldProvider>
     </PaginationProvider>
   );
 };

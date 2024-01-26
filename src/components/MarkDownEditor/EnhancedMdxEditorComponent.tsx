@@ -26,9 +26,16 @@ import {
   MDXEditorMethods
 
 } from '@mdxeditor/editor';
-import { FC, useCallback, useEffect, useRef } from 'react';
+import { useCallback, useEffect, useRef } from 'react';
 import styles from './markdown.module.scss';
-import { useMdxEditorContext } from '../Context/MdxEditorProvider';
+
+interface MyMdxEditorComponentProps {
+  setContent: (value: string) => void;
+  content: string;
+  width?: string;
+  index?: number;
+  addContent?: (propertyIndex: number, content: string) => void;
+}
 
 const CustomToolbar = () => (
   <>
@@ -67,28 +74,29 @@ const useEditorPlugins = () => [
   markdownShortcutPlugin(),
 ];
 
-interface MdxEditorComponentProps {
-  width?: string;
-  initialContent?: string;
-}
+const EnhancedMdxEditorComponent: React.FC<MyMdxEditorComponentProps> = ({
+  setContent,
+  content,
+  width,
+  addContent,
+  index
+}: MyMdxEditorComponentProps) => {
 
-const EnhancedMdxEditorComponent: FC<MdxEditorComponentProps> = ({ width, initialContent = '' }) => {
-  const { content, setContent } = useMdxEditorContext();
   const plugins = useEditorPlugins();
   const editorRef = useRef<MDXEditorMethods | null>(null);
 
   useEffect(() => {
-    
-    if (content !== initialContent) {
-      setContent(initialContent);
+    if (editorRef.current) {
+      editorRef.current.focus();
     }
-
-    editorRef.current?.focus();
-  }, [initialContent, setContent, content]);
+  }, [content]);
 
   const handleEditorChange = useCallback((newContent: string) => {
     setContent(newContent);
-  }, [setContent]);
+    if (addContent && index !== undefined) {
+      addContent(index, newContent);
+    }
+  }, [addContent, index, setContent]);
 
   return (
     <div style={{ width: width }}>
@@ -106,4 +114,3 @@ const EnhancedMdxEditorComponent: FC<MdxEditorComponentProps> = ({ width, initia
 };
 
 export default EnhancedMdxEditorComponent;
-

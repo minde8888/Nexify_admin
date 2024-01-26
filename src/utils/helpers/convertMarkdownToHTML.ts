@@ -3,56 +3,63 @@ type MDXProviderComponents = {
 };
 
 export function convertMarkdownToHTML(markdown: string, components: MDXProviderComponents): string {
+    // Function to escape HTML characters
     const escapeHtml = (unsafe: string): string =>
         unsafe.replace(/[&<"']/g, 
             match => ({ '&': '&amp;', '<': '&lt;', '"': '&quot;', "'": '&#039;' })[match] || match);
 
-    return markdown
-        .split('\n')
-        .map((line) => {
+    // Split the markdown content by line and process each line
+    return markdown.split('\n').map(line => {
+        // Escape HTML characters, except in code blocks
+        if (!line.startsWith('```')) {
             line = escapeHtml(line);
+        }
 
-            // Headers
-            const headerMatch = line.match(/^(#{1,6}) (.*)/);
-            if (headerMatch) {
-                const tag = `h${headerMatch[1].length}`;
-                return `<${components[tag]?.name || tag}>${headerMatch[2]}</${components[tag]?.name || tag}>`;
-            }
+        // Headers
+        const headerMatch = line.match(/^(#{1,6}) (.+)/);
+        if (headerMatch) {
+            const level = headerMatch[1].length;
+            return `<${components[`h${level}`]?.name || `h${level}`}>${headerMatch[2]}</${components[`h${level}`]?.name || `h${level}`}>`;
+        }
 
-            // Task Lists
-            if (line.match(/^\s*-\s*\[.\]\s*/)) {
-                const isChecked = line.includes('[x]');
-                return `<${components.li?.name || 'li'} class="task-list-item${isChecked ? ' checked' : ''}">${line}</${components.li?.name || 'li'}>`;
-            }
+        // Line Breaks
+        if (line.endsWith('  ')) {
+            line = line.substring(0, line.length - 2) + '<br />';
+        }
 
-            // Bold, Italic
-            line = line.replace(/(\*\*|__)(.*?)\1/g, `<${components.strong?.name || 'strong'}>$2</${components.strong?.name || 'strong'}>`)
-                       .replace(/(\*|_)(.*?)\1/g, `<${components.em?.name || 'em'}>$2</${components.em?.name || 'em'}>`);
+        // Block Quotes
+        const blockQuoteMatch = line.match(/^(>+) (.+)/);
+        if (blockQuoteMatch) {
+            return `<${components.blockquote?.name || 'blockquote'}>${blockQuoteMatch[2]}</${components.blockquote?.name || 'blockquote'}>`;
+        }
 
-            // Blockquotes
-            if (line.startsWith('>')) return `<${components.blockquote?.name || 'blockquote'}>${line.substring(1).trim()}</${components.blockquote?.name || 'blockquote'}>`;
+        // Lists
+        const ulMatch = line.match(/^(\*|-) (.+)/);
+        if (ulMatch) {
+            return `<${components.ul?.name || 'ul'}><${components.li?.name || 'li'}>${ulMatch[2]}</${components.li?.name || 'li'}></${components.ul?.name || 'ul'}>`;
+        }
+        const olMatch = line.match(/^(\d+)\. (.+)/);
+        if (olMatch) {
+            return `<${components.ol?.name || 'ol'}><${components.li?.name || 'li'}>${olMatch[2]}</${components.li?.name || 'li'}></${components.ol?.name || 'ol'}>`;
+        }
 
-            // Ordered Lists
-            const orderedListMatch = line.match(/^\d+\.\s*(.*)/);
-            if (orderedListMatch) {
-                return `<${components.ol?.name || 'ol'}><${components.li?.name || 'li'}>${orderedListMatch[1]}</${components.li?.name || 'li'}></${components.ol?.name || 'ol'}>`;
-            }
+        // Code Blocks and Inline Code
+        if (line.startsWith('```')) {
+            return line.replace('```', `<${components.pre?.name || 'pre'}><${components.code?.name || 'code'}>`) + `</${components.code?.name || 'code'}></${components.pre?.name || 'pre'}>`;
+        }
+        line = line.replace(/`([^`]+)`/g, `<${components.inlineCode?.name || 'code'}>$1</${components.inlineCode?.name || 'code'}>`);
 
-            // Unordered Lists
-            if (line.startsWith('- ')) return `<${components.ul?.name || 'ul'}><${components.li?.name || 'li'}>${line.substring(2).trim()}</${components.li?.name || 'li'}></${components.ul?.name || 'ul'}>`;
+        // Links and Images
+        line = line.replace(/\[([^\]]+)\]\(([^)]+)\)/g, `<${components.a?.name || 'a'} href='$2'>$1</${components.a?.name || 'a'}>`);
+        line = line.replace(/!\[([^\]]*)\]\(([^)]+)\)/g, `<${components.img?.name || 'img'} alt='$1' src='$2'/>`);
 
-            // Code Blocks, Inline Code
-            if (line.startsWith('```')) return `<${components.pre?.name || 'pre'}><${components.code?.name || 'code'}>${line.replace('```', '')}</${components.code?.name || 'code'}></${components.pre?.name || 'pre'}>`;
-            line = line.replace(/`(.+?)`/g, `<${components.inlineCode?.name || 'code'}>$1</${components.inlineCode?.name || 'code'}>`);
+        // Tables
+        if (line.trim().startsWith('|')) {
+            const cells = line.split('|').slice(1, -1).map(cell => cell.trim());
+            return `<tr>${cells.map(cell => `<td>${cell}</td>`).join('')}</tr>`;
+        }
 
-            // Links
-            line = line.replace(/\[(.*?)\]\((.*?)\)/g, `<${components.a?.name || 'a'} href='$2'>$1</${components.a?.name || 'a'}>`);
-
-            // Images
-            line = line.replace(/!\[(.*?)\]\((.*?)\)/g, `<${components.img?.name || 'img'} alt='$1' src='$2' />`);
-
-            // Paragraphs
-            return `<${components.p?.name || 'p'}>${line}</${components.p?.name || 'p'}>`;
-        })
-        .join('');
+        // Paragraphs for other text
+        return `<${components.p?.name || 'p'}>${line}</${components.p?.name || 'p'}>`;
+    }).join('');
 }
