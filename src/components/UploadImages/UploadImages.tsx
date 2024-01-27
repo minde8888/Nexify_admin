@@ -9,6 +9,9 @@ import { compressImage } from '../../utils/helpers/compressImage';
 import { dataURLtoFile } from '../../utils/helpers/dataURLtoFile';
 import { ImageFile } from '../../types/imageFile';
 import { DEFAULT_IMAGE_SIZE } from '../../constants/imageConst';
+import { log } from '../../utils/helpers/logger';
+import { isArrayNotEmpty } from '../../utils/helpers/isArrayNotEmpty';
+
 
 interface ImagesProps {
     getImages: (ImageData: ImageFile[]) => void;
@@ -29,7 +32,7 @@ const UploadImages: React.FC<ImagesProps> = ({ getImages, maxNumber, resetImages
     }, [resetImages, setResetImages]);
 
     useEffect(() => {
-        if (initialImages) {
+        if (isArrayNotEmpty<string>(initialImages)) {
             const initialImageList = initialImages.map((url) => ({
                 data_url: url,
             }));

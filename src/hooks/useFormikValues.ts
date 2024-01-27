@@ -13,7 +13,7 @@ const useFormikValues = <T extends FormValues[]>() => {
     }
 
     const { values, setValues } = formik;
-  
+    // log(values);
     const updateValues = (newValues: FormValues[]) => {
         const filteredValues = Array.isArray(newValues) ? newValues.filter((value) => value !== null && value !== undefined) : [];
 

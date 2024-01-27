@@ -15,11 +15,15 @@ import sortByProperty from '../../../utils/helpers/sortByProperty';
 
 const AllPost = () => {
     const dispatch = useAppDispatch();
+
     const { fetchData, loading } = useFetchData(BLOG_URL);
 
     const [selectValue] = useState(pageSizeOptions[0]);
-    const { data } = useAppSelector((state) => state.data.posts);
+
+    const { data, lastRequestStatus } = useAppSelector((state) => state.data.posts);
+
     const { handleSubmit } = useForm<Post>(PUT_METHOD, BLOG_UPDATE_URL);
+    
     const { pageNumber, pageSize, totalPages, totalRecords, post } = data as PagedResponse<Post>;
 
     useEffect(() => {
@@ -27,6 +31,12 @@ const AllPost = () => {
             fetchData();
         }
     }, [data, fetchData])
+
+    useEffect(() => {
+        if (lastRequestStatus === true) {
+            fetchData();
+        }
+    }, [lastRequestStatus, fetchData]);
 
     const initialCategoryFormProperty: Post = {
         id: '',

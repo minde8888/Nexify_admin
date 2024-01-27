@@ -9,6 +9,8 @@ import styles from './edit.module.scss';
 import { Post } from '../../../types/post';
 import { CategoryResponse } from '../../../types/category';
 import { ImageFile } from '../../../types/imageFile';
+import { removePartFromUrl } from '../../../utils/helpers/removePartFromUrl';
+import { UrlToImages } from '../../../constants/imageConst';
 
 interface EditPostPropertyProps extends Post {
     disabled: boolean;
@@ -29,9 +31,11 @@ const EditPostProperty: FunctionComponent<EditPostPropertyProps> = ({
     categoriesIds,
     categories
 }) => {
-    const { addNewValue } = useFormikValues<Post[]>();
+    const { addNewValue, values } = useFormikValues<Post[]>();
+    const copyValues = values as unknown as Post;
 
-    const [postValues, setPostValues] = useState({ id, title, content });
+    const imageName = imageSrc?.map(url => removePartFromUrl(url, UrlToImages));
+    const [postValues, setPostValues] = useState({ id, title, content, imageNames: imageName });
 
     const { checkedCategories, setCheckedCategories } = useCheckboxContext();
 
@@ -40,13 +44,12 @@ const EditPostProperty: FunctionComponent<EditPostPropertyProps> = ({
         // eslint-disable-next-line react-hooks/exhaustive-deps
     }, [checkedCategories]);
 
-
     useEffect(() => {
         categoriesIds?.forEach(id => {
             setCheckedCategories(prev => ({ ...prev, [id]: true }));
         });
 
-        addNewValue({ id, title, content });
+        addNewValue(postValues);
         // eslint-disable-next-line react-hooks/exhaustive-deps
     }, []);
 
@@ -67,7 +70,7 @@ const EditPostProperty: FunctionComponent<EditPostPropertyProps> = ({
                 className={styles.profileInput}
                 name="title"
                 id="title"
-                initialValue={postValues.title}
+                initialValue={copyValues.title}
             />
             <UploadImages
                 getImages={getImagesData}
@@ -76,10 +79,10 @@ const EditPostProperty: FunctionComponent<EditPostPropertyProps> = ({
                 setResetImages={setResetImages}
                 initialImages={imageSrc}
             />
-            <EnhancedMdxEditorComponent
-                content={postValues.content || ''}
+            {postValues.content && <EnhancedMdxEditorComponent
+                content={postValues.content}
                 setContent={handleContentChange}
-                width='95%' />
+                width='95%' />}
             <div className={styles.columns}>
                 {categories?.map((category) => (
                     <CheckboxField

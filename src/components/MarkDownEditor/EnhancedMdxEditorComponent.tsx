@@ -22,12 +22,12 @@ import {
   InsertThematicBreak,
   ListsToggle,
   BlockTypeSelect,
-  tablePlugin,
-  MDXEditorMethods
+  tablePlugin
 
 } from '@mdxeditor/editor';
-import { useCallback, useEffect, useRef } from 'react';
+import { useCallback } from 'react';
 import styles from './markdown.module.scss';
+import { log } from '../../utils/helpers/logger';
 
 interface MyMdxEditorComponentProps {
   setContent: (value: string) => void;
@@ -83,13 +83,6 @@ const EnhancedMdxEditorComponent: React.FC<MyMdxEditorComponentProps> = ({
 }: MyMdxEditorComponentProps) => {
 
   const plugins = useEditorPlugins();
-  const editorRef = useRef<MDXEditorMethods | null>(null);
-
-  useEffect(() => {
-    if (editorRef.current) {
-      editorRef.current.focus();
-    }
-  }, [content]);
 
   const handleEditorChange = useCallback((newContent: string) => {
     setContent(newContent);
@@ -101,8 +94,6 @@ const EnhancedMdxEditorComponent: React.FC<MyMdxEditorComponentProps> = ({
   return (
     <div style={{ width: width }}>
       <MDXEditor
-        ref={editorRef}
-        key={content}
         className="dark-theme dark-editor"
         onChange={handleEditorChange}
         markdown={content}

@@ -1,4 +1,4 @@
-import useMarkdownRenderer from '../../hooks/useMDXComponentsRenderer';
+import useMarkdownRenderer from '../../hooks/useMarkdownRenderer';
 
 interface MarkdownComponentProps{
   mdxString: string;

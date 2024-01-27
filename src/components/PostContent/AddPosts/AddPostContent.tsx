@@ -7,7 +7,6 @@ import EnhancedMdxEditorComponent from "../../MarkDownEditor/EnhancedMdxEditorCo
 import { CategoryResponse } from "../../../types/category";
 import styles from "../../../styles/postContent.module.scss";
 import { CheckboxField } from "../../InputFields/CheckboxField";
-import { useCheckboxContext } from "../../Context/CheckboxProvider";
 
 interface AddPostContentProps {
     setContent: (Content: string) => void;
@@ -15,6 +14,7 @@ interface AddPostContentProps {
     resetImages: boolean;
     setResetImages: (value: boolean) => void;
     categories?: CategoryResponse[];
+    checkedCategories: { [key: string]: boolean };
 }
 
 const AddPostContent = ({
@@ -22,12 +22,11 @@ const AddPostContent = ({
     content,
     resetImages,
     setResetImages,
-    categories
+    categories,
+    checkedCategories
 }: AddPostContentProps) => {
 
     const { addNewValue } = useFormikValues();
-
-    const { checkedCategories } = useCheckboxContext();
 
     const handleAction = () => {
 
@@ -35,15 +34,14 @@ const AddPostContent = ({
             .filter(([_, checked]) => checked)
             .map(([categoryId, _]) => categoryId);
 
-        addNewValue({ categoryId: checkedCategoryIds });
+        addNewValue({ categoryId: checkedCategoryIds, content });
     };
 
     useEffect(() => {
-        addNewValue({ content });
-        handleAction();
 
+        handleAction();
         // eslint-disable-next-line react-hooks/exhaustive-deps
-    }, [content]);
+    }, [content, checkedCategories]);
 
     const getImagesData = async (files: ImageFile[]): Promise<void> => {
 
@@ -51,7 +49,7 @@ const AddPostContent = ({
             addNewValue({ images: files.map(file => file.file) });
         }
     };
-
+    // log(checkedCategories)
     return (
         <div className={styles.container}>
             <div className={styles.items}>
@@ -71,7 +69,11 @@ const AddPostContent = ({
                         id="title"
                         initialValue={''}
                     />
-                    <EnhancedMdxEditorComponent content={content} setContent={setContent} width='95%' />
+                    <EnhancedMdxEditorComponent
+                        content={content}
+                        setContent={setContent}
+                        width='95%'
+                    />
                 </div>
                 <div className={styles.columns}>
                     {categories?.map((category) => (

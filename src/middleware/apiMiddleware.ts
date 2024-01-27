@@ -16,7 +16,7 @@ const apiMiddleware: Middleware<{}, RootState> =
             const { method, url, formData, bool, id, payload } = action.meta.api;
 
             switch (method) {
-                case POST_METHOD:
+                case POST_METHOD:    
                     post({ dispatch, url, formData: formData ?? new FormData() });                    
                     break;
                 case PUT_METHOD:

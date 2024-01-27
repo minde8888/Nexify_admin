@@ -1,6 +1,5 @@
 import { createSlice, PayloadAction } from '@reduxjs/toolkit';
 import { Post } from '../../types/post';
-import { findIndexById } from '../../utils/helpers/findIndexById';
 
 interface PagedResponse<T> {
     pageNumber: number;
@@ -39,17 +38,6 @@ const postsSlice = createSlice({
             return state;
         },
 
-        updatePost: (state, action: PayloadAction<Post>) => {
-            state.lastRequestStatus = false;
-            const updatedPost = action.payload;
-            const postIndex = findIndexById(state.data.post, updatedPost.id, 'id');
-            if (postIndex !== -1) {
-                state.data.post[postIndex] = { ...state.data.post[postIndex], ...updatedPost };
-                return state;
-            }
-            return state;
-        },
-
         removePost: (state, action: PayloadAction<string>) => {
             state.data.post = state.data.post.filter((item) => item.id !== action.payload);
             return state;
@@ -62,6 +50,6 @@ const postsSlice = createSlice({
     }
 });
 
-export const { getPosts, updatePost, removePost, requestBlogStatus } = postsSlice.actions;
+export const { getPosts, removePost, requestBlogStatus } = postsSlice.actions;
 
 export default postsSlice.reducer;

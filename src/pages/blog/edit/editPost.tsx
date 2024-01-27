@@ -26,7 +26,7 @@ const usePostData = () => {
 
     const { fetchData } = useFetchData(BLOG_CATEGORIES_URL);
 
-    const { data: categoryData, lastRequestStatus: categoryStatus } = useAppSelector((state) => state.data.blogCategories);
+    const { data: categoryData } = useAppSelector((state) => state.data.blogCategories);
 
     const postArray: Post[] = postData?.post ?? [];
     const entity: Post | null = postArray.find((post) => post.id === id) || null;
@@ -45,7 +45,6 @@ const usePostData = () => {
         fetchData
     };
 };
-
 
 const EditPost = () => {
     const {
@@ -88,6 +87,7 @@ const EditPost = () => {
         id: '',
         title: '',
         content: '',
+        imageName:'',
         images: [],
     };
 

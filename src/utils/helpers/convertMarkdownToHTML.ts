@@ -3,63 +3,72 @@ type MDXProviderComponents = {
 };
 
 export function convertMarkdownToHTML(markdown: string, components: MDXProviderComponents): string {
-    // Function to escape HTML characters
-    const escapeHtml = (unsafe: string): string =>
-        unsafe.replace(/[&<"']/g, 
-            match => ({ '&': '&amp;', '<': '&lt;', '"': '&quot;', "'": '&#039;' })[match] || match);
+    const escapeHtml = (unsafe: string): string => unsafe.replace(/[&<"']/g, (match) => ({ '&': '&amp;', '<': '&lt;', '"': '&quot;', "'": '&#039;' }[match] || match));
 
-    // Split the markdown content by line and process each line
-    return markdown.split('\n').map(line => {
-        // Escape HTML characters, except in code blocks
-        if (!line.startsWith('```')) {
-            line = escapeHtml(line);
-        }
+    return markdown
+        .split('\n')
+        .map((line) => {
+            // Replace &#x20; with normal spaces before processing
+            line = line.replace(/&#x20;/g, ' ');
 
-        // Headers
-        const headerMatch = line.match(/^(#{1,6}) (.+)/);
-        if (headerMatch) {
-            const level = headerMatch[1].length;
-            return `<${components[`h${level}`]?.name || `h${level}`}>${headerMatch[2]}</${components[`h${level}`]?.name || `h${level}`}>`;
-        }
+            if (!line.trim()) {
+                return '';
+            }
 
-        // Line Breaks
-        if (line.endsWith('  ')) {
-            line = line.substring(0, line.length - 2) + '<br />';
-        }
+            // Escape HTML for non-code lines
+            if (!line.startsWith('```')) {
+                line = escapeHtml(line);
+            }
 
-        // Block Quotes
-        const blockQuoteMatch = line.match(/^(>+) (.+)/);
-        if (blockQuoteMatch) {
-            return `<${components.blockquote?.name || 'blockquote'}>${blockQuoteMatch[2]}</${components.blockquote?.name || 'blockquote'}>`;
-        }
+            // Headers
+            const headerMatch = line.match(/^(#{1,6}) (.+)/);
+            if (headerMatch) {
+                const level = headerMatch[1].length;
+                return `<h${level} dir="ltr"><span data-lexical-text="true">${headerMatch[2]}</span></h${level}>`;
+            }
 
-        // Lists
-        const ulMatch = line.match(/^(\*|-) (.+)/);
-        if (ulMatch) {
-            return `<${components.ul?.name || 'ul'}><${components.li?.name || 'li'}>${ulMatch[2]}</${components.li?.name || 'li'}></${components.ul?.name || 'ul'}>`;
-        }
-        const olMatch = line.match(/^(\d+)\. (.+)/);
-        if (olMatch) {
-            return `<${components.ol?.name || 'ol'}><${components.li?.name || 'li'}>${olMatch[2]}</${components.li?.name || 'li'}></${components.ol?.name || 'ol'}>`;
-        }
+            // Line Breaks
+            if (line.endsWith('  ')) {
+                line = line.substring(0, line.length - 2) + '<br />';
+            }
 
-        // Code Blocks and Inline Code
-        if (line.startsWith('```')) {
-            return line.replace('```', `<${components.pre?.name || 'pre'}><${components.code?.name || 'code'}>`) + `</${components.code?.name || 'code'}></${components.pre?.name || 'pre'}>`;
-        }
-        line = line.replace(/`([^`]+)`/g, `<${components.inlineCode?.name || 'code'}>$1</${components.inlineCode?.name || 'code'}>`);
+            // Block Quotes
+            const blockQuoteMatch = line.match(/^(>+) (.+)/);
+            if (blockQuoteMatch) {
+                return `<blockquote dir="ltr"><span data-lexical-text="true">${blockQuoteMatch[2]}</span></blockquote>`;
+            }
 
-        // Links and Images
-        line = line.replace(/\[([^\]]+)\]\(([^)]+)\)/g, `<${components.a?.name || 'a'} href='$2'>$1</${components.a?.name || 'a'}>`);
-        line = line.replace(/!\[([^\]]*)\]\(([^)]+)\)/g, `<${components.img?.name || 'img'} alt='$1' src='$2'/>`);
+            // Lists
+            const ulMatch = line.match(/^(\*|-) (.+)/);
+            if (ulMatch) {
+                return `<ul><li value="1" class="_listitem_16kwi_69" dir="ltr"><span data-lexical-text="true">${ulMatch[2]}</span></li></ul>`;
+            }
+            const olMatch = line.match(/^(\d+)\. (.+)/);
+            if (olMatch) {
+                return `<ol><li value="1" class="_listitem_16kwi_69" dir="ltr"><span data-lexical-text="true">${olMatch[2]}</span></li></ol>`;
+            }
 
-        // Tables
-        if (line.trim().startsWith('|')) {
-            const cells = line.split('|').slice(1, -1).map(cell => cell.trim());
-            return `<tr>${cells.map(cell => `<td>${cell}</td>`).join('')}</tr>`;
-        }
+            // Code Blocks and Inline Code
+            if (line.startsWith('```')) {
+                return `<div data-lexical-decorator="true" contenteditable="false"><div class="_sandpackWrapper_11eqz_364">${line.replace('```', '')}</div></div>`;
+            }
+            line = line.replace(/`([^`]+)`/g, `<code>$1</code>`);
 
-        // Paragraphs for other text
-        return `<${components.p?.name || 'p'}>${line}</${components.p?.name || 'p'}>`;
-    }).join('');
+            // Links and Images
+            line = line.replace(/\[([^\]]+)\]\(([^)]+)\)/g, `<a href='$2' rel="noreferrer" title="" dir="ltr"><span data-lexical-text="true">$1</span></a>`);
+            line = line.replace(/!\[([^\]]*)\]\(([^)]+)\)/g, `<img alt='$1' src='$2' dir="ltr"/>`);
+
+            // Tables
+            if (line.trim().startsWith('|')) {
+                const cells = line
+                    .split('|')
+                    .slice(1, -1)
+                    .map((cell) => `<td>${cell.trim()}</td>`);
+                return `<tr>${cells.join('')}</tr>`;
+            }
+
+            // Paragraphs for other text
+            return `<p dir="ltr"><span data-lexical-text="true">${line}</span></p>`;
+        })
+        .join('');
 }

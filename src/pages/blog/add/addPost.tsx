@@ -10,6 +10,9 @@ import styles from '../../../styles/postContent.module.scss';
 import { useAppSelector } from '../../../hooks/useRedux';
 import sortByProperty from '../../../utils/helpers/sortByProperty';
 import { CategoryResponse } from '../../../types/category';
+import { log } from '../../../utils/helpers/logger';
+import { useCheckboxContext } from '../../../components/Context/CheckboxProvider';
+
 
 const AddPost = () => {
     const { handleSubmit } = useForm(POST_METHOD, BLOG_URL);
@@ -24,6 +27,10 @@ const AddPost = () => {
 
     const sortedCategories = data ? sortByProperty(data, 'dateCreated') : undefined;
 
+    const { checkedCategories, resetCheckedCategories } = useCheckboxContext();
+
+    log(content)
+
     useEffect(() => {
         if (!sortedCategories || sortedCategories.length === 0) {
             fetchData();
@@ -34,6 +41,7 @@ const AddPost = () => {
         await handleSubmit(values, { resetForm });
         setContent('');
         setResetImages(true);
+        resetCheckedCategories();
     };
 
     return (
@@ -55,6 +63,7 @@ const AddPost = () => {
                         resetImages={resetImages}
                         setResetImages={setResetImages}
                         categories={sortedCategories as CategoryResponse[]}
+                        checkedCategories={checkedCategories}
                     />
                     <div className={styles.buttonPublic}>
                         <button disabled={lastRequestStatus} type="submit">

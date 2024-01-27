@@ -11,6 +11,7 @@ import { removePartFromUrl } from '../../../utils/helpers/removePartFromUrl';
 import { UrlToImages } from '../../../constants/imageConst';
 import styles from './edit.module.scss';
 import { isValidBase64Image } from '../../../utils/validation/isValidBase64Image';
+import { log } from '../../../utils/helpers/logger';
 
 interface CustomFormValues {
   categoryName: string;
@@ -81,9 +82,11 @@ const EditCategoryProperty: FunctionComponent<EditCategoryPropertyProps> =
           </div>
         </div>
         <div className={styles.description}>
-          <EnhancedMdxEditorComponent content={content} setContent={setContent} width="95%" />
+          {content && <EnhancedMdxEditorComponent
+            content={content}
+            setContent={setContent}
+            width="95%" />}
         </div>
-
       </div>
     );
   };

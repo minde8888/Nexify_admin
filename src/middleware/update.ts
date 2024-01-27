@@ -4,7 +4,7 @@ import { BLOG_CATEGORY_UPDATE_URL, BLOG_UPDATE_URL, CATEGORY_UPDATE_URL, SUBCATE
 import { handlePutRequest } from '../api/handleAPI';
 import { requestBlogCategoryStatus, updatePostCategory } from '../redux/slice/blogCategoriesSlice';
 import { UrlError } from '../errorHandler/urlError';
-import { requestBlogStatus, updatePost } from '../redux/slice/postsSlice';
+import { requestBlogStatus } from '../redux/slice/postsSlice';
 
 interface UpdateProps {
     dispatch: Dispatch<AnyAction>;
@@ -17,25 +17,25 @@ export const update = async ({ dispatch, payload, url, formData }: UpdateProps) 
     switch (url) {
         case CATEGORY_UPDATE_URL:
             if (payload.accept) {
-                dispatch(updateCategory(payload));
+                // dispatch(updateCategory(payload));
                 const responseCategoryUpdate = await handlePutRequest(url, formData);
                 dispatch(requestCategoryStatus(responseCategoryUpdate === 200));
             } else {
-                dispatch(updateSubcategory(payload));
+                // dispatch(updateSubcategory(payload));
 
                 const responseSubcategoryUpdate = await handlePutRequest(SUBCATEGORY_UPDATE_URL, formData);
                 dispatch(requestCategoryStatus(responseSubcategoryUpdate === 200));
             }
             break;
         case BLOG_CATEGORY_UPDATE_URL: {
-            dispatch(updatePostCategory(payload));
+            // dispatch(updatePostCategory(payload));
 
             const responsePostCategoryUpdate = await handlePutRequest(url, formData);
             dispatch(requestBlogCategoryStatus(responsePostCategoryUpdate === 200));
             break;
         }
         case BLOG_UPDATE_URL: {
-            dispatch(updatePost(payload));
+            dispatch(requestBlogStatus(false));
             const responseBlogUpdate = await handlePutRequest(url, formData);
             dispatch(requestBlogStatus(responseBlogUpdate === 200));
             break;
