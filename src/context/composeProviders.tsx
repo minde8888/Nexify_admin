@@ -1,7 +1,7 @@
 import React, { FC, ReactNode } from "react";
-import { CategoryCheckboxProvider } from "./CheckboxProvider";
-import { SelectFieldProvider } from "./SelectFieldProvider";
-import { PaginationProvider } from "./PaginationProvider";
+import { CategoryCheckboxProvider } from "./checkboxProvider";
+import { SelectFieldProvider } from "./selectFieldProvider";
+import { PaginationProvider } from "./paginationProvider";
 
 
 interface ComposeProvidersProps {

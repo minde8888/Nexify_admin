@@ -4,7 +4,7 @@ import UploadImages from '../../UploadImages/UploadImages';
 import EnhancedMdxEditorComponent from '../../MarkDownEditor/EnhancedMdxEditorComponent';
 import { CheckboxField } from '../../InputFields/CheckboxField';
 import useFormikValues from '../../../hooks/useFormikValues';
-import { useCheckboxContext } from '../../Context/CheckboxProvider';
+import { useCheckboxContext } from '../../../context/checkboxProvider';
 import styles from './edit.module.scss';
 import { Post } from '../../../types/post';
 import { CategoryResponse } from '../../../types/category';

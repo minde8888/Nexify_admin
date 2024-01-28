@@ -11,7 +11,6 @@ import { removePartFromUrl } from '../../../utils/helpers/removePartFromUrl';
 import { UrlToImages } from '../../../constants/imageConst';
 import styles from './edit.module.scss';
 import { isValidBase64Image } from '../../../utils/validation/isValidBase64Image';
-import { log } from '../../../utils/helpers/logger';
 
 interface CustomFormValues {
   categoryName: string;

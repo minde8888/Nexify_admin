@@ -2,9 +2,9 @@
 import React, {  useEffect } from "react";
 import SelectOptions from "../SelectOptions/SelectOptions";
 import { pageSizeOptions } from "../../constants/pageSize";
-import { usePagination } from "../Context/PaginationProvider";
+import { usePagination } from "../../context/paginationProvider";
 import { Dispatch, AnyAction } from "@reduxjs/toolkit";
-import { useSelectFieldContext } from "../Context/SelectFieldProvider";
+import { useSelectFieldContext } from "../../context/selectFieldProvider";
 
 interface PageSizeProps {
     url: string;

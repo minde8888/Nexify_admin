@@ -1,5 +1,4 @@
 import { ErrorMessage, useField } from 'formik';
-import { log } from '../../utils/helpers/logger';
 
 interface TextInputFieldProps {
   className?: string;

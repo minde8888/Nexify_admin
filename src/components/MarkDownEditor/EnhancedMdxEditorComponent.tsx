@@ -27,7 +27,6 @@ import {
 } from '@mdxeditor/editor';
 import { useCallback } from 'react';
 import styles from './markdown.module.scss';
-import { log } from '../../utils/helpers/logger';
 
 interface MyMdxEditorComponentProps {
   setContent: (value: string) => void;

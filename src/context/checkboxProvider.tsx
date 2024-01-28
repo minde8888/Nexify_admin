@@ -1,5 +1,5 @@
 import React, { createContext, useState, ReactNode, FC, useContext } from 'react';
-import { CheckboxError } from '../../errorHandler/checkboxError';
+import { CheckboxError } from '../errorHandler/checkboxError';
 
 interface CategoryCheckboxProviderProps {
     children: ReactNode;

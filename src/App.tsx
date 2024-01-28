@@ -1,6 +1,6 @@
 import React from 'react';
 import Routing from './routes/Routing';
-import { ComposeProviders } from './components/Context/ComposeProviders';
+import { ComposeProviders } from './context/composeProviders';
 
 const App: React.FC = () => {
 

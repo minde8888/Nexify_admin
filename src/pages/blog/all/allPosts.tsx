@@ -53,7 +53,6 @@ const AllPost = () => {
                 onSubmit={(values, { resetForm }) => handleSubmit(values, { resetForm })}
                 initialValues={initialCategoryFormProperty}
                 validationSchema={validationSchema}
-                isSubmitting={false}
             >
                 <Form>
                     <h2>Edit/Remove Categories</h2>

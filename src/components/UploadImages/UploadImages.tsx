@@ -9,7 +9,6 @@ import { compressImage } from '../../utils/helpers/compressImage';
 import { dataURLtoFile } from '../../utils/helpers/dataURLtoFile';
 import { ImageFile } from '../../types/imageFile';
 import { DEFAULT_IMAGE_SIZE } from '../../constants/imageConst';
-import { log } from '../../utils/helpers/logger';
 import { isArrayNotEmpty } from '../../utils/helpers/isArrayNotEmpty';
 
 

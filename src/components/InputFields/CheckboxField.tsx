@@ -1,4 +1,4 @@
-import { useCheckboxContext } from "../Context/CheckboxProvider";
+import { useCheckboxContext } from "../../context/checkboxProvider";
 
 interface CheckboxFieldProps {
   name: string;

@@ -1,7 +1,7 @@
 import { createSlice, PayloadAction } from '@reduxjs/toolkit';
 import { Post } from '../../types/post';
 
-interface PagedResponse<T> {
+interface PagedResponse {
     pageNumber: number;
     pageSize: number;
     post: Post[];
@@ -11,7 +11,7 @@ interface PagedResponse<T> {
 }
 
 interface PostState {
-    data: PagedResponse<Post>;
+    data: PagedResponse;
     lastRequestStatus: boolean | null;
 }
 
@@ -32,7 +32,7 @@ const postsSlice = createSlice({
     initialState,
 
     reducers: {
-        getPosts: (state, action: PayloadAction<PagedResponse<Post>>) => {
+        getPosts: (state, action: PayloadAction<PagedResponse>) => {
             state.data = action.payload;
             state.lastRequestStatus = null;
             return state;

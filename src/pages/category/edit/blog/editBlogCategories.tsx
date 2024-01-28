@@ -54,7 +54,6 @@ const EditBlogCategories = () => {
             <Formik onSubmit={(values, { resetForm }) => handleSubmit(values, { resetForm })}
                 initialValues={initialCategoryFormProperty}
                 validationSchema={validationSchema}
-                isSubmitting={false}
             >
                 <Form>
                     <h2>Edit Products Categories</h2>

@@ -11,9 +11,7 @@ import EditPostProperty from '../../../components/PostContent/EditPosts/EditPost
 import useFetchData from '../../../hooks/useDataFetching';
 import sortByProperty from '../../../utils/helpers/sortByProperty';
 import { CategoryResponse } from '../../../types/category';
-import { useCheckboxContext } from '../../../components/Context/CheckboxProvider';
-import { log } from '../../../utils/helpers/logger';
-
+import { useCheckboxContext } from '../../../context/checkboxProvider';
 
 interface Category {
     id: string;
@@ -97,7 +95,6 @@ const EditPost = () => {
                 onSubmit={(values, { resetForm }) => handleSubmit(values, { resetForm })}
                 initialValues={initialCategoryFormProperty}
                 validationSchema={validationSchema}
-                isSubmitting={false}
             >
                 <Form>
                     <h2>Edit Post</h2>

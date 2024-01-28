@@ -1,5 +1,5 @@
 import React, { createContext, useState, useContext, ReactNode } from 'react';
-import { SelectFieldError } from '../../errorHandler/selectFieldError';
+import { SelectFieldError } from '../errorHandler/selectFieldError';
 
 interface SelectFieldContextType {
   selectValue: string;

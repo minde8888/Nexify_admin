@@ -11,7 +11,7 @@ import { useAppSelector } from '../../../hooks/useRedux';
 import sortByProperty from '../../../utils/helpers/sortByProperty';
 import { CategoryResponse } from '../../../types/category';
 import { log } from '../../../utils/helpers/logger';
-import { useCheckboxContext } from '../../../components/Context/CheckboxProvider';
+import { useCheckboxContext } from '../../../context/checkboxProvider';
 
 
 const AddPost = () => {
