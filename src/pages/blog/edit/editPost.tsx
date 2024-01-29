@@ -24,7 +24,7 @@ const usePostData = () => {
 
     const { fetchData } = useFetchData(BLOG_CATEGORIES_URL);
 
-    const { data: categoryData } = useAppSelector((state) => state.data.blogCategories);
+    const { data: categoryData, lastRequestStatus: categoriesStatus } = useAppSelector((state) => state.data.blogCategories);
 
     const postArray: Post[] = postData?.post ?? [];
     const entity: Post | null = postArray.find((post) => post.id === id) || null;
@@ -33,7 +33,8 @@ const usePostData = () => {
     const checkedCategoriesIds: string[] = categories?.map((category: Category) => category.id) || [];
 
     return {
-        lastRequestStatus: postStatus,
+        postStatus: postStatus,
+        categoriesStatus: categoriesStatus,
         title,
         content,
         imageSrc,
@@ -46,7 +47,8 @@ const usePostData = () => {
 
 const EditPost = () => {
     const {
-        lastRequestStatus,
+        postStatus,
+        categoriesStatus,
         title,
         content,
         imageSrc,
@@ -56,7 +58,7 @@ const EditPost = () => {
         fetchData
     } = usePostData();
 
-    const sortedCategories  = categoryData ? sortByProperty(categoryData, 'dateCreated') : undefined;
+    const sortedCategories = categoryData ? sortByProperty(categoryData, 'dateCreated') : undefined;
 
     const [resetImages, setResetImages] = useState<boolean>(false);
 
@@ -73,11 +75,11 @@ const EditPost = () => {
     }, [sortedCategories, fetchData]);
 
     useEffect(() => {
-        if (lastRequestStatus) {
+        if (postStatus) {
             resetCheckedCategories();
             navigate(ALL_BLOG_POSTS_URL);
         }
-    }, [lastRequestStatus, navigate, resetCheckedCategories]);   
+    }, [postStatus, navigate, resetCheckedCategories]);
 
     if (!id) return null;
 
@@ -85,12 +87,12 @@ const EditPost = () => {
         id: '',
         title: '',
         content: '',
-        imageName:'',
+        imageName: '',
         images: [],
     };
 
     return (
-        <Preloader isLoading={lastRequestStatus === false}>
+        <Preloader isLoading={postStatus === false || categoriesStatus === false}>
             <Formik
                 onSubmit={(values, { resetForm }) => handleSubmit(values, { resetForm })}
                 initialValues={initialCategoryFormProperty}
@@ -103,7 +105,7 @@ const EditPost = () => {
                         title={title ?? ''}
                         content={content ?? ''}
                         imageSrc={imageSrc ?? []}
-                        disabled={lastRequestStatus === false}
+                        disabled={postStatus === false || categoriesStatus === false}
                         resetImages={resetImages}
                         setResetImages={setResetImages}
                         categoriesIds={checkedCategoriesIds}

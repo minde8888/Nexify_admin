@@ -5,6 +5,7 @@ import { Post } from '../../../types/post';
 import PostContext from './PostContext';
 import { useNavigate } from 'react-router-dom';
 import { EDIT_BLOG_URL } from '../../../constants/apiConst';
+import styles from '../../../styles/allPost.module.scss'
 
 interface AllPostPropertyProps {
     posts: Post[];
@@ -25,7 +26,7 @@ const AllPostProperty: FunctionComponent<AllPostPropertyProps> = ({ URL, posts }
     }, [URL, dispatch]);
 
     return (
-        <div className={'styles.editPropertyContainer'}>
+        <div className={styles.editPropertyContainer}>
             {Object.values(posts).map((post, index) => (
                 <PostContext
                     key={index}

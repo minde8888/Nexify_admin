@@ -22,6 +22,7 @@ export const BLOG_CATEGORY_UPDATE_URL = 'blogCategory/update';
 
 export const ADD_BLOG_CATEGORY_URL = '/add-post-category';
 export const EDIT_BLOG_CATEGORY_URL = '/edit-post-categories/';
+export const ALL_BLOG_CATEGORIES_URL = '/all-post-categories';
 
 export const POST_METHOD = 'post';
 export const PUT_METHOD = 'put';

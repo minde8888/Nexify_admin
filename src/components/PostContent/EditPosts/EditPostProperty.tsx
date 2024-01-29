@@ -64,26 +64,26 @@ const EditPostProperty: FunctionComponent<EditPostPropertyProps> = ({
     };
 
     return (
-        <div>
-            <TextInputField
-                label="Title"
-                className={styles.profileInput}
-                name="title"
-                id="title"
-                initialValue={copyValues.title}
-            />
-            <UploadImages
-                getImages={getImagesData}
-                maxNumber={1}
-                resetImages={resetImages}
-                setResetImages={setResetImages}
-                initialImages={imageSrc}
-            />
-            {postValues.content && <EnhancedMdxEditorComponent
-                content={postValues.content}
-                setContent={handleContentChange}
-                width='95%' />}
-            <div className={styles.columns}>
+        <div className={styles.container}>
+            <div className={styles.inputField}>
+                <TextInputField
+                    label="Title"
+                    className={styles.titleField}
+                    name="title"
+                    id="title"
+                    initialValue={copyValues.title}
+                />
+            </div>
+            <div className={styles.images}>
+                <UploadImages
+                    getImages={getImagesData}
+                    maxNumber={1}
+                    resetImages={resetImages}
+                    setResetImages={setResetImages}
+                    initialImages={imageSrc}
+                />
+            </div>
+            <div className={`${styles.columns} ${styles.checkboxContainer}`}>
                 {categories?.map((category) => (
                     <CheckboxField
                         key={category.id}
@@ -93,8 +93,14 @@ const EditPostProperty: FunctionComponent<EditPostPropertyProps> = ({
                     />
                 ))}
             </div>
-            <div className={styles.saveButton}>
-                <button disabled={disabled} type="submit">Save</button>
+            <div className={`${styles.columns} ${styles.content}`}>
+                    {postValues.content && <EnhancedMdxEditorComponent
+                        content={postValues.content}
+                        setContent={handleContentChange}
+                        width='100%' />}
+                </div>
+            <div className={styles.buttonPublic}>
+                <button disabled={disabled} type="submit">Public</button>
             </div>
         </div>
     );

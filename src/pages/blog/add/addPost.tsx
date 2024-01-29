@@ -12,12 +12,13 @@ import sortByProperty from '../../../utils/helpers/sortByProperty';
 import { CategoryResponse } from '../../../types/category';
 import { log } from '../../../utils/helpers/logger';
 import { useCheckboxContext } from '../../../context/checkboxProvider';
+import { Post } from '../../../types/post';
 
 
 const AddPost = () => {
     const { handleSubmit } = useForm(POST_METHOD, BLOG_URL);
 
-    const { loading, fetchData } = useFetchData(BLOG_CATEGORIES_URL);  
+    const { loading, fetchData } = useFetchData(BLOG_CATEGORIES_URL);
 
     const [content, setContent] = useState<string>("");
 
@@ -29,6 +30,8 @@ const AddPost = () => {
 
     const { checkedCategories, resetCheckedCategories } = useCheckboxContext();
 
+    const [key, setKey] = useState(0);
+
     log(content)
 
     useEffect(() => {
@@ -37,9 +40,10 @@ const AddPost = () => {
         }
     }, [sortedCategories, fetchData]);
 
-    const handleFormSubmit = async (values: unknown, { resetForm }: any) => {
+    const handleFormSubmit = async (values: Post, { resetForm }: any) => {
         await handleSubmit(values, { resetForm });
         setContent('');
+        setKey(prevKey => prevKey + 1);
         setResetImages(true);
         resetCheckedCategories();
     };
@@ -49,6 +53,7 @@ const AddPost = () => {
             <Formik
                 onSubmit={handleFormSubmit}
                 initialValues={{
+                    id: '',
                     title: '',
                     content: '',
                     images: [],
@@ -64,6 +69,7 @@ const AddPost = () => {
                         setResetImages={setResetImages}
                         categories={sortedCategories as CategoryResponse[]}
                         checkedCategories={checkedCategories}
+                        componentKey={key}
                     />
                     <div className={styles.buttonPublic}>
                         <button disabled={lastRequestStatus} type="submit">

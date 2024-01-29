@@ -5,8 +5,8 @@ import defaultImage from "../../../assets/svg/gallery_image_photo_photography_pi
 import { Post } from "../../../types/post";
 import CustomButton from "../../Buttons/CustomButton";
 import { LazyLoadImage } from "react-lazy-load-image-component";
-import styles from './allPost.module.scss';
 import MDXToHTMLConverter from "../../MDXToHTMLConverter/MDXToHTMLConverter";
+import styles from '../../../styles/allPost.module.scss';
 
 
 interface PostProps {
@@ -18,7 +18,7 @@ interface PostProps {
 const PostContext: FunctionComponent<PostProps> = ({ post, onRemove, onEdit }) => (
     <div key={post.id} className={styles.postRow}>
         <div className={styles.postInfo}>
-            <div>{post.title}</div>
+            <h1 className={styles.title}>{post.title}</h1>
             <div className={styles.description}>
                 {post.content && <MDXToHTMLConverter mdxString={post.content} />}
             </div>
@@ -28,6 +28,10 @@ const PostContext: FunctionComponent<PostProps> = ({ post, onRemove, onEdit }) =
                 alt={post.title}
                 effect="blur"
             />
+            <div className={styles.categories}>
+                <h4>Categories</h4>
+                {post.categories && post.categories.map((category, index) => <div className={styles.category} key={index}>{category.categoryName}</div>)}
+            </div>
             <div className={styles.buttons}>
                 <ButtonWithIcon icon={editIcon} altText="Edit" style={{ margin: '0' }} onClick={() => onEdit(post.id)} />
                 <CustomButton onClick={() => onRemove(post.id)} style={styles.removeButton} symbol={'-'} />

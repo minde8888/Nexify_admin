@@ -13,6 +13,7 @@
             width     : 100%;
             text-align: center;
             cursor    : pointer;
+            border-radius: 10px;
 
             div {
                 margin: 25vh 0 0 0;
@@ -35,7 +36,7 @@
 
         div {
             &:nth-of-type(2) {
-                height: 60vh;
+                // height: 60vh;
                 width : 100%;
 
                 .image_show {

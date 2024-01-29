@@ -15,6 +15,7 @@ interface AddPostContentProps {
     setResetImages: (value: boolean) => void;
     categories?: CategoryResponse[];
     checkedCategories: { [key: string]: boolean };
+    componentKey: number;   
 }
 
 const AddPostContent = ({
@@ -23,7 +24,8 @@ const AddPostContent = ({
     resetImages,
     setResetImages,
     categories,
-    checkedCategories
+    checkedCategories,
+    componentKey
 }: AddPostContentProps) => {
 
     const { addNewValue } = useFormikValues();
@@ -73,6 +75,7 @@ const AddPostContent = ({
                         content={content}
                         setContent={setContent}
                         width='95%'
+                        componentKey={componentKey}
                     />
                 </div>
                 <div className={styles.columns}>

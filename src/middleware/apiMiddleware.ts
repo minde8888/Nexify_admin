@@ -12,13 +12,19 @@ const isApiAction = (action: any): action is ApiAction => {
     return typeof action === 'object' && action !== null && 'meta' in action && action.meta && 'api' in action.meta;
 };
 
-const apiMiddleware: Middleware<{}, RootState> = ({ dispatch }) => next => async (action) => {
-    if (isApiAction(action)) {
-        const { api } = action.meta!;
-        const { method, url, formData, bool, id, payload } = api!;
+const apiMiddleware: Middleware<{}, RootState> =
+    ({ dispatch }) =>
+    (next) =>
+    async (action) => {
+        if (isApiAction(action)) {
+            const { api } = action.meta!;
+            const { method, url, formData, bool, id, payload } = api!;
 
             switch (method) {
                 case POST_METHOD:
+                    // if (formData) {
+                    //     console.log(Object.fromEntries(formData), 'post');
+                    // }
                     post({ dispatch, url, formData: formData ?? new FormData() });
                     break;
                 case PUT_METHOD:

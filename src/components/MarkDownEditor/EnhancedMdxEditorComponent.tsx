@@ -28,12 +28,13 @@ import {
 import { useCallback } from 'react';
 import styles from './markdown.module.scss';
 
-interface MyMdxEditorComponentProps {
+interface MdxEditorComponentProps {
   setContent: (value: string) => void;
   content: string;
   width?: string;
   index?: number;
   addContent?: (propertyIndex: number, content: string) => void;
+  componentKey?: number;
 }
 
 const CustomToolbar = () => (
@@ -73,13 +74,14 @@ const useEditorPlugins = () => [
   markdownShortcutPlugin(),
 ];
 
-const EnhancedMdxEditorComponent: React.FC<MyMdxEditorComponentProps> = ({
+const EnhancedMdxEditorComponent: React.FC<MdxEditorComponentProps> = ({
   setContent,
   content,
   width,
   addContent,
-  index
-}: MyMdxEditorComponentProps) => {
+  index,
+  componentKey
+}: MdxEditorComponentProps) => {
 
   const plugins = useEditorPlugins();
 
@@ -93,6 +95,7 @@ const EnhancedMdxEditorComponent: React.FC<MyMdxEditorComponentProps> = ({
   return (
     <div style={{ width: width }}>
       <MDXEditor
+        key={componentKey}
         className="dark-theme dark-editor"
         onChange={handleEditorChange}
         markdown={content}
