@@ -1,49 +1,16 @@
 import { useEffect, useState } from 'react';
 import { Formik, Form } from 'formik';
-import { useAppSelector } from '../../../hooks/useRedux';
 import validationSchema from '../../../utils/validation/addCategoryValidationSchema';
 import useForm from '../../../hooks/useForm';
-import { PUT_METHOD, BLOG_UPDATE_URL, ALL_BLOG_POSTS_URL, BLOG_CATEGORIES_URL } from '../../../constants/apiConst';
+import { PUT_METHOD, BLOG_UPDATE_URL, ALL_BLOG_POSTS_URL } from '../../../constants/apiConst';
 import Preloader from '../../preloader/preloader';
 import { Post } from '../../../types/post';
-import { useNavigate, useParams } from 'react-router-dom';
+import { useNavigate } from 'react-router-dom';
 import EditPostProperty from '../../../components/PostContent/EditPosts/EditPostProperty';
-import useFetchData from '../../../hooks/useDataFetching';
 import sortByProperty from '../../../utils/helpers/sortByProperty';
 import { CategoryResponse } from '../../../types/category';
 import { useCheckboxContext } from '../../../context/checkboxProvider';
-
-interface Category {
-    id: string;
-}
-
-const usePostData = () => {
-    const { id } = useParams<{ id?: string }>();
-
-    const { data: postData, lastRequestStatus: postStatus } = useAppSelector((state) => state.data.posts);
-
-    const { fetchData } = useFetchData(BLOG_CATEGORIES_URL);
-
-    const { data: categoryData, lastRequestStatus: categoriesStatus } = useAppSelector((state) => state.data.blogCategories);
-
-    const postArray: Post[] = postData?.post ?? [];
-    const entity: Post | null = postArray.find((post) => post.id === id) || null;
-
-    const { title, content, imageSrc, categories } = entity || {};
-    const checkedCategoriesIds: string[] = categories?.map((category: Category) => category.id) || [];
-
-    return {
-        postStatus: postStatus,
-        categoriesStatus: categoriesStatus,
-        title,
-        content,
-        imageSrc,
-        id,
-        checkedCategoriesIds,
-        categoryData: categoryData,
-        fetchData
-    };
-};
+import usePostData from '../../../hooks/usePostData';
 
 const EditPost = () => {
     const {
@@ -110,6 +77,7 @@ const EditPost = () => {
                         setResetImages={setResetImages}
                         categoriesIds={checkedCategoriesIds}
                         categories={sortedCategories as CategoryResponse[]}
+                        resetCheckedCategories={resetCheckedCategories}
                     />
                 </Form>
             </Formik>

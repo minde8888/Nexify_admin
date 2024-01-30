@@ -37,6 +37,8 @@
             }
 
             .categories {
+                max-height: 200px;
+                overflow  : hidden;
                 display       : flex;
                 flex-direction: column;
                 height        : 100%;

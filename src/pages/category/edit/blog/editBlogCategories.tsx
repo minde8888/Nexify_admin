@@ -1,6 +1,4 @@
-import { useNavigate, useParams } from "react-router-dom";
-import { useAppSelector } from "../../../../hooks/useRedux";
-import { findCategoryById } from "../../../../utils/helpers/categoryById";
+import { useNavigate } from "react-router-dom";
 import EditCategoryProperty from "../../../../components/CategoryContent/EditCategories/EditCategoryProperty";
 import { Formik, Form } from 'formik';
 import CategoryFormProperty from "../../../../types/categoryFormProperty";
@@ -9,25 +7,10 @@ import useForm from "../../../../hooks/useForm";
 import validationSchema from "../../../../utils/validation/editCategoryValidationSchema";
 import { useEffect } from "react";
 import Preloader from "../../../preloader/preloader";
-
-const useCategoryData = () => {
-    const { id } = useParams();
-    const { data, lastRequestStatus } = useAppSelector((state) => state.data.blogCategories);
-    const entityId = id?.toString();
-    const category = findCategoryById(entityId!, data);
-    const categoryName = category?.categoryName;
-
-    return {
-        entity: category,
-        isCategory: !!category,
-        categoryName,
-        data,
-        lastRequestStatus
-    };
-};
+import useBlogCategoryData from "../../../../hooks/useBlogCategoryData";
 
 const EditBlogCategories = () => {
-    const { entity, isCategory, categoryName, data, lastRequestStatus } = useCategoryData();
+    const { entity, isCategory, categoryName, data, lastRequestStatus } = useBlogCategoryData();
 
     const { handleSubmit } = useForm<CategoryFormProperty>(PUT_METHOD, BLOG_CATEGORY_UPDATE_URL);
 
@@ -68,6 +51,5 @@ const EditBlogCategories = () => {
         </Preloader>
     );
 };
-
 
 export default EditBlogCategories;

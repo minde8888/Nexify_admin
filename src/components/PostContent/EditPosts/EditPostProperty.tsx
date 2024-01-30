@@ -5,12 +5,12 @@ import EnhancedMdxEditorComponent from '../../MarkDownEditor/EnhancedMdxEditorCo
 import { CheckboxField } from '../../InputFields/CheckboxField';
 import useFormikValues from '../../../hooks/useFormikValues';
 import { useCheckboxContext } from '../../../context/checkboxProvider';
-import styles from './edit.module.scss';
 import { Post } from '../../../types/post';
 import { CategoryResponse } from '../../../types/category';
 import { ImageFile } from '../../../types/imageFile';
 import { removePartFromUrl } from '../../../utils/helpers/removePartFromUrl';
 import { UrlToImages } from '../../../constants/imageConst';
+import styles from './edit.module.scss';
 
 interface EditPostPropertyProps extends Post {
     disabled: boolean;
@@ -18,6 +18,7 @@ interface EditPostPropertyProps extends Post {
     setResetImages: (value: boolean) => void;
     categoriesIds?: string[];
     categories?: CategoryResponse[];
+    resetCheckedCategories: () => void
 }
 
 const EditPostProperty: FunctionComponent<EditPostPropertyProps> = ({
@@ -29,7 +30,8 @@ const EditPostProperty: FunctionComponent<EditPostPropertyProps> = ({
     resetImages,
     setResetImages,
     categoriesIds,
-    categories
+    categories,
+    resetCheckedCategories
 }) => {
     const { addNewValue, values } = useFormikValues<Post[]>();
     const copyValues = values as unknown as Post;
@@ -43,8 +45,9 @@ const EditPostProperty: FunctionComponent<EditPostPropertyProps> = ({
         addNewValue({ categoriesIds: Object.keys(checkedCategories).filter(key => checkedCategories[key]) });
         // eslint-disable-next-line react-hooks/exhaustive-deps
     }, [checkedCategories]);
-
+    
     useEffect(() => {
+        resetCheckedCategories()
         categoriesIds?.forEach(id => {
             setCheckedCategories(prev => ({ ...prev, [id]: true }));
         });

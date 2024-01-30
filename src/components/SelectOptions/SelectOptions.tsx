@@ -40,7 +40,6 @@ const SelectOptions: React.FC<SelectOptionsProps> = ({
       onChange={handleSelectChange}
       style={styles}
     >
-      <option value="">Choose an option</option>
       {optionElements}
     </SelectField>
   );
