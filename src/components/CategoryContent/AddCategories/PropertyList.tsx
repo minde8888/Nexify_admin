@@ -2,8 +2,8 @@ import React, { FunctionComponent } from "react";
 import { TextInputField } from "../../InputFields/TextInputField";
 import useFormProperty from "../../../hooks/useFormProperty";
 import PropertyItem from "./PropertyItem";
-import styles from "../../../styles/categoryProperty.module.scss";
 import CustomButton from "../../Buttons/CustomButton";
+import styles from "../../../styles/categoryProperty.module.scss";
 
 interface PropertyListProps {
   prefix: string;

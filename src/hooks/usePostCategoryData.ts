@@ -8,7 +8,7 @@ interface Category {
     id: string;
 }
 
-const usePostData = () => {
+const usePostCategoryData = () => {
     const { id } = useParams<{ id?: string }>();
     const { data: postData, lastRequestStatus: postStatus } = useAppSelector((state) => state.data.posts);
     const { data: categoryData, lastRequestStatus: categoriesStatus } = useAppSelector((state) => state.data.blogCategories);
@@ -33,6 +33,6 @@ const usePostData = () => {
     };
 };
 
-export default usePostData;
+export default usePostCategoryData;
 
 

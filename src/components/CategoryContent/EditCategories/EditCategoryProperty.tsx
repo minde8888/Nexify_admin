@@ -9,8 +9,8 @@ import { ImageFile } from '../../../types/imageFile';
 import CategoryFormProperty from '../../../types/categoryFormProperty';
 import { removePartFromUrl } from '../../../utils/helpers/removePartFromUrl';
 import { UrlToImages } from '../../../constants/imageConst';
-import styles from './edit.module.scss';
 import { isValidBase64Image } from '../../../utils/validation/isValidBase64Image';
+import styles from './editCategories.module.scss';
 
 interface CustomFormValues {
   categoryName: string;
@@ -60,31 +60,35 @@ const EditCategoryProperty: FunctionComponent<EditCategoryPropertyProps> =
     const handleAddImage = useCallback((newFile: ImageFile[]) => setFile(newFile), []);
 
     return (
-      <div className={styles.editCategoryContainer}>
-        <div className={styles.colons}>
-          <div className={styles.wireBorder}>
-            <PropertyImagePreview imagePreviewUrl={imagePreviewUrl} />
-          </div>
-          <UploadImage setImagePreviewUrl={setImagePreviewUrl} handleAddImage={handleAddImage} />
-          <div>
-            <div className={styles.buttonPublic}>
-              <button disabled={disabled} type="submit">Public</button>
-            </div>
-            <TextInputField
-              className={styles.titleField}
-              name="categoryName"
-              label=""
-              id="categoryName"
-              placeholder="Enter category name"
-              initialValue={newValues.categoryName}
-            />
-          </div>
+      <div className={styles.container}>
+        <div className={styles.inputField}>
+          <TextInputField
+            className={styles.titleField}
+            name="categoryName"
+            label=""
+            id="categoryName"
+            placeholder="Enter category name"
+            initialValue={newValues.categoryName}
+          />
         </div>
-        <div className={styles.description}>
+        <div className={styles.images}>
+          <PropertyImagePreview
+            imagePreviewUrl={imagePreviewUrl}
+            width={'100%'}
+            height={'100%'}
+          />
+        </div>
+        <div className={styles.icons}>
+          <UploadImage setImagePreviewUrl={setImagePreviewUrl} handleAddImage={handleAddImage} />
+        </div>
+        <div className={`${styles.columns} ${styles.content}`}>
           {content && <EnhancedMdxEditorComponent
             content={content}
             setContent={setContent}
-            width="95%" />}
+            width="100%" />}
+        </div>
+        <div className={styles.buttonPublic}>
+          <button disabled={disabled} type="submit">Public</button>
         </div>
       </div>
     );

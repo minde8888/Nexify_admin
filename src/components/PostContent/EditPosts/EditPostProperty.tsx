@@ -10,7 +10,7 @@ import { CategoryResponse } from '../../../types/category';
 import { ImageFile } from '../../../types/imageFile';
 import { removePartFromUrl } from '../../../utils/helpers/removePartFromUrl';
 import { UrlToImages } from '../../../constants/imageConst';
-import styles from './edit.module.scss';
+import styles from '../../../styles/edit.module.scss';
 
 interface EditPostPropertyProps extends Post {
     disabled: boolean;

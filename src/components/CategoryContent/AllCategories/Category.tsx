@@ -19,8 +19,10 @@ interface CategoryProps {
 const Category: FunctionComponent<CategoryProps> = ({ category, onRemove, onEdit }) => (
     <div key={category.id} className={styles.categoryRow}>
         <div className={styles.categoryInfo}>
-            <div>{category.categoryName}</div>
-            {category.description && <MDXToHTMLConverter mdxString={category.description} />}
+            <div className={styles.title}>{category.categoryName}</div>
+            <div className={styles.description}>
+                {category.description && <MDXToHTMLConverter mdxString={category.description} />}
+            </div>
             <LazyLoadImage
                 className={styles.imagesContainer}
                 src={category.imageSrc ? category.imageSrc : defaultImage}

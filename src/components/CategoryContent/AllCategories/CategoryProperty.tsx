@@ -1,11 +1,11 @@
 import { FunctionComponent, useCallback } from 'react';
 import { CategoryResponse } from '../../../types/category';
 import Category from './Category';
-import styles from './allCategories.module.scss';
 import { useAppDispatch } from '../../../redux/store';
 import { deleteAction } from '../../../redux/actions/actions';
 import { useNavigate } from 'react-router-dom';
 import { EDIT_BLOG_CATEGORY_URL, EDIT_CATEGORY_URL } from '../../../constants/apiConst';
+import styles from './allCategories.module.scss';
 
 interface EditPropertyProps {
   categories?: CategoryResponse[];
@@ -28,7 +28,7 @@ const CategoryProperty: FunctionComponent<EditPropertyProps> = ({ categories, UR
   }, [blog, navigate]);
 
   return (
-    <div className={styles.editPropertyContainer}>
+    <div className={styles.allPropertyContainer}>
       {categories && Object.values(categories).map((category, index) => (
         <Category
           key={index}

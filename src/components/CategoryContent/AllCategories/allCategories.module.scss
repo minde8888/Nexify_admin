@@ -1,27 +1,37 @@
 @import '../../../styles/global.scss';
 
-.editPropertyContainer {
-  width    : 100%;
-  max-width: 800px;
-  margin   : 0 auto;
+.allPropertyContainer {
+  width: 100%;
 }
 
 .categoryRow {
-  border        : 1px solid #ccc;
+  flex-direction: column;
   margin-bottom : 15px;
   padding       : 10px;
   display       : flex;
-  flex-direction: column;
   flex-wrap     : nowrap;
+  width         : 100%;
 
   .categoryInfo {
-    border         : 1px solid #ddd;
+    border         : 1px solid $border;
     padding        : 8px;
     margin-top     : 5px;
     display        : flex;
     justify-content: space-between;
     align-items    : center;
     gap            : 10px;
+    width          : 100%;
+    max-height     : 220px;
+    border-radius  : 5px;
+
+    .title {
+      padding   : 10px;
+      width     : $eight-columns;
+      text-align: center;
+      max-height: 200px;
+      font-size : 20px;
+      min-width : 200px;
+    }
 
     .buttons {
       display       : flex;
@@ -33,14 +43,15 @@
         img {
           width : 30px;
           height: 30px;
-
         }
       }
     }
 
     .description {
-      height  : 200px;
-      overflow: hidden;
+      max-height: 200px;
+      overflow  : hidden;
+      width     : 60%;
+      width     : $two-columns;
     }
 
     div {
@@ -81,17 +92,31 @@
     margin-top: 10px;
 
     .subcategoryRow {
-      border         : 1px solid #ddd;
+      border         : 1px solid $border;
       padding        : 8px;
       margin         : 5px 0 0 30px;
       display        : flex;
       justify-content: space-between;
       align-items    : center;
       gap            : 10px;
+      width          : 98%;
+      max-height     : 220px;
+      border-radius  : 5px;
+
+      .title {
+        padding   : 10px;
+        width     : $eight-columns;
+        text-align: center;
+        max-height: 200px;
+        font-size : 20px;
+        min-width : 200px;
+      }
 
       .description {
-        height  : 200px;
-        overflow: hidden;
+        max-height: 200px;
+        overflow  : hidden;
+        width     : 60%;
+        width     : $two-columns;
       }
 
       div {

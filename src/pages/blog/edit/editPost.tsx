@@ -10,7 +10,7 @@ import EditPostProperty from '../../../components/PostContent/EditPosts/EditPost
 import sortByProperty from '../../../utils/helpers/sortByProperty';
 import { CategoryResponse } from '../../../types/category';
 import { useCheckboxContext } from '../../../context/checkboxProvider';
-import usePostData from '../../../hooks/usePostData';
+import usePostData from '../../../hooks/usePostCategoryData';
 
 const EditPost = () => {
     const {
