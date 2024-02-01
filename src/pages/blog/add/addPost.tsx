@@ -6,14 +6,17 @@ import validationSchema from '../../../utils/validation/addPostValidationSchema'
 import useFetchData from '../../../hooks/useDataFetching';
 import Preloader from '../../preloader/preloader';
 import useForm from '../../../hooks/useForm';
-import styles from '../../../styles/postContent.module.scss';
 import { useAppSelector } from '../../../hooks/useRedux';
 import sortByProperty from '../../../utils/helpers/sortByProperty';
 import { CategoryResponse } from '../../../types/category';
-import { log } from '../../../utils/helpers/logger';
 import { useCheckboxContext } from '../../../context/checkboxProvider';
-import { Post } from '../../../types/post';
+import { ImageFile } from '../../../types/imageFile';
 
+interface AddPostProps{
+    title: string;
+    content: string;
+    images: ImageFile[];
+}
 
 const AddPost = () => {
     const { handleSubmit } = useForm(POST_METHOD, BLOG_URL);
@@ -32,15 +35,13 @@ const AddPost = () => {
 
     const [key, setKey] = useState(0);
 
-    log(content)
-
     useEffect(() => {
         if (!sortedCategories || sortedCategories.length === 0) {
             fetchData();
         }
     }, [sortedCategories, fetchData]);
 
-    const handleFormSubmit = async (values: Post, { resetForm }: any) => {
+    const handleFormSubmit = async (values: AddPostProps, { resetForm }: any) => {
         await handleSubmit(values, { resetForm });
         setContent('');
         setKey(prevKey => prevKey + 1);
@@ -52,8 +53,7 @@ const AddPost = () => {
         <Preloader isLoading={loading}>
             <Formik
                 onSubmit={handleFormSubmit}
-                initialValues={{
-                    id: '',
+                initialValues={{         
                     title: '',
                     content: '',
                     images: [],
@@ -70,12 +70,8 @@ const AddPost = () => {
                         categories={sortedCategories as CategoryResponse[]}
                         checkedCategories={checkedCategories}
                         componentKey={key}
+                        lastRequestStatus={lastRequestStatus}
                     />
-                    <div className={styles.buttonPublic}>
-                        <button disabled={lastRequestStatus} type="submit">
-                            Public
-                        </button>
-                    </div>
                 </Form>
             </Formik>
         </Preloader>

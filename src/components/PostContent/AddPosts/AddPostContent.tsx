@@ -5,8 +5,8 @@ import { TextInputField } from "../../InputFields/TextInputField";
 import useFormikValues from "../../../hooks/useFormikValues";
 import EnhancedMdxEditorComponent from "../../MarkDownEditor/EnhancedMdxEditorComponent";
 import { CategoryResponse } from "../../../types/category";
-import styles from "../../../styles/postContent.module.scss";
 import { CheckboxField } from "../../InputFields/CheckboxField";
+import styles from "../../../styles/edit.module.scss";
 
 interface AddPostContentProps {
     setContent: (Content: string) => void;
@@ -15,7 +15,8 @@ interface AddPostContentProps {
     setResetImages: (value: boolean) => void;
     categories?: CategoryResponse[];
     checkedCategories: { [key: string]: boolean };
-    componentKey: number;   
+    componentKey: number;
+    lastRequestStatus:boolean;
 }
 
 const AddPostContent = ({
@@ -25,22 +26,21 @@ const AddPostContent = ({
     setResetImages,
     categories,
     checkedCategories,
-    componentKey
+    componentKey,
+    lastRequestStatus
 }: AddPostContentProps) => {
 
     const { addNewValue } = useFormikValues();
 
+    
+
     const handleAction = () => {
+        addNewValue({ categoriesIds: Object.keys(checkedCategories).filter(key => checkedCategories[key]), content });
 
-        const checkedCategoryIds = Object.entries(checkedCategories)
-            .filter(([_, checked]) => checked)
-            .map(([categoryId, _]) => categoryId);
-
-        addNewValue({ categoryId: checkedCategoryIds, content });
+        // addNewValue({ categoryId: checkedCategoryIds, content });
     };
 
     useEffect(() => {
-
         handleAction();
         // eslint-disable-next-line react-hooks/exhaustive-deps
     }, [content, checkedCategories]);
@@ -54,41 +54,47 @@ const AddPostContent = ({
     // log(checkedCategories)
     return (
         <div className={styles.container}>
-            <div className={styles.items}>
-                <div className={styles.columns}>
-                    <UploadImages
-                        getImages={getImagesData}
-                        maxNumber={1}
-                        resetImages={resetImages}
-                        setResetImages={setResetImages}
-                    />
-                </div>
-                <div className={styles.columns}>
-                    <TextInputField
-                        label="Title"
-                        className={styles.profileInput}
-                        name="title"
-                        id="title"
-                        initialValue={''}
-                    />
-                    <EnhancedMdxEditorComponent
-                        content={content}
-                        setContent={setContent}
-                        width='95%'
-                        componentKey={componentKey}
-                    />
-                </div>
-                <div className={styles.columns}>
-                    {categories?.map((category) => (
-                        <CheckboxField
-                            key={category.id}
-                            name={category.id}
-                            label={category.categoryName}
-                            className={styles.checkbox}
-                        />
-                    ))}
-                </div>
+            <div className={styles.inputField}>
+                <TextInputField
+                    label="Title"
+                    className={styles.titleField}
+                    name="title"
+                    id="title"
+                    initialValue={''}
+                />
             </div>
+            <div className={styles.images}>
+                <UploadImages
+                    getImages={getImagesData}
+                    maxNumber={1}
+                    resetImages={resetImages}
+                    setResetImages={setResetImages}
+                />
+            </div>
+            <div className={`${styles.columns} ${styles.checkboxContainer}`}>
+                {categories?.map((category) => (
+                    <CheckboxField
+                        key={category.id}
+                        name={category.id}
+                        label={category.categoryName}
+                        className={styles.checkbox}
+                    />
+                ))}
+            </div>
+            <div className={`${styles.columns} ${styles.content}`}>
+                <EnhancedMdxEditorComponent
+                    content={content}
+                    setContent={setContent}
+                    width='100%'
+                    componentKey={componentKey}
+                />
+            </div>
+            <div className={styles.buttonPublic}>
+                <button disabled={lastRequestStatus} type="submit">
+                    Public
+                </button>
+            </div>
+
         </div>
     );
 };

@@ -45,7 +45,7 @@ const EditPostProperty: FunctionComponent<EditPostPropertyProps> = ({
         addNewValue({ categoriesIds: Object.keys(checkedCategories).filter(key => checkedCategories[key]) });
         // eslint-disable-next-line react-hooks/exhaustive-deps
     }, [checkedCategories]);
-    
+
     useEffect(() => {
         resetCheckedCategories()
         categoriesIds?.forEach(id => {
@@ -97,11 +97,11 @@ const EditPostProperty: FunctionComponent<EditPostPropertyProps> = ({
                 ))}
             </div>
             <div className={`${styles.columns} ${styles.content}`}>
-                    {postValues.content && <EnhancedMdxEditorComponent
-                        content={postValues.content}
-                        setContent={handleContentChange}
-                        width='100%' />}
-                </div>
+                {postValues.content && <EnhancedMdxEditorComponent
+                    content={postValues.content}
+                    setContent={handleContentChange}
+                    width='100%' />}
+            </div>
             <div className={styles.buttonPublic}>
                 <button disabled={disabled} type="submit">Public</button>
             </div>
