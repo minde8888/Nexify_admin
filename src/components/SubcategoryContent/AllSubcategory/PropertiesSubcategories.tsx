@@ -5,7 +5,7 @@ import { FormikProps } from "formik";
 import CategoryFormProperty from "../../../types/categoryFormProperty";
 import styles from './subcategory.module.scss';
 import SubcategoryModal from "../SubcategoryModal";
-import CustomButton from "../../Buttons/CustomButton";
+import CustomButton from "../../Buttons/CustomButton/CustomButton";
 import useFormikValues from "../../../hooks/useFormikValues";
 
 interface PropertiesSubcategoriesProps {

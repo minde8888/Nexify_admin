@@ -1,5 +1,5 @@
 import { Formik, Form } from 'formik';
-import CategoriesProperty from '../../../../components/CategoryContent/AddCategories/CategoriesProperty';
+import CategoriesProperty from '../../../../components/CategoryContent/AddCategories/CategoriesProperty/CategoriesProperty';
 import useForm from '../../../../hooks/useForm';
 import CategoryFormProperty from '../../../../types/categoryFormProperty';
 import { v4 as uuidv4 } from 'uuid';

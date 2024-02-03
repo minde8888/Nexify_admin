@@ -42,6 +42,7 @@ const CustomFileInput: React.FC<CustomFileInputProps> = ({
             onChange={handleFileChange}
             accept={accept}
             style={{ display: 'none' }}
+            aria-label={altText}
           />
         </label>
       </div>

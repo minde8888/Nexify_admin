@@ -3,16 +3,17 @@ import { useDispatch } from 'react-redux';
 import rootReducer from './reducers';
 import { AuthState } from './slice/authSlice';
 import apiMiddleware from '../middleware/apiMiddleware';
+import { StoreError } from '../errorHandler/storeError';
 
 type ImmutableCheck = { warnAfter: number };
-type GetDefaultMiddlewareFn = (arg0: { immutableCheck: ImmutableCheck; serializableCheck: boolean }) => any;
+export type GetDefaultMiddlewareFn = (arg0: { immutableCheck: ImmutableCheck; serializableCheck: boolean }) => any;
 
 interface Action {
     type: string;
     payload: AuthState;
 }
 
-const localStorageMiddleware = ({ getState }: any) => {
+export const localStorageMiddleware = ({ getState }: any) => {
     return (next: (arg0: any) => any) => (action: Action) => {
         const result = next(action);
         const authState = getState().data.auth; 
@@ -23,14 +24,17 @@ const localStorageMiddleware = ({ getState }: any) => {
 };
 
 const reHydrateStore = () => {
-    if (localStorage.getItem('auth') !== null) {
-        return {
-            data: {
-                auth: JSON.parse(localStorage.getItem('auth') || 'null')
-            }
-        };
+    const storedAuth = localStorage.getItem('auth');
+    if (storedAuth !== null) {
+        try {
+            return { data: { auth: JSON.parse(storedAuth) } };
+        } catch (error:any) {
+            localStorage.removeItem('auth');
+            throw new StoreError('Failed to parse auth from localStorage', error.message);        
+        }
     }
 };
+
 
 export const store: any = configureStore({
     reducer: {

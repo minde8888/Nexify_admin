@@ -1,11 +1,12 @@
 import { FunctionComponent, useCallback } from 'react';
-import { CategoryResponse } from '../../../types/category';
-import Category from './Category';
-import { useAppDispatch } from '../../../redux/store';
-import { deleteAction } from '../../../redux/actions/actions';
+import { CategoryResponse } from '../../../../types/category';
+import Category from '../Category/Category';
+import { useAppDispatch } from '../../../../redux/store';
+import { deleteAction } from '../../../../redux/actions/actions';
 import { useNavigate } from 'react-router-dom';
-import { EDIT_BLOG_CATEGORY_URL, EDIT_CATEGORY_URL } from '../../../constants/apiConst';
+import { EDIT_BLOG_CATEGORY_URL, EDIT_CATEGORY_URL } from '../../../../constants/apiConst';
 import styles from './allCategories.module.scss';
+import { log } from 'console';
 
 interface EditPropertyProps {
   categories?: CategoryResponse[];
@@ -23,6 +24,7 @@ const CategoryProperty: FunctionComponent<EditPropertyProps> = ({ categories, UR
   }, [URL, categories, dispatch]);
 
   const handleEdit = useCallback((categoryId: string) => {
+
     const editUrl = blog ? EDIT_BLOG_CATEGORY_URL : EDIT_CATEGORY_URL;
     navigate(`${editUrl}${categoryId}`);
   }, [blog, navigate]);

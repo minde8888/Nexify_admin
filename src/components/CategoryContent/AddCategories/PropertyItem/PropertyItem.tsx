@@ -1,7 +1,7 @@
 import React, { useCallback } from "react";
-import CategoryFormProperty from "../../../types/categoryFormProperty";
-import AddProperty from "./CategoriesProperty";
-import CustomButton from "../../Buttons/CustomButton";
+import CategoryFormProperty from "../../../../types/categoryFormProperty";
+import AddProperty from "../CategoriesProperty/CategoriesProperty";
+import CustomButton from "../../../Buttons/CustomButton/CustomButton";
 import styles from "../../../styles/categoryProperty.module.scss";
 
 interface PropertyItemProps {

@@ -1,8 +1,8 @@
 import React, { FunctionComponent } from "react";
-import { TextInputField } from "../../InputFields/TextInputField";
-import useFormProperty from "../../../hooks/useFormProperty";
-import PropertyItem from "./PropertyItem";
-import CustomButton from "../../Buttons/CustomButton";
+import { TextInputField } from "../../../InputFields/TextInputField";
+import useFormProperty from "../../../../hooks/useFormProperty";
+import PropertyItem from "../PropertyItem/PropertyItem";
+import CustomButton from "../../../Buttons/CustomButton/CustomButton";
 import styles from "../../../styles/categoryProperty.module.scss";
 
 interface PropertyListProps {
@@ -21,7 +21,7 @@ const PropertyList: FunctionComponent<PropertyListProps> = ({
   const { addNewProperty, removeProperty, properties } = useFormProperty(prefix);
 
   return (
-    <div className={styles.wrapper}>
+    <div className={styles.wrapper} >
       <div className={styles.labelContainer}>
         {showAddButton && (
           <CustomButton onClick={addNewProperty} style={styles.buttonAdd} symbol={'+'} />
@@ -32,6 +32,7 @@ const PropertyList: FunctionComponent<PropertyListProps> = ({
             id={`${prefix}label`}
             className={styles.inputField}
             initialValue={''}
+            data-testid="text-input-field"
           />
         )}
       </div>

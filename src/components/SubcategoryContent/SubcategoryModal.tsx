@@ -1,6 +1,6 @@
 import { RefObject, useCallback, useEffect } from "react";
-import CustomButton from "../Buttons/CustomButton";
-import CategoriesProperty from "../CategoryContent/AddCategories/CategoriesProperty";
+import CustomButton from "../Buttons/CustomButton/CustomButton";
+import CategoriesProperty from "../CategoryContent/AddCategories/CategoriesProperty/CategoriesProperty";
 import { Modal } from "../Modal/Modal";
 import { FormikProps } from "formik";
 import CategoryFormProperty from "../../types/categoryFormProperty";

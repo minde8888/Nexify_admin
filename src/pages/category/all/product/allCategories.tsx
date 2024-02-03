@@ -1,5 +1,5 @@
 import { useEffect } from 'react';
-import CategoryProperty from '../../../../components/CategoryContent/AllCategories/CategoryProperty';
+import CategoryProperty from '../../../../components/CategoryContent/AllCategories/CategoryProperty/CategoryProperty';
 import { useAppSelector } from '../../../../hooks/useRedux';
 import { CATEGORIES_URL } from '../../../../constants/apiConst';
 import Preloader from '../../../preloader/preloader';

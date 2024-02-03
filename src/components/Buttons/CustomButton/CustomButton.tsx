@@ -1,10 +1,10 @@
 import { FunctionComponent } from "react";
 import React from 'react';
-import { ButtonError } from "../../errorHandler/buttonError";
+import { ButtonError } from "../../../errorHandler/buttonError";
 
 interface CustomButtonProps {
     onClick: () => void;
-    style: string;
+    style?: string;
     symbol: string;
 }
 
@@ -15,7 +15,7 @@ const CustomButton: FunctionComponent<CustomButtonProps> = ({ onClick, style, sy
     }
 
     return (
-        <div className={style}>
+        <div className={style} data-testid="custom-button">
             <button type="button" onClick={onClick}>
                 {symbol}
             </button>

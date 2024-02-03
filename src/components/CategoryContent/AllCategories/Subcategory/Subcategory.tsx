@@ -1,11 +1,11 @@
 import { FunctionComponent } from "react";
-import ButtonWithIcon from "../../Buttons/ButtonWithIcon";
+import ButtonWithIcon from "../../../Buttons/ButtonWithIcon/ButtonWithIcon";
 import editIcon from "../../../assets/svg/edit document_edit file_edited_editing_icon.svg";
 import defaultImage from "../../../assets/svg/gallery_image_photo_photography_picture_icon.svg";
-import { SubcategoryResponse } from "../../../types/category";
+import { SubcategoryResponse } from "../../../../types/category";
 import styles from './allCategories.module.scss';
-import CustomButton from "../../Buttons/CustomButton";
-import MDXToHTMLConverter from "../../MDXToHTMLConverter/MDXToHTMLConverter";
+import CustomButton from "../../../Buttons/CustomButton/CustomButton";
+import MDXToHTMLConverter from "../../../MDXToHTMLConverter/MDXToHTMLConverter";
 
 interface SubcategoryProps {
     subcategory: SubcategoryResponse;

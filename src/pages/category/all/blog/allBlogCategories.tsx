@@ -1,4 +1,4 @@
-import CategoryProperty from '../../../../components/CategoryContent/AllCategories/CategoryProperty';
+import CategoryProperty from '../../../../components/CategoryContent/AllCategories/CategoryProperty/CategoryProperty';
 import { useAppSelector } from '../../../../hooks/useRedux';
 import { BLOG_CATEGORIES_URL } from '../../../../constants/apiConst';
 import useFetchData from '../../../../hooks/useDataFetching';

@@ -4,7 +4,7 @@ import closeIcon from '../../assets/svg/closeIcon.svg';
 import uploadIcon from '../../assets/svg/uploadIcon.svg';
 import tempImage from '../../assets/svg/tempImage.svg';
 import uploadImagesStyles from '../../styles/uploadImages.module.scss';
-import { IconButton } from '../Buttons/IconButton';
+import { IconButton } from '../Buttons/IconButton/IconButton';
 import { compressImage } from '../../utils/helpers/compressImage';
 import { dataURLtoFile } from '../../utils/helpers/dataURLtoFile';
 import { ImageFile } from '../../types/imageFile';

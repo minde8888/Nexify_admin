@@ -4,7 +4,7 @@ interface IconButtonProps {
 }
 
 export const IconButton: React.FC<IconButtonProps> = ({ onClick, icon }) => (
-    <span onClick={onClick}>
+    <span onClick={onClick} data-testid="icon-button">
         <img src={icon} alt="imgAltText" />
     </span>
 );

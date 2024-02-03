@@ -1,6 +1,6 @@
 import { FunctionComponent } from "react";
-import { CATEGORY_DEPTH } from "../../../constants/categoryConst";
-import PropertyList from "./PropertyList";
+import { CATEGORY_DEPTH } from "../../../../constants/categoryConst";
+import PropertyList from "../PropertyList/PropertyList";
 
 interface CategoriesPropertyProps {
   prefix?: string;

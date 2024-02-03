@@ -7,7 +7,8 @@ interface TextInputFieldProps {
   id: string;
   placeholder?: string;
   initialValue?: string;
-  autoFocus?: boolean; // New prop for enabling autoFocus
+  autoFocus?: boolean; 
+  'data-testid'?: string;
 }
 
 export const TextInputField: React.FC<TextInputFieldProps> = ({
@@ -16,6 +17,7 @@ export const TextInputField: React.FC<TextInputFieldProps> = ({
   id,
   initialValue,
   autoFocus,
+  'data-testid': testId,
   ...props
 }) => {
   const [field] = useField({ ...props, name: props.name });
@@ -26,15 +28,13 @@ export const TextInputField: React.FC<TextInputFieldProps> = ({
     autoComplete: "off",
     placeholder,
     value: field.value !== '' ? field.value : initialValue,
-    autoFocus, // Apply autoFocus attribute directly
+    autoFocus, 
   };
-
-  // log(inputProps);
 
   return (
     <>
       <label htmlFor={id}>{label}</label>
-      <input id={id} {...inputProps} />
+      <input id={id} {...inputProps} data-testid={testId}/>
       <div style={{ color: 'red', fontSize: '11px' }}>
         <ErrorMessage component="div" name={field.name} />
       </div>

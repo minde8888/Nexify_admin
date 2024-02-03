@@ -3,10 +3,12 @@
   "version": "0.1.0",
   "private": true,
   "dependencies": {
+    "@babel/core": "^7.23.9",
+    "@babel/preset-env": "^7.23.9",
     "@mdxeditor/editor": "^2.3.8",
     "@reduxjs/toolkit": "^2.1.0",
     "@testing-library/jest-dom": "^5.14.1",
-    "@testing-library/react": "^13.0.0",
+    "@testing-library/react": "^14.2.1",
     "@testing-library/user-event": "^13.2.1",
     "@types/jest": "^27.0.1",
     "@types/node": "^16.7.13",
@@ -16,6 +18,7 @@
     "@types/uuid": "^9.0.8",
     "axios": "^1.6.7",
     "axios-auth-refresh": "^3.3.6",
+    "babel-jest": "^29.7.0",
     "formik": "^2.4.5",
     "react": "^18.2.0",
     "react-dom": "^18.2.0",
@@ -55,8 +58,15 @@
     ]
   },
   "jest": {
+    "transformIgnorePatterns": [
+      "node_modules/(?!(axios)/)"
+    ],
     "moduleNameMapper": {
-      "\\.(css|less)$": "<rootDir>/__mocks__/styleMock.js"
+      "\\.(css|less)$": "<rootDir>/__mocks__/styleMock.js",
+      "\\.svg$": "<rootDir>/__mocks__/fileMock.js"
+    },
+    "transform": {
+      "^.+\\.[t|j]sx?$": "babel-jest"
     }
   },
   "devDependencies": {

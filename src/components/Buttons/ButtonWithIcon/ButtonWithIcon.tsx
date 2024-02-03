@@ -1,5 +1,5 @@
 import React, { CSSProperties } from 'react';
-import { ButtonError } from '../../errorHandler/buttonError';
+import { ButtonError } from '../../../errorHandler/buttonError';
 
 interface ButtonWithIconProps {
   icon: string;
@@ -14,7 +14,7 @@ const ButtonWithIcon: React.FC<ButtonWithIconProps> = ({ icon, altText, style, o
   }
 
   return (
-    <div style={style}>
+    <div style={style} data-testid="button-with-icon">
       <button type="button" onClick={onClick} style={{ border: 'none', background: 'none', padding: 0, margin: 0, cursor: 'pointer' }}>
         <img src={icon} alt={altText} />
       </button>
