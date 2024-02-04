@@ -1,10 +1,10 @@
 import { FunctionComponent, useCallback } from 'react';
-import { deleteAction } from '../../../redux/actions/actions';
-import { useAppDispatch } from '../../../hooks/useRedux';
-import { Post } from '../../../types/post';
-import PostContext from './PostContext';
+import { deleteAction } from '../../../../redux/actions/actions';
+import { useAppDispatch } from '../../../../hooks/useRedux';
+import { Post } from '../../../../types/post';
+import PostContext from '../PostContext/PostContext';
 import { useNavigate } from 'react-router-dom';
-import { EDIT_BLOG_URL } from '../../../constants/apiConst';
+import { EDIT_BLOG_URL } from '../../../../constants/apiConst';
 import styles from '../../../styles/allPost.module.scss'
 
 interface AllPostPropertyProps {

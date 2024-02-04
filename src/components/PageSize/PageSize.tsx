@@ -1,4 +1,3 @@
-// PageSize.tsx
 import React, {  useEffect } from "react";
 import SelectOptions from "../SelectOptions/SelectOptions";
 import { pageSizeOptions } from "../../constants/pageSize";

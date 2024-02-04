@@ -6,7 +6,6 @@ import { fireEvent, screen } from '@testing-library/react';
 import * as actions from '../../../../redux/actions/actions';
 import { useSelector } from 'react-redux';
 
-
 jest.mock('axios', () => ({
     create: jest.fn(() => ({
         interceptors: {
@@ -28,15 +27,15 @@ jest.mock('react-redux', () => ({
     useDispatch: () => jest.fn(), 
 }));
 
-const initialState = {
-    auth: { isLoggedIn: true, },
-    categories: {
-        data: [],
-        lastRequestStatus: null
-    }
-};
-
 describe('CategoryProperty', () => {
+
+    const initialState = {
+        auth: { isLoggedIn: true, },
+        categories: {
+            data: [],
+            lastRequestStatus: null
+        }
+    };
 
     const categories = [
         { id: '1', categoryName: 'Category 1', description: 'Description 1', imageSrc: '', dateCreated: '2021-01-01T00:00:00Z', subcategories: [] },
@@ -82,14 +81,10 @@ describe('CategoryProperty', () => {
         const removeButton = await screen.findByTestId(`custom-button-${categories[0].id}`);
         fireEvent.click(removeButton);
         expect(actions.deleteAction).toHaveBeenCalledWith(CATEGORIES_URL, expect.any(String), expect.any(Boolean));
-    });
-    
+    });    
 
     test('displays no categories message when categories array is empty', async () => {
         renderWithReduxMemoryRouter(<CategoryProperty URL={CATEGORIES_URL} />, { initialState });
         expect(screen.getByText('No categories available')).toBeVisible();
     });
-
-
-
 });

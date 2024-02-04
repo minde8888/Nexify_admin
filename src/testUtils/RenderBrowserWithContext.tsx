@@ -2,10 +2,13 @@ import { Provider } from 'react-redux';
 import { BrowserRouter, MemoryRouter } from 'react-router-dom';
 import { GetDefaultMiddlewareFn, RootState, localStorageMiddleware, store } from '../redux/store';
 import { RenderOptions, render } from '@testing-library/react';
-import { configureStore } from '@reduxjs/toolkit';
+import { EnhancedStore, configureStore } from '@reduxjs/toolkit';
 import { ReactElement } from 'react';
 import rootReducer from '../redux/reducers';
 import apiMiddleware from '../middleware/apiMiddleware';
+import { SelectFieldProvider } from '../context/selectFieldProvider';
+import { PaginationProvider } from '../context/paginationProvider';
+import { Formik } from 'formik';
 
 interface ExtendedRenderOptions extends Omit<RenderOptions, 'queries'> {
     initialState?: Partial<RootState>;
@@ -63,3 +66,4 @@ export const renderWithReduxMemoryRouter = (
         store: usedStore,
     };
 };
+

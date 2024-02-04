@@ -1,11 +1,11 @@
 import { FunctionComponent } from "react";
-import ButtonWithIcon from "../../Buttons/ButtonWithIcon/ButtonWithIcon";
+import ButtonWithIcon from "../../../Buttons/ButtonWithIcon/ButtonWithIcon";
 import editIcon from "../../../assets/svg/edit document_edit file_edited_editing_icon.svg";
 import defaultImage from "../../../assets/svg/gallery_image_photo_photography_picture_icon.svg";
-import { Post } from "../../../types/post";
-import CustomButton from "../../Buttons/CustomButton/CustomButton";
+import { Post } from "../../../../types/post";
+import CustomButton from "../../../Buttons/CustomButton/CustomButton";
 import { LazyLoadImage } from "react-lazy-load-image-component";
-import MDXToHTMLConverter from "../../MDXToHTMLConverter/MDXToHTMLConverter";
+import MDXToHTMLConverter from "../../../MDXToHTMLConverter/MDXToHTMLConverter";
 import styles from '../../../styles/allPost.module.scss';
 
 
@@ -33,8 +33,8 @@ const PostContext: FunctionComponent<PostProps> = ({ post, onRemove, onEdit }) =
                 {post.categories && post.categories.map((category, index) => <div className={styles.category} key={index}>{category.categoryName}</div>)}
             </div>
             <div className={styles.buttons}>
-                <ButtonWithIcon icon={editIcon} altText="Edit" style={{ margin: '0' }} onClick={() => onEdit(post.id)} />
-                <CustomButton onClick={() => onRemove(post.id)} style={styles.removeButton} symbol={'-'} />
+                <ButtonWithIcon icon={editIcon} altText="Edit" style={{ margin: '0' }} onClick={() => onEdit(post.id)} id={post.id} />
+                <CustomButton onClick={() => onRemove(post.id)} style={styles.removeButton} symbol={'-'} id={post.id} />
             </div>
         </div>
     </div>

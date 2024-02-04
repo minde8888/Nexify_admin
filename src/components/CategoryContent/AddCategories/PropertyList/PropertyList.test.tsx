@@ -1,10 +1,9 @@
-import React from 'react';
 import { render, screen } from '@testing-library/react';
 import '@testing-library/jest-dom';
 import PropertyList from './PropertyList';
 
 jest.mock('../../../../hooks/useFormProperty', () => ({
-    __esModule: true, // This tells Jest that the module being mocked has ES module semantics
+    __esModule: true, 
     default: () => ({
         addNewProperty: jest.fn(),
         removeProperty: jest.fn(),
@@ -34,24 +33,32 @@ jest.mock('formik', () => ({
     ErrorMessage: () => <div>Error</div>,
 }));
 
+const setup = async (bool = true) => {
+    const utils =  render(<PropertyList prefix="testPrefix" showAddButton={true} level={1} setPrefix={() => { }} />);
+    return {
+        ...utils
+    };
+}
 
 describe('PropertyList', () => {
-    test('renders PropertyItem components based on properties', () => {
-        render(<PropertyList prefix="testPrefix" showAddButton={true} level={1} setPrefix={() => { }} />);
+    test('renders PropertyItem components based on properties', async () => {
+        await setup();
+
         const propertyItems = screen.getAllByTestId('property-item');
         expect(propertyItems.length).toBe(2);
     });
 
-    test('conditionally renders the CustomButton based on showAddButton prop', () => {
-        const { rerender } = render(<PropertyList prefix="testPrefix" showAddButton={true} level={1} setPrefix={() => { }} />);
+    test('conditionally renders the CustomButton based on showAddButton prop', async () => {
+        const { rerender } =  await setup();
+
         expect(screen.getByTestId('custom-button')).toBeInTheDocument();
 
         rerender(<PropertyList prefix="testPrefix" showAddButton={false} level={1} setPrefix={() => { }} />);
         expect(screen.queryByTestId('custom-button')).not.toBeInTheDocument();
     });
 
-    test('renders TextInputField with correct props', () => {
-        render(<PropertyList prefix="testPrefix" showAddButton={true} level={1} setPrefix={() => { }} />);
+    test('renders TextInputField with correct props', async () => {
+        await setup();
         expect(screen.getByTestId('text-input-field')).toBeInTheDocument();
     });
 });

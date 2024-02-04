@@ -30,14 +30,10 @@ const AddPostContent = ({
     lastRequestStatus
 }: AddPostContentProps) => {
 
-    const { addNewValue } = useFormikValues();
-
-    
+    const { addNewValue } = useFormikValues();    
 
     const handleAction = () => {
         addNewValue({ categoriesIds: Object.keys(checkedCategories).filter(key => checkedCategories[key]), content });
-
-        // addNewValue({ categoryId: checkedCategoryIds, content });
     };
 
     useEffect(() => {
@@ -51,7 +47,7 @@ const AddPostContent = ({
             addNewValue({ images: files.map(file => file.file) });
         }
     };
-    // log(checkedCategories)
+
     return (
         <div className={styles.container}>
             <div className={styles.inputField}>

@@ -15,20 +15,9 @@ jest.mock('@mdxeditor/editor', () => ({
 }));
 
 jest.mock('../../MarkDownEditor/EnhancedMdxEditorComponent', () => ({
-  __esModule: true, // This is important for mocking ES Module imports
-  default: () => <textarea aria-label="content">Mocked Component</textarea>, // Use a textarea for simplicity
+  __esModule: true, 
+  default: () => <textarea aria-label="content">Mocked Component</textarea>, 
 }));
-
-
-type TextInputFieldProps = {
-  label?: string;
-  id: string;
-  placeholder?: string;
-  autoFocus?: boolean;
-  'data-testid'?: string;
-  onChange?: React.ChangeEventHandler<HTMLInputElement>;
-  value?: string;
-};
 
 jest.mock('../../InputFields/TextInputField', () => ({
   __esModule: true,
@@ -45,7 +34,6 @@ jest.mock('../../InputFields/TextInputField', () => ({
     </div>
   ),
 }));
-
 
 describe('EditCategoryProperty', () => {
   const mockCategory = {

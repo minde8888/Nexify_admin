@@ -3,13 +3,9 @@ import CategoriesProperty from './CategoriesProperty';
 import { CATEGORY_DEPTH } from '../../../../constants/categoryConst';
 import PropertyList from '../PropertyList/PropertyList';
 
-
 jest.mock('../PropertyList/PropertyList.tsx', () => {
     return jest.fn(() => null);
 });
-
-
-// Assuming PropertyList is already mocked above
 
 describe('CategoriesProperty', () => {
     test('renders PropertyList with correct props for given prefix and level', () => {
