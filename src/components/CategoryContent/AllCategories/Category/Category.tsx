@@ -17,7 +17,7 @@ interface CategoryProps {
 }
 
 const Category: FunctionComponent<CategoryProps> = ({ category, onRemove, onEdit }) => (
-    <div key={category.id} className={styles.categoryRow}>
+    <div key={category.id} className={styles.categoryRow} data-testid={'category-item'}>
         <div className={styles.categoryInfo}>
             <div className={styles.title}>{category.categoryName}</div>
             <div className={styles.description}>
@@ -30,8 +30,8 @@ const Category: FunctionComponent<CategoryProps> = ({ category, onRemove, onEdit
                 effect="blur"
             />
             <div className={styles.buttons}>
-                <ButtonWithIcon icon={editIcon} altText="Edit" onClick={() => onEdit(category.id)} style={{ margin: '0' }} />
-                <CustomButton onClick={() => onRemove(category.id)} style={styles.removeButton} symbol={'-'} />
+                <ButtonWithIcon icon={editIcon} altText="Edit" onClick={() => onEdit(category.id)} style={{ margin: '0' }} id={category.id}/>
+                <CustomButton onClick={() => onRemove(category.id)} style={styles.removeButton} symbol={'-'} id={category.id}/>
             </div>
         </div>
         {category.subcategories && <Subcategories

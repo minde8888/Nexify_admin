@@ -31,14 +31,14 @@ const CategoryProperty: FunctionComponent<EditPropertyProps> = ({ categories, UR
 
   return (
     <div className={styles.allPropertyContainer}>
-      {categories && Object.values(categories).map((category, index) => (
+      {categories ? Object.values(categories).map((category, index) => (
         <Category
           key={index}
           category={category}
           onEdit={handleEdit}
           onRemove={onRemove}
         />
-      ))}
+      )) : <div>No categories available</div>}
     </div>
   );
 };

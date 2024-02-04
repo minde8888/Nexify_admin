@@ -6,9 +6,10 @@ interface ButtonWithIconProps {
   altText: string;
   style?: CSSProperties;
   onClick?: () => void;
+  id:string;
 }
 
-const ButtonWithIcon: React.FC<ButtonWithIconProps> = ({ icon, altText, style, onClick }) => {
+const ButtonWithIcon: React.FC<ButtonWithIconProps> = ({ icon, altText, style, onClick, id}) => {
   if (!icon || !altText) {
     throw new ButtonError('ButtonWithIcon component requires both "icon" and "altText" props.');
   }
@@ -16,7 +17,7 @@ const ButtonWithIcon: React.FC<ButtonWithIconProps> = ({ icon, altText, style, o
   return (
     <div style={style} data-testid="button-with-icon">
       <button type="button" onClick={onClick} style={{ border: 'none', background: 'none', padding: 0, margin: 0, cursor: 'pointer' }}>
-        <img src={icon} alt={altText} />
+        <img src={icon} alt={altText} data-testid={`icon-button-${id}`}/>
       </button>
     </div>
   );
