@@ -68,6 +68,7 @@ const UploadImage: React.FC<UploadImageProps> = ({
           onClick={handleRemoveImage}
           icon={remove}
           altText="Remove Icon"
+          id='1'
         />
       </div>
     </>

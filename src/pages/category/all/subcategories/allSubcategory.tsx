@@ -3,7 +3,7 @@ import useFetchData from '../../../../hooks/useDataFetching';
 import { CATEGORIES_URL, POST_METHOD, SUBCATEGORIES_URL } from '../../../../constants/apiConst';
 import { useAppSelector } from '../../../../hooks/useRedux';
 import Preloader from '../../../preloader/preloader';
-import PropertiesSubcategories from '../../../../components/SubcategoryContent/AllSubcategory/PropertiesSubcategories';
+import PropertiesSubcategories from '../../../../components/SubcategoryContent/AllSubcategory/PropertiesSubcategories/PropertiesSubcategories';
 import CategoryFormProperty from '../../../../types/categoryFormProperty';
 import useForm from '../../../../hooks/useForm';
 import { Form, Formik, FormikProps } from 'formik';

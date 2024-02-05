@@ -1,12 +1,12 @@
 import { Dispatch, FunctionComponent, RefObject, SetStateAction, useCallback, useState } from "react";
-import { CategoryResponse } from "../../../types/category";
-import Subcategory from "./Subcategory";
+import { CategoryResponse } from "../../../../types/category";
+import Subcategory from "../Subcategory/Subcategory";
 import { FormikProps } from "formik";
-import CategoryFormProperty from "../../../types/categoryFormProperty";
+import CategoryFormProperty from "../../../../types/categoryFormProperty";
 import styles from './subcategory.module.scss';
-import SubcategoryModal from "../SubcategoryModal";
-import CustomButton from "../../Buttons/CustomButton/CustomButton";
-import useFormikValues from "../../../hooks/useFormikValues";
+import SubcategoryModal from "../../SubcategoryModal/SubcategoryModal";
+import CustomButton from "../../../Buttons/CustomButton/CustomButton";
+import useFormikValues from "../../../../hooks/useFormikValues";
 
 interface PropertiesSubcategoriesProps {
     categories?: CategoryResponse[];
@@ -44,6 +44,7 @@ const PropertiesSubcategories: FunctionComponent<PropertiesSubcategoriesProps> =
                             onClick={() => onAddNewProperty(category.id)}
                             style={styles.buttonAdd}
                             symbol="+"
+                            id={category.id}
                         />
                     </div>
                 ))}

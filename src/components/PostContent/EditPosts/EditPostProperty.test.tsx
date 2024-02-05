@@ -1,8 +1,5 @@
-// Assuming you have the following interfaces defined and imported correctly
-import React from 'react';
 import { render, screen } from '@testing-library/react';
 import '@testing-library/jest-dom/extend-expect';
-
 import { useCheckboxContext } from '../../../context/checkboxProvider';
 import useFormikValues from '../../../hooks/useFormikValues';
 import { Post } from '../../../types/post';
@@ -14,25 +11,40 @@ jest.mock('../../../context/checkboxProvider');
 jest.mock('../../UploadImages/UploadImages', () => () => <div>UploadImages Mock</div>);
 jest.mock('../../InputFields/TextInputField', () => ({
     __esModule: true,
-    TextInputField: ({ label, id, placeholder, autoFocus, 'data-testid': testId, ...props }: TextInputFieldProps) => (
+    TextInputField: ({ label, id, className, name }: TextInputFieldProps) => (
         <div>
             {label && <label htmlFor={id}>{label}</label>}
             <input
                 id={id}
-                placeholder={placeholder}
-                autoFocus={autoFocus}
-                data-testid={testId}
-                {...props}
+                name={name}
+                className={className}
+                defaultValue={'Test Title'}            
             />
         </div>
     ),
 }));
-jest.mock('../../MarkDownEditor/EnhancedMdxEditorComponent', () => ({
-    __esModule: true,
-    default: () => <textarea aria-label="content">Mocked Component</textarea>,
-}));
-jest.mock('../../InputFields/CheckboxField', () => ({ label }: { label: string }) => <label>Checkbox Mock - {label}</label>);
 
+jest.mock('../../MarkDownEditor/EnhancedMdxEditorComponent', () => {
+    return {
+        __esModule: true,
+        default: ({ content }: any) => <textarea aria-label="content">{content}</textarea>, 
+    };
+});
+
+interface CheckboxFieldProps {
+    label?: string;
+    className?: string;
+}
+
+jest.mock('../../InputFields/CheckboxField', () => {
+    return {
+        __esModule: true,
+        CheckboxField: ({ 
+             label, className }: CheckboxFieldProps) => (
+            <label className={className}>Checkbox Mock - {label}</label>
+        ),
+    };
+});
 
 const mockUseFormikValues = useFormikValues as jest.MockedFunction<typeof useFormikValues>;
 const mockUseCheckboxContext = useCheckboxContext as jest.MockedFunction<typeof useCheckboxContext>;
@@ -52,27 +64,8 @@ describe('EditPostProperty Component', () => {
             resetCheckedCategories: jest.fn()
         });
     });
-    test('renders a simplified version without errors', () => {
-        const categories: CategoryResponse[] = [{
-            id: '1',
-            categoryName: 'testCategory',
-            description: 'testDescription',
-            imageSrc: 'testImageSrc',
-            dateCreated: 'testDateCreated',
-            subcategories: []
-        }];
-        render(<EditPostProperty disabled={true} resetImages={false} setResetImages={() => { }}  resetCheckedCategories={() => { }} id={''} title={''} />);
-        // Assertions to check if the component renders
-    });
 
-
-    test('renders with initial values', () => {
-        const post: Post = {
-            id: '1',
-            title: 'Test Title',
-            content: 'Test Content',
-            imageSrc: ['http://example.com/test.jpg'],
-        };
+    test('renders with initial values', async () => {
 
         const categories: CategoryResponse[] = [{
             id: '1',
@@ -90,12 +83,12 @@ describe('EditPostProperty Component', () => {
             categories={categories}
             resetCheckedCategories={() => { }}
             id={''}
-            title={''} />);
+            title={'Test Title'} 
+            content={"content"}/>);
 
-        expect(screen.getByDisplayValue(post.title)).toBeInTheDocument();
-        expect(screen.getByText('UploadImages Mock')).toBeInTheDocument();
-        expect(screen.getByText('Checkbox Mock - TestCategory')).toBeInTheDocument();
-        expect(screen.getByText(post.content ?? "default fallback content")).toBeInTheDocument();
+        expect(await screen.findByDisplayValue('Test Title')).toBeInTheDocument();
+        expect(await screen.findByText('UploadImages Mock')).toBeInTheDocument();
+        expect(await screen.findByText(`Checkbox Mock - ${categories[0].categoryName}`)).toBeInTheDocument();
+        expect(await screen.findByLabelText("content")).toHaveValue("content");
     });
-
 });

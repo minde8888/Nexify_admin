@@ -7,13 +7,13 @@ interface ModalType {
     toggle: () => void;
 }
 
-export const Modal = (props: ModalType) => {
+export const Modal = ({ children, isOpen, toggle, }: ModalType) => {
     return (
         <>
-            {props.isOpen && (
-                <div className={style.modalOverlay} onClick={props.toggle} data-testid="test-toggle-id">
+            {isOpen && (
+                <div className={style.modalOverlay} onClick={toggle} data-testid="test-toggle-id">
                     <div onClick={(e) => e.stopPropagation()} className={style.modalBox}>
-                        {props.children}
+                        {children}
                     </div>
                 </div>
             )}

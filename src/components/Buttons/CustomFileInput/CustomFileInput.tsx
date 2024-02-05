@@ -43,6 +43,7 @@ const CustomFileInput: React.FC<CustomFileInputProps> = ({
             accept={accept}
             style={{ display: 'none' }}
             aria-label={altText}
+            data-testid="file-input"
           />
         </label>
       </div>

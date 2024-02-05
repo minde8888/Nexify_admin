@@ -1,9 +1,9 @@
 import { RefObject, useCallback, useEffect } from "react";
-import CustomButton from "../Buttons/CustomButton/CustomButton";
-import CategoriesProperty from "../CategoryContent/AddCategories/CategoriesProperty/CategoriesProperty";
-import { Modal } from "../Modal/Modal";
+import CustomButton from "../../Buttons/CustomButton/CustomButton";
+import CategoriesProperty from "../../CategoryContent/AddCategories/CategoriesProperty/CategoriesProperty";
+import { Modal } from "../../Modal/Modal";
 import { FormikProps } from "formik";
-import CategoryFormProperty from "../../types/categoryFormProperty";
+import CategoryFormProperty from "../../../types/categoryFormProperty";
 import styles from './AllSubcategory/subcategory.module.scss';
 
 interface SubcategoryModalProps {
@@ -31,7 +31,7 @@ const SubcategoryModal = ({ setPrefix, disabled, formikRef, toggle, isOpen, id }
         <Modal isOpen={isOpen} toggle={closeModal}>
             <div className={styles.modalScroll}>
                 <h2>Add Product Subcategories</h2>
-                <CustomButton onClick={closeModal} style={styles.removeDefaultButton} symbol={'❌'} />
+                <CustomButton onClick={closeModal} style={styles.removeDefaultButton} symbol={'❌'} id={id} />
                 <CategoriesProperty level={1} setPrefix={setPrefix} />
                 <div className={styles.saveButton}>
                     <button disabled={disabled} type="submit">
