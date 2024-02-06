@@ -13,7 +13,7 @@ describe('ButtonWithIcon', () => {
     });
 
     test('renders correctly with required props', () => {
-        render(<ButtonWithIcon icon={icon} altText={altText} onClick={mockOnClick} />);
+        render(<ButtonWithIcon icon={icon} altText={altText} onClick={mockOnClick} id={''} />);
 
         const button = screen.getByRole('button');
         const image = screen.getByAltText(altText);
@@ -23,7 +23,7 @@ describe('ButtonWithIcon', () => {
     });
 
     test('calls onClick handler when clicked', () => {
-        render(<ButtonWithIcon icon={icon} altText={altText} onClick={mockOnClick} />);
+        render(<ButtonWithIcon icon={icon} altText={altText} onClick={mockOnClick} id={''} />);
 
         const button = screen.getByRole('button');
         fireEvent.click(button);
@@ -33,7 +33,7 @@ describe('ButtonWithIcon', () => {
 
     test('applies custom styles if provided', () => {
         const customStyle = { backgroundColor: 'red' };
-        render(<ButtonWithIcon icon="path/to/icon.png" altText="Test Icon" style={customStyle} />);
+        render(<ButtonWithIcon icon="path/to/icon.png" altText="Test Icon" style={customStyle} id={''} />);
 
         const buttonWrapper = screen.getByTestId('button-with-icon');
 
@@ -45,8 +45,8 @@ describe('ButtonWithIcon', () => {
         const consoleSpy = jest.spyOn(console, 'error');
         consoleSpy.mockImplementation(() => { });
 
-        expect(() => render(<ButtonWithIcon altText={altText} icon={''} />)).toThrow(ButtonError);
-        expect(() => render(<ButtonWithIcon icon={icon} altText={''} />)).toThrow(ButtonError);
+        expect(() => render(<ButtonWithIcon altText={altText} icon={''} id={''} />)).toThrow(ButtonError);
+        expect(() => render(<ButtonWithIcon icon={icon} altText={''} id={''} />)).toThrow(ButtonError);
 
         consoleSpy.mockRestore();
     });

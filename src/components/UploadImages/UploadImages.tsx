@@ -11,15 +11,6 @@ import { ImageFile } from '../../types/imageFile';
 import { DEFAULT_IMAGE_SIZE } from '../../constants/imageConst';
 import { isArrayNotEmpty } from '../../utils/helpers/isArrayNotEmpty';
 
-
-interface ImagesProps {
-    getImages: (ImageData: ImageFile[]) => void;
-    maxNumber: number;
-    resetImages: boolean;
-    setResetImages: (value: boolean) => void;
-    initialImages?: string[];
-}
-
 const UploadImages: React.FC<ImagesProps> = ({ getImages, maxNumber, resetImages, setResetImages, initialImages }) => {
     const [images, setImages] = useState<ImageType[]>([]);
 
@@ -85,6 +76,7 @@ const UploadImages: React.FC<ImagesProps> = ({ getImages, maxNumber, resetImages
                             style={isDragging ? { color: 'red' } : undefined}
                             onClick={onImageUpload}
                             {...dragProps}
+                            data-testid="image-upload-trigger"
                         >
                             <div>Click or Drop image here </div>
                             <img src={tempImage} alt="imgAltText" />
@@ -94,7 +86,7 @@ const UploadImages: React.FC<ImagesProps> = ({ getImages, maxNumber, resetImages
                                 <img className={uploadImagesStyles.image_show} src={image['data_url']} alt="" width="100" />
                                 <div className={uploadImagesStyles.image_btn_wrapper}>
                                     <IconButton onClick={() => onImageUpdate(index)} icon={uploadIcon} />
-                                    <IconButton onClick={() => onImageRemove(index)} icon={closeIcon} />
+                                    <IconButton onClick={() => onImageRemove(index)} icon={closeIcon} id={'-1'} />
                                 </div>
                             </div>
                         ))}

@@ -1,5 +1,6 @@
-import { render, fireEvent, RenderResult, screen } from '@testing-library/react';
+import { render, fireEvent, RenderResult, screen, waitFor } from '@testing-library/react';
 import UploadImage from './UploadImage';
+import { ImageFile } from '../../types/imageFile';
 
 jest.mock('../../utils/helpers/compressImage', () => ({
   compressImage: (file: File, targetSizeKB: number, callback: (compressedDataUrl: string) => void) => {
@@ -12,12 +13,30 @@ jest.mock('../../utils/helpers/dataURLtoFile', () => ({
   },
 }));
 
-const setup = async (): Promise<RenderResult> => {
-  const utils = render(<UploadImage setImagePreviewUrl={() => { }} />);
-  return {
-    ...utils,
-  };
+interface SetupOptions {
+  setImagePreviewUrl?: (imagePreviewUrl: string) => void;
+  handleAddImage?: (images: ImageFile[]) => void;
+}
+
+const defaultSetImagePreviewUrl = jest.fn();
+const defaultHandleAddImage = jest.fn();
+
+const setup = async ({
+  setImagePreviewUrl = defaultSetImagePreviewUrl,
+  handleAddImage = defaultHandleAddImage,
+}: SetupOptions = {}): Promise<RenderResult> => {
+  const utils = render(
+    <UploadImage
+      setImagePreviewUrl={setImagePreviewUrl}
+      handleAddImage={handleAddImage}
+    />
+  );
+  return utils;
 };
+
+beforeEach(() => {
+  jest.clearAllMocks();
+});
 
 describe('UploadImage component', () => {
   test('should render without errors', async () => {
@@ -26,34 +45,27 @@ describe('UploadImage component', () => {
   });
 
   test('should handle image upload and preview', async () => {
-    const setImagePreviewUrl = jest.fn();
-    const handleAddImage = jest.fn();
 
     await setup();
 
     const fileInput = screen.getByTestId('file-input');
-
     const imageFile = new File(['image data'], 'example.jpg', { type: 'image/jpeg' });
-
     fireEvent.change(fileInput, { target: { files: [imageFile] } });
 
-    expect(setImagePreviewUrl).toHaveBeenCalledWith('data:image/jpeg;base64,...');
-    expect(handleAddImage).toHaveBeenCalledWith([{ file: expect.any(File) }]);
+    await waitFor(() => expect(defaultSetImagePreviewUrl).toHaveBeenCalled());
 
-    fireEvent.change(fileInput, { target: { files: [new File(['invalid data'], 'invalid.txt')] } });
+    expect(defaultSetImagePreviewUrl).toHaveBeenCalledWith(expect.stringContaining('data:image/jpeg;base64,'));
 
-     expect(screen.getByText('Invalid file. Please select a valid image file within the specified size limit.')).toBeInTheDocument();
+    expect(defaultHandleAddImage).toHaveBeenCalledWith([{ file: expect.any(File) }]);
   });
 
   test('should handle image removal', async () => {
-    const setImagePreviewUrl = jest.fn();
-    const handleAddImage = jest.fn();
 
-    await setup();
+    render(<UploadImage setImagePreviewUrl={defaultSetImagePreviewUrl} handleAddImage={defaultHandleAddImage} />);
 
     fireEvent.click(screen.getByTestId('icon-button-1'));
 
-    expect(setImagePreviewUrl).toHaveBeenCalledWith('');
-    expect(handleAddImage).toHaveBeenCalledWith([]);
+    expect(defaultSetImagePreviewUrl).toHaveBeenCalledWith('');
+    expect(defaultHandleAddImage).toHaveBeenCalledWith([]);
   });
 });

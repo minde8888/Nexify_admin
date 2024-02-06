@@ -64,3 +64,7 @@ function useForm<T>(method: string, url: string) {
 }
 
 export default useForm;
+
+export function handleSubmit(handleSubmit: any) {
+    throw new Error('Function not implemented.');
+}
