@@ -20,7 +20,6 @@ jobs:
           cache: 'yarn'
       - name: Install dependencies
         run: yarn install
-        working-directory: ./subdirectory
         
       - name: Run tests
         run: yarn test
