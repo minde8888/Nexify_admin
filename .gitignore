@@ -9,6 +9,10 @@
 
 /static
 
+/assets
+
+/build
+
 # Ignore environment-specific .env files
 .env.local
 .env.development
@@ -34,13 +38,9 @@ yarn-error.log*
 
 *.json
 
-*.js
-
 .prettierrc
 
-/assets
 
-/build
 
 *.yarnrc
 
