@@ -1,7 +1,7 @@
 import { store } from './../redux/store';
 import axios, { AxiosRequestConfig } from 'axios';
 import createAuthRefreshInterceptor from 'axios-auth-refresh';
-import { changeRefreshToken } from '../redux/slice/authSlice';
+import { changeRefreshToken } from '../redux/slice/authSlice/authSlice';
 import authHeader from '../utils/authHeader';
 import { API_URL } from '../constants/globalConst';
 

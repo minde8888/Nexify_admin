@@ -1,10 +1,10 @@
 import { AnyAction, Dispatch } from '@reduxjs/toolkit';
 import { BLOG_CATEGORIES_URL, BLOG_URL, CATEGORIES_URL, PRODUCTS_URL, SUBCATEGORIES_URL } from '../constants/apiConst';
-import { removeCategory, removeSubcategory } from '../redux/slice/categoriesSlice';
+import { removeCategory, removeSubcategory } from '../redux/slice/categoriesSlice/categoriesSlice';
 import { handleDeleteRequest } from '../api/handleAPI';
 import { UrlError } from '../errorHandler/urlError';
-import { removePost } from '../redux/slice/postsSlice';
-import { removePostCategory } from '../redux/slice/blogCategoriesSlice';
+import { removePost } from '../redux/slice/postsSlice/postsSlice';
+import { removePostCategory } from '../redux/slice/blogCategories/blogCategoriesSlice';
 import { VariableNotExistError } from '../errorHandler/variableNotExistError';
 
 interface DeleteProps {

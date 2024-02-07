@@ -1,9 +1,9 @@
 import { AnyAction, Dispatch } from '@reduxjs/toolkit';
-import { getCategories } from '../redux/slice/categoriesSlice';
+import { getCategories } from '../redux/slice/categoriesSlice/categoriesSlice';
 import { CATEGORIES_URL, BLOG_CATEGORIES_URL, BLOG_URL } from '../constants/apiConst';
-import { getPostCategories } from '../redux/slice/blogCategoriesSlice';
+import { getPostCategories } from '../redux/slice/blogCategories/blogCategoriesSlice';
 import { UrlError } from '../errorHandler/urlError';
-import { getPosts } from '../redux/slice/postsSlice';
+import { getPosts } from '../redux/slice/postsSlice/postsSlice';
 import { removeQueryParamsFromUrl } from '../utils/helpers/removeQueryParamsFromUrl';
 
 interface GetAllProps {

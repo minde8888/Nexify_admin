@@ -2,7 +2,7 @@ import { FunctionComponent } from 'react';
 import { NavLink } from 'react-router-dom';
 import { useAppSelector } from '../../hooks/useRedux';
 import { useAppDispatch } from '../../redux/store';
-import { userLogout } from '../../redux/slice/authSlice';
+import { userLogout } from '../../redux/slice/authSlice/authSlice';
 // import { getProducts } from '../../redux/slice/productsSlice';
 // import { logout } from '../../services/auth.services/auth.services';
 // import { getAllProducts } from '../../services/products.services/products.services';

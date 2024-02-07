@@ -1,10 +1,10 @@
 import { AnyAction, Dispatch } from '@reduxjs/toolkit';
 import { UrlError } from '../errorHandler/urlError';
 import { BLOG_CATEGORIES_URL, BLOG_URL, CATEGORIES_URL, SUBCATEGORIES_URL } from '../constants/apiConst';
-import { requestCategoryStatus } from '../redux/slice/categoriesSlice';
+import { requestCategoryStatus } from '../redux/slice/categoriesSlice/categoriesSlice';
 import { handlePostRequest } from '../api/handleAPI';
-import { requestBlogCategoryStatus } from '../redux/slice/blogCategoriesSlice';
-import { requestBlogStatus } from '../redux/slice/postsSlice';
+import { requestBlogCategoryStatus } from '../redux/slice/blogCategories/blogCategoriesSlice';
+import { requestBlogStatus } from '../redux/slice/postsSlice/postsSlice';
 
 interface PostProps {
     dispatch: Dispatch<AnyAction>;

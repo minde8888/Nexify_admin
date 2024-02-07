@@ -1,7 +1,7 @@
 import { configureStore } from '@reduxjs/toolkit';
 import { useDispatch } from 'react-redux';
 import rootReducer from './reducers';
-import { AuthState } from './slice/authSlice';
+import { AuthState } from './slice/authSlice/authSlice';
 import apiMiddleware from '../middleware/apiMiddleware';
 import { StoreError } from '../errorHandler/storeError';
 
