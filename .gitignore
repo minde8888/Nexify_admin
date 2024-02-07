@@ -34,8 +34,6 @@ yarn-error.log*
 
 *.json
 
-*.lock
-
 *.js
 
 .prettierrc
@@ -43,8 +41,6 @@ yarn-error.log*
 /assets
 
 /build
-
-/.yarn
 
 *.yarnrc
 
