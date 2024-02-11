@@ -19,27 +19,18 @@ export const remove = async ({ dispatch, bool, url, id }: DeleteProps) => {
         throw new VariableNotExistError('ID');
     }
 
-    switch (url) {
-        case CATEGORIES_URL:
-            if (bool) {
-                dispatch(removeCategory(id));
-                return await handleDeleteRequest(url, id);
-            } else {
-                dispatch(removeSubcategory(id));
-                return await handleDeleteRequest(SUBCATEGORIES_URL, id);
-            }
-        case BLOG_URL: {
-            dispatch(removePost(id));
-            return await handleDeleteRequest(url, id);
-        }
-        case BLOG_CATEGORIES_URL: {
-            dispatch(removePostCategory(id));
-            return await handleDeleteRequest(url, id);
-        }
-        case PRODUCTS_URL: {
-            break;
-        }
-        default:
-            throw new UrlError('No such url');
+    const actions = [
+        { url: CATEGORIES_URL, action: bool ? removeCategory : removeSubcategory },
+        { url: BLOG_URL, action: removePost },
+        { url: BLOG_CATEGORIES_URL, action: removePostCategory }
+    ];
+
+    const actionObj = actions.find(actionObj => actionObj.url === url);
+
+    if (actionObj) {
+        dispatch(actionObj.action(id));
+        return await handleDeleteRequest(url, id);
+    } else {
+        throw new UrlError('No such url');
     }
 };

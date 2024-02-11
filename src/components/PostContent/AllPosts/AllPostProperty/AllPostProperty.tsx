@@ -5,7 +5,7 @@ import { Post } from '../../../../types/post';
 import PostContext from '../PostContext/PostContext';
 import { useNavigate } from 'react-router-dom';
 import { EDIT_BLOG_URL } from '../../../../constants/apiConst';
-import styles from '../../../styles/allPost.module.scss'
+import styles from '../../../../styles/allPost.module.scss'
 
 interface AllPostPropertyProps {
     posts: Post[];

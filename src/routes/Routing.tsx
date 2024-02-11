@@ -4,7 +4,7 @@ import { ProtectedRoute } from './ProtectedRoute';
 import Preloader from '../pages/preloader/preloader';
 import AddCategories from '../pages/category/add/categories/addCategories';
 import AdminLayout from '../components/Layout/AdminLayout';
-import AddProduct from '../pages/product/addProduct';
+import AddProduct from '../pages/product/add/addProduct';
 import Dashboard from '../pages/dashboard/dashboard';
 import AllCategories from '../pages/category/all/product/allCategories';
 import AddPost from '../pages/blog/add/addPost';

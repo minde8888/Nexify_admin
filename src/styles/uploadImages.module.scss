@@ -8,11 +8,11 @@
         flex-wrap     : wrap;
 
         .clickDrop {
-            position  : absolute;
-            height    : 49vh;
-            width     : 100%;
-            text-align: center;
-            cursor    : pointer;
+            position     : absolute;
+            height       : 49vh;
+            width        : 100%;
+            text-align   : center;
+            cursor       : pointer;
             border-radius: 10px;
 
             div {
@@ -36,8 +36,7 @@
 
         div {
             &:nth-of-type(2) {
-                // height: 60vh;
-                width : 100%;
+                width: 100%;
 
                 .image_show {
                     margin    : 0;

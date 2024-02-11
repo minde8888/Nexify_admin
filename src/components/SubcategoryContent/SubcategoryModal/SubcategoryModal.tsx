@@ -4,7 +4,7 @@ import CategoriesProperty from "../../CategoryContent/AddCategories/CategoriesPr
 import { Modal } from "../../Modal/Modal";
 import { FormikProps } from "formik";
 import CategoryFormProperty from "../../../types/categoryFormProperty";
-import styles from './AllSubcategory/subcategory.module.scss';
+import styles from '../AllSubcategory/subcategory.module.scss';
 
 interface SubcategoryModalProps {
     setPrefix: (value: boolean) => void;

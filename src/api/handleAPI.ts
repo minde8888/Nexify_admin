@@ -2,29 +2,33 @@ import { AxiosError, AxiosResponse } from 'axios';
 import api from './instanceAPI';
 import { DELETE_METHOD, GET_METHOD, POST_METHOD, PUT_METHOD } from '../constants/apiConst';
 
+interface ApiRequest {
+    method: string;
+    url: string;
+    formData?: FormData;
+    id?: string;
+}
+
+const requestMethods: { [key: string]: (api: any, apiUrl: string, formData?: FormData) => Promise<AxiosResponse<any>> } = {
+    [POST_METHOD]: async (api, apiUrl, formData) => api.post(apiUrl, formData),
+    [GET_METHOD]: async (api, apiUrl) => api.get(apiUrl),
+    [PUT_METHOD]: async (api, apiUrl, formData) => api.put(apiUrl, formData),
+    [DELETE_METHOD]: async (api, apiUrl) => api.delete(apiUrl)
+};
+
 const handleRequest = async (request: ApiRequest, isDataExpected: boolean): Promise<any> => {
     try {
-        const response: AxiosResponse<any> = await makeApiRequest(request);
-        return isDataExpected ? response.data : response.status;
+        const apiUrl = request.id ? `${request.url}/id?id=${request.id}` : request.url;
+        const requestMethod = requestMethods[request.method];
+        if (requestMethod) {
+            const response: AxiosResponse<any> = await requestMethod(api, apiUrl, request.formData);
+            return isDataExpected ? response.data : response.status;
+        } else {
+            throw new Error('Invalid HTTP method');
+        }
     } catch (error) {
         const axiosError = error as AxiosError;
         return axiosError.response?.status || 500;
-    }
-};
-
-const makeApiRequest = async (request: ApiRequest): Promise<AxiosResponse<any>> => {
-    const apiUrl = request.id ? `${request.url}/id?id=${request.id}` : request.url;
-    switch (request.method) {
-        case POST_METHOD:
-            return await api.post(apiUrl, request.formData);
-        case GET_METHOD:
-            return await api.get(apiUrl);
-        case PUT_METHOD:
-            return await api.put(apiUrl, request.formData);
-        case DELETE_METHOD:
-            return await api.delete(apiUrl);
-        default:
-            throw new Error('Invalid HTTP method');
     }
 };
 

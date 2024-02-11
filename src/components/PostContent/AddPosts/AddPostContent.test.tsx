@@ -10,10 +10,27 @@ jest.mock('@mdxeditor/editor', () => ({
     MDXEditor: () => 'MDXEditor'
 }));
 
-jest.mock('../../MarkDownEditor/EnhancedMdxEditorComponent', () => ({
+jest.mock('../../InputFields/TextInputField', () => ({
     __esModule: true,
-    default: () => <textarea aria-label="content">Mocked Component</textarea>,
+    TextInputField: ({ label, id, className, name }: TextInputFieldProps) => (
+        <div>
+            {label && <label htmlFor={id}>{label}</label>}
+            <input
+                id={id}
+                name={name}
+                className={className}
+                defaultValue={'Test Title'}            
+            />
+        </div>
+    ),
 }));
+
+jest.mock('../../MarkDownEditor/EnhancedMdxEditorComponent', () => {
+    return {
+        __esModule: true,
+        default: ({ content }: any) => <textarea aria-label="content" defaultValue={content}></textarea>, 
+    };
+});
 
 const setup = async () => {
     const utils = render(<AddPostContent
@@ -32,19 +49,19 @@ const setup = async () => {
 
 jest.mock('../../InputFields/TextInputField', () => ({
     __esModule: true,
-    TextInputField: ({ label, id, placeholder, autoFocus, 'data-testid': testId, ...props }: TextInputFieldProps) => (
+    TextInputField: ({ label, id, className, name, value }: TextInputFieldProps) => (
         <div>
             {label && <label htmlFor={id}>{label}</label>}
             <input
                 id={id}
-                placeholder={placeholder}
-                autoFocus={autoFocus}
-                data-testid={testId}
-                {...props}
+                name={name}
+                className={className}
+                defaultValue={value || 'Test Title'} // Use defaultValue correctly
             />
         </div>
     ),
 }));
+
 
 describe('AddPostContent Component', () => {
     test('renders AddPostContent component correctly', async () => {

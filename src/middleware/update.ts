@@ -13,32 +13,37 @@ interface UpdateProps {
     formData: FormData;
 }
 
+const updateCategory = async (dispatch: Dispatch<AnyAction>, url: string, formData: FormData) => {
+    dispatch(requestCategoryStatus(false));
+    const response = await handlePutRequest(url, formData);
+    dispatch(requestCategoryStatus(response === 200));
+};
+
+const updateBlogCategory = async (dispatch: Dispatch<AnyAction>, url: string, formData: FormData) => {
+    dispatch(requestBlogCategoryStatus(false));
+    const response = await handlePutRequest(url, formData);
+    dispatch(requestBlogCategoryStatus(response === 200));
+};
+
+const updateBlog = async (dispatch: Dispatch<AnyAction>, url: string, formData: FormData) => {
+    dispatch(requestBlogStatus(false));
+    const response = await handlePutRequest(url, formData);
+    dispatch(requestBlogStatus(response === 200));
+};
+
 export const update = async ({ dispatch, payload, url, formData }: UpdateProps) => {
-    switch (url) {
-        case CATEGORY_UPDATE_URL:
-            if (payload.accept) {
-                dispatch(requestCategoryStatus(false));
-                const responseCategoryUpdate = await handlePutRequest(url, formData);
-                dispatch(requestCategoryStatus(responseCategoryUpdate === 200));
-            } else {
-                dispatch(requestCategoryStatus(false));
-                const responseSubcategoryUpdate = await handlePutRequest(SUBCATEGORY_UPDATE_URL, formData);
-                dispatch(requestCategoryStatus(responseSubcategoryUpdate === 200));
-            }
-            break;
-        case BLOG_CATEGORY_UPDATE_URL: {
-            dispatch(requestBlogCategoryStatus(false));
-            const responsePostCategoryUpdate = await handlePutRequest(url, formData);
-            dispatch(requestBlogCategoryStatus(responsePostCategoryUpdate === 200));
-            break;
-        }
-        case BLOG_UPDATE_URL: {
-            dispatch(requestBlogStatus(false));
-            const responseBlogUpdate = await handlePutRequest(url, formData);
-            dispatch(requestBlogStatus(responseBlogUpdate === 200));
-            break;
-        }
-        default:
-            throw new UrlError('Unsupported url');
+    const actionMap: { [key: string]: (dispatch: Dispatch<AnyAction>, url: string, formData: FormData) => Promise<void> } = {
+        [CATEGORY_UPDATE_URL]: updateCategory,
+        [SUBCATEGORY_UPDATE_URL]: updateCategory,
+        [BLOG_CATEGORY_UPDATE_URL]: updateBlogCategory,
+        [BLOG_UPDATE_URL]: updateBlog
+    };
+
+    const actionFunction = actionMap[url];
+
+    if (actionFunction) {
+        await actionFunction(dispatch, url, formData);
+    } else {
+        throw new UrlError('Unsupported url');
     }
 };

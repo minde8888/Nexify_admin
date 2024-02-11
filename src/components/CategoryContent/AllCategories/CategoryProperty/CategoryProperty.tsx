@@ -5,8 +5,7 @@ import { useAppDispatch } from '../../../../redux/store';
 import { deleteAction } from '../../../../redux/actions/actions';
 import { useNavigate } from 'react-router-dom';
 import { EDIT_BLOG_CATEGORY_URL, EDIT_CATEGORY_URL } from '../../../../constants/apiConst';
-import styles from './allCategories.module.scss';
-import { log } from 'console';
+import styles from '../allCategories.module.scss';
 
 interface EditPropertyProps {
   categories?: CategoryResponse[];

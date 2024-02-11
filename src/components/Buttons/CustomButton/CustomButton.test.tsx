@@ -11,7 +11,8 @@ describe('CustomButton', () => {
   });
 
   test('renders correctly and responds to clicks', () => {
-    render(<CustomButton onClick={mockOnClick} style="test-style" symbol="+" />);
+    // eslint-disable-next-line react/style-prop-object
+    render(<CustomButton onClick={mockOnClick} style="test-style" symbol="+" id={''} />);
     const button = screen.getByRole('button', { name: '+' });
     expect(button).toBeInTheDocument();
     fireEvent.click(button);
@@ -19,7 +20,8 @@ describe('CustomButton', () => {
   });
 
   test('applies provided style as class name', () => {
-    render(<CustomButton onClick={mockOnClick} style="test-style" symbol="+" />);
+    // eslint-disable-next-line react/style-prop-object
+    render(<CustomButton onClick={mockOnClick} style="test-style" symbol="+" id={''} />);
     const buttonWrapper = screen.getByTestId('custom-button');
     expect(buttonWrapper).toHaveClass('test-style');
   });
@@ -28,7 +30,7 @@ describe('CustomButton', () => {
     const originalConsoleError = console.error;
     console.error = jest.fn();
 
-    expect(() => render(<CustomButton onClick={mockOnClick} style={undefined} symbol="+" />)).toThrow(ButtonError);
+    expect(() => render(<CustomButton onClick={mockOnClick} style={undefined} symbol="+" id={''} />)).toThrow(ButtonError);
 
     console.error = originalConsoleError;
   });

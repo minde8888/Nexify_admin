@@ -1,11 +1,18 @@
 export interface Product {
-    id?: number | null;
+    id: string;
     title: string;
     content: string;
-    price?: number | null;
-    discount?: number | null;
-    imageNames?: string | null;
-    stock?: number | null;
+    price?: string;
+    discount?: string;
+    size?: string;
+    stock?: string;
+    location?: string;
+    imageNames?: string;
+    imageSrc?: string[];
+    itemsImagesNames;
+    itemSrc?: string[];
+    dateCreated?: string;
+    categories?: Categories[];
 }
 
 export interface Products {

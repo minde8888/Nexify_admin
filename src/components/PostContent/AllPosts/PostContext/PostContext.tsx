@@ -1,12 +1,12 @@
 import { FunctionComponent } from "react";
 import ButtonWithIcon from "../../../Buttons/ButtonWithIcon/ButtonWithIcon";
-import editIcon from "../../../assets/svg/edit document_edit file_edited_editing_icon.svg";
-import defaultImage from "../../../assets/svg/gallery_image_photo_photography_picture_icon.svg";
+import editIcon from "../../../../assets/svg/edit document_edit file_edited_editing_icon.svg";
+import defaultImage from "../../../../assets/svg/gallery_image_photo_photography_picture_icon.svg";
 import { Post } from "../../../../types/post";
 import CustomButton from "../../../Buttons/CustomButton/CustomButton";
 import { LazyLoadImage } from "react-lazy-load-image-component";
 import MDXToHTMLConverter from "../../../MDXToHTMLConverter/MDXToHTMLConverter";
-import styles from '../../../styles/allPost.module.scss';
+import styles from '../../../../styles/allPost.module.scss';
 
 
 interface PostProps {

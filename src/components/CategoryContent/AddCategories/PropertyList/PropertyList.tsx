@@ -3,7 +3,7 @@ import { TextInputField } from "../../../InputFields/TextInputField";
 import useFormProperty from "../../../../hooks/useFormProperty";
 import PropertyItem from "../PropertyItem/PropertyItem";
 import CustomButton from "../../../Buttons/CustomButton/CustomButton";
-import styles from "../../../styles/categoryProperty.module.scss";
+import styles from "../../../../styles/categoryProperty.module.scss";
 
 interface PropertyListProps {
   prefix: string;
@@ -24,7 +24,7 @@ const PropertyList: FunctionComponent<PropertyListProps> = ({
     <div className={styles.wrapper} >
       <div className={styles.labelContainer}>
         {showAddButton && (
-          <CustomButton onClick={addNewProperty} style={styles.buttonAdd} symbol={'+'} />
+          <CustomButton onClick={addNewProperty} style={styles.buttonAdd} symbol={'+'} id={""} />
         )}
         {prefix && (
           <TextInputField

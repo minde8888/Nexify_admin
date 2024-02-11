@@ -4,4 +4,5 @@ interface ImagesProps {
     resetImages: boolean;
     setResetImages: (value: boolean) => void;
     initialImages?: string[];
+    styleDrop?: string;
 }

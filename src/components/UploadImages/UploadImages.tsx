@@ -11,7 +11,8 @@ import { ImageFile } from '../../types/imageFile';
 import { DEFAULT_IMAGE_SIZE } from '../../constants/imageConst';
 import { isArrayNotEmpty } from '../../utils/helpers/isArrayNotEmpty';
 
-const UploadImages: React.FC<ImagesProps> = ({ getImages, maxNumber, resetImages, setResetImages, initialImages }) => {
+const UploadImages: React.FC<ImagesProps> = (
+    { getImages, maxNumber, resetImages, setResetImages, initialImages, styleDrop = '' }) => {
     const [images, setImages] = useState<ImageType[]>([]);
 
     useEffect(() => {
@@ -72,7 +73,7 @@ const UploadImages: React.FC<ImagesProps> = ({ getImages, maxNumber, resetImages
                 {({ imageList, onImageUpload, onImageUpdate, onImageRemove, isDragging, dragProps, errors }) => (
                     <div className={uploadImagesStyles.upload_image}>
                         <div
-                            className={uploadImagesStyles.clickDrop}
+                            className={`${uploadImagesStyles.clickDrop} ${styleDrop}`}
                             style={isDragging ? { color: 'red' } : undefined}
                             onClick={onImageUpload}
                             {...dragProps}

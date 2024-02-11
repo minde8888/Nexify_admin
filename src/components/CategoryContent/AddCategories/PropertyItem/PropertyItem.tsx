@@ -2,7 +2,7 @@ import React, { useCallback } from "react";
 import CategoryFormProperty from "../../../../types/categoryFormProperty";
 import AddProperty from "../CategoriesProperty/CategoriesProperty";
 import CustomButton from "../../../Buttons/CustomButton/CustomButton";
-import styles from "../../../styles/categoryProperty.module.scss";
+import styles from "../../../../styles/categoryProperty.module.scss";
 
 interface PropertyItemProps {
   prefix: string;
@@ -31,7 +31,7 @@ const PropertyItem: React.FC<PropertyItemProps> = ({
 
   return (
     <div className={styles.propertyContainer} key={property.id}>
-      <CustomButton onClick={handleRemoveProperty} style={styles.buttonRemove} symbol={'-'} />
+      <CustomButton onClick={handleRemoveProperty} style={styles.buttonRemove} symbol={'-'} id={""} />
       <AddProperty prefix={propertyPrefix} level={level} setPrefix={setPrefix} />
     </div>
   );

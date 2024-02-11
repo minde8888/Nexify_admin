@@ -1,11 +1,12 @@
 import { FunctionComponent } from "react";
 import ButtonWithIcon from "../../../Buttons/ButtonWithIcon/ButtonWithIcon";
-import editIcon from "../../../assets/svg/edit document_edit file_edited_editing_icon.svg";
-import defaultImage from "../../../assets/svg/gallery_image_photo_photography_picture_icon.svg";
+import editIcon from "../../../../assets/svg/edit document_edit file_edited_editing_icon.svg";
+import defaultImage from "../../../../assets/svg/gallery_image_photo_photography_picture_icon.svg";
 import { SubcategoryResponse } from "../../../../types/category";
-import styles from './allCategories.module.scss';
 import CustomButton from "../../../Buttons/CustomButton/CustomButton";
 import MDXToHTMLConverter from "../../../MDXToHTMLConverter/MDXToHTMLConverter";
+import styles from '../allCategories.module.scss';
+
 
 interface SubcategoryProps {
     subcategory: SubcategoryResponse;
@@ -21,8 +22,8 @@ const Subcategory: FunctionComponent<SubcategoryProps> = ({ subcategory, onRemov
             </div>
         <img className={styles.imagesContainer} src={subcategory.imageSrc ? subcategory.imageSrc : defaultImage} alt={subcategory.categoryName} />
         <div className={styles.buttons}>
-            <ButtonWithIcon icon={editIcon} altText="Edit" onClick={() => onEdit(subcategory.id)} style={{ margin: '0' }} />
-            <CustomButton onClick={() => onRemove(subcategory.id)} style={styles.removeButton} symbol={'-'}/>
+            <ButtonWithIcon icon={editIcon} altText="Edit" onClick={() => onEdit(subcategory.id)} style={{ margin: '0' }} id={""} />
+            <CustomButton onClick={() => onRemove(subcategory.id)} style={styles.removeButton} symbol={'-'} id={""}/>
         </div>
     </div>
 );

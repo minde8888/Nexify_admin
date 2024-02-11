@@ -27,7 +27,7 @@ jest.mock('../../InputFields/TextInputField', () => ({
 jest.mock('../../MarkDownEditor/EnhancedMdxEditorComponent', () => {
     return {
         __esModule: true,
-        default: ({ content }: any) => <textarea aria-label="content">{content}</textarea>, 
+        default: ({ content }: any) => <textarea aria-label="content" defaultValue={content}></textarea>, 
     };
 });
 

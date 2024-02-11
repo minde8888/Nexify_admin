@@ -11,19 +11,21 @@ interface GetAllProps {
     payload: any;
     url: string;
 }
+
 export const getAll = ({ dispatch, payload, url }: GetAllProps) => {
+
+    const urlHandlers: { [key: string]: (payload: any) => void } = {
+        [CATEGORIES_URL]: (payload) => dispatch(getCategories(payload)),
+        [BLOG_CATEGORIES_URL]: (payload) => dispatch(getPostCategories(payload)),
+        [BLOG_URL]: (payload) => dispatch(getPosts(payload)),
+    };
+
     const updatedUrl = removeQueryParamsFromUrl(url);
-    switch (updatedUrl) {
-        case CATEGORIES_URL:
-            dispatch(getCategories(payload));
-            break;
-        case BLOG_CATEGORIES_URL:
-            dispatch(getPostCategories(payload));
-            break;
-        case BLOG_URL:
-            dispatch(getPosts(payload));
-            break;
-        default:
-            throw new UrlError('Unsupported url');
+    const handler = urlHandlers[updatedUrl];
+    if (handler) {
+        handler(payload);
+    } else {
+        throw new UrlError('Unsupported url');
     }
 };
+
