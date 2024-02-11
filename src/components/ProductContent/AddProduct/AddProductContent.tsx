@@ -7,7 +7,6 @@ import { ImageFile } from '../../../types/imageFile';
 import UploadImages from '../../UploadImages/UploadImages';
 import { CheckboxField } from '../../InputFields/CheckboxField';
 import styles from '../../../styles/productContent.module.scss'
-import { log } from 'console';
 
 interface AddProductContentProps {
     setContent: (Content: string) => void;
@@ -33,15 +32,11 @@ const AddProductContent = ({
 
     const { addNewValue } = useFormikValues();
 
-    // const handleAction = () => {
-    //     addNewValue({ categoriesIds: Object.keys(checkedCategories).filter(key => checkedCategories[key]), content });
-    // };
     const handleAction = () => {
-        // Create arrays to store categories and subcategories IDs
+
         let categoriesIds: string[] = [];
         let subcategoriesIds: string[] = [];
 
-        // Iterate over the categories and their subcategories
         categories?.forEach(category => {
             if (checkedCategories[category.id]) {
                 categoriesIds.push(category.id);
@@ -53,7 +48,6 @@ const AddProductContent = ({
             });
         });
 
-        // Add new values to the formik context
         addNewValue({ categoriesIds, subcategoriesIds, content });
     };
 
@@ -99,22 +93,24 @@ const AddProductContent = ({
             </div> */}
             <div className={`${styles.columns} ${styles.checkboxContainer}`}>
                 {categories?.map((category) => (
-                    <Fragment key={category.id}>
-                        <CheckboxField
-                            name={category.id}
-                            label={category.categoryName}
-                            className={styles.checkbox}
-                        />
-                        {category.subcategories?.map((subcategory) => (
-                            <div key={subcategory.id}>
-                                <CheckboxField                                    
-                                    name={subcategory.id}
-                                    label={subcategory.categoryName}
-                                    className={styles.checkbox}
-                                />
-                            </div>
-                        ))}
-                    </Fragment>
+                    <div>
+                        <Fragment key={category.id}>
+                            <CheckboxField
+                                name={category.id}
+                                label={category.categoryName}
+                                className={styles.checkbox}
+                            />
+                            {category.subcategories?.map((subcategory) => (
+                                <div key={subcategory.id} className={styles.subcategories}>
+                                    <CheckboxField
+                                        name={subcategory.id}
+                                        label={subcategory.categoryName}
+                                        className={styles.checkbox}
+                                    />
+                                </div>
+                            ))}
+                        </Fragment>
+                    </div>
                 ))}
             </div>
 

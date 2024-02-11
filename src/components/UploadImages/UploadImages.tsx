@@ -3,13 +3,13 @@ import ImageUploading, { ImageListType, ImageType } from 'react-images-uploading
 import closeIcon from '../../assets/svg/closeIcon.svg';
 import uploadIcon from '../../assets/svg/uploadIcon.svg';
 import tempImage from '../../assets/svg/tempImage.svg';
-import uploadImagesStyles from '../../styles/uploadImages.module.scss';
 import { IconButton } from '../Buttons/IconButton/IconButton';
 import { compressImage } from '../../utils/helpers/compressImage';
 import { dataURLtoFile } from '../../utils/helpers/dataURLtoFile';
 import { ImageFile } from '../../types/imageFile';
 import { DEFAULT_IMAGE_SIZE } from '../../constants/imageConst';
 import { isArrayNotEmpty } from '../../utils/helpers/isArrayNotEmpty';
+import styles from '../../styles/uploadImages.module.scss';
 
 const UploadImages: React.FC<ImagesProps> = (
     { getImages, maxNumber, resetImages, setResetImages, initialImages, styleDrop = '' }) => {
@@ -61,7 +61,7 @@ const UploadImages: React.FC<ImagesProps> = (
     }, [resetImages, setResetImages]);
 
     return (
-        <div className={uploadImagesStyles.image}>
+        <div className={styles.image}>
             <ImageUploading
                 multiple
                 value={images}
@@ -71,9 +71,9 @@ const UploadImages: React.FC<ImagesProps> = (
                 acceptType={['jpg', 'gif', 'png', 'gif']}
             >
                 {({ imageList, onImageUpload, onImageUpdate, onImageRemove, isDragging, dragProps, errors }) => (
-                    <div className={uploadImagesStyles.upload_image}>
+                    <div className={styles.upload_image}>
                         <div
-                            className={`${uploadImagesStyles.clickDrop} ${styleDrop}`}
+                            className={`${styles.clickDrop} ${styleDrop}`}
                             style={isDragging ? { color: 'red' } : undefined}
                             onClick={onImageUpload}
                             {...dragProps}
@@ -83,9 +83,9 @@ const UploadImages: React.FC<ImagesProps> = (
                             <img src={tempImage} alt="imgAltText" />
                         </div>
                         {imageList.map((image, index) => (
-                            <div key={index} className={uploadImagesStyles.image_item}>
-                                <img className={uploadImagesStyles.image_show} src={image['data_url']} alt="" width="100" />
-                                <div className={uploadImagesStyles.image_btn_wrapper}>
+                            <div key={index} className={styles.image_item}>
+                                <img className={styles.image_show} src={image['data_url']} alt="" width="100" />
+                                <div className={styles.image_btn_wrapper}>
                                     <IconButton onClick={() => onImageUpdate(index)} icon={uploadIcon} />
                                     <IconButton onClick={() => onImageRemove(index)} icon={closeIcon} id={'-1'} />
                                 </div>
@@ -97,7 +97,7 @@ const UploadImages: React.FC<ImagesProps> = (
                                     <span>`Number of selected images exceeds the maximum of {maxNumber}`</span>
                                 )}
                                 {errors.acceptType && (
-                                    <div className={uploadImagesStyles.profileError}>Your selected file type is not allowed</div>
+                                    <div className={styles.profileError}>Your selected file type is not allowed</div>
                                 )}
                             </div>
                         )}
