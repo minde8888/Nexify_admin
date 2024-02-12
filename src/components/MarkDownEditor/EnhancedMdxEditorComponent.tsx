@@ -101,6 +101,7 @@ const EnhancedMdxEditorComponent: React.FC<MdxEditorComponentProps> = ({
         markdown={content}
         plugins={plugins}
         contentEditableClassName={styles.prose}
+        
       />
     </div>
   );

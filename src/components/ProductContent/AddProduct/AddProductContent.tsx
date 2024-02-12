@@ -1,5 +1,5 @@
 import { TextInputField } from '../../InputFields/TextInputField';
-import { Fragment, useEffect } from 'react';
+import { Fragment, useEffect, useState } from 'react';
 import EnhancedMdxEditorComponent from '../../MarkDownEditor/EnhancedMdxEditorComponent';
 import { CategoryResponse } from '../../../types/category';
 import useFormikValues from '../../../hooks/useFormikValues';
@@ -32,6 +32,8 @@ const AddProductContent = ({
 
     const { addNewValue } = useFormikValues();
 
+    const [images , setImages] = useState<ImageFile[]>([])
+
     const handleAction = () => {
 
         let categoriesIds: string[] = [];
@@ -57,10 +59,8 @@ const AddProductContent = ({
     }, [content, checkedCategories]);
 
     const getImagesData = async (files: ImageFile[]): Promise<void> => {
-
-        if (files.length !== 0) {
-            addNewValue({ images: files.map(file => file.file) });
-        }
+        setImages(files)
+        addNewValue({ images: files.map(file => file.file) });
     };
 
     return (
@@ -74,27 +74,19 @@ const AddProductContent = ({
                     initialValue={''}
                 />
             </div>
-            <div className={styles.images}>
+            <div className={`${images.length > 0 ? styles.image : styles.imageHeight}`}>
                 <UploadImages
-                    getImages={getImagesData}
+                    getImages={getImagesData}  
                     maxNumber={10}
                     resetImages={resetImages}
                     setResetImages={setResetImages}
                     styleDrop={styles.clickDrop}
                 />
-            </div>
-            {/* <div className={styles.images}>
-                <UploadImages
-                    getImages={getImagesData}
-                    maxNumber={1}
-                    resetImages={resetImages}
-                    setResetImages={setResetImages}
-                />
-            </div> */}
+            </div>    
             <div className={`${styles.columns} ${styles.checkboxContainer}`}>
                 {categories?.map((category) => (
-                    <div>
-                        <Fragment key={category.id}>
+                    <div key={category.id}>
+                        <Fragment>
                             <CheckboxField
                                 name={category.id}
                                 label={category.categoryName}
@@ -113,7 +105,14 @@ const AddProductContent = ({
                     </div>
                 ))}
             </div>
-
+            {/* <div className={styles.choseImage}>
+                <UploadImages
+                    getImages={getImagesData}
+                    maxNumber={10}
+                    resetImages={resetImages}
+                    setResetImages={setResetImages}
+                />
+            </div> */}
             <div className={`${styles.columns} ${styles.content}`}>
                 <EnhancedMdxEditorComponent
                     content={content}

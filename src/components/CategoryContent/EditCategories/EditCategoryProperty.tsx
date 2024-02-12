@@ -82,10 +82,10 @@ const EditCategoryProperty: FunctionComponent<EditCategoryPropertyProps> =
           <UploadImage setImagePreviewUrl={setImagePreviewUrl} handleAddImage={handleAddImage} />
         </div>
         <div className={`${styles.columns} ${styles.content}`}>
-          {content && <EnhancedMdxEditorComponent
-            content={content}
+          <EnhancedMdxEditorComponent
+            content={content || ''}
             setContent={setContent}
-            width="100%" />}
+            width="100%" />
         </div>
         <div className={styles.buttonPublic}>
           <button disabled={disabled} type="submit">Public</button>

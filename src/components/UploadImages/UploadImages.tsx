@@ -50,7 +50,7 @@ const UploadImages: React.FC<ImagesProps> = (
     const onChange = useCallback(async (imageList: ImageListType) => {
         const compressedFiles = await compressImages(imageList as ImageType[]);
         getImages(compressedFiles);
-        setImages(imageList);
+        setImages(imageList); 
     }, [getImages]);
 
     useEffect(() => {
@@ -73,7 +73,7 @@ const UploadImages: React.FC<ImagesProps> = (
                 {({ imageList, onImageUpload, onImageUpdate, onImageRemove, isDragging, dragProps, errors }) => (
                     <div className={styles.upload_image}>
                         <div
-                            className={`${styles.clickDrop} ${styleDrop}`}
+                            className={`${styleDrop}`}
                             style={isDragging ? { color: 'red' } : undefined}
                             onClick={onImageUpload}
                             {...dragProps}

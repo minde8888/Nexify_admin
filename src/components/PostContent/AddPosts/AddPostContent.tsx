@@ -42,10 +42,7 @@ const AddPostContent = ({
     }, [content, checkedCategories]);
 
     const getImagesData = async (files: ImageFile[]): Promise<void> => {
-
-        if (files.length !== 0) {
-            addNewValue({ images: files.map(file => file.file) });
-        }
+        addNewValue({ images: files.map(file => file.file) });
     };
 
     return (
@@ -65,6 +62,7 @@ const AddPostContent = ({
                     maxNumber={1}
                     resetImages={resetImages}
                     setResetImages={setResetImages}
+                    styleDrop={styles.clickDrop}
                 />
             </div>
             <div className={`${styles.columns} ${styles.checkboxContainer}`}>

@@ -10,7 +10,6 @@ const PropertyImagePreview: React.FC<PropertyImagePreviewProps> = ({
   imagePreviewUrl,
   width = "400px",
   height = "400px",
-
 }) => {
   return (
     <>
@@ -21,7 +20,8 @@ const PropertyImagePreview: React.FC<PropertyImagePreviewProps> = ({
           style={{
             width: width,
             height: height,
-            objectFit: "contain",
+            objectFit: "cover",
+            borderRadius: "10px"
           }}
         />
       )}

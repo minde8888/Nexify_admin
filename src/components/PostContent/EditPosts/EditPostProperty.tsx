@@ -84,6 +84,7 @@ const EditPostProperty: FunctionComponent<EditPostPropertyProps> = ({
                     resetImages={resetImages}
                     setResetImages={setResetImages}
                     initialImages={imageSrc}
+                    styleDrop={styles.clickDrop}
                 />
             </div>
             <div className={`${styles.columns} ${styles.checkboxContainer}`}>
@@ -97,10 +98,10 @@ const EditPostProperty: FunctionComponent<EditPostPropertyProps> = ({
                 ))}
             </div>
             <div className={`${styles.columns} ${styles.content}`}>
-                {postValues.content && <EnhancedMdxEditorComponent
-                    content={postValues.content}
+                <EnhancedMdxEditorComponent
+                    content={postValues.content || ''}
                     setContent={handleContentChange}
-                    width='100%' />}
+                    width='100%' />
             </div>
             <div className={styles.buttonPublic}>
                 <button disabled={disabled} type="submit">Public</button>

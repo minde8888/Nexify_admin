@@ -1,8 +1,7 @@
 @import './global.scss';
 
 .container {
-  width : 100%;
-  margin: 80px 0 0 0;
+  width: 100%;
 
   .inputTitleField {
     margin    : 10px 0 20px 0;
@@ -20,8 +19,14 @@
     }
   }
 
-  .images {
+  .imageHeight {
     height       : 49vh;
+    width        : 100%;
+    border       : 1px solid $base_color;
+    border-radius: 10px;
+  }
+
+  .images {
     width        : 100%;
     border       : 1px solid $base_color;
     border-radius: 10px;
@@ -49,5 +54,15 @@
 }
 
 .clickDrop {
-  z-index: 1;
+  position     : absolute;
+  height       : 49vh;
+  width        : 100%;
+  text-align   : center;
+  cursor       : pointer;
+  border-radius: 10px;
+  z-index      : 1;
+
+  div {
+    margin: 25vh 0 0 0;
+  }
 }
