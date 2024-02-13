@@ -1,7 +1,7 @@
 import { render, screen, waitFor, } from '@testing-library/react';
 import userEvent from '@testing-library/user-event';
 import UploadImages from './UploadImages';
-import { compressImage } from '../../utils/helpers/compressImage';
+import styles from '../../styles/uploadImages.module.scss'
 
 jest.mock('../../utils/helpers/compressImage', () => ({
   compressImage: jest.fn((file, targetSizeKB, callback) => callback('data:image/jpeg;base64,compressed-image-data')),
@@ -18,6 +18,7 @@ const renderUploadImages = (props: ImagesProps) => render(
     resetImages={props.resetImages || false}
     setResetImages={props.setResetImages || (() => { })}
     initialImages={props.initialImages || []}
+    styles={styles}
   />
 );
 
@@ -30,14 +31,20 @@ describe('UploadImages Component', () => {
       getImages: mockGetImages, initialImages,
       maxNumber: 0,
       resetImages: false,
-      setResetImages: function (value: boolean): void { }
+      setResetImages: function (value: boolean): void { },
+      styles:styles 
     });
     const displayedImages = screen.getAllByRole('img', { name: /imgAltText/i });
     expect(displayedImages[0]).toHaveAttribute('src', 'mock-file');
   });
 
   test('allows user to remove an image', async () => {
-    renderUploadImages({ getImages: mockGetImages, initialImages, maxNumber: 5, resetImages: false, setResetImages: () => { } });
+    renderUploadImages({ getImages: mockGetImages, 
+      initialImages,
+       maxNumber: 5, 
+       resetImages: false, 
+       setResetImages: () => { }, 
+       styles:styles });
 
     const removeButton = await screen.findByTestId('icon-button-1');
     userEvent.click(removeButton);

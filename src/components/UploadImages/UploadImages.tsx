@@ -9,10 +9,9 @@ import { dataURLtoFile } from '../../utils/helpers/dataURLtoFile';
 import { ImageFile } from '../../types/imageFile';
 import { DEFAULT_IMAGE_SIZE } from '../../constants/imageConst';
 import { isArrayNotEmpty } from '../../utils/helpers/isArrayNotEmpty';
-import styles from '../../styles/uploadImages.module.scss';
 
 const UploadImages: React.FC<ImagesProps> = (
-    { getImages, maxNumber, resetImages, setResetImages, initialImages, styleDrop = '' }) => {
+    { getImages, maxNumber, resetImages, setResetImages, initialImages, styleDrop = '', styles }) => {
     const [images, setImages] = useState<ImageType[]>([]);
 
     useEffect(() => {
@@ -50,7 +49,7 @@ const UploadImages: React.FC<ImagesProps> = (
     const onChange = useCallback(async (imageList: ImageListType) => {
         const compressedFiles = await compressImages(imageList as ImageType[]);
         getImages(compressedFiles);
-        setImages(imageList); 
+        setImages(imageList);
     }, [getImages]);
 
     useEffect(() => {
@@ -79,8 +78,8 @@ const UploadImages: React.FC<ImagesProps> = (
                             {...dragProps}
                             data-testid="image-upload-trigger"
                         >
-                            <div>Click or Drop image here </div>
-                            <img src={tempImage} alt="imgAltText" />
+                            <div className={styles.dropText}>Click or Drop image here </div>
+                            <img className={styles.uploadIcon} src={tempImage} alt="imgAltText" />
                         </div>
                         {imageList.map((image, index) => (
                             <div key={index} className={styles.image_item}>

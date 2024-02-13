@@ -7,6 +7,7 @@ import EnhancedMdxEditorComponent from "../../MarkDownEditor/EnhancedMdxEditorCo
 import { CategoryResponse } from "../../../types/category";
 import { CheckboxField } from "../../InputFields/CheckboxField";
 import styles from "../../../styles/edit.module.scss";
+import imageStyles from '../../../styles/uploadImages.module.scss';
 
 interface AddPostContentProps {
     setContent: (Content: string) => void;
@@ -63,6 +64,7 @@ const AddPostContent = ({
                     resetImages={resetImages}
                     setResetImages={setResetImages}
                     styleDrop={styles.clickDrop}
+                    styles={imageStyles}
                 />
             </div>
             <div className={`${styles.columns} ${styles.checkboxContainer}`}>

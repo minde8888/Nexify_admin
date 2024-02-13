@@ -11,6 +11,7 @@ import { ImageFile } from '../../../types/imageFile';
 import { removePartFromUrl } from '../../../utils/helpers/removePartFromUrl';
 import { UrlToImages } from '../../../constants/imageConst';
 import styles from '../../../styles/edit.module.scss';
+import imageStyles from '../../../styles/uploadImages.module.scss';
 
 interface EditPostPropertyProps extends Post {
     disabled: boolean;
@@ -85,6 +86,7 @@ const EditPostProperty: FunctionComponent<EditPostPropertyProps> = ({
                     setResetImages={setResetImages}
                     initialImages={imageSrc}
                     styleDrop={styles.clickDrop}
+                    styles={imageStyles}
                 />
             </div>
             <div className={`${styles.columns} ${styles.checkboxContainer}`}>

@@ -7,6 +7,8 @@ import { ImageFile } from '../../../types/imageFile';
 import UploadImages from '../../UploadImages/UploadImages';
 import { CheckboxField } from '../../InputFields/CheckboxField';
 import styles from '../../../styles/productContent.module.scss'
+import imageStyles from '../../../styles/uploadImages.module.scss';
+import smallUploadImages from '../../../styles/smallUploadImages.module.scss'
 
 interface AddProductContentProps {
     setContent: (Content: string) => void;
@@ -32,7 +34,7 @@ const AddProductContent = ({
 
     const { addNewValue } = useFormikValues();
 
-    const [images , setImages] = useState<ImageFile[]>([])
+    const [images, setImages] = useState<ImageFile[]>([])
 
     const handleAction = () => {
 
@@ -63,6 +65,10 @@ const AddProductContent = ({
         addNewValue({ images: files.map(file => file.file) });
     };
 
+    const getSmallImagesData = async (files: ImageFile[]): Promise<void> => {
+        addNewValue({ itemsImages: files.map(file => file.file) });
+    };
+
     return (
         <div className={styles.container}>
             <div className={styles.inputTitleField}>
@@ -76,13 +82,14 @@ const AddProductContent = ({
             </div>
             <div className={`${images.length > 0 ? styles.image : styles.imageHeight}`}>
                 <UploadImages
-                    getImages={getImagesData}  
+                    getImages={getImagesData}
                     maxNumber={10}
                     resetImages={resetImages}
                     setResetImages={setResetImages}
                     styleDrop={styles.clickDrop}
+                    styles={imageStyles}
                 />
-            </div>    
+            </div>
             <div className={`${styles.columns} ${styles.checkboxContainer}`}>
                 {categories?.map((category) => (
                     <div key={category.id}>
@@ -105,14 +112,15 @@ const AddProductContent = ({
                     </div>
                 ))}
             </div>
-            {/* <div className={styles.choseImage}>
+            <div className={styles.choseImage}>
                 <UploadImages
-                    getImages={getImagesData}
+                    getImages={getSmallImagesData}
                     maxNumber={10}
                     resetImages={resetImages}
                     setResetImages={setResetImages}
+                    styles={smallUploadImages}
                 />
-            </div> */}
+            </div>
             <div className={`${styles.columns} ${styles.content}`}>
                 <EnhancedMdxEditorComponent
                     content={content}
