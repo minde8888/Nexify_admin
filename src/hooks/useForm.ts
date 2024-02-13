@@ -3,7 +3,7 @@ import { useDispatch } from 'react-redux';
 import { UseFormError } from '../errorHandler/useFormError';
 import CategoryFormProperty from '../types/categoryFormProperty';
 import { processCategory } from '../utils/helpers/processCategory';
-import { createFormData } from '../utils/helpers/createFormData';
+import { createFormData } from '../utils/helpers/createFormData/createFormData';
 import { postAction, putAction } from '../redux/actions/actions';
 
 type MethodHandler<T> = (formData: FormData, values: T) => Promise<void>;

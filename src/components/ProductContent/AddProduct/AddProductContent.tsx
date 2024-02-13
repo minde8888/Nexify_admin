@@ -8,7 +8,8 @@ import UploadImages from '../../UploadImages/UploadImages';
 import { CheckboxField } from '../../InputFields/CheckboxField';
 import styles from '../../../styles/productContent.module.scss'
 import imageStyles from '../../../styles/uploadImages.module.scss';
-import smallUploadImages from '../../../styles/smallUploadImages.module.scss'
+import smallUploadImages from '../../../styles/smallUploadImages.module.scss';
+import { log } from '../../../utils/helpers/logger';
 
 interface AddProductContentProps {
     setContent: (Content: string) => void;
@@ -80,7 +81,7 @@ const AddProductContent = ({
                     initialValue={''}
                 />
             </div>
-            <div className={`${images.length > 0 ? styles.image : styles.imageHeight}`}>
+            <div className={`${images.length > 0 || undefined ? styles.images : styles.imageHeight}`}>
                 <UploadImages
                     getImages={getImagesData}
                     maxNumber={10}

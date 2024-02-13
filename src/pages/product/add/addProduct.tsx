@@ -21,7 +21,7 @@ interface AddProductProps {
   stock?: string;
   location?: string;
   images: ImageFile[];
-  ItemsImages: ImageFile[];
+  itemsImages: ImageFile[];
 }
 
 const AddProduct = () => {
@@ -68,7 +68,7 @@ const AddProduct = () => {
           stock: '',
           location: '',
           images: [],
-          ItemsImages: []
+          itemsImages: []
         }}
         validationSchema={validationSchema}
       >
