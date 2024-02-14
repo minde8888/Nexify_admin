@@ -12,14 +12,27 @@ describe('createFormData', () => {
         expect(formData.get('age')).toBe('30');
     });
 
-    test('should append files to FormData correctly', () => {
-        const file = new File(['file contents'], 'test.txt');
+    test('should handle File objects', () => {
         const data = {
-            image: file
+            avatar: [new File(['file1 content'], 'avatar1.jpg', { type: 'image/jpeg' }), new File(['file2 content'], 'avatar2.jpg', { type: 'image/jpeg' })]
         };
-        const formData = new FormData();
-        createFormData(data, formData);
-    
-        expect(formData.get('images')).toBe(file);
-    });    
+
+        const formData = createFormData(data);
+
+        expect(formData.getAll('avatar').length).toBe(2);
+        expect(formData.getAll('avatar')[0]).toBeInstanceOf(File);
+        expect(formData.getAll('avatar')[1]).toBeInstanceOf(File);
+    });
+
+    test('should handle arrays of File objects', () => {
+        const data = {
+            images: [new File(['file1 content'], 'image1.jpg', { type: 'image/jpeg' }), new File(['file2 content'], 'image2.jpg', { type: 'image/jpeg' })]
+        };
+
+        const formData = createFormData(data);
+
+        expect(formData.getAll('images').length).toBe(2);
+        expect(formData.getAll('images')[0]).toBeInstanceOf(File);
+        expect(formData.getAll('images')[1]).toBeInstanceOf(File);
+    });
 });

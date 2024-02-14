@@ -38,11 +38,11 @@ const blogPostOperation: PostOperation = async (dispatch, url, formData) => {
 };
 
 const productPostOperation: PostOperation = async (dispatch, url, formData) => {
-                if (formData) {
-                        console.log(Object.fromEntries(formData), 'post');
-                    }
-    // const response = await handlePostRequest(url, formData);
-    // dispatch(requestProductsStatus(response === 200));
+    // if (formData) {
+    //     console.log(Object.fromEntries(formData), 'post');
+    // }
+    const response = await handlePostRequest(url, formData);
+    dispatch(requestProductsStatus(response === 200));
 };
 
 export const post = async ({ dispatch, formData, url }: PostProps) => {
