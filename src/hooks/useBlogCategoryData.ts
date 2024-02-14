@@ -1,6 +1,6 @@
 import { useParams } from "react-router-dom";
 import { useAppSelector } from "./useRedux";
-import { findCategoryById } from "../utils/helpers/categoryById";
+import { findCategoryById } from "../utils/helpers/categoryById/categoryById";
 
 
 const useBlogCategoryData = () => {

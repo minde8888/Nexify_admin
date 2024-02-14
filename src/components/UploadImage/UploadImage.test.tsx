@@ -2,7 +2,7 @@ import { render, fireEvent, RenderResult, screen, waitFor } from '@testing-libra
 import UploadImage from './UploadImage';
 import { ImageFile } from '../../types/imageFile';
 
-jest.mock('../../utils/helpers/compressImage', () => ({
+jest.mock('../../utils/helpers/compressImage/compressImage', () => ({
   compressImage: (file: File, targetSizeKB: number, callback: (compressedDataUrl: string) => void) => {
     callback('data:image/jpeg;base64,...');
   },

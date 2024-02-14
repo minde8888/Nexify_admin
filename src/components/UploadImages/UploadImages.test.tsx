@@ -3,7 +3,7 @@ import userEvent from '@testing-library/user-event';
 import UploadImages from './UploadImages';
 import styles from '../../styles/uploadImages.module.scss'
 
-jest.mock('../../utils/helpers/compressImage', () => ({
+jest.mock('../../utils/helpers/compressImage/compressImage', () => ({
   compressImage: jest.fn((file, targetSizeKB, callback) => callback('data:image/jpeg;base64,compressed-image-data')),
 }));
 

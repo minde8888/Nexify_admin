@@ -1,4 +1,4 @@
-import { CategoryResponse, SubcategoryResponse } from '../../types/category';
+import { CategoryResponse, SubcategoryResponse } from '../../../types/category';
 
 export const findCategoryById = (categoryId: string, categories: CategoryResponse[]): CategoryResponse | undefined => {
     return Object.values(categories).find((category) => category.id === categoryId);

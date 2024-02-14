@@ -7,7 +7,7 @@ import styles from './UploadImage.module.scss';
 import { FileReadError } from '../../errorHandler/fileReadError';
 import CustomFileInput from '../Buttons/CustomFileInput/CustomFileInput';
 import ButtonWithIcon from '../Buttons/ButtonWithIcon/ButtonWithIcon';
-import { compressImage } from '../../utils/helpers/compressImage';
+import { compressImage } from '../../utils/helpers/compressImage/compressImage';
 import { dataURLtoFile } from '../../utils/helpers/dataURLtoFile';
 import { DEFAULT_IMAGE_SIZE } from '../../constants/imageConst';
 

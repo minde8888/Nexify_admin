@@ -1,6 +1,6 @@
 import { useParams } from "react-router-dom";
 import { useAppSelector } from "./useRedux";
-import { findCategoryById, findSubcategoryById } from "../utils/helpers/categoryById";
+import { findCategoryById, findSubcategoryById } from "../utils/helpers/categoryById/categoryById";
 
 const useProductCategoryData = () => {
     const { id } = useParams();
