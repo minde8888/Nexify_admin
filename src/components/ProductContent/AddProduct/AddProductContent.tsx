@@ -57,8 +57,11 @@ const AddProductContent = ({
 
     useEffect(() => {
         handleAction();
+        if (resetImages) {
+            setImages([])
+        }
         // eslint-disable-next-line react-hooks/exhaustive-deps
-    }, [content, checkedCategories]);
+    }, [content, checkedCategories, resetImages]);
 
     const getImagesData = async (files: ImageFile[]): Promise<void> => {
         setImages(files)
@@ -80,7 +83,7 @@ const AddProductContent = ({
                     initialValue={''}
                 />
             </div>
-            <div className={`${images.length > 0 || undefined ? styles.images : styles.imageHeight}`}>
+            <div className={`${images.length > 0 ? styles.images : styles.imageHeight}`}>
                 <UploadImages
                     getImages={getImagesData}
                     maxNumber={10}
