@@ -11,7 +11,7 @@ import Pagination from '../../../components/Pagination/Pagination';
 import AllPostProperty from '../../../components/PostContent/AllPosts/AllPostProperty/AllPostProperty';
 import PageSize from '../../../components/PageSize/PageSize';
 import { pageSizeOptions } from '../../../constants/pageSize';
-import sortByProperty from '../../../utils/helpers/sortByProperty';
+import sortByProperty from '../../../utils/helpers/sortByProperty/sortByProperty';
 
 const AllPost = () => {
     const dispatch = useAppDispatch();

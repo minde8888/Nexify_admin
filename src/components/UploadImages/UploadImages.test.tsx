@@ -7,7 +7,7 @@ jest.mock('../../utils/helpers/compressImage/compressImage', () => ({
   compressImage: jest.fn((file, targetSizeKB, callback) => callback('data:image/jpeg;base64,compressed-image-data')),
 }));
 
-jest.mock('../../utils/helpers/dataURLtoFile', () => ({
+jest.mock('../../utils/helpers/dataURLtoFile/dataURLtoFile', () => ({
   dataURLtoFile: jest.fn().mockImplementation((dataURL, fileName) => new File([dataURL], fileName, { type: 'image/jpeg' })),
 }));
 

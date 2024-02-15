@@ -2,7 +2,7 @@ import React from 'react';
 import { getAllAction } from '../../redux/actions/actions';
 import style from './pagination.module.scss';
 import { AnyAction, Dispatch } from '@reduxjs/toolkit';
-import { generateQueryString } from '../../utils/helpers/generateQueryString';
+import { generateQueryString } from '../../utils/helpers/generateQueryString/generateQueryString';
 
 interface PaginationProps {
     pageNumber: number;

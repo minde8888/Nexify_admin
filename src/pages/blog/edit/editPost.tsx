@@ -7,7 +7,7 @@ import Preloader from '../../preloader/preloader';
 import { Post } from '../../../types/post';
 import { useNavigate } from 'react-router-dom';
 import EditPostProperty from '../../../components/PostContent/EditPosts/EditPostProperty';
-import sortByProperty from '../../../utils/helpers/sortByProperty';
+import sortByProperty from '../../../utils/helpers/sortByProperty/sortByProperty';
 import { CategoryResponse } from '../../../types/category';
 import { useCheckboxContext } from '../../../context/checkboxProvider';
 import usePostData from '../../../hooks/usePostCategoryData';

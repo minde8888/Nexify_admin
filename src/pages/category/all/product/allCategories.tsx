@@ -4,7 +4,7 @@ import { useAppSelector } from '../../../../hooks/useRedux';
 import { CATEGORIES_URL } from '../../../../constants/apiConst';
 import Preloader from '../../../preloader/preloader';
 import useFetchData from '../../../../hooks/useDataFetching';
-import sortByProperty from '../../../../utils/helpers/sortByProperty';
+import sortByProperty from '../../../../utils/helpers/sortByProperty/sortByProperty';
 import { CategoryResponse, DataResponse } from '../../../../types/category';
 
 const AllCategories = () => {

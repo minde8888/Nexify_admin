@@ -8,7 +8,7 @@ import { FileReadError } from '../../errorHandler/fileReadError';
 import CustomFileInput from '../Buttons/CustomFileInput/CustomFileInput';
 import ButtonWithIcon from '../Buttons/ButtonWithIcon/ButtonWithIcon';
 import { compressImage } from '../../utils/helpers/compressImage/compressImage';
-import { dataURLtoFile } from '../../utils/helpers/dataURLtoFile';
+import { dataURLtoFile } from '../../utils/helpers/dataURLtoFile/dataURLtoFile';
 import { DEFAULT_IMAGE_SIZE } from '../../constants/imageConst';
 
 interface UploadImageProps {

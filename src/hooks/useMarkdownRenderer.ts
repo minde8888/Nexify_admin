@@ -1,5 +1,5 @@
 import { useEffect, useState } from "react";
-import { convertMarkdownToHTML } from "../utils/helpers/convertMarkdownToHTML";
+import { convertMarkdownToHTML } from "../utils/helpers/convertMarkdownToHTML/convertMarkdownToHTML";
 
 const useMarkdownRenderer = (markdown: string, components: MDXProviderComponents): string => {
     const [html, setHtml] = useState('');

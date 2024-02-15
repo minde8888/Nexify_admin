@@ -1,7 +1,7 @@
 import { createSlice, PayloadAction } from '@reduxjs/toolkit';
 import { CategoryResponse } from '../../../types/category';
 import CategoryFormProperty from '../../../types/categoryFormProperty';
-import { findIndexById } from '../../../utils/helpers/findIndexById';
+import { findIndexById } from '../../../utils/helpers/findIndexById/findIndexById';
 
 interface CategoriesState {
     data: CategoryResponse[];

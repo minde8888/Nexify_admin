@@ -8,7 +8,7 @@ import { useCheckboxContext } from '../../../context/checkboxProvider';
 import { Post } from '../../../types/post';
 import { CategoryResponse } from '../../../types/category';
 import { ImageFile } from '../../../types/imageFile';
-import { removePartFromUrl } from '../../../utils/helpers/removePartFromUrl';
+import { removePartFromUrl } from '../../../utils/helpers/removePartFromUrl/removePartFromUrl';
 import { UrlToImages } from '../../../constants/imageConst';
 import styles from '../../../styles/edit.module.scss';
 import imageStyles from '../../../styles/uploadImages.module.scss';

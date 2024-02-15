@@ -1,4 +1,4 @@
-import { isValidDate } from "../validation/isValidDate";
+import { isValidDate } from "../../validation/isValidDate";
 
 function sortByProperty<T>(array: T[] | undefined, prop: keyof T, descending: boolean = true): T[] | undefined {
     if (!array || !array.length) {

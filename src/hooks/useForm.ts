@@ -2,7 +2,7 @@ import { useCallback, useState } from 'react';
 import { useDispatch } from 'react-redux';
 import { UseFormError } from '../errorHandler/useFormError';
 import CategoryFormProperty from '../types/categoryFormProperty';
-import { processCategory } from '../utils/helpers/processCategory';
+import { processCategory } from '../utils/helpers/processCategory/processCategory';
 import { createFormData } from '../utils/helpers/createFormData/createFormData';
 import { postAction, putAction } from '../redux/actions/actions';
 

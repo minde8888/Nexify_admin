@@ -11,7 +11,7 @@ import { v4 as uuidv4 } from 'uuid';
 import validationSchema from '../../../../utils/validation/addCategoryValidationSchema';
 import { useModal } from '../../../../hooks/useModel';
 import { CategoryResponse, DataResponse } from '../../../../types/category';
-import sortByProperty from '../../../../utils/helpers/sortByProperty';
+import sortByProperty from '../../../../utils/helpers/sortByProperty/sortByProperty';
 
 const AllSubcategories = forwardRef((props, ref) => {
 

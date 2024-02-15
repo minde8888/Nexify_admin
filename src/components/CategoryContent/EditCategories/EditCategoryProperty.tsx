@@ -7,7 +7,7 @@ import { CategoryResponse, SubcategoryResponse } from '../../../types/category';
 import useFormikValues from '../../../hooks/useFormikValues';
 import { ImageFile } from '../../../types/imageFile';
 import CategoryFormProperty from '../../../types/categoryFormProperty';
-import { removePartFromUrl } from '../../../utils/helpers/removePartFromUrl';
+import { removePartFromUrl } from '../../../utils/helpers/removePartFromUrl/removePartFromUrl';
 import { UrlToImages } from '../../../constants/imageConst';
 import { isValidBase64Image } from '../../../utils/validation/isValidBase64Image';
 import styles from './editCategories.module.scss';
@@ -32,32 +32,31 @@ const EditCategoryProperty: FunctionComponent<EditCategoryPropertyProps> =
 
     let newValues = values as unknown as CustomFormValues;
 
-    const [content, setContent] = useState<string>('');
     const [file, setFile] = useState<ImageFile[]>([]);
     const [imagePreviewUrl, setImagePreviewUrl] = useState<string>('');
-    const [catValues, setCatValues] = useState<CategoryFormProperty>(initialFormState);
+    const [catValues, setCatValues] = useState<CategoryFormProperty>(mapCategoryToFormValues(category, isCategory));
 
     useEffect(() => {
       const imageName = file.length === 0 && !isValidBase64Image(imagePreviewUrl)
         ? removePartFromUrl(imagePreviewUrl, UrlToImages)
         : null;
 
-      addNewValue({ ...catValues, description: content, imageName, image: file, imageSrc: imagePreviewUrl });
+      addNewValue({ ...catValues, imageName, image: file, imageSrc: imagePreviewUrl });
       // eslint-disable-next-line react-hooks/exhaustive-deps
-    }, [catValues, content, file, imagePreviewUrl]);
+    }, [catValues, file, imagePreviewUrl]);
 
     useEffect(() => {
-      if (category) {
-        const initialValues = mapCategoryToFormValues(category, isCategory);
-        setCatValues(initialValues);
-        setContent(initialValues.description || '');
-        setImagePreviewUrl(initialValues.imageName || '');
-      }
+      setImagePreviewUrl(catValues.imageName || '');
       addNewValue({ categoryName: categoryName });
       // eslint-disable-next-line react-hooks/exhaustive-deps
     }, [category, categoryName, isCategory]);
 
     const handleAddImage = useCallback((newFile: ImageFile[]) => setFile(newFile), []);
+
+    const handleContentChange = (newContent: string) => {
+      setCatValues(prev => ({ ...prev, description: newContent }));
+      addNewValue({ description: newContent });
+    };
 
     return (
       <div className={styles.container}>
@@ -83,8 +82,8 @@ const EditCategoryProperty: FunctionComponent<EditCategoryPropertyProps> =
         </div>
         <div className={`${styles.columns} ${styles.content}`}>
           <EnhancedMdxEditorComponent
-            content={content || ''}
-            setContent={setContent}
+            content={catValues.description || ''}
+            setContent={handleContentChange}
             width="100%" />
         </div>
         <div className={styles.buttonPublic}>
@@ -93,14 +92,6 @@ const EditCategoryProperty: FunctionComponent<EditCategoryPropertyProps> =
       </div>
     );
   };
-
-const initialFormState = {
-  id: '',
-  categoryName: '',
-  description: '',
-  imageName: '',
-  accept: true
-};
 
 const mapCategoryToFormValues = (
   category: CategoryResponse | SubcategoryResponse,

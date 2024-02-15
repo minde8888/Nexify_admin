@@ -4,7 +4,7 @@ import { CATEGORIES_URL, BLOG_CATEGORIES_URL, BLOG_URL } from '../constants/apiC
 import { getPostCategories } from '../redux/slice/blogCategories/blogCategoriesSlice';
 import { UrlError } from '../errorHandler/urlError';
 import { getPosts } from '../redux/slice/postsSlice/postsSlice';
-import { removeQueryParamsFromUrl } from '../utils/helpers/removeQueryParamsFromUrl';
+import { removeQueryParamsFromUrl } from '../utils/helpers/removeQueryParamsFromUrl/removeQueryParamsFromUrl';
 
 interface GetAllProps {
     dispatch: Dispatch<AnyAction>;

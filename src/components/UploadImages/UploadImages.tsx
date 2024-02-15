@@ -5,10 +5,10 @@ import uploadIcon from '../../assets/svg/uploadIcon.svg';
 import tempImage from '../../assets/svg/tempImage.svg';
 import { IconButton } from '../Buttons/IconButton/IconButton';
 import { compressImage } from '../../utils/helpers/compressImage/compressImage';
-import { dataURLtoFile } from '../../utils/helpers/dataURLtoFile';
+import { dataURLtoFile } from '../../utils/helpers/dataURLtoFile/dataURLtoFile';
 import { ImageFile } from '../../types/imageFile';
 import { DEFAULT_IMAGE_SIZE } from '../../constants/imageConst';
-import { isArrayNotEmpty } from '../../utils/helpers/isArrayNotEmpty';
+import { isArrayNotEmpty } from '../../utils/helpers/isArrayNotEmpty/isArrayNotEmpty';
 
 const UploadImages: React.FC<ImagesProps> = (
     { getImages, maxNumber, resetImages, setResetImages, initialImages, styleDrop = '', styles }) => {

@@ -9,7 +9,6 @@ import { CheckboxField } from '../../InputFields/CheckboxField';
 import styles from '../../../styles/productContent.module.scss'
 import imageStyles from '../../../styles/uploadImages.module.scss';
 import smallUploadImages from '../../../styles/smallUploadImages.module.scss';
-import { log } from '../../../utils/helpers/logger';
 
 interface AddProductContentProps {
     setContent: (Content: string) => void;

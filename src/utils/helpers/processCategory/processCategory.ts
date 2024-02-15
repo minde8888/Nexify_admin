@@ -1,4 +1,4 @@
-import CategoryFormProperty from '../../types/categoryFormProperty';
+import CategoryFormProperty from '../../../types/categoryFormProperty';
 
 const appendFormData = (formData: FormData, key: string, value?: string): void => {
     if (value !== undefined && value !== null) {

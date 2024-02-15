@@ -1,4 +1,4 @@
-import { FileReadError } from "../../errorHandler/fileReadError";
+import { FileReadError } from "../../../errorHandler/fileReadError";
 
 export const dataURLtoFile = (dataUrl: string, filename: string): File => {
     const arr = dataUrl.split(',');
