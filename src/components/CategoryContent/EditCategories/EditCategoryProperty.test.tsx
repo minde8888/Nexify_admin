@@ -14,24 +14,25 @@ jest.mock('@mdxeditor/editor', () => ({
   MDXEditor: () => 'MDXEditor'
 }));
 
-jest.mock('../../MarkDownEditor/EnhancedMdxEditorComponent', () => ({
-  __esModule: true, 
-  default: () => <textarea aria-label="content">Mocked Component</textarea>, 
-}));
+jest.mock('../../MarkDownEditor/EnhancedMdxEditorComponent', () => {
+  return {
+      __esModule: true,
+      default: ({ content }: any) => <textarea aria-label="content" defaultValue={content}></textarea>, 
+  };
+});
 
 jest.mock('../../InputFields/TextInputField', () => ({
   __esModule: true,
-  TextInputField: ({ label, id, placeholder, autoFocus, 'data-testid': testId, ...props }: TextInputFieldProps) => (
-    <div>
-      {label && <label htmlFor={id}>{label}</label>}
-      <input
-        id={id}
-        placeholder={placeholder}
-        autoFocus={autoFocus}
-        data-testid={testId}
-        {...props}
-      />
-    </div>
+  TextInputField: ({ label, id, className, name }: TextInputFieldProps) => (
+      <div>
+          {label && <label htmlFor={id}>{label}</label>}
+          <input
+              id={id}
+              name={name}
+              className={className}
+              defaultValue={'Test Title'}            
+          />
+      </div>
   ),
 }));
 
