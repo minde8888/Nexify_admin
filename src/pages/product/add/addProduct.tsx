@@ -9,7 +9,7 @@ import { useAppSelector } from '../../../hooks/useRedux';
 import sortByProperty from '../../../utils/helpers/sortByProperty/sortByProperty';
 import { useCheckboxContext } from '../../../context/checkboxProvider';
 import { ImageFile } from '../../../types/imageFile';
-import AddProductContent from '../../../components/ProductContent/AddProduct/AddProductContent';
+import AddProductContent from '../../../components/ProductContent/AddProducts/AddProductContent';
 import { CategoryResponse, DataResponse } from '../../../types/category';
 
 interface AddProductProps {

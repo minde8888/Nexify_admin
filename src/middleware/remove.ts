@@ -1,5 +1,5 @@
 import { AnyAction, Dispatch } from '@reduxjs/toolkit';
-import { BLOG_CATEGORIES_URL, BLOG_URL, CATEGORIES_URL, PRODUCTS_URL, SUBCATEGORIES_URL } from '../constants/apiConst';
+import { BLOG_CATEGORIES_URL, BLOG_URL, CATEGORIES_URL, PRODUCT_URL, SUBCATEGORIES_URL } from '../constants/apiConst';
 import { removeCategory, removeSubcategory } from '../redux/slice/categoriesSlice/categoriesSlice';
 import { handleDeleteRequest } from '../api/handleAPI';
 import { UrlError } from '../errorHandler/urlError';
@@ -20,14 +20,16 @@ export const remove = async ({ dispatch, bool, url, id }: DeleteProps) => {
     }
 
     const actions = [
-        { url: CATEGORIES_URL, action: bool ? removeCategory : removeSubcategory },
+        { url: CATEGORIES_URL, action: bool ? removeCategory : undefined },
+        { url: SUBCATEGORIES_URL, action: !bool ? removeSubcategory : undefined },
         { url: BLOG_URL, action: removePost },
-        { url: BLOG_CATEGORIES_URL, action: removePostCategory }
-    ];
+        { url: BLOG_CATEGORIES_URL, action: removePostCategory },
+        { url: PRODUCT_URL, action: removePostCategory }
+    ].filter((action) => action.action !== undefined);
 
-    const actionObj = actions.find(actionObj => actionObj.url === url);
+    const actionObj = actions.find((actionObj) => actionObj.url === url);
 
-    if (actionObj) {
+    if (actionObj && actionObj.action) {
         dispatch(actionObj.action(id));
         return await handleDeleteRequest(url, id);
     } else {

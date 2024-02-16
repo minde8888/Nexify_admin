@@ -9,7 +9,7 @@ export interface Product {
     location?: string;
     imageNames?: string;
     imageSrc?: string[];
-    itemsImagesNames;
+    itemsImagesNames?: string[];
     itemSrc?: string[];
     dateCreated?: string;
     categories?: Categories[];

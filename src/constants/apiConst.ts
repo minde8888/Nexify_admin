@@ -1,6 +1,3 @@
-export const PRODUCTS_URL = 'product';
-export const PRODUCT_UPDATE_URL = 'product/update';
-
 export const CATEGORIES_URL = 'category';
 export const CATEGORY_UPDATE_URL = 'category/update';
 export const ALL_CATEGORIES_URL = '/all-categories';
@@ -25,6 +22,7 @@ export const EDIT_BLOG_CATEGORY_URL = '/edit-post-categories/';
 export const ALL_BLOG_CATEGORIES_URL = '/all-post-categories';
 
 export const PRODUCT_URL = 'product';
+export const PRODUCT_UPDATE_URL = 'product/update';
 export const ADD_PRODUCT_URL = '/add-product';
 export const ALL_PRODUCT_POSTS_URL = '/all-product';
 export const EDIT_PRODUCT_URL = '/edit-product/';

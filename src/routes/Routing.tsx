@@ -15,6 +15,8 @@ import AllBlogCategories from '../pages/category/all/blog/allBlogCategories';
 import EditBlogCategories from '../pages/category/edit/blog/editBlogCategories';
 import AllSubcategories from '../pages/category/all/subcategories/allSubcategory';
 import AllPost from '../pages/blog/all/allPosts';
+import AllProducts from '../pages/product/all/allProducts';
+import EditProduct from '../pages/product/edit/editProduct';
 
 const Routing = (): JSX.Element => {
     return (
@@ -23,7 +25,10 @@ const Routing = (): JSX.Element => {
                 <Routes>
                     <Route element={<ProtectedRoute />}>
                         <Route path="/" element={<Dashboard />} />
+                        
                         <Route path="/add-product" element={<AddProduct />} />
+                        <Route path="/all-product" element={<AllProducts />} />
+                        <Route path="/edit-product/:id" element={<EditProduct />} />
 
                         <Route path="/add-categories" element={<AddCategories />} />
                         <Route path="/all-categories" element={<AllCategories />} />
