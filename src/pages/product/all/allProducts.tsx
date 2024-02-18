@@ -29,7 +29,7 @@ const AllProducts = () => {
 
     const { handleSubmit } = useForm<Product>(PUT_METHOD, PRODUCT_UPDATE_URL);
 
-    const { pageNumber, pageSize, totalPages, totalRecords, Products } = data as PagedResponse<Product>;
+    const { pageNumber, pageSize, totalPages, totalRecords, products } = data as PagedResponse<Product>;
 
     useEffect(() => {
         if (!data || data.length === 0) {
@@ -50,7 +50,7 @@ const AllProducts = () => {
         images: [],
     };
 
-    const sortedProducts = Products ? sortByProperty(Products, 'dateCreated') : undefined;
+    const sortedProducts = products ? sortByProperty(products, 'dateCreated') : undefined;
 
     return (
         <Preloader isLoading={loading}>

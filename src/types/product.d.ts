@@ -16,5 +16,6 @@ export interface Product {
 }
 
 export interface Products {
+    id: string | undefined;
     products: Product[];
 }

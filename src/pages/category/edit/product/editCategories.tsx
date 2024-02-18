@@ -7,10 +7,10 @@ import useForm from "../../../../hooks/useForm";
 import validationSchema from "../../../../utils/validation/editCategoryValidationSchema";
 import { useEffect } from "react";
 import Preloader from "../../../preloader/preloader";
-import useProductCategoryData from "../../../../hooks/useProductCategoryData";
+import useCategoryData from "../../../../hooks/useCategoryData";
 
 const EditCategories = () => {
-    const { entity, isCategory, categoryName, data, lastRequestStatus } = useProductCategoryData();
+    const { entity, isCategory, categoryName, data, lastRequestStatus } = useCategoryData();
     const { handleSubmit } = useForm<CategoryFormProperty>(PUT_METHOD, CATEGORY_UPDATE_URL);
 
     const navigate = useNavigate();
