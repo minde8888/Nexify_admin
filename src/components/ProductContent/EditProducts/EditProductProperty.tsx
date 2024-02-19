@@ -23,42 +23,50 @@ interface EditProductPropertyProps extends Product {
     resetCheckedCategories: () => void
 }
 
+interface ProductProps {
+    title: string;
+    content: string;
+    price?: string;
+    discount?: string;
+    size?: string;
+    stock?: string;
+    location?: string;
+}
+
 const EditProductProperty: FunctionComponent<EditProductPropertyProps> = ({
-        id,
-        title,
-        content,
-        imageSrc,
-        itemSrc,
-        price,
-        discount,
-        location,
-        size,
-        stock,
-        disabled,
-        resetImages,
-        setResetImages,
-        categoriesIds,
-        categories,
-        resetCheckedCategories,
-    }) => {
+    id,
+    title,
+    content,
+    imageSrc,
+    itemSrc,
+    price,
+    discount,
+    location,
+    size,
+    stock,
+    disabled,
+    resetImages,
+    setResetImages,
+    categoriesIds,
+    categories,
+    resetCheckedCategories,
+}) => {
     const { addNewValue, values } = useFormikValues<Product[]>();
     const copyValues = values as unknown as Product;
 
     const imageName = imageSrc?.map(url => removePartFromUrl(url, UrlToImages));
-    console.log(imageName);
+    const itemName = itemSrc?.map(url => removePartFromUrl(url, UrlToImages));
 
-    const [postValues, setPostValues] = useState({
-        id,
-        title,
-        content,
-        imageSrc,
-        itemSrc,
-        price,
-        discount,
-        location,
-        size,
-        stock,
-    });
+    const [postValues, setPostValues] = useState<ProductProps>(() => ({
+        id:id,
+        title: title || '',
+        content: content || '',
+        price: price || '',
+        discount: discount || '',
+        location: location || '',
+        size: size || '',
+        stock: stock || '',
+    }));
 
     const { checkedCategories, setCheckedCategories } = useCheckboxContext();
 
@@ -82,30 +90,17 @@ const EditProductProperty: FunctionComponent<EditProductPropertyProps> = ({
         addNewValue({ content: newContent });
     };
 
-    const getImagesData = async (files: ImageFile[]): Promise<void> => {
-        const images = files.map(file => file.file);
-        addNewValue({ images });
-    };
-
-    const getSmallImagesData = async (files: ImageFile[]): Promise<void> => {
-        addNewValue({ itemsImages: files.map(file => file.file) });
+    const handleImageChange = async (files: ImageFile[], type: 'images' | 'itemsImages') => {
+        const fileData = files.map(file => file.file);
+        addNewValue({ [type]: fileData });
     };
 
     return (
         <div className={styles.container}>
-            <div className={styles.inputField}>
-                <TextInputField
-                    label="Title"
-                    className={styles.titleField}
-                    name="title"
-                    id="title"
-                    initialValue={copyValues.title}
-                />
-            </div>
             <div className={styles.images}>
                 <UploadImages
-                    getImages={getImagesData}
-                    maxNumber={1}
+                    getImages={(files) => handleImageChange(files, 'images')}
+                    maxNumber={10}
                     resetImages={resetImages}
                     setResetImages={setResetImages}
                     initialImages={imageSrc}
@@ -115,10 +110,11 @@ const EditProductProperty: FunctionComponent<EditProductPropertyProps> = ({
             </div>
             <div className={styles.choseImage}>
                 <UploadImages
-                    getImages={getSmallImagesData}
+                    getImages={(files) => handleImageChange(files, 'itemsImages')}
                     maxNumber={10}
                     resetImages={resetImages}
                     setResetImages={setResetImages}
+                    initialImages={itemSrc}
                     styles={smallUploadImages}
                 />
             </div>
@@ -144,59 +140,26 @@ const EditProductProperty: FunctionComponent<EditProductPropertyProps> = ({
                     </div>
                 ))}
             </div>
-            <div className={styles.inputField}>
-                <TextInputField
-                    label="price"
-                    className={styles.titleField}
-                    name="price"
-                    id="price"
-                    initialValue={copyValues.price}
-                />
-            </div>
-            <div className={styles.inputField}>
-                <TextInputField
-                    label="discount"
-                    className={styles.titleField}
-                    name="discount"
-                    id="discount"
-                    initialValue={copyValues.discount}
-                />
-            </div>
-            <div className={styles.inputField}>
-                <TextInputField
-                    label="size"
-                    className={styles.titleField}
-                    name="size"
-                    id="size"
-                    initialValue={copyValues.size}
-                />
-            </div>
-            <div className={styles.inputField}>
-                <TextInputField
-                    label="stock"
-                    className={styles.titleField}
-                    name="stock"
-                    id="stock"
-                    initialValue={copyValues.stock}
-                />
-            </div>
-            <div className={styles.inputField}>
-                <TextInputField
-                    label="location"
-                    className={styles.titleField}
-                    name="location"
-                    id="location"
-                    initialValue={copyValues.location}
-                />
-            </div>
-            <div className={`${styles.columns} ${styles.content}`}>
-                <EnhancedMdxEditorComponent
-                    content={postValues.content || ''}
-                    setContent={handleContentChange}
-                    width='100%' />
-            </div>
+            <EnhancedMdxEditorComponent
+                content={postValues.content || ''}
+                setContent={handleContentChange}
+                width='100%'
+            />
+            {Object.keys(postValues).map((key) =>
+                key !== 'content' && (
+                    <div key={key} className={styles.inputField}>
+                        <TextInputField
+                            label={key}
+                            className={styles.titleField}
+                            name={key}
+                            id={key}
+                            initialValue={postValues[key as keyof ProductProps] || ''}
+                        />
+                    </div>
+                )
+            )}
             <div className={styles.buttonPublic}>
-                <button disabled={disabled} type="submit">Public</button>
+                <button disabled={disabled} type="submit">Publish</button>
             </div>
         </div>
     );

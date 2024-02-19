@@ -10,7 +10,7 @@ import { CategoryResponse } from '../../../types/category';
 import { useCheckboxContext } from '../../../context/checkboxProvider';
 import useProductCategoryData from '../../../hooks/useProductCategoryData';
 import { Product } from '../../../types/product';
-import EditProductProperty from '../../../components/ProductContent/EditProducts/EditProductContent';
+import EditProductProperty from '../../../components/ProductContent/EditProducts/EditProductProperty';
 
 
 const EditProduct = () => {
@@ -34,10 +34,7 @@ const EditProduct = () => {
         fetchData,
         id
     } = useProductCategoryData();
-
-    console.log(checkedCategoriesIds);
     
-
     const sortedCategories = categories ? sortByProperty(categories, 'dateCreated') : undefined;
 
     const [resetImages, setResetImages] = useState<boolean>(false);

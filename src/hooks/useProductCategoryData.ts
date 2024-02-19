@@ -1,10 +1,9 @@
 import { useParams } from 'react-router-dom';
 import { useAppSelector } from './useRedux';
-import { findCategoryById, findSubcategoryById } from '../utils/helpers/categoryById/categoryById';
 import useFetchData from './useDataFetching';
 import { CATEGORIES_URL } from '../constants/apiConst';
 import { Product } from '../types/product';
-import { Category } from '../types/category';
+import { SubcategoryResponse } from '../types/category';
 
 const useProductCategoryData = () => {
     const { id } = useParams<{ id?: string }>();
@@ -18,12 +17,18 @@ const useProductCategoryData = () => {
     // const categoryName = category?.categoryName || subcategory?.categoryName;
 
     const productArray: Product[] = productData.products ?? [];
-    
+
     const product: Product | null = productArray.find((p) => p.id === id) || null;
 
-    const { title, content, price, discount, location, size, stock, imageSrc, itemSrc } = product || {};
-    const checkedCategoriesIds: string[] = data.categories?.map((category: Category) => category.id) || [];
+    const { title, content, price, discount, location, size, stock, imageSrc, itemSrc, categories } = product || {};
 
+    const checkedCategoryIds = categories?.flatMap((category: { id: string; subcategories: SubcategoryResponse[]; }) => {
+        const categoryIds = [category.id];    
+        const subcategoryIds = category.subcategories.map(subcategory => subcategory.id);    
+        return [...categoryIds, ...subcategoryIds];
+    }) || [];
+
+    // console.log(checkedCategoryIds);
     return {
         // entity: category || subcategory,
         // isCategory: !!category,
@@ -38,10 +43,10 @@ const useProductCategoryData = () => {
         stock,
         imageSrc,
         itemSrc,
-        categories:data,
-        checkedCategoriesIds,
+        categories: data,
+        checkedCategoriesIds : checkedCategoryIds,
         productStatus,
-        fetchData, 
+        fetchData,
         id
     };
 };

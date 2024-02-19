@@ -12,7 +12,7 @@ export interface Product {
     itemsImagesNames?: string[];
     itemSrc?: string[];
     dateCreated?: string;
-    categories?: Categories[];
+    categories?: CategoryResponse;
 }
 
 export interface Products {

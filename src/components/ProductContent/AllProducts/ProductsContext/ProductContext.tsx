@@ -1,4 +1,4 @@
-import { FunctionComponent } from "react";
+import { FunctionComponent, JSXElementConstructor, Key, ReactElement, ReactNode, ReactPortal } from "react";
 import ButtonWithIcon from "../../../Buttons/ButtonWithIcon/ButtonWithIcon";
 import editIcon from "../../../../assets/svg/edit document_edit file_edited_editing_icon.svg";
 import defaultImage from "../../../../assets/svg/gallery_image_photo_photography_picture_icon.svg";
@@ -29,7 +29,7 @@ const ProductContext: FunctionComponent<ProductProps> = ({ product, onRemove, on
             />
             <div className={styles.categories}>
                 <h4>Categories</h4>
-                {product.categories && product.categories.map((category, index) => <div className={styles.category} key={index}>{category.categoryName}</div>)}
+                {product.categories && product.categories.map((category: { categoryName: string | number | boolean | ReactElement<any, string | JSXElementConstructor<any>> | Iterable<ReactNode> | ReactPortal | null | undefined; }, index: Key | null | undefined) => <div className={styles.category} key={index}>{category.categoryName}</div>)}
             </div>
             <div className={styles.buttons}>
                 <ButtonWithIcon icon={editIcon} altText="Edit" style={{ margin: '0' }} onClick={() => onEdit(product.id)} id={product.id} />
