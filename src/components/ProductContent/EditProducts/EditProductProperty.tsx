@@ -12,7 +12,7 @@ import { UrlToImages } from '../../../constants/imageConst';
 import imageStyles from '../../../styles/uploadImages.module.scss';
 import { Product } from '../../../types/product';
 import smallUploadImages from '../../../styles/smallUploadImages.module.scss';
-import styles from '../../../styles/edit.module.scss';
+import styles from '../../../styles/productContent.module.scss';
 
 interface EditProductPropertyProps extends Product {
     disabled: boolean;
@@ -31,6 +31,10 @@ interface ProductProps {
     size?: string;
     stock?: string;
     location?: string;
+}
+
+interface ImageProps {
+    images: ImageFile[]
 }
 
 const EditProductProperty: FunctionComponent<EditProductPropertyProps> = ({
@@ -52,13 +56,12 @@ const EditProductProperty: FunctionComponent<EditProductPropertyProps> = ({
     resetCheckedCategories,
 }) => {
     const { addNewValue, values } = useFormikValues<Product[]>();
-    const copyValues = values as unknown as Product;
+    const copyValues = values as unknown as ImageProps;
 
     const imageName = imageSrc?.map(url => removePartFromUrl(url, UrlToImages));
     const itemName = itemSrc?.map(url => removePartFromUrl(url, UrlToImages));
 
     const [postValues, setPostValues] = useState<ProductProps>(() => ({
-        id:id,
         title: title || '',
         content: content || '',
         price: price || '',
@@ -81,7 +84,7 @@ const EditProductProperty: FunctionComponent<EditProductPropertyProps> = ({
             setCheckedCategories(prev => ({ ...prev, [id]: true }));
         });
 
-        addNewValue(postValues);
+        addNewValue({ ...postValues, productId: id });
         // eslint-disable-next-line react-hooks/exhaustive-deps
     }, []);
 
@@ -97,7 +100,16 @@ const EditProductProperty: FunctionComponent<EditProductPropertyProps> = ({
 
     return (
         <div className={styles.container}>
-            <div className={styles.images}>
+            <div className={styles.inputTitleField}>
+                <TextInputField
+                    label="Title"
+                    className={styles.titleField}
+                    name="title"
+                    id="title"
+                    initialValue={postValues.title}
+                />
+            </div>
+            <div className={`${copyValues.images?.length > 0 ? styles.images : styles.imageHeight}`}>
                 <UploadImages
                     getImages={(files) => handleImageChange(files, 'images')}
                     maxNumber={10}
@@ -146,7 +158,7 @@ const EditProductProperty: FunctionComponent<EditProductPropertyProps> = ({
                 width='100%'
             />
             {Object.keys(postValues).map((key) =>
-                key !== 'content' && (
+                (key !== 'content' && key !== 'title') && (
                     <div key={key} className={styles.inputField}>
                         <TextInputField
                             label={key}
@@ -158,6 +170,7 @@ const EditProductProperty: FunctionComponent<EditProductPropertyProps> = ({
                     </div>
                 )
             )}
+
             <div className={styles.buttonPublic}>
                 <button disabled={disabled} type="submit">Publish</button>
             </div>
