@@ -71,7 +71,7 @@ describe('AddProductContent', () => {
 
   test('renders the component correctly', () => {
     render(
-      <CategoryCheckboxProvider> {/* Provide the necessary context */}
+      <CategoryCheckboxProvider> 
         <AddProductContent
           setContent={setContent}
           content=""
@@ -92,5 +92,10 @@ describe('AddProductContent', () => {
     expect(screen.getByLabelText('stock')).toBeInTheDocument();
     expect(screen.getByLabelText('location')).toBeInTheDocument();
     expect(screen.getByText('Public')).toBeInTheDocument();
+
+    expect(screen.getByText('Category 1')).toBeInTheDocument();
+    expect(screen.getByText('Category 2')).toBeInTheDocument();
+    expect(screen.getByLabelText('Subcategory 1')).toBeInTheDocument();
+    expect(screen.getByLabelText('Subcategory 2')).toBeInTheDocument();
   });
 });
