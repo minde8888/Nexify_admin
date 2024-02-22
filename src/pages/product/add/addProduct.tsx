@@ -47,6 +47,11 @@ const AddProduct = () => {
     }
   }, [sortedCategories, fetchData]);
 
+  useEffect(() => {
+    resetCheckedCategories();
+  // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [])
+
   const handleFormSubmit = async (values: AddProductProps, { resetForm }: any) => {
     await handleSubmit(values, { resetForm });
     setContent('');

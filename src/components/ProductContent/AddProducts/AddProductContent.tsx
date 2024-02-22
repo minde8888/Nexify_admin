@@ -132,51 +132,11 @@ const AddProductContent = ({
                     componentKey={componentKey}
                 />
             </div>
-            <div className={styles.inputField}>
-                <TextInputField
-                    label="price"
-                    className={styles.titleField}
-                    name="price"
-                    id="price"
-                    initialValue={''}
-                />
-            </div>
-            <div className={styles.inputField}>
-                <TextInputField
-                    label="discount"
-                    className={styles.titleField}
-                    name="discount"
-                    id="discount"
-                    initialValue={''}
-                />
-            </div>
-            <div className={styles.inputField}>
-                <TextInputField
-                    label="size"
-                    className={styles.titleField}
-                    name="size"
-                    id="size"
-                    initialValue={''}
-                />
-            </div>
-            <div className={styles.inputField}>
-                <TextInputField
-                    label="stock"
-                    className={styles.titleField}
-                    name="stock"
-                    id="stock"
-                    initialValue={''}
-                />
-            </div>
-            <div className={styles.inputField}>
-                <TextInputField
-                    label="location"
-                    className={styles.titleField}
-                    name="location"
-                    id="location"
-                    initialValue={''}
-                />
-            </div>
+            {['price', 'discount', 'size', 'stock', 'location'].map(field => (
+                <div className={styles.inputField} key={field}>
+                    <TextInputField label={field} className={styles.titleField} name={field} id={field} initialValue={''} />
+                </div>
+            ))}
             <div className={styles.buttonPublic}>
                 <button disabled={lastRequestStatus} type="submit">
                     Public
