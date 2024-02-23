@@ -1,6 +1,6 @@
 import { AnyAction, Dispatch } from '@reduxjs/toolkit';
 import { UrlError } from '../errorHandler/urlError';
-import { BLOG_CATEGORIES_URL, BLOG_URL, CATEGORIES_URL, PRODUCT_URL, SUBCATEGORIES_URL } from '../constants/apiConst';
+import { ATTRIBUTES_URL, BLOG_CATEGORIES_URL, BLOG_URL, CATEGORIES_URL, PRODUCT_URL, SUBCATEGORIES_URL } from '../constants/apiConst';
 import { requestCategoryStatus } from '../redux/slice/categoriesSlice/categoriesSlice';
 import { handlePostRequest } from '../api/handleAPI';
 import { requestBlogCategoryStatus } from '../redux/slice/blogCategories/blogCategoriesSlice';
@@ -45,13 +45,22 @@ const productPostOperation: PostOperation = async (dispatch, url, formData) => {
     dispatch(requestProductsStatus(response === 200));
 };
 
+const attributesPostOperation: PostOperation = async (dispatch, url, formData) => {
+    if (formData) {
+        console.log(Object.fromEntries(formData), 'post', url);
+    }
+    // const response = await handlePostRequest(url, formData);
+    // dispatch(requestBlogStatus(response === 200));
+};
+
 export const post = async ({ dispatch, formData, url }: PostProps) => {
     const postOperationsMap: { [url: string]: PostOperation } = {
         [CATEGORIES_URL]: categoryPostOperation,
         [SUBCATEGORIES_URL]: subCategoryPostOperation,
         [BLOG_CATEGORIES_URL]: blogCategoryPostOperation,
         [BLOG_URL]: blogPostOperation,
-        [PRODUCT_URL]: productPostOperation
+        [PRODUCT_URL]: productPostOperation,
+        [ATTRIBUTES_URL]: attributesPostOperation
     };
 
     const actionFunction = postOperationsMap[url];

@@ -164,32 +164,27 @@ const Sidebar: FunctionComponent<SidebarProps> = () => {
                                 </ul>
                             </li>
                             <li>
-                                <NavLink to={'/'}>
+                                <NavLink to={'/add-attributes'}>
                                     <i className="ion-ios-settings">
-                                        <img src={settings} alt="imgAltText" />
+                                        <img src={order} alt="imgAltText" />
                                     </i>
-                                    <span className="">Settings</span>
-                                </NavLink> <NavLink to={'/'}><i className="ion-ios-navigate-outline"></i> <span className="">Ass Finder</span></NavLink>
+                                    <span className="">Attributes</span>
+                                </NavLink>
                                 <ul className="nav-flyout">
                                     <li>
-                                        <NavLink to={'/'}><i className="ion-ios-flame-outline"></i>Burn</NavLink>
+                                        <NavLink to={'/add-attributes'}>
+                                            <i className="ion-ios-alarm-outline"></i>
+                                            Add Attributes
+                                        </NavLink>
                                     </li>
                                     <li>
-                                        <NavLink to={'/'}><i className="ion-ios-lightbulb-outline"></i>Bulbs</NavLink>
-                                    </li>
-                                    <li>
-                                        <NavLink to={'/'}><i className="ion-ios-location-outline"></i>Where You</NavLink>
-                                    </li>
-                                    <li>
-                                        <NavLink to={'/'}><i className="ion-ios-locked-outline"></i>On Lock</NavLink>
-                                    </li>
-                                    <li>
-                                        <NavLink to={'/'}><i className="ion-ios-navigate-outline"></i>Ghostface</NavLink>
+                                        <NavLink to={'/all-attributes'}>
+                                            <i className="ion-ios-alarm-outline"></i>
+                                            All Attributes
+                                        </NavLink>
                                     </li>
                                 </ul>
-                            </li>
-                            <li>
-                                <NavLink to={'/'}><i className="ion-ios-medical-outline"></i> <span className="">Cocaine</span></NavLink>
+
                             </li>
                         </ul>
                     </nav>
