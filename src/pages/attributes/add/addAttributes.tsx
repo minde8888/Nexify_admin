@@ -5,8 +5,8 @@ import useForm from '../../../hooks/useForm';
 import AttributesFormProperty from '../../../types/attributesFormProperty';
 import CategoriesProperty from '../../../components/CategoryContent/AddCategories/CategoriesProperty/CategoriesProperty';
 import { ATTRIBUTES_URL, POST_METHOD } from '../../../constants/apiConst';
-import styles from '../../../styles/productContent.module.scss';
 import validationSchema from '../../../utils/validation/addAttributesValidationsSchema';
+import styles from '../../../styles/productContent.module.scss';
 
 const AddAttributes = () => {
     const [prefix, setPrefix] = useState(false);

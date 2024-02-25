@@ -1,10 +1,11 @@
 import '@testing-library/jest-dom/extend-expect';
-import CategoryProperty from './CategoryProperty';
-import { renderWithReduxMemoryRouter } from '../../../../testUtils/RenderBrowserWithContext';
-import { CATEGORIES_URL } from '../../../../constants/apiConst';
+import ComponentProperty from './ComponentProperty';
+import { renderWithReduxMemoryRouter } from '../../testUtils/RenderBrowserWithContext';
+import { CATEGORIES_URL } from '../../constants/apiConst';
 import { fireEvent, screen } from '@testing-library/react';
-import * as actions from '../../../../redux/actions/actions';
+import * as actions from '../../redux/actions/actions';
 import { useSelector } from 'react-redux';
+import DataType from '../../types/dataType';
 
 jest.mock('axios', () => ({
     create: jest.fn(() => ({
@@ -27,7 +28,7 @@ jest.mock('react-redux', () => ({
     useDispatch: () => jest.fn(), 
 }));
 
-describe('CategoryProperty', () => {
+describe('ComponentProperty', () => {
 
     const initialState = {
         auth: { isLoggedIn: true, },
@@ -43,7 +44,7 @@ describe('CategoryProperty', () => {
     ];
 
     const setup = async () => {
-        const utils = renderWithReduxMemoryRouter(<CategoryProperty categories={categories} URL={CATEGORIES_URL} />, { initialState });
+        const utils = renderWithReduxMemoryRouter(<ComponentProperty data={categories as unknown as DataType[]} URL={CATEGORIES_URL} />, { initialState });
         return {
             ...utils
         };
@@ -56,7 +57,7 @@ describe('CategoryProperty', () => {
 
     test('renders all categories', async () => {
         await setup();
-        const categoryElements = screen.getAllByTestId('category-item');
+        const categoryElements = screen.getAllByTestId('data-item');
         expect(categoryElements.length).toBe(categories.length);
     });
 
@@ -84,7 +85,7 @@ describe('CategoryProperty', () => {
     });    
 
     test('displays no categories message when categories array is empty', async () => {
-        renderWithReduxMemoryRouter(<CategoryProperty URL={CATEGORIES_URL} />, { initialState });
-        expect(screen.getByText('No categories available')).toBeVisible();
+        renderWithReduxMemoryRouter(<ComponentProperty URL={CATEGORIES_URL} />, { initialState });
+        expect(screen.getByText('No data available')).toBeVisible();
     });
 });

@@ -1,16 +1,17 @@
-import CategoryProperty from '../../../../components/CategoryContent/AllCategories/CategoryProperty/CategoryProperty';
+import CategoryProperty from '../../../../components/ComponentProperty/ComponentProperty';
 import { useAppSelector } from '../../../../hooks/useRedux';
-import { BLOG_CATEGORIES_URL } from '../../../../constants/apiConst';
+import { BLOG_CATEGORIES_URL, EDIT_BLOG_CATEGORY_URL } from '../../../../constants/apiConst';
 import useFetchData from '../../../../hooks/useDataFetching';
 import { useEffect } from 'react';
 import Preloader from '../../../preloader/preloader';
 import sortByProperty from '../../../../utils/helpers/sortByProperty/sortByProperty';
-import { CategoryResponse } from '../../../../types/category';
+import ComponentProperty from '../../../../components/ComponentProperty/ComponentProperty';
+import DataType from '../../../../types/dataType';
 
 const AllBlogCategories = () => {
     const { loading, fetchData } = useFetchData(BLOG_CATEGORIES_URL);
 
-    const {data, lastRequestStatus } = useAppSelector((state) => state.data.blogCategories);
+    const { data, lastRequestStatus } = useAppSelector((state) => state.data.blogCategories);
 
     const sortedCategories = data ? sortByProperty(data, 'dateCreated') : undefined;
 
@@ -29,10 +30,10 @@ const AllBlogCategories = () => {
     return (
         <Preloader isLoading={loading}>
             <h2>Edit/Remove Blog Categories</h2>
-            <CategoryProperty
-                categories={sortedCategories as CategoryResponse[]}
+            <ComponentProperty
+                data={sortedCategories as unknown as DataType[]}
                 URL={BLOG_CATEGORIES_URL}
-                blog={true}
+                EDIT_URL={EDIT_BLOG_CATEGORY_URL}
             />
         </Preloader>
     );

@@ -69,7 +69,7 @@ describe('EditPostProperty Component', () => {
 
         const categories: CategoryResponse[] = [{
             id: '1',
-            categoryName: 'testCategory',
+            title: 'testCategory',
             description: 'testDescription',
             imageSrc: 'testImageSrc',
             dateCreated: 'testDateCreated',
@@ -88,7 +88,7 @@ describe('EditPostProperty Component', () => {
 
         expect(await screen.findByDisplayValue('Test Title')).toBeInTheDocument();
         expect(await screen.findByText('UploadImages Mock')).toBeInTheDocument();
-        expect(await screen.findByText(`Checkbox Mock - ${categories[0].categoryName}`)).toBeInTheDocument();
+        expect(await screen.findByText(`Checkbox Mock - ${categories[0].title}`)).toBeInTheDocument();
         expect(await screen.findByLabelText("content")).toHaveValue("content");
     });
 });

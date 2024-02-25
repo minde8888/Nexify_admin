@@ -71,7 +71,7 @@ const AddAttributesContent = ({
                     <CheckboxField
                         key={category.id}
                         name={category.id}
-                        label={category.categoryName}
+                        label={category.title}
                         className={styles.checkbox}
                     />
                 ))}

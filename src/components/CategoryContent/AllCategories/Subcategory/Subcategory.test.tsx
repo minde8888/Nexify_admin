@@ -2,11 +2,12 @@
 import { render, screen, fireEvent } from '@testing-library/react';
 import '@testing-library/jest-dom';
 import Subcategory from './Subcategory';
+import { SubcategoryResponse } from '../../../../types/category';
 
 describe('Subcategory', () => {
     const mockSubcategory = {
         id: '1',
-        categoryName: 'Test Subcategory',
+        title: 'Test Subcategory',
         description: 'This is a test description.',
         imageSrc: 'defaultImage',
         dateCreated: 'This is a test dateCreated'
@@ -15,7 +16,7 @@ describe('Subcategory', () => {
     const setup = async () => {
         const mockOnRemove = jest.fn();
         const mockOnEdit = jest.fn();
-        const utils = render(<Subcategory subcategory={mockSubcategory} onRemove={mockOnRemove} onEdit={mockOnEdit} />);
+        const utils = render(<Subcategory subcategory={mockSubcategory as unknown as SubcategoryResponse} onRemove={mockOnRemove} onEdit={mockOnEdit} />);
         return {
             ...utils,
             mockOnRemove,
@@ -26,9 +27,9 @@ describe('Subcategory', () => {
     test('renders subcategory information correctly', async () => {
         await setup();
 
-        expect(screen.getByText(mockSubcategory.categoryName)).toBeInTheDocument();
+        expect(screen.getByText(mockSubcategory.title)).toBeInTheDocument();
         expect(screen.getByText(/This is a test description/i)).toBeInTheDocument();
-        expect(screen.getByAltText(mockSubcategory.categoryName)).toHaveAttribute('src', expect.stringContaining('defaultImage'));
+        expect(screen.getByAltText(mockSubcategory.title)).toHaveAttribute('src', expect.stringContaining('defaultImage'));
     });
 
     test('triggers onEdit when edit button is clicked', async () => {

@@ -23,7 +23,7 @@ describe('PostContext', () => {
         title: 'Test Post',
         content: 'This is a test post content.',
         imageName: 'test-image.jpg',
-        categories: [{ id: '1', categoryName: 'Test Category' }],
+        categories: [{ id: '1', title: 'Test Category' }],
     };
 
     const setup = async () => {

@@ -78,7 +78,10 @@ const EditCategoryProperty: FunctionComponent<EditCategoryPropertyProps> =
           />
         </div>
         <div className={styles.icons}>
-          <UploadImage setImagePreviewUrl={setImagePreviewUrl} handleAddImage={handleAddImage} />
+          <UploadImage
+            setImagePreviewUrl={setImagePreviewUrl}
+            handleAddImage={handleAddImage}
+          />
         </div>
         <div className={`${styles.columns} ${styles.content}`}>
           <EnhancedMdxEditorComponent

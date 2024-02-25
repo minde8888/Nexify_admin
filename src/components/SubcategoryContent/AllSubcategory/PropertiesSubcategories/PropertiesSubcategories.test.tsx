@@ -1,11 +1,12 @@
 import { render, fireEvent, screen } from '@testing-library/react';
 import '@testing-library/jest-dom/extend-expect';
 import PropertiesSubcategories from './PropertiesSubcategories';
+import { CategoryResponse } from '../../../../types/category';
 
 const mockCategories = [
     {
         id: '1',
-        categoryName: 'Test Category 1',
+        title: 'Test Category 1',
         description: 'This is a test description. 1',
         imageSrc: '',
         subcategories: [],
@@ -13,7 +14,7 @@ const mockCategories = [
     },
     {
         id: '2',
-        categoryName: 'Test Category 2',
+        title: 'Test Category 2',
         description: 'This is a test description. 2',
         imageSrc: '',
         subcategories: [],
@@ -33,7 +34,7 @@ const mockFormikRef = { current: null };
 
 const setup = async () => {
     const utils = render(<PropertiesSubcategories
-        categories={mockCategories}
+        categories={mockCategories as unknown as CategoryResponse[]}
         toggle={mockToggle}
         setPrefix={mockSetPrefix}
         isOpen={false}
@@ -46,7 +47,6 @@ const setup = async () => {
 
 describe('PropertiesSubcategories', () => {
     beforeEach(() => {
-        // Reset mocks before each test
         mockToggle.mockClear();
         mockSetPrefix.mockClear();
     });
@@ -54,7 +54,6 @@ describe('PropertiesSubcategories', () => {
     test('renders categories and subcategories correctly', async () => {
         await setup();
 
-        // Correcting text to match the mock data
         expect(screen.getByText('Test Category 1')).toBeInTheDocument();
         expect(screen.getByText('Test Category 2')).toBeInTheDocument();
     });
@@ -62,11 +61,7 @@ describe('PropertiesSubcategories', () => {
     test('opens modal with correct id on add new property click', async () => {
         await setup();
 
-        // Assuming your component renders a button to open modal for adding a new property, and it's identifiable by text or testId
-        fireEvent.click(screen.getAllByText('+')[0]); // Make sure this selector matches how you identify the button
+        fireEvent.click(screen.getAllByText('+')[0]); 
         expect(mockToggle).toHaveBeenCalledTimes(1);
-
-        // This part of the test might need adjustment based on how your modal is expected to work.
-        // If you are checking that the modal receives correct props, consider directly testing the modal's behavior in its own test suite.
     });
 });

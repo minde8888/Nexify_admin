@@ -8,7 +8,7 @@ import blogCategoriesReducer, {
   const initialCategories = [
     {
       id: '1',
-      categoryName: 'Tech',
+      title: 'Tech',
       description: 'Technology and Gadgets',
       imageSrc: 'tech.jpg',
       dateCreated: '2022-01-01',
@@ -16,7 +16,7 @@ import blogCategoriesReducer, {
     },
     {
       id: '2',
-      categoryName: 'Lifestyle',
+      title: 'Lifestyle',
       description: 'Living and Wellness',
       imageSrc: 'lifestyle.jpg',
       dateCreated: '2022-02-01',
@@ -44,7 +44,7 @@ import blogCategoriesReducer, {
     test('should handle updatePostCategory', () => {
       const updatedCategory = {
         id: '1',
-        categoryName: 'Technology',
+        title: 'Technology',
         description: 'All about the latest tech',
         imageSrc: 'new-tech.jpg',
       };

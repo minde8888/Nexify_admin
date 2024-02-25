@@ -1,15 +1,15 @@
 import React, { ChangeEvent, useCallback, useState } from 'react';
 import { isValidFileType, isValidFileSize } from '../../utils/validation/ImageFileValidation';
 import { ImageFile } from '../../types/imageFile';
-import remove from '../../assets/svg/closeIcon.svg';
-import upload from '../../assets/svg/uploadIcon.svg';
-import styles from './UploadImage.module.scss';
 import { FileReadError } from '../../errorHandler/fileReadError';
 import CustomFileInput from '../Buttons/CustomFileInput/CustomFileInput';
 import ButtonWithIcon from '../Buttons/ButtonWithIcon/ButtonWithIcon';
 import { compressImage } from '../../utils/helpers/compressImage/compressImage';
 import { dataURLtoFile } from '../../utils/helpers/dataURLtoFile/dataURLtoFile';
 import { DEFAULT_IMAGE_SIZE } from '../../constants/imageConst';
+import remove from '../../assets/svg/closeIcon.svg';
+import upload from '../../assets/svg/uploadIcon.svg';
+import styles from './UploadImage.module.scss';
 
 interface UploadImageProps {
   setImagePreviewUrl: (imagePreviewUrl: string) => void;

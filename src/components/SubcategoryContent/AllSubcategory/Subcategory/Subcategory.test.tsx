@@ -4,15 +4,15 @@ import { SubcategoryResponse } from '../../../../types/category';
 
 describe('Subcategory Component', () => {
     const subcategories: SubcategoryResponse[] = [
-        { id: '1', categoryName: 'Category 1', description: 'description 1', imageSrc: 'imageSrc 1', dateCreated: 'dateCreated 1' },
-        { id: '2', categoryName: 'Category 2', description: 'description 2', imageSrc: 'imageSrc 2', dateCreated: 'dateCreated 2' },
+        { id: '1', title: 'Category 1', description: 'description 1', imageSrc: 'imageSrc 1', dateCreated: 'dateCreated 1' },
+        { id: '2', title: 'Category 2', description: 'description 2', imageSrc: 'imageSrc 2', dateCreated: 'dateCreated 2' },
     ];
 
     test('renders subcategories correctly', () => {
         render(<Subcategory subcategories={subcategories} />);
 
         subcategories.forEach((subcategory) => {
-            const categoryNameElement = screen.getByText(subcategory.categoryName);
+            const categoryNameElement = screen.getByText(subcategory.title);
             expect(categoryNameElement).toBeInTheDocument();
         });
     });

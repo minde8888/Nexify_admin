@@ -11,7 +11,7 @@ const Subcategory: FunctionComponent<SubcategoryPropertiesProps> =
         <>
             {subcategories?.map((subcategory) => (
                 <div key={subcategory.id} className={styles.subcategory}>
-                    <div>{subcategory.categoryName}</div>
+                    <div>{subcategory.title}</div>
                 </div>
             ))}
         </>

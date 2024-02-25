@@ -5,8 +5,7 @@ import defaultImage from "../../../../assets/svg/gallery_image_photo_photography
 import { SubcategoryResponse } from "../../../../types/category";
 import CustomButton from "../../../Buttons/CustomButton/CustomButton";
 import MDXToHTMLConverter from "../../../MDXToHTMLConverter/MDXToHTMLConverter";
-import styles from '../allCategories.module.scss';
-
+import styles from '../../../../styles/allCategories.module.scss';
 
 interface SubcategoryProps {
     subcategory: SubcategoryResponse;
@@ -16,11 +15,11 @@ interface SubcategoryProps {
 
 const Subcategory: FunctionComponent<SubcategoryProps> = ({ subcategory, onRemove, onEdit }) => (
     <div key={subcategory.id} className={styles.subcategoryRow}>
-        <div className={styles.title}>{subcategory.categoryName}</div>
+        <div className={styles.title}>{subcategory.title}</div>
         <div className={styles.description}>
                 {subcategory.description && <MDXToHTMLConverter mdxString={subcategory.description} />}
             </div>
-        <img className={styles.imagesContainer} src={subcategory.imageSrc ? subcategory.imageSrc : defaultImage} alt={subcategory.categoryName} />
+        <img className={styles.imagesContainer} src={subcategory.imageSrc ? subcategory.imageSrc : defaultImage} alt={subcategory.title} />
         <div className={styles.buttons}>
             <ButtonWithIcon icon={editIcon} altText="Edit" onClick={() => onEdit(subcategory.id)} style={{ margin: '0' }} id={""} />
             <CustomButton onClick={() => onRemove(subcategory.id)} style={styles.removeButton} symbol={'-'} id={""}/>

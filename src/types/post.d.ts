@@ -11,5 +11,5 @@ export interface Post {
 
 interface Categories {
     id: any;
-    categoryName: string;
+    title: string;
 }

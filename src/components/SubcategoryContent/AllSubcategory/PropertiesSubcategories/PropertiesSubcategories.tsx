@@ -34,7 +34,7 @@ const PropertiesSubcategories: FunctionComponent<PropertiesSubcategoriesProps> =
                 {categories?.map((category, index) => (
                     <div key={category.id || index} className={styles.container}>
                         <div className={styles.category}>
-                            {category.categoryName}
+                            {category.title}
                         </div>
 
                         <Subcategory

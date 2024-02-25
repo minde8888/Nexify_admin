@@ -136,14 +136,14 @@ const EditProductProperty: FunctionComponent<EditProductPropertyProps> = ({
                         <Fragment>
                             <CheckboxField
                                 name={category.id}
-                                label={category.categoryName}
+                                label={category.title}
                                 className={styles.checkbox}
                             />
                             {category.subcategories?.map((subcategory) => (
                                 <div key={subcategory.id} className={styles.subcategories}>
                                     <CheckboxField
                                         name={subcategory.id}
-                                        label={subcategory.categoryName}
+                                        label={subcategory.title}
                                         className={styles.checkbox}
                                     />
                                 </div>

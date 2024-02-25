@@ -2,6 +2,7 @@ import React from 'react';
 import { render, screen } from '@testing-library/react';
 import AddProductContent from './AddProductContent';
 import { CategoryCheckboxProvider } from '../../../context/checkboxProvider';
+import { CategoryResponse } from '../../../types/category';
 
 jest.mock('../../../hooks/useFormikValues', () => ({
     __esModule: true,
@@ -40,18 +41,18 @@ describe('AddProductContent', () => {
   const categories = [
     {
       id: '1',
-      categoryName: 'Category 1',
+      title: 'Category 1',
       description: 'Description 1',
       imageSrc: 'image1.jpg',
       dateCreated: '2022-01-01',
       subcategories: [
-        { id: '2', categoryName: 'Subcategory 1', description: 'Subdesc 1', imageSrc: 'subimage1.jpg', dateCreated: '2022-01-02' },
-        { id: '3', categoryName: 'Subcategory 2', description: 'Subdesc 2', imageSrc: 'subimage2.jpg', dateCreated: '2022-01-03' },
+        { id: '2', title: 'Subcategory 1', description: 'Subdesc 1', imageSrc: 'subimage1.jpg', dateCreated: '2022-01-02' },
+        { id: '3', title: 'Subcategory 2', description: 'Subdesc 2', imageSrc: 'subimage2.jpg', dateCreated: '2022-01-03' },
       ],
     },
     {
       id: '4',
-      categoryName: 'Category 2',
+      title: 'Category 2',
       description: 'Description 2',
       imageSrc: 'image2.jpg',
       dateCreated: '2022-01-04',
@@ -77,7 +78,7 @@ describe('AddProductContent', () => {
           content=""
           resetImages={false}
           setResetImages={setResetImages}
-          categories={categories}
+          categories={categories as unknown as CategoryResponse[]}
           checkedCategories={checkedCategories}
           componentKey={componentKey}
           lastRequestStatus={lastRequestStatus}

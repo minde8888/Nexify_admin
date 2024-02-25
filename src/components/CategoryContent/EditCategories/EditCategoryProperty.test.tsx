@@ -1,6 +1,7 @@
 import { render, screen, fireEvent, waitFor } from '@testing-library/react';
 import '@testing-library/jest-dom/extend-expect';
 import EditCategoryProperty from './EditCategoryProperty';
+import { CategoryResponse } from '../../../types/category';
 
 jest.mock('../../../hooks/useFormikValues', () => ({
   __esModule: true,
@@ -51,7 +52,7 @@ describe('EditCategoryProperty', () => {
   });
 
   const setup = async () => {
-    const utils = render(<EditCategoryProperty isCategory={true} category={mockCategory} categoryName="Test Category" disabled={false} />);
+    const utils = render(<EditCategoryProperty isCategory={true} category={mockCategory as unknown as CategoryResponse} categoryName="Test Category" disabled={false} />);
     return {
       ...utils
     };

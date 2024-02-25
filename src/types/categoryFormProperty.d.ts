@@ -1,6 +1,6 @@
 interface CategoryFormProperty {
     id: string;
-    categoryName?: string;
+    title?: string;
     description?: string;
     imageName?: string;
     image?: ImageFile[];

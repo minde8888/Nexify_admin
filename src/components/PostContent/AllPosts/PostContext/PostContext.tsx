@@ -29,7 +29,7 @@ const PostContext: FunctionComponent<PostProps> = ({ post, onRemove, onEdit }) =
             />
             <div className={styles.categories}>
                 <h4>Categories</h4>
-                {post.categories && post.categories.map((category, index) => <div className={styles.category} key={index}>{category.categoryName}</div>)}
+                {post.categories && post.categories.map((category, index) => <div className={styles.category} key={index}>{category.title}</div>)}
             </div>
             <div className={styles.buttons}>
                 <ButtonWithIcon icon={editIcon} altText="Edit" style={{ margin: '0' }} onClick={() => onEdit(post.id)} id={post.id} />

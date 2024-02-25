@@ -9,7 +9,7 @@ const useBlogCategoryData = () => {
     
     const entityId = id?.toString();
     const category = findCategoryById(entityId!, data);
-    const categoryName = category?.categoryName;
+    const categoryName = category?.title;
 
     return {
         entity: category,

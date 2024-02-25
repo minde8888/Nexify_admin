@@ -5,7 +5,7 @@ export interface DataResponse {
 
 export interface Category {
     id?: number | null;
-    categoryName: string;
+    title: string;
     description: string;
     imageNames?: string;
     productsId?: number | null;
@@ -17,7 +17,7 @@ export interface Categories {
 
 export interface SubcategoryResponse {
     id: string;
-    categoryName: string;
+    title: string;
     description: string;
     imageSrc: string;
     dateCreated: string;
@@ -25,7 +25,7 @@ export interface SubcategoryResponse {
 
 export interface CategoryResponse {
     id: string;
-    categoryName: string;
+    title: string;
     description: string;
     imageSrc: string;
     dateCreated: string;

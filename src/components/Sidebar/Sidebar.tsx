@@ -178,9 +178,9 @@ const Sidebar: FunctionComponent<SidebarProps> = () => {
                                         </NavLink>
                                     </li>
                                     <li>
-                                        <NavLink to={'/all-attributes'}>
+                                        <NavLink to={'/add-attributes-images'}>
                                             <i className="ion-ios-alarm-outline"></i>
-                                            All Attributes
+                                            Add Attributes Images
                                         </NavLink>
                                     </li>
                                 </ul>

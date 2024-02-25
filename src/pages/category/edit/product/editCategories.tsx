@@ -25,7 +25,7 @@ const EditCategories = () => {
 
     const initialCategoryFormProperty: CategoryFormProperty = {
         id: '',
-        categoryName: '',
+        title: '',
         description: '',
         imageName: '',
         image: [],
