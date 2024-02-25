@@ -1,3 +1,4 @@
+import { Attributes } from '../../../types/attributes';
 import CategoryFormProperty from '../../../types/categoryFormProperty';
 
 const appendFormData = (formData: FormData, key: string, value?: string): void => {
@@ -17,7 +18,12 @@ export const processCategory = (formData: FormData, category: CategoryFormProper
 
     (category.properties ?? []).forEach((subcategory, subcategoryIndex) => {
         const subcategoryDtoKey = `${categoryDtoKey}.subcategories[${subcategoryIndex}]`;
-
         appendFormData(formData, `${subcategoryDtoKey}.categoryName`, subcategory['']);
     });
+};
+
+export const processAttribute = (formData: FormData, attribute: Attributes, index: number): void => {
+    const categoryDtoKey = `attributes[${index}]`;
+    appendFormData(formData, `${categoryDtoKey}.attributeName`, attribute['']);
+ 
 };

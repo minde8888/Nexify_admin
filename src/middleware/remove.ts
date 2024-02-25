@@ -4,7 +4,7 @@ import { removeCategory, removeSubcategory } from '../redux/slice/categoriesSlic
 import { handleDeleteRequest } from '../api/handleAPI';
 import { UrlError } from '../errorHandler/urlError';
 import { removePost } from '../redux/slice/postsSlice/postsSlice';
-import { removePostCategory } from '../redux/slice/blogCategories/blogCategoriesSlice';
+import { removePostCategory } from '../redux/slice/blogCategoriesSlice/blogCategoriesSlice';
 import { VariableNotExistError } from '../errorHandler/variableNotExistError';
 
 interface DeleteProps {

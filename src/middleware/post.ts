@@ -3,9 +3,10 @@ import { UrlError } from '../errorHandler/urlError';
 import { ATTRIBUTES_URL, BLOG_CATEGORIES_URL, BLOG_URL, CATEGORIES_URL, PRODUCT_URL, SUBCATEGORIES_URL } from '../constants/apiConst';
 import { requestCategoryStatus } from '../redux/slice/categoriesSlice/categoriesSlice';
 import { handlePostRequest } from '../api/handleAPI';
-import { requestBlogCategoryStatus } from '../redux/slice/blogCategories/blogCategoriesSlice';
+import { requestBlogCategoryStatus } from '../redux/slice/blogCategoriesSlice/blogCategoriesSlice';
 import { requestBlogStatus } from '../redux/slice/postsSlice/postsSlice';
 import { requestProductsStatus } from '../redux/slice/productsSlice/productsSlice';
+import { requestAttributesStatus } from '../redux/slice/attributesSlice/attributesSlice';
 
 interface PostProps {
     dispatch: Dispatch<AnyAction>;
@@ -18,6 +19,9 @@ interface PostOperation {
 }
 
 const categoryPostOperation: PostOperation = async (dispatch, url, formData) => {
+    if (formData) {
+        console.log(Object.fromEntries(formData), 'post', url);
+    }
     const response = await handlePostRequest(url, formData);
     dispatch(requestCategoryStatus(response === 200));
 };
@@ -49,8 +53,8 @@ const attributesPostOperation: PostOperation = async (dispatch, url, formData) =
     if (formData) {
         console.log(Object.fromEntries(formData), 'post', url);
     }
-    // const response = await handlePostRequest(url, formData);
-    // dispatch(requestBlogStatus(response === 200));
+    const response = await handlePostRequest(url, formData);
+    dispatch(requestAttributesStatus(response === 200));
 };
 
 export const post = async ({ dispatch, formData, url }: PostProps) => {

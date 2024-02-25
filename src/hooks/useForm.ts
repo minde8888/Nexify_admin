@@ -2,18 +2,19 @@ import { useCallback, useState } from 'react';
 import { useDispatch } from 'react-redux';
 import { UseFormError } from '../errorHandler/useFormError';
 import CategoryFormProperty from '../types/categoryFormProperty';
-import { processCategory } from '../utils/helpers/processCategory/processCategory';
+import { processAttribute, processCategory } from '../utils/helpers/processCategory/processCategory';
 import { createFormData } from '../utils/helpers/createFormData/createFormData';
 import { postAction, putAction } from '../redux/actions/actions';
+import { Attributes } from '../types/attributes';
 
 type MethodHandler<T> = (formData: FormData, values: T) => Promise<void>;
 
 const postHandler: MethodHandler<any> = async (formData, values) => {
-    
-    const categoryList = values.properties || [];
-    if (categoryList.length !== 0) {
-        await Promise.all(categoryList.map((category: CategoryFormProperty, categoryIndex: number) => 
-        processCategory(formData, category, categoryIndex, values.categoryId)));
+    const list = values.properties || [];
+    if (Object.keys(values).includes('categoryName')) {
+        await Promise.all(list.map((category: CategoryFormProperty, categoryIndex: number) => processCategory(formData, category, categoryIndex, values.categoryId)));
+    } else if (Object.keys(values).includes('attributeName')) {
+        await Promise.all(list.map((data: Attributes, categoryIndex: number) => processAttribute(formData, data, categoryIndex)));
     } else {
         createFormData(values, formData);
     }
@@ -29,7 +30,6 @@ function useForm<T>(method: string, url: string) {
 
     const handleSubmit = useCallback(
         async (values: T, { resetForm }: { resetForm: () => void }) => {
-
             const formData = new FormData();
             const handler = method === 'post' ? postHandler : putHandler;
 

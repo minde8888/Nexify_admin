@@ -1,9 +1,10 @@
 import { combineReducers } from 'redux';
 import authSlice from '../slice/authSlice/authSlice';
 import categoriesSlice from '../slice/categoriesSlice/categoriesSlice';
-import blogCategoriesSlice from '../slice/blogCategories/blogCategoriesSlice';
+import blogCategoriesSlice from '../slice/blogCategoriesSlice/blogCategoriesSlice';
 import postsSlice from '../slice/postsSlice/postsSlice';
 import productsSlice from '../slice/productsSlice/productsSlice';
+import attributesSlice from '../slice/attributesSlice/attributesSlice';
 
 const rootReducer = combineReducers({
     auth: authSlice,
@@ -11,6 +12,7 @@ const rootReducer = combineReducers({
     blogCategories: blogCategoriesSlice,
     posts: postsSlice,
     products: productsSlice,
+    attributes: attributesSlice
 });
 
 export default rootReducer;
