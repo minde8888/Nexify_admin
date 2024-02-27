@@ -1,4 +1,5 @@
-import { processCategory } from "./processCategory";
+import { Attributes } from "../../../types/attributes";
+import { processAttribute, processCategory } from "./processData";
 
 
 describe('processCategory', () => {
@@ -6,7 +7,7 @@ describe('processCategory', () => {
 
   beforeEach(() => {
     formData = new FormData();
-    formData.append = jest.fn(); // Mock the append function
+    formData.append = jest.fn(); 
   });
 
   test('appends basic category data correctly', () => {
@@ -45,5 +46,19 @@ describe('processCategory', () => {
 
     expect(formData.append).toHaveBeenCalledWith('categories[2].categoryId', 'optionalId');
     expect(formData.append).toHaveBeenCalledWith('categories[2].categoryName', 'Category with Optional');
+  });
+
+  test('handles multiple attributes correctly', () => {
+    const attributes: Attributes[] = [
+      { '': 'Attribute Name 1', attributeName: '', imageDescription: 'Description 1' }, 
+      { '': 'Attribute Name 2', attributeName: '', imageDescription: 'Description 2' }
+    ];
+    
+    attributes.forEach((attribute, index) => {
+      processAttribute(formData, attribute, index);
+    });
+
+    expect(formData.append).toHaveBeenCalledWith('attributes[0].attributeName', 'Attribute Name 1');
+    expect(formData.append).toHaveBeenCalledWith('attributes[1].attributeName', 'Attribute Name 2');
   });
 });

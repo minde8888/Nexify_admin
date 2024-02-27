@@ -28,6 +28,7 @@ export const ALL_PRODUCT_POSTS_URL = '/all-product';
 export const EDIT_PRODUCT_URL = '/edit-product/';
 
 export const ATTRIBUTES_URL = 'attribute';
+export const EDIT_ATTRIBUTES_URL = '/edit-attribute/'
 
 export const POST_METHOD = 'post';
 export const PUT_METHOD = 'put';

@@ -2,7 +2,7 @@ import { useCallback, useState } from 'react';
 import { useDispatch } from 'react-redux';
 import { UseFormError } from '../errorHandler/useFormError';
 import CategoryFormProperty from '../types/categoryFormProperty';
-import { processAttribute, processCategory } from '../utils/helpers/processCategory/processCategory';
+import { processAttribute, processCategory } from '../utils/helpers/processCategory/processData';
 import { createFormData } from '../utils/helpers/createFormData/createFormData';
 import { postAction, putAction } from '../redux/actions/actions';
 import { Attributes } from '../types/attributes';
@@ -64,7 +64,3 @@ function useForm<T>(method: string, url: string) {
 }
 
 export default useForm;
-
-export function handleSubmit(handleSubmit: any) {
-    throw new Error('Function not implemented.');
-}

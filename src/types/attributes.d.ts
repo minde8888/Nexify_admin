@@ -1,7 +1,7 @@
 export interface Attributes {
-    id?: number | null;
+    id?: number | string;
     attributeName: string;
     imageDescription: string;
     imagesNames?: string;
-    "":""
+    "": string;
 }

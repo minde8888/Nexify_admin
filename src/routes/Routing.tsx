@@ -18,6 +18,7 @@ import AllPost from '../pages/blog/all/allPosts';
 import AllProducts from '../pages/product/all/allProducts';
 import EditProduct from '../pages/product/edit/editProduct';
 import AddAttributes from '../pages/attributes/add/addAttributes';
+import AllAttributes from '../pages/attributes/all/allAttributes';
 
 const Routing = (): JSX.Element => {
     return (
@@ -47,7 +48,7 @@ const Routing = (): JSX.Element => {
                         <Route path="/edit-post-categories/:id" element={<EditBlogCategories />} />
 
                         <Route path="/add-attributes" element={<AddAttributes />} />
-                        <Route path="/all-attributes" element={<AddAttributes />} />
+                        <Route path="/all-attributes" element={<AllAttributes />} />
                         <Route path="/edit-attributes/:id" element={<AddAttributes />} />
                     </Route>
                 </Routes>
