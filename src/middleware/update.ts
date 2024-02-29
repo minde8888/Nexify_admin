@@ -1,11 +1,12 @@
 import { AnyAction, Dispatch } from '@reduxjs/toolkit';
 import { requestCategoryStatus } from '../redux/slice/categoriesSlice/categoriesSlice';
-import { BLOG_CATEGORY_UPDATE_URL, BLOG_UPDATE_URL, CATEGORY_UPDATE_URL, PRODUCT_UPDATE_URL, SUBCATEGORY_UPDATE_URL } from '../constants/apiConst';
+import { ATTRIBUTES_UPDATE_URL, BLOG_CATEGORY_UPDATE_URL, BLOG_UPDATE_URL, CATEGORY_UPDATE_URL, PRODUCT_UPDATE_URL, SUBCATEGORY_UPDATE_URL } from '../constants/apiConst';
 import { handlePutRequest } from '../api/handleAPI';
 import { requestBlogCategoryStatus } from '../redux/slice/blogCategoriesSlice/blogCategoriesSlice';
 import { UrlError } from '../errorHandler/urlError';
 import { requestBlogStatus } from '../redux/slice/postsSlice/postsSlice';
 import { requestProductsStatus } from '../redux/slice/productsSlice/productsSlice';
+import { requestAttributesStatus } from '../redux/slice/attributesSlice/attributesSlice';
 
 interface UpdateProps {
     dispatch: Dispatch<AnyAction>;
@@ -33,21 +34,30 @@ const updateBlog = async (dispatch: Dispatch<AnyAction>, url: string, formData: 
 };
 
 const updateProduct = async (dispatch: Dispatch<AnyAction>, url: string, formData: FormData) => {
-    // if (formData) {
-    //     console.log(Object.fromEntries(formData), 'post', url );
-    // }
     dispatch(requestProductsStatus(false));
     const response = await handlePutRequest(url, formData);
     dispatch(requestProductsStatus(response === 200));
 };
 
+const updateAttribute = async (dispatch: Dispatch<AnyAction>, url: string, formData: FormData) => {
+    if (formData) {
+        console.log(Object.fromEntries(formData), 'post', url);
+    }
+    dispatch(requestAttributesStatus(false));
+    const response = await handlePutRequest(url, formData);
+    dispatch(requestAttributesStatus(response === 200));
+};
+
 export const update = async ({ dispatch, url, formData }: UpdateProps) => {
+    console.log(url);
+    
     const actionMap: { [key: string]: (dispatch: Dispatch<AnyAction>, url: string, formData: FormData) => Promise<void> } = {
         [CATEGORY_UPDATE_URL]: updateCategory,
         [SUBCATEGORY_UPDATE_URL]: updateCategory,
         [BLOG_CATEGORY_UPDATE_URL]: updateBlogCategory,
         [BLOG_UPDATE_URL]: updateBlog,
         [PRODUCT_UPDATE_URL]: updateProduct,
+        [ATTRIBUTES_UPDATE_URL]: updateAttribute
     };
 
     const actionFunction = actionMap[url];

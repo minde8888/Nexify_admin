@@ -10,7 +10,7 @@ import CategoryFormProperty from '../../../types/categoryFormProperty';
 import { removePartFromUrl } from '../../../utils/helpers/removePartFromUrl/removePartFromUrl';
 import { UrlToImages } from '../../../constants/imageConst';
 import { isValidBase64Image } from '../../../utils/validation/isValidBase64Image';
-import styles from './editCategories.module.scss';
+import styles from '../../../styles/editIcons.module.scss';
 
 interface CustomFormValues {
   categoryName: string;

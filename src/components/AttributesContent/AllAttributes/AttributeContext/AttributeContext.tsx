@@ -19,7 +19,7 @@ const AttributeContext: FunctionComponent<PostProps> = ({ attribute, onRemove, o
             <h1 className={styles.title}>{attribute.attributeName}</h1>
             <LazyLoadImage
                 className={styles.imagesContainer}
-                src={attribute.imagesNames ?? defaultImage}
+                src={attribute.imageName ?? defaultImage}
                 alt={attribute.attributeName}
                 effect="blur"
             />

@@ -1,56 +1,46 @@
 import { createSlice, PayloadAction } from '@reduxjs/toolkit';
-import { Attributes } from 'react';
 
-interface CategoriesState {
-    data: Attributes;
+interface Attribute {
+    id: string;
+    name: string;
+}
+
+interface AttributesState {
+    data: Attribute[];
     lastRequestStatus: boolean | null;
 }
 
-const initialState: CategoriesState = {
-    data: {},
+const initialState: AttributesState = {
+    data: [],
     lastRequestStatus: null
 };
 
 const attributesSlice = createSlice({
-    name: 'attributesSlice',
+    name: 'attributes',
     initialState,
-
     reducers: {
-        getAttributes: (state, action: PayloadAction<Attributes>) => {
+        getAttributes: (state, action: PayloadAction<Attribute[]>) => {
             state.data = action.payload;
-            state.lastRequestStatus = null;
-            return state;
         },
 
-        // updatePostCategory: (state, action: PayloadAction<Attributes>) => {
-        //     state.lastRequestStatus = false;
-        //     const updatedCategory = action.payload;
+        updateAttribute: (state, action: PayloadAction<Attribute>) => {
+            const index = state.data.findIndex(attr => attr.id === action.payload.id);
+            if (index !== -1) {
+                state.data[index] = action.payload;
+            }
+            state.lastRequestStatus = true; 
+        },
 
-        //     const categoryIndex = findIndexById(state.data, updatedCategory.id, 'id');
-        //     if (categoryIndex !== -1) {
-        //         state.data[categoryIndex] = { ...state.data[categoryIndex], ...updatedCategory };
-        //         return state;
-        //     }
-        //     return state;
-        // },
-
-        // removePostCategory: (state, action: PayloadAction<string>) => {
-        //     const categoryId = action.payload;
-        //     const categoryIndex = findIndexById(state.data, categoryId, 'id');
-        //     if (categoryIndex !== -1) {
-        //         state.data.splice(categoryIndex, 1);
-        //         return state;
-        //     }
-        //     return state;
-        // },
+        removeAttributeCategory: (state, action: PayloadAction<string>) => {
+            state.data = state.data.filter(attr => attr.id !== action.payload);
+        },
 
         requestAttributesStatus: (state, action: PayloadAction<boolean>) => {
             state.lastRequestStatus = action.payload;
-            return state;
         }
     }
 });
 
-export const { getAttributes, requestAttributesStatus } = attributesSlice.actions;
+export const { getAttributes, updateAttribute, removeAttributeCategory, requestAttributesStatus } = attributesSlice.actions;
 
 export default attributesSlice.reducer;

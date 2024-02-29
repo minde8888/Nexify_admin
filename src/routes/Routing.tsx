@@ -19,6 +19,7 @@ import AllProducts from '../pages/product/all/allProducts';
 import EditProduct from '../pages/product/edit/editProduct';
 import AddAttributes from '../pages/attributes/add/addAttributes';
 import AllAttributes from '../pages/attributes/all/allAttributes';
+import EditAttributes from '../pages/attributes/edit/editAttributes';
 
 const Routing = (): JSX.Element => {
     return (
@@ -49,7 +50,7 @@ const Routing = (): JSX.Element => {
 
                         <Route path="/add-attributes" element={<AddAttributes />} />
                         <Route path="/all-attributes" element={<AllAttributes />} />
-                        <Route path="/edit-attributes/:id" element={<AddAttributes />} />
+                        <Route path="/edit-attribute/:id" element={<EditAttributes />} />
                     </Route>
                 </Routes>
             </Suspense>
