@@ -22,6 +22,9 @@ const updateCategory = async (dispatch: Dispatch<AnyAction>, url: string, formDa
 };
 
 const updateBlogCategory = async (dispatch: Dispatch<AnyAction>, url: string, formData: FormData) => {
+    // if (formData) {
+    //     console.log(Object.fromEntries(formData), 'post', url);
+    // }
     dispatch(requestBlogCategoryStatus(false));
     const response = await handlePutRequest(url, formData);
     dispatch(requestBlogCategoryStatus(response === 200));
@@ -49,7 +52,6 @@ const updateAttribute = async (dispatch: Dispatch<AnyAction>, url: string, formD
 };
 
 export const update = async ({ dispatch, url, formData }: UpdateProps) => {
-    console.log(url);
     
     const actionMap: { [key: string]: (dispatch: Dispatch<AnyAction>, url: string, formData: FormData) => Promise<void> } = {
         [CATEGORY_UPDATE_URL]: updateCategory,

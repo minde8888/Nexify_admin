@@ -1,11 +1,11 @@
 import { FunctionComponent, useCallback } from 'react';
-import styles from '../../../../styles/allPost.module.scss'
 import { Attributes } from '../../../../types/attributes';
 import { useNavigate } from 'react-router-dom';
 import { useAppDispatch } from '../../../../redux/store';
 import { EDIT_ATTRIBUTES_URL } from '../../../../constants/apiConst';
 import { deleteAction } from '../../../../redux/actions/actions';
 import AttributeContext from '../AttributeContext/AttributeContext';
+import styles from '../../../../styles/allPost.module.scss'
 
 interface AllAttributesPropertyProps {
     attributes: Attributes[];

@@ -11,11 +11,6 @@ const useProductCategoryData = () => {
     const { data, lastRequestStatus } = useAppSelector((state) => state.data.categories);
     const { fetchData } = useFetchData(CATEGORIES_URL);
 
-    // const entityId = id?.toString();
-    // const category = findCategoryById(entityId!, data);
-    // const subcategory = findSubcategoryById(entityId!, data);
-    // const categoryName = category?.categoryName || subcategory?.categoryName;
-
     const productArray: Product[] = productData.products ?? [];
 
     const product: Product | null = productArray.find((p) => p.id === id) || null;
@@ -28,11 +23,7 @@ const useProductCategoryData = () => {
         return [...categoryIds, ...subcategoryIds];
     }) || [];
 
-    // console.log(checkedCategoryIds);
     return {
-        // entity: category || subcategory,
-        // isCategory: !!category,
-        // categoryName,
         lastRequestStatus,
         title,
         content,

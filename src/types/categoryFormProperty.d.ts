@@ -1,9 +1,9 @@
 interface CategoryFormProperty {
     id: string;
-    title?: string;
+    categoryName?: string;
     description?: string;
     imageName?: string;
-    image?: ImageFile[];
+    images?: ImageFile[];
     properties?: DynamicFormProperty[];
     ''?: string;
     imageSrc?: string;

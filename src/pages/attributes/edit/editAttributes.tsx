@@ -11,12 +11,11 @@ import validationSchema from "../../../utils/validation/addAttributesValidations
 interface FormikProps {
     id: number | string;
     attributeName: string;
-    imageDescription: string;
     imageName?: string;
 }
 
 const EditAttributes = () => {
-    const { entity,
+    const {
         attributeName,
         imageName,
         id,
@@ -32,12 +31,9 @@ const EditAttributes = () => {
         }
     }, [lastRequestStatus, navigate]);
 
-    if (!entity) return null;
-
     const initialAttributesFormProperty: FormikProps = {
         id: '',
         attributeName: '',
-        imageDescription: '',
         imageName: ''
     };
 

@@ -4,8 +4,8 @@ import editIcon from "../../../../assets/svg/edit document_edit file_edited_edit
 import defaultImage from "../../../../assets/svg/gallery_image_photo_photography_picture_icon.svg";
 import CustomButton from "../../../Buttons/CustomButton/CustomButton";
 import { LazyLoadImage } from "react-lazy-load-image-component";
-import styles from '../../../../styles/allPost.module.scss';
 import { Attributes } from "../../../../types/attributes";
+import styles from '../../../../styles/allPost.module.scss';
 
 interface PostProps {
     attribute: Attributes;

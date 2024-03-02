@@ -7,7 +7,7 @@ jest.mock('../../../hooks/useFormikValues', () => ({
   __esModule: true,
   default: () => ({
     addNewValue: jest.fn(),
-    values: { categoryName: '', description: '', imageSrc: '' },
+    values: { title: '', description: '', imageSrc: '' },
   }),
 }));
 
@@ -40,7 +40,7 @@ jest.mock('../../InputFields/TextInputField', () => ({
 describe('EditCategoryProperty', () => {
   const mockCategory = {
     id: '1',
-    categoryName: 'Test Category',
+    title: 'Test Category',
     description: 'Test Description',
     imageSrc: 'imageSrc',
     dateCreated: 'Test DateCreated',

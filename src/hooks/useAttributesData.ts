@@ -12,7 +12,6 @@ const useAttributeData = () => {
     const {attributeName,  imageName} = attribute;
 
     return {
-        entity: attribute,
         lastRequestStatus,
         attributeName, 
         imageName,

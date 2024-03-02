@@ -39,8 +39,8 @@ describe('ComponentProperty', () => {
     };
 
     const categories = [
-        { id: '1', categoryName: 'Category 1', description: 'Description 1', imageSrc: '', dateCreated: '2021-01-01T00:00:00Z', subcategories: [] },
-        { id: '2', categoryName: 'Category 2', description: 'Description 2', imageSrc: '', dateCreated: '2021-02-01T00:00:00Z', subcategories: [] },
+        { id: '1', title: 'Category 1', description: 'Description 1', imageSrc: '', dateCreated: '2021-01-01T00:00:00Z', subcategories: [] },
+        { id: '2', title: 'Category 2', description: 'Description 2', imageSrc: '', dateCreated: '2021-02-01T00:00:00Z', subcategories: [] },
     ];
 
     const setup = async () => {

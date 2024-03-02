@@ -1,6 +1,6 @@
 import { useEffect } from 'react';
 import { useAppSelector } from '../../../../hooks/useRedux';
-import { CATEGORIES_URL } from '../../../../constants/apiConst';
+import { CATEGORIES_URL, EDIT_CATEGORY_URL } from '../../../../constants/apiConst';
 import Preloader from '../../../preloader/preloader';
 import useFetchData from '../../../../hooks/useDataFetching';
 import sortByProperty from '../../../../utils/helpers/sortByProperty/sortByProperty';
@@ -39,10 +39,11 @@ const AllCategories = () => {
 
     return (
         <Preloader isLoading={loading}>
-            <h2>Edit/Remove Products Categories</h2>
+            <h2>All Products Categories</h2>
             <ComponentProperty
                 data={updatedSortedCategories as unknown as DataType[]}
                 URL={CATEGORIES_URL}
+                EDIT_URL={EDIT_CATEGORY_URL}
             />
         </Preloader>
     );

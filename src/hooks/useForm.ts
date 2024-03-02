@@ -11,7 +11,8 @@ type MethodHandler<T> = (formData: FormData, values: T) => Promise<void>;
 
 const postHandler: MethodHandler<any> = async (formData, values) => {
     const list = values.properties || [];
-    if (Object.keys(values).includes('categoryName')) {
+    
+    if (Object.keys(values).includes('categoryName')) {          
         await Promise.all(list.map((category: CategoryFormProperty, categoryIndex: number) => processCategory(formData, category, categoryIndex, values.categoryId)));
     } else if (Object.keys(values).includes('attributeName')) {
         await Promise.all(list.map((data: Attributes, categoryIndex: number) => processAttribute(formData, data, categoryIndex)));

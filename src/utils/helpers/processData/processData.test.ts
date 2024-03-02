@@ -50,8 +50,8 @@ describe('processCategory', () => {
 
   test('handles multiple attributes correctly', () => {
     const attributes: Attributes[] = [
-      { '': 'Attribute Name 1', attributeName: '', imageName: 'imageName 1' }, 
-      { '': 'Attribute Name 2', attributeName: '', imageName: 'imageName 2' }
+      { '': 'Attribute Name 1', attributeName: '', imageName: 'Description 1' }, 
+      { '': 'Attribute Name 2', attributeName: '', imageName: 'Description 2' }
     ];
     
     attributes.forEach((attribute, index) => {

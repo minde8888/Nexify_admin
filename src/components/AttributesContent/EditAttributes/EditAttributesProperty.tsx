@@ -5,10 +5,13 @@ import PropertyImagePreview from '../../PropertyImagePreview/PropertyImagePrevie
 import useFormikValues from '../../../hooks/useFormikValues';
 import { ImageFile } from '../../../types/imageFile';
 import styles from '../../../styles/editIcons.module.scss';
+import { UrlToImages } from '../../../constants/imageConst';
+import { removePartFromUrl } from '../../../utils/helpers/removePartFromUrl/removePartFromUrl';
 
 interface CustomFormValues {
     id:string;
     attributeName: string;
+    imageName: string;
     image: File;
 }
 
@@ -38,6 +41,7 @@ const EditAttributesForm: FunctionComponent<EditAttributesFormProps> = ({
         const newValues: CustomFormValues = {
             id: id,
             attributeName: attributeName,
+            imageName: removePartFromUrl(imageName, UrlToImages),
             image: file[0] as File
         };
         addNewValue(newValues);

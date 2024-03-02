@@ -20,7 +20,7 @@ interface PostOperation {
 
 const categoryPostOperation: PostOperation = async (dispatch, url, formData) => {
     if (formData) {
-        console.log(Object.fromEntries(formData), 'post', url);
+        console.log(Object.fromEntries(formData), 'post');
     }
     const response = await handlePostRequest(url, formData);
     dispatch(requestCategoryStatus(response === 200));

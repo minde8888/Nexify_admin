@@ -41,7 +41,7 @@ const EditCategoryProperty: FunctionComponent<EditCategoryPropertyProps> =
         ? removePartFromUrl(imagePreviewUrl, UrlToImages)
         : null;
 
-      addNewValue({ ...catValues, imageName, image: file, imageSrc: imagePreviewUrl });
+      addNewValue({ ...catValues, imageName, images: file, imageSrc: imagePreviewUrl });
       // eslint-disable-next-line react-hooks/exhaustive-deps
     }, [catValues, file, imagePreviewUrl]);
 

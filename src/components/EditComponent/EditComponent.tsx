@@ -19,8 +19,8 @@ interface EditProps {
 
 const EditComponent: FunctionComponent<EditProps> = ({ data, onRemove, onEdit }) => (
     <>
-        <div key={data.id} className={styles.dataRow} data-testid={'data-item'}>
-            <div className={styles.dataInfo}>
+        <div key={data.id} className={styles.categoryRow} data-testid={'data-item'}>
+            <div className={styles.categoryInfo}>
                 <div className={styles.title}>{data.title}</div>
                 <div className={styles.description}>
                     {data.description && <MDXToHTMLConverter mdxString={data.description} />}
