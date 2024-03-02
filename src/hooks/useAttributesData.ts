@@ -9,14 +9,14 @@ const useAttributeData = () => {
     const entityId = id?.toString();
     const attribute = Object.values(data).find((item) => item.id === entityId) || { attributeName: '', imageDescription: '', imageName: '' };
 
-    const {attributeName, imageDescription, imageName} = attribute;
+    const {attributeName,  imageName} = attribute;
 
     return {
         entity: attribute,
         lastRequestStatus,
         attributeName, 
-        imageDescription, 
-        imageName
+        imageName,
+        id
     };
 };
 

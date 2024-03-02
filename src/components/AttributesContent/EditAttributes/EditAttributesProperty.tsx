@@ -7,22 +7,22 @@ import { ImageFile } from '../../../types/imageFile';
 import styles from '../../../styles/editIcons.module.scss';
 
 interface CustomFormValues {
-    categoryName: string;
-    description: string;
-    imageSrc: string;
+    id:string;
+    attributeName: string;
+    image: File;
 }
 
 interface EditAttributesFormProps {
     attributeName: string;
-    imageDescription: string;
     imageName: string;
+    id: string;
     disabled: boolean;
 }
 
 const EditAttributesForm: FunctionComponent<EditAttributesFormProps> = ({
     attributeName,
-    imageDescription,
     imageName,
+    id,
     disabled,
 }) => {
     const { addNewValue } = useFormikValues();
@@ -36,13 +36,13 @@ const EditAttributesForm: FunctionComponent<EditAttributesFormProps> = ({
 
     useEffect(() => {
         const newValues: CustomFormValues = {
-            categoryName: attributeName,
-            description: imageDescription,
-            imageSrc: imagePreviewUrl,
+            id: id,
+            attributeName: attributeName,
+            image: file[0] as File
         };
         addNewValue(newValues);
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-    }, [attributeName, imageDescription, imagePreviewUrl]);
+        // eslint-disable-next-line react-hooks/exhaustive-deps
+    }, [attributeName, imagePreviewUrl]);
 
     const handleAddImage = useCallback((newFile: ImageFile[]) => setFile(newFile), []);
 

@@ -6,7 +6,7 @@ const dynamicFormPropertySchema = Yup.object().shape({
 
 const validationSchema = Yup.object().shape({
   id: Yup.string().required('ID is required'),
-  attributeName: Yup.string(), 
+  attributeName: Yup.string().required('Attribute name is required'),
   image: Yup.array()
     .of(
       Yup.object().shape({
@@ -14,7 +14,6 @@ const validationSchema = Yup.object().shape({
         altText: Yup.string(),
       })
     ),
-  imageDescription: Yup.string(),
   properties: Yup.array().of(dynamicFormPropertySchema), 
 });
 

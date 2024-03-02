@@ -1,11 +1,12 @@
 import { useEffect } from "react";
 import { useNavigate } from "react-router-dom";
-import Preloader from "../../preloader/preloader";
+import useForm from "../../../hooks/useForm";
 import { Formik, Form } from 'formik';
 import useAttributeData from "../../../hooks/useAttributesData";
+import Preloader from "../../preloader/preloader";
 import { ALL_ATTRIBUTES_URL, ATTRIBUTES_UPDATE_URL, PUT_METHOD } from "../../../constants/apiConst";
-import useForm from "../../../hooks/useForm";
 import EditAttributesPropertyProps from "../../../components/AttributesContent/EditAttributes/EditAttributesProperty";
+import validationSchema from "../../../utils/validation/addAttributesValidationsSchema";
 
 interface FormikProps {
     id: number | string;
@@ -17,8 +18,8 @@ interface FormikProps {
 const EditAttributes = () => {
     const { entity,
         attributeName,
-        imageDescription,
         imageName,
+        id,
         lastRequestStatus } = useAttributeData();
 
     const { handleSubmit } = useForm<FormikProps>(PUT_METHOD, ATTRIBUTES_UPDATE_URL);
@@ -40,19 +41,20 @@ const EditAttributes = () => {
         imageName: ''
     };
 
+    if (!id) return null;
+
     return (
         <Preloader isLoading={(lastRequestStatus === false)}>
-            <div>11111</div>
             <Formik onSubmit={(values, { resetForm }) => handleSubmit(values, { resetForm })}
                 initialValues={initialAttributesFormProperty}
-            // validationSchema={validationSchema}
+                validationSchema={validationSchema}
             >
                 <Form>
                     <h2>Edit Attribute</h2>
                     <EditAttributesPropertyProps
+                        id={id}
                         attributeName={attributeName}
-                        imageDescription={imageDescription}
-                        imageName= {imageName || ''}
+                        imageName={imageName || ''}
                         disabled={lastRequestStatus === false}
                     />
                 </Form>
