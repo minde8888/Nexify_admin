@@ -13,14 +13,14 @@ const isApiAction = (action: any): action is ApiAction => {
 };
 
 interface ApiOperationHandler {
-    (args: { dispatch: Dispatch<AnyAction>; url: string; formData?: FormData; bool?: boolean; id?: string; payload?: any }): Promise<void>;
+    (args: { dispatch: Dispatch<AnyAction>; url: string; formData?: FormData; id?: string; payload?: any }): Promise<void>;
 }
 
 const postOperation: ApiOperationHandler = async ({ dispatch, url, formData = new FormData() }) => {
     await post({ dispatch, url, formData });
 };
 
-const putOperation: ApiOperationHandler = async ({ dispatch, url, formData = new FormData(), payload }) => {
+const putOperation: ApiOperationHandler = async ({ dispatch, url, formData = new FormData(), payload }) => {    
     await update({ dispatch, payload, url, formData });
 };
 
@@ -29,8 +29,8 @@ const getOperation: ApiOperationHandler = async ({ dispatch, url }) => {
     getAll({ dispatch, payload: values, url });
 };
 
-const deleteOperation: ApiOperationHandler = async ({ dispatch, url, bool, id = '' }) => {
-    await remove({ dispatch, bool, url, id });
+const deleteOperation: ApiOperationHandler = async ({ dispatch, url, id = '' }) => {
+    await remove({ dispatch, url, id });
 };
 
 const methodOperationsMap: { [method: string]: ApiOperationHandler } = {
@@ -46,7 +46,7 @@ const apiMiddleware: Middleware<{}, RootState> =
     async (action) => {
         if (isApiAction(action)) {
             const { api } = action.meta!;
-            const { method, url, formData, bool, id, payload } = api!;
+            const { method, url, formData, id, payload } = api!;
 
             const operationHandler = methodOperationsMap[method];
 
@@ -54,7 +54,7 @@ const apiMiddleware: Middleware<{}, RootState> =
                 throw new MethodError(`Unsupported method: ${method}`);
             }
 
-            await operationHandler({ dispatch, url, formData, bool, id, payload });
+            await operationHandler({ dispatch, url, formData, id, payload });
         }
 
         return next(action);

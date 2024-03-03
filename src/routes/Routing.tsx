@@ -38,7 +38,6 @@ const Routing = (): JSX.Element => {
                         <Route path="/edit-category/:id" element={<EditCategories />} />
 
                         <Route path="/all-subcategories" element={<AllSubcategories />} />
-                        <Route path="/add-subcategories/:id" element={<AllSubcategories />} />
 
                         <Route path="/add-post" element={<AddPost />} />
                         <Route path="/all-post" element={<AllPost />} />

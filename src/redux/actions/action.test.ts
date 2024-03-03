@@ -58,8 +58,7 @@ describe('API Action Creators', () => {
 
   test('deleteAction creates expected action with optional boolean', () => {
     const id = '123';
-    const bool = true;
-    const action = deleteAction(testUrl, id, bool);
+    const action = deleteAction(testUrl, id);
 
     expect(action).toEqual({
       type: DELETE_REQUEST,
@@ -67,8 +66,7 @@ describe('API Action Creators', () => {
         api: {
           method: DELETE_METHOD,
           url: testUrl,
-          id,
-          bool
+          id
         }
       }
     });

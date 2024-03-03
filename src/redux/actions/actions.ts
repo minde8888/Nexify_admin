@@ -20,4 +20,4 @@ export const putAction = (formData: FormData, values: any, url: string) => {
 
 export const getAllAction = (url: string) => createApiAction(GET_ALL_REQUEST, GET_METHOD, url);
 
-export const deleteAction = (url: string, id: string, bool?: boolean) => createApiAction(DELETE_REQUEST, DELETE_METHOD, url,  { id, bool });
+export const deleteAction = (url: string, id: string, bool?: boolean) => createApiAction(DELETE_REQUEST, DELETE_METHOD, url,  { id });

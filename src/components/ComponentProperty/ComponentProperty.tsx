@@ -2,9 +2,10 @@ import { FunctionComponent, useCallback } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { useAppDispatch } from '../../redux/store';
 import { deleteAction } from '../../redux/actions/actions';
-import EditComponent from '../EditComponent/EditComponent';
+import EditComponent from '../CategoryContent/AllCategories/AllCategoriesComponent/AllCategoriesComponent';
 import DataType from '../../types/dataType';
 import styles from '../../styles/allCategories.module.scss';
+import { SUBCATEGORIES_URL } from '../../constants/apiConst';
 
 interface EditPropertyProps<T extends DataType> {
   data?: T[];
@@ -18,7 +19,7 @@ const ComponentProperty: FunctionComponent<EditPropertyProps<DataType>> = ({ dat
 
   const onRemove = useCallback((id: string) => {
     const bool = data?.some((obj) => obj.id === id);
-    dispatch(deleteAction(URL, id, bool))
+    dispatch(deleteAction(bool ? URL : SUBCATEGORIES_URL, id, bool))
   }, [data, dispatch, URL]);
 
   const handleEdit = useCallback((id: string) => {

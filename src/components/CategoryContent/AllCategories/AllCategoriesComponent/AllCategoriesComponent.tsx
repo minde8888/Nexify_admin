@@ -1,29 +1,29 @@
 import { FunctionComponent } from "react";
-import ButtonWithIcon from "../Buttons/ButtonWithIcon/ButtonWithIcon";
-import Subcategories from "../CategoryContent/AllCategories/Subcategories/Subcategories";
-import editIcon from "../../assets/svg/edit document_edit file_edited_editing_icon.svg";
-import defaultImage from "../../assets/svg/gallery_image_photo_photography_picture_icon.svg";
-import CustomButton from "../Buttons/CustomButton/CustomButton";
+import ButtonWithIcon from "../../../Buttons/ButtonWithIcon/ButtonWithIcon";
+import Subcategories from "../Subcategories/Subcategories";
+import editIcon from "../../../../assets/svg/edit document_edit file_edited_editing_icon.svg";
+import defaultImage from "../../../../assets/svg/gallery_image_photo_photography_picture_icon.svg";
+import CustomButton from "../../../Buttons/CustomButton/CustomButton";
 import { LazyLoadImage } from 'react-lazy-load-image-component';
 import 'react-lazy-load-image-component/src/effects/blur.css';
-import MDXToHTMLConverter from "../MDXToHTMLConverter/MDXToHTMLConverter";
-import { SubcategoryResponse } from "../../types/category";
-import DataType from "../../types/dataType";
-import styles from '../../styles/allCategories.module.scss';
+import MDXToHTMLConverter from "../../../MDXToHTMLConverter/MDXToHTMLConverter";
+import { SubcategoryResponse } from "../../../../types/category";
+import DataType from "../../../../types/dataType";
+import styles from '../../../../styles/allCategories.module.scss';
 
-interface EditProps {
+interface AllCategoriesProps {
     data: DataType;
     onRemove: (id: string) => void;
     onEdit: (id: string) => void;
 }
 
-const EditComponent: FunctionComponent<EditProps> = ({ data, onRemove, onEdit }) => (
+const AllCategoriesComponent: FunctionComponent<AllCategoriesProps> = ({ data, onRemove, onEdit }) => (
     <>
         <div key={data.id} className={styles.categoryRow} data-testid={'data-item'}>
             <div className={styles.categoryInfo}>
                 <div className={styles.title}>{data.title}</div>
                 <div className={styles.description}>
-                    {data.description && <MDXToHTMLConverter mdxString={data.description} />}
+                    {data.description && <MDXToHTMLConverter mdxString={data.description === "null" ? "" : data.description} />}
                 </div>
                 <LazyLoadImage
                     className={styles.imagesContainer}
@@ -45,4 +45,4 @@ const EditComponent: FunctionComponent<EditProps> = ({ data, onRemove, onEdit })
     </>
 );
 
-export default EditComponent;
+export default AllCategoriesComponent;

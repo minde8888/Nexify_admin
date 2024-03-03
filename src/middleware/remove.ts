@@ -10,23 +10,22 @@ import { removeAttributeCategory } from '../redux/slice/attributesSlice/attribut
 
 interface DeleteProps {
     dispatch: Dispatch<AnyAction>;
-    bool?: boolean;
     url: string;
     id: string;
 }
 
-export const remove = async ({ dispatch, bool, url, id }: DeleteProps) => {
+export const remove = async ({ dispatch, url, id }: DeleteProps) => {
     if (!id) {
         throw new VariableNotExistError('ID');
     }
-
+    console.log(url);
     const actions = [
-        { url: CATEGORIES_URL, action: bool ? removeCategory : undefined },
-        { url: SUBCATEGORIES_URL, action: !bool ? removeSubcategory : undefined },
+        { url: CATEGORIES_URL, action: removeCategory },
+        { url: SUBCATEGORIES_URL, action: removeSubcategory },
         { url: BLOG_URL, action: removePost },
         { url: BLOG_CATEGORIES_URL, action: removePostCategory },
         { url: PRODUCT_URL, action: removePostCategory },
-        {url: ATTRIBUTES_URL, action: removeAttributeCategory}
+        { url: ATTRIBUTES_URL, action: removeAttributeCategory }
     ].filter((action) => action.action !== undefined);
 
     const actionObj = actions.find((actionObj) => actionObj.url === url);

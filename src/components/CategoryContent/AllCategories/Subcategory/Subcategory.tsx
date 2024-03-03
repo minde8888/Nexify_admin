@@ -17,7 +17,7 @@ const Subcategory: FunctionComponent<SubcategoryProps> = ({ subcategory, onRemov
     <div key={subcategory.id} className={styles.subcategoryRow}>
         <div className={styles.title}>{subcategory.title}</div>
         <div className={styles.description}>
-                {subcategory.description && <MDXToHTMLConverter mdxString={subcategory.description} />}
+                {subcategory.description && <MDXToHTMLConverter mdxString={subcategory.description === "null" ? "" : subcategory.description} />}
             </div>
         <img className={styles.imagesContainer} src={subcategory.imageSrc ? subcategory.imageSrc : defaultImage} alt={subcategory.title} />
         <div className={styles.buttons}>

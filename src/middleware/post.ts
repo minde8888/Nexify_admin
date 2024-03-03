@@ -27,6 +27,9 @@ const categoryPostOperation: PostOperation = async (dispatch, url, formData) => 
 };
 
 const subCategoryPostOperation: PostOperation = async (dispatch, url, formData) => {
+    if (formData) {
+        console.log(Object.fromEntries(formData), 'post');
+    }
     const response = await handlePostRequest(url, formData);
     dispatch(requestCategoryStatus(response === 200));
 };
