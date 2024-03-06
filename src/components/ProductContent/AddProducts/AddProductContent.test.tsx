@@ -1,7 +1,7 @@
 import React from 'react';
 import { render, screen } from '@testing-library/react';
 import AddProductContent from './AddProductContent';
-import { CategoryCheckboxProvider } from '../../../context/checkboxProvider';
+import { CheckboxProvider } from '../../../context/checkboxProvider';
 import { CategoryResponse } from '../../../types/category';
 
 jest.mock('../../../hooks/useFormikValues', () => ({
@@ -72,18 +72,18 @@ describe('AddProductContent', () => {
 
   test('renders the component correctly', () => {
     render(
-      <CategoryCheckboxProvider> 
+      <CheckboxProvider> 
         <AddProductContent
           setContent={setContent}
           content=""
           resetImages={false}
           setResetImages={setResetImages}
           categories={categories as unknown as CategoryResponse[]}
-          checkedCategories={checkedCategories}
+          checked={checkedCategories}
           componentKey={componentKey}
           lastRequestStatus={lastRequestStatus}
         />
-      </CategoryCheckboxProvider>
+      </CheckboxProvider>
     );
 
     expect(screen.getByLabelText('Title')).toBeInTheDocument();

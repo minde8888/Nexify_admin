@@ -31,7 +31,7 @@ const AddPost = () => {
 
     const sortedCategories = data ? sortByProperty(data, 'dateCreated') : undefined;
 
-    const { checkedCategories, resetCheckedCategories } = useCheckboxContext();
+    const { checked, resetChecked } = useCheckboxContext();
 
     const [key, setKey] = useState(0);
 
@@ -46,7 +46,7 @@ const AddPost = () => {
         setContent('');
         setKey(prevKey => prevKey + 1);
         setResetImages(true);
-        resetCheckedCategories();
+        resetChecked();
     };
 
     return (
@@ -68,7 +68,7 @@ const AddPost = () => {
                         resetImages={resetImages}
                         setResetImages={setResetImages}
                         categories={sortedCategories as CategoryResponse[]}
-                        checkedCategories={checkedCategories}
+                        checkedCategories={checked}
                         componentKey={key}
                         lastRequestStatus={lastRequestStatus}
                     />

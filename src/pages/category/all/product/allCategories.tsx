@@ -22,7 +22,6 @@ const AllCategories = () => {
             ...category,
             subcategories: sortedSubcategories,
         };
-
     });
 
     useEffect(() => {

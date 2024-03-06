@@ -9,6 +9,7 @@ import { CheckboxField } from '../../InputFields/CheckboxField';
 import styles from '../../../styles/productContent.module.scss'
 import imageStyles from '../../../styles/uploadImages.module.scss';
 import smallUploadImages from '../../../styles/smallUploadImages.module.scss';
+import { Attributes } from '../../../types/attributes';
 
 interface AddProductContentProps {
     setContent: (Content: string) => void;
@@ -16,7 +17,8 @@ interface AddProductContentProps {
     resetImages: boolean;
     setResetImages: (value: boolean) => void;
     categories?: CategoryResponse[];
-    checkedCategories: { [key: string]: boolean };
+    attributes?: Attributes[];
+    checked: { [key: string]: boolean };
     componentKey: number;
     lastRequestStatus: boolean;
 }
@@ -27,9 +29,10 @@ const AddProductContent = ({
     resetImages,
     setResetImages,
     categories,
-    checkedCategories,
+    attributes,
+    checked,
     componentKey,
-    lastRequestStatus
+    lastRequestStatus,
 }: AddProductContentProps) => {
 
     const { addNewValue } = useFormikValues();
@@ -40,19 +43,26 @@ const AddProductContent = ({
 
         let categoriesIds: string[] = [];
         let subcategoriesIds: string[] = [];
+        let attributesIds: string[] = [];
 
         categories?.forEach(category => {
-            if (checkedCategories[category.id]) {
+            if (checked[category.id]) {
                 categoriesIds.push(category.id);
             }
             category.subcategories?.forEach(subcategory => {
-                if (checkedCategories[subcategory.id]) {
+                if (checked[subcategory.id]) {
                     subcategoriesIds.push(subcategory.id);
                 }
             });
         });
 
-        addNewValue({ categoriesIds, subcategoriesIds, content });
+        attributes?.forEach(attribute => {
+            if(attribute.id !== undefined && checked[attribute.id]){
+                attributesIds.push(attribute.id.toString());
+            }
+        });
+        
+        addNewValue({ categoriesIds, subcategoriesIds, attributesIds, content });
     };
 
     useEffect(() => {
@@ -61,15 +71,11 @@ const AddProductContent = ({
             setImages([])
         }
         // eslint-disable-next-line react-hooks/exhaustive-deps
-    }, [content, checkedCategories, resetImages]);
+    }, [content, checked, resetImages]);
 
     const getImagesData = async (files: ImageFile[]): Promise<void> => {
         setImages(files)
         addNewValue({ images: files.map(file => file.file) });
-    };
-
-    const getSmallImagesData = async (files: ImageFile[]): Promise<void> => {
-        addNewValue({ itemsImages: files.map(file => file.file) });
     };
 
     return (
@@ -115,14 +121,16 @@ const AddProductContent = ({
                     </div>
                 ))}
             </div>
-            <div className={styles.choseImage}>
-                <UploadImages
-                    getImages={getSmallImagesData}
-                    maxNumber={10}
-                    resetImages={resetImages}
-                    setResetImages={setResetImages}
-                    styles={smallUploadImages}
-                />
+            <div>
+                {attributes?.map((attribute) => (
+                    <div key={attribute.id} className={styles.subcategories}>
+                        <CheckboxField
+                            name={attribute.id?.toString() || ''}
+                            label={attribute.attributeName}
+                            className={styles.checkbox}
+                        />
+                    </div>
+                ))}
             </div>
             <div className={`${styles.columns} ${styles.content}`}>
                 <EnhancedMdxEditorComponent

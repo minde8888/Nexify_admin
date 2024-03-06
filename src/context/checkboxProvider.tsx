@@ -1,40 +1,40 @@
 import React, { createContext, useState, ReactNode, FC, useContext } from 'react';
 import { CheckboxError } from '../errorHandler/checkboxError';
 
-interface CategoryCheckboxProviderProps {
+interface CheckboxProviderProps {
     children: ReactNode;
 }
 
-interface CategoryCheckboxContextType {
-    checkedCategories: { [key: string]: boolean };
-    setCheckedCategories: React.Dispatch<React.SetStateAction<{ [key: string]: boolean }>>;
-    resetCheckedCategories: () => void;
+interface CheckboxContextType {
+    checked: { [key: string]: boolean };
+    setChecked: React.Dispatch<React.SetStateAction<{ [key: string]: boolean }>>;
+    resetChecked: () => void;
 }
 
-const CategoryCheckboxContext = createContext<CategoryCheckboxContextType | undefined>(undefined);
+const CheckboxContext = createContext<CheckboxContextType | undefined>(undefined);
 
-export const CategoryCheckboxProvider: FC<CategoryCheckboxProviderProps> = ({ children }) => {
-    const [checkedCategories, setCheckedCategories] = useState<{ [key: string]: boolean }>({});
+export const CheckboxProvider: FC<CheckboxProviderProps> = ({ children }) => {
+    const [checked, setChecked] = useState<{ [key: string]: boolean }>({});
 
-    const resetCheckedCategories = () => {
-        setCheckedCategories({});
+    const resetChecked = () => {
+        setChecked({});
     };
 
     return (
-        <CategoryCheckboxContext.Provider value={{
-            checkedCategories,
-            setCheckedCategories,
-            resetCheckedCategories
+        <CheckboxContext.Provider value={{
+            checked,
+            setChecked,
+            resetChecked
         }}>
             {children}
-        </CategoryCheckboxContext.Provider>
+        </CheckboxContext.Provider>
     );
 };
 
 export const useCheckboxContext = () => {
-    const context = useContext(CategoryCheckboxContext);
+    const context = useContext(CheckboxContext);
     if (!context) {
-        throw new CheckboxError('useCategoryCheckboxContext must be used within a CategoryCheckboxProvider');
+        throw new CheckboxError('useCheckboxContext must be used within a CheckboxProvider');
     }
     return context;
 };

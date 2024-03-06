@@ -20,7 +20,7 @@ interface EditProductPropertyProps extends Product {
     setResetImages: (value: boolean) => void;
     categoriesIds?: string[];
     categories?: CategoryResponse[];
-    resetCheckedCategories: () => void
+    resetChecked: () => void
 }
 
 interface ProductProps {
@@ -53,7 +53,7 @@ const EditProductProperty: FunctionComponent<EditProductPropertyProps> = ({
     setResetImages,
     categoriesIds,
     categories,
-    resetCheckedCategories,
+    resetChecked,
 }) => {
     const { addNewValue, values } = useFormikValues<Product[]>();
     const copyValues = values as unknown as ImageProps;
@@ -71,17 +71,17 @@ const EditProductProperty: FunctionComponent<EditProductPropertyProps> = ({
         stock: stock || '',
     }));
 
-    const { checkedCategories, setCheckedCategories } = useCheckboxContext();
+    const { checked, setChecked } = useCheckboxContext();
 
     useEffect(() => {
-        addNewValue({ categoriesIds: Object.keys(checkedCategories).filter(key => checkedCategories[key]) });
+        addNewValue({ categoriesIds: Object.keys(checked).filter(key => checked[key]) });
         // eslint-disable-next-line react-hooks/exhaustive-deps
-    }, [checkedCategories]);
+    }, [checked]);
 
     useEffect(() => {
-        resetCheckedCategories()
+        resetChecked()
         categoriesIds?.forEach(id => {
-            setCheckedCategories(prev => ({ ...prev, [id]: true }));
+            setChecked(prev => ({ ...prev, [id]: true }));
         });
 
         addNewValue({ ...postValues, productId: id });

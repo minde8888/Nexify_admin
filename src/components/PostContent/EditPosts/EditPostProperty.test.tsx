@@ -59,9 +59,9 @@ describe('EditPostProperty Component', () => {
         });
 
         mockUseCheckboxContext.mockReturnValue({
-            checkedCategories: {},
-            setCheckedCategories: jest.fn(),
-            resetCheckedCategories: jest.fn()
+            checked: {},
+            setChecked: jest.fn(),
+            resetChecked: jest.fn()
         });
     });
 
@@ -81,7 +81,7 @@ describe('EditPostProperty Component', () => {
             resetImages={false}
             setResetImages={() => { }}
             categories={categories}
-            resetCheckedCategories={() => { }}
+            resetChecked={() => { }}
             id={''}
             title={'Test Title'} 
             content={"content"}/>);

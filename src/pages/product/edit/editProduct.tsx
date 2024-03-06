@@ -43,7 +43,7 @@ const EditProduct = () => {
 
     const navigate = useNavigate();
 
-    const { resetCheckedCategories } = useCheckboxContext();
+    const { resetChecked } = useCheckboxContext();
 
     useEffect(() => {
         if (!sortedCategories || sortedCategories.length === 0) {
@@ -53,10 +53,10 @@ const EditProduct = () => {
 
     useEffect(() => {
         if (productStatus) {
-            resetCheckedCategories();
+            resetChecked();
             navigate(ALL_PRODUCT_POSTS_URL);
         }
-    }, [navigate, resetCheckedCategories, productStatus]);
+    }, [navigate, resetChecked, productStatus]);
 
     if (!id) return null;
 
@@ -93,7 +93,7 @@ const EditProduct = () => {
                         setResetImages={setResetImages}
                         categoriesIds={checkedCategoriesIds}
                         categories={sortedCategories as CategoryResponse[]}
-                        resetCheckedCategories={resetCheckedCategories}
+                        resetChecked={resetChecked}
                         price={price}
                         discount={discount}
                         location={location}

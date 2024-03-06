@@ -38,7 +38,7 @@ describe('categories reducer', () => {
     });
 
     test('should handle updateCategory', () => {
-        const updatedCategory = { id: '1', title: 'Technology' }; // Partial update
+        const updatedCategory = { id: '1', title: 'Technology' }; 
         const action = updateCategory(updatedCategory);
         const state = categoriesReducer({ ...initialState, data: initialCategories }, action);
         expect(state.data[0].title).toEqual('Technology');
@@ -46,7 +46,7 @@ describe('categories reducer', () => {
     });
 
     test('should handle updateSubcategory', () => {
-        const updatedSubcategory = { id: '1-1', title: 'Mobile Phones' }; // Partial update
+        const updatedSubcategory = { id: '1-1', title: 'Mobile Phones' }; 
         const action = updateSubcategory(updatedSubcategory);
         const state = categoriesReducer({ ...initialState, data: initialCategories }, action);
         expect(state.data[0].subcategories[0].title).toEqual('Mobile Phones');

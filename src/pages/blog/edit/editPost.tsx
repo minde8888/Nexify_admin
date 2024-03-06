@@ -33,7 +33,7 @@ const EditPost = () => {
 
     const navigate = useNavigate();
 
-    const { resetCheckedCategories } = useCheckboxContext();
+    const { resetChecked } = useCheckboxContext();
 
     useEffect(() => {
         if (!sortedCategories || sortedCategories.length === 0) {
@@ -43,10 +43,10 @@ const EditPost = () => {
 
     useEffect(() => {
         if (postStatus) {
-            resetCheckedCategories();
+            resetChecked();
             navigate(ALL_BLOG_POSTS_URL);
         }
-    }, [postStatus, navigate, resetCheckedCategories]);
+    }, [postStatus, navigate, resetChecked]);
 
     if (!id) return null;
 
@@ -77,7 +77,7 @@ const EditPost = () => {
                         setResetImages={setResetImages}
                         categoriesIds={checkedCategoriesIds}
                         categories={sortedCategories as CategoryResponse[]}
-                        resetCheckedCategories={resetCheckedCategories}
+                        resetChecked={resetChecked}
                     />
                 </Form>
             </Formik>

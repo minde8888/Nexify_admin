@@ -19,7 +19,7 @@ interface EditPostPropertyProps extends Post {
     setResetImages: (value: boolean) => void;
     categoriesIds?: string[];
     categories?: CategoryResponse[];
-    resetCheckedCategories: () => void
+    resetChecked: () => void
 }
 
 const EditPostProperty: FunctionComponent<EditPostPropertyProps> = ({
@@ -32,7 +32,7 @@ const EditPostProperty: FunctionComponent<EditPostPropertyProps> = ({
     setResetImages,
     categoriesIds,
     categories,
-    resetCheckedCategories
+    resetChecked
 }) => {
     const { addNewValue, values } = useFormikValues<Post[]>();
     const copyValues = values as unknown as Post;
@@ -40,17 +40,17 @@ const EditPostProperty: FunctionComponent<EditPostPropertyProps> = ({
     const imageName = imageSrc?.map(url => removePartFromUrl(url, UrlToImages));
     const [postValues, setPostValues] = useState({ id, title, content, imageNames: imageName });
 
-    const { checkedCategories, setCheckedCategories } = useCheckboxContext();
+    const { checked, setChecked } = useCheckboxContext();
 
     useEffect(() => {
-        addNewValue({ categoriesIds: Object.keys(checkedCategories).filter(key => checkedCategories[key]) });
+        addNewValue({ categoriesIds: Object.keys(checked).filter(key => checked[key]) });
         // eslint-disable-next-line react-hooks/exhaustive-deps
-    }, [checkedCategories]);
+    }, [checked]);
 
     useEffect(() => {
-        resetCheckedCategories()
+        resetChecked()
         categoriesIds?.forEach(id => {
-            setCheckedCategories(prev => ({ ...prev, [id]: true }));
+            setChecked(prev => ({ ...prev, [id]: true }));
         });
 
         addNewValue(postValues);

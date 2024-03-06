@@ -24,9 +24,6 @@ export const processCategory = (formData: FormData, category: CategoryFormProper
 };
 
 export const processAttribute = (formData: FormData, attribute: Attributes, index: number): void => {
-    if (formData) {
-        console.log(Object.fromEntries(formData), 'post');
-    }
     const categoryDtoKey = `attributes[${index}]`;
     appendFormData(formData, `${categoryDtoKey}.attributeName`, attribute['']);
 };

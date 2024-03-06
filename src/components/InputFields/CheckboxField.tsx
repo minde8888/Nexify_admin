@@ -7,11 +7,11 @@ interface CheckboxFieldProps {
 }
 
 export const CheckboxField = ({ name, label, className }: CheckboxFieldProps) => {
-  const { checkedCategories, setCheckedCategories } = useCheckboxContext();
+  const { checked, setChecked } = useCheckboxContext();
 
   const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
-    setCheckedCategories({
-      ...checkedCategories,
+    setChecked({
+      ...checked,
       [e.target.name]: e.target.checked,
     });
   };
@@ -22,7 +22,7 @@ export const CheckboxField = ({ name, label, className }: CheckboxFieldProps) =>
         type="checkbox"
         name={name}
         id={name}
-        checked={checkedCategories[name] || false}
+        checked={checked[name] || false}
         onChange={handleChange}
       />
       <label htmlFor={name}>{label}</label>

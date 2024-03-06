@@ -1,5 +1,5 @@
 import React, { FC, ReactNode } from "react";
-import { CategoryCheckboxProvider } from "./checkboxProvider";
+import { CheckboxProvider } from "./checkboxProvider";
 import { SelectFieldProvider } from "./selectFieldProvider";
 import { PaginationProvider } from "./paginationProvider";
 
@@ -12,9 +12,9 @@ export const ComposeProviders: FC<ComposeProvidersProps> = ({ children }) => {
   return (
     <PaginationProvider>
       <SelectFieldProvider>
-        <CategoryCheckboxProvider>
+        <CheckboxProvider>
           {children}
-        </CategoryCheckboxProvider>
+        </CheckboxProvider>
       </SelectFieldProvider>
     </PaginationProvider>
   );
