@@ -11,8 +11,10 @@ import { removePartFromUrl } from '../../../utils/helpers/removePartFromUrl/remo
 import { UrlToImages } from '../../../constants/imageConst';
 import imageStyles from '../../../styles/uploadImages.module.scss';
 import { Product } from '../../../types/product';
+import { Attributes } from '../../../types/attributes';
 import smallUploadImages from '../../../styles/smallUploadImages.module.scss';
 import styles from '../../../styles/productContent.module.scss';
+
 
 interface EditProductPropertyProps extends Product {
     disabled: boolean;
@@ -20,6 +22,8 @@ interface EditProductPropertyProps extends Product {
     setResetImages: (value: boolean) => void;
     categoriesIds?: string[];
     categories?: CategoryResponse[];
+    attributesIds?: string[];
+    attributes?: Attributes[];
     resetChecked: () => void
 }
 
@@ -42,7 +46,6 @@ const EditProductProperty: FunctionComponent<EditProductPropertyProps> = ({
     title,
     content,
     imageSrc,
-    itemSrc,
     price,
     discount,
     location,
@@ -53,13 +56,13 @@ const EditProductProperty: FunctionComponent<EditProductPropertyProps> = ({
     setResetImages,
     categoriesIds,
     categories,
+    attributes,
     resetChecked,
 }) => {
     const { addNewValue, values } = useFormikValues<Product[]>();
     const copyValues = values as unknown as ImageProps;
 
     const imageName = imageSrc?.map(url => removePartFromUrl(url, UrlToImages));
-    const itemName = itemSrc?.map(url => removePartFromUrl(url, UrlToImages));
 
     const [postValues, setPostValues] = useState<ProductProps>(() => ({
         title: title || '',
@@ -74,7 +77,30 @@ const EditProductProperty: FunctionComponent<EditProductPropertyProps> = ({
     const { checked, setChecked } = useCheckboxContext();
 
     useEffect(() => {
-        addNewValue({ categoriesIds: Object.keys(checked).filter(key => checked[key]) });
+        
+        let categoriesIds: string[] = [];
+        let subcategoriesIds: string[] = [];
+        let attributesIds: string[] = [];
+
+        categories?.forEach(category => {
+            if (checked[category.id]) {
+                categoriesIds.push(category.id);
+            }
+            category.subcategories?.forEach(subcategory => {
+                if (checked[subcategory.id]) {
+                    subcategoriesIds.push(subcategory.id);
+                }
+            });
+        });
+
+        if (attributes && attributes?.length > 0) {
+            attributes?.forEach(attribute => {
+                if (attribute.id !== undefined && checked[attribute.id]) {
+                    attributesIds.push(attribute.id.toString());
+                }
+            });
+        }
+        addNewValue({ categoriesIds, subcategoriesIds, attributesIds, content });
         // eslint-disable-next-line react-hooks/exhaustive-deps
     }, [checked]);
 
@@ -84,7 +110,7 @@ const EditProductProperty: FunctionComponent<EditProductPropertyProps> = ({
             setChecked(prev => ({ ...prev, [id]: true }));
         });
 
-        addNewValue({ ...postValues, productId: id });
+        addNewValue({ ...postValues, productId: id, imagesNames: imageName });
         // eslint-disable-next-line react-hooks/exhaustive-deps
     }, []);
 
@@ -93,7 +119,7 @@ const EditProductProperty: FunctionComponent<EditProductPropertyProps> = ({
         addNewValue({ content: newContent });
     };
 
-    const handleImageChange = async (files: ImageFile[], type: 'images' | 'itemsImages') => {
+    const handleImageChange = async (files: ImageFile[], type: 'images') => {
         const fileData = files.map(file => file.file);
         addNewValue({ [type]: fileData });
     };
@@ -120,16 +146,6 @@ const EditProductProperty: FunctionComponent<EditProductPropertyProps> = ({
                     styles={imageStyles}
                 />
             </div>
-            <div className={styles.choseImage}>
-                <UploadImages
-                    getImages={(files) => handleImageChange(files, 'itemsImages')}
-                    maxNumber={10}
-                    resetImages={resetImages}
-                    setResetImages={setResetImages}
-                    initialImages={itemSrc}
-                    styles={smallUploadImages}
-                />
-            </div>
             <div className={`${styles.columns} ${styles.checkboxContainer}`}>
                 {categories?.map((category) => (
                     <div key={category.id}>
@@ -152,6 +168,17 @@ const EditProductProperty: FunctionComponent<EditProductPropertyProps> = ({
                     </div>
                 ))}
             </div>
+            <div>
+                {attributes?.map((attribute) => (
+                    <div key={attribute.id} className={styles.subcategories}>
+                        <CheckboxField
+                            name={attribute.id?.toString() || ''}
+                            label={attribute.attributeName}
+                            className={styles.checkbox}
+                        />
+                    </div>
+                ))}
+            </div>
             <EnhancedMdxEditorComponent
                 content={postValues.content || ''}
                 setContent={handleContentChange}
@@ -170,7 +197,6 @@ const EditProductProperty: FunctionComponent<EditProductPropertyProps> = ({
                     </div>
                 )
             )}
-
             <div className={styles.buttonPublic}>
                 <button disabled={disabled} type="submit">Publish</button>
             </div>

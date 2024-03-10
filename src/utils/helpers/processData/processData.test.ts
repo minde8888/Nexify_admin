@@ -58,7 +58,7 @@ describe('processCategory', () => {
       processAttribute(formData, attribute, index);
     });
 
-    expect(formData.append).toHaveBeenCalledWith('attributes[0].attributeName', 'Attribute Name 1');
-    expect(formData.append).toHaveBeenCalledWith('attributes[1].attributeName', 'Attribute Name 2');
+    expect(formData.append).toHaveBeenCalledWith('attributesRequest[0].attributeName', 'Attribute Name 1');
+    expect(formData.append).toHaveBeenCalledWith('attributesRequest[1].attributeName', 'Attribute Name 2');
   });
 });

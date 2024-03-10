@@ -56,12 +56,13 @@ const AddProductContent = ({
             });
         });
 
-        attributes?.forEach(attribute => {
-            if(attribute.id !== undefined && checked[attribute.id]){
-                attributesIds.push(attribute.id.toString());
-            }
-        });
-        
+        if (attributes && attributes?.length > 0) {
+            attributes?.forEach(attribute => {
+                if (attribute.id !== undefined && checked[attribute.id]) {
+                    attributesIds.push(attribute.id.toString());
+                }
+            });
+        }
         addNewValue({ categoriesIds, subcategoriesIds, attributesIds, content });
     };
 
@@ -122,7 +123,7 @@ const AddProductContent = ({
                 ))}
             </div>
             <div>
-                {attributes?.map((attribute) => (
+                {attributes && attributes?.length > 0 && attributes?.map((attribute) => (
                     <div key={attribute.id} className={styles.subcategories}>
                         <CheckboxField
                             name={attribute.id?.toString() || ''}

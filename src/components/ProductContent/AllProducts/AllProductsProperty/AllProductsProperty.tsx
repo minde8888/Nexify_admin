@@ -25,16 +25,18 @@ const AllProductsProperty: FunctionComponent<AllProductsPropertyProps> = ({ URL,
         dispatch(deleteAction(URL, id))
     }, [URL, dispatch]);
 
+
     return (
         <div className={styles.editPropertyContainer}>
-            {Object.values(product).map((product, index) => (
-                <ProductContext
-                    key={index}
-                    product={product}
-                    onEdit={handleEdit}
-                    onRemove={onRemove}
-                />
-            ))}
+            {product.length > 0 ? (
+                Object.values(product).map((product, index) => (
+                    <ProductContext
+                        key={index}
+                        product={product}
+                        onEdit={handleEdit}
+                        onRemove={onRemove}
+                    />
+                ))) : <div>No data available</div>}
         </div>
     );
 };

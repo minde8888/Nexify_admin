@@ -11,13 +11,11 @@ import { useCheckboxContext } from '../../../context/checkboxProvider';
 import useProductCategoryData from '../../../hooks/useProductCategoryData';
 import { Product } from '../../../types/product';
 import EditProductProperty from '../../../components/ProductContent/EditProducts/EditProductProperty';
+import { Attributes } from '../../../types/attributes';
 
 
 const EditProduct = () => {
     const {
-        // entity,
-        // isCategory,
-        // categoryName,
         lastRequestStatus,
         title,
         content,
@@ -29,7 +27,9 @@ const EditProduct = () => {
         imageSrc,
         itemSrc,
         categories,
+        attributes,
         checkedCategoriesIds,
+        checkedAttributesIds,
         productStatus,
         fetchData,
         id
@@ -58,7 +58,7 @@ const EditProduct = () => {
         }
     }, [navigate, resetChecked, productStatus]);
 
-    if (!id) return null;
+    if (!id || !title) return null;
 
     const initialCategoryFormProperty: Product = {
         title: '',
@@ -93,6 +93,8 @@ const EditProduct = () => {
                         setResetImages={setResetImages}
                         categoriesIds={checkedCategoriesIds}
                         categories={sortedCategories as CategoryResponse[]}
+                        attributesIds={checkedAttributesIds as string[]}
+                        attributes={attributes as unknown as Attributes[]}
                         resetChecked={resetChecked}
                         price={price}
                         discount={discount}

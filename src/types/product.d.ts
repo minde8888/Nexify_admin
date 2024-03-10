@@ -1,3 +1,5 @@
+import { Attributes } from './attributes';
+
 export interface Product {
     id: string;
     title: string;
@@ -7,12 +9,12 @@ export interface Product {
     size?: string;
     stock?: string;
     location?: string;
-    imageNames?: string;
+    imagesNames?: string[];
     imageSrc?: string[];
-    itemsImagesNames?: string[];
     itemSrc?: string[];
     dateCreated?: string;
     categories?: CategoryResponse;
+    attributes?: Attributes[];
 }
 
 export interface Products {

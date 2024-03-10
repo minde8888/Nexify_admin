@@ -48,8 +48,8 @@ const productPostOperation: PostOperation = async (dispatch, url, formData) => {
     if (formData) {
         console.log(Object.fromEntries(formData), 'post');
     }
-    const response = await handlePostRequest(url, formData);
-    dispatch(requestProductsStatus(response === 200));
+    // const response = await handlePostRequest(url, formData);
+    // dispatch(requestProductsStatus(response === 200));
 };
 
 const attributesPostOperation: PostOperation = async (dispatch, url, formData) => {
