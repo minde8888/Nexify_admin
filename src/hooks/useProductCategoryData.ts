@@ -2,7 +2,7 @@ import { useParams } from 'react-router-dom';
 import { useAppSelector } from './useRedux';
 import { ATTRIBUTES_URL, CATEGORIES_URL } from '../constants/apiConst';
 import { Product } from '../types/product';
-import { DataResponse, SubcategoryResponse } from '../types/category';
+import { DataResponse } from '../types/category';
 import useFetchMultipleData from './useFetchMultipleData';
 
 const useProductCategoryData = () => {
@@ -11,7 +11,6 @@ const useProductCategoryData = () => {
     const { fetchData } = useFetchMultipleData([CATEGORIES_URL, ATTRIBUTES_URL]);
 
     const { data: productData, lastRequestStatus: productStatus } = useAppSelector((state) => state.data.products);
-
     const { data: categoriesData, lastRequestStatus: catStatus }: DataResponse = useAppSelector((state) => state.data.categories);
     const { data: attributesData, lastRequestStatus: attStatus }: DataResponse = useAppSelector((state) => state.data.attributes);
 
@@ -19,16 +18,7 @@ const useProductCategoryData = () => {
 
     const product: Product | null = productArray.find((p) => p.id === id) || null;
 
-    const { title, content, price, discount, location, size, stock, imageSrc, itemSrc, categories, attributes } = product || {};
-
-    const checkedCategoryIds =
-        categories?.flatMap((category: { id: string; subcategories: SubcategoryResponse[] }) => {
-            const categoryIds = [category.id];
-            const subcategoryIds = category.subcategories.map((subcategory) => subcategory.id);
-            return [...categoryIds, ...subcategoryIds];
-        }) || [];
-
-    const checkedAttributesIds = attributes?.map((attribute) => attribute.id);
+    const { title, content, price, discount, location, size, stock, imageSrc, categories, attributes, subcategories } = product || {};
 
     return {
         lastRequestStatus: catStatus && attStatus,
@@ -40,13 +30,14 @@ const useProductCategoryData = () => {
         size,
         stock,
         imageSrc,
-        itemSrc,
         categories: categoriesData,
         attributes: attributesData,
-        checkedCategoriesIds: checkedCategoryIds,
-        checkedAttributesIds,
+        checkedCategoryIds:categories,
+        checkedSubcategoryIds: subcategories,
+        checkedAttributesIds: attributes,
         productStatus,
         fetchData,
+        product,
         id
     };
 };

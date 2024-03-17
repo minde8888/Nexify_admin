@@ -10,7 +10,7 @@ import { CategoryResponse } from '../../../types/category';
 import { useCheckboxContext } from '../../../context/checkboxProvider';
 import useProductCategoryData from '../../../hooks/useProductCategoryData';
 import { Product } from '../../../types/product';
-import EditProductProperty from '../../../components/ProductContent/EditProducts/EditProductProperty';
+import EditProductProperty from '../../../components/ProductContent/EditProducts/EditProductProperty/EditProductProperty';
 import { Attributes } from '../../../types/attributes';
 
 
@@ -25,16 +25,17 @@ const EditProduct = () => {
         size,
         stock,
         imageSrc,
-        itemSrc,
         categories,
         attributes,
-        checkedCategoriesIds,
+        checkedCategoryIds,
+        checkedSubcategoryIds,
         checkedAttributesIds,
         productStatus,
         fetchData,
+        product,
         id
     } = useProductCategoryData();
-    
+
     const sortedCategories = categories ? sortByProperty(categories, 'dateCreated') : undefined;
 
     const [resetImages, setResetImages] = useState<boolean>(false);
@@ -46,10 +47,9 @@ const EditProduct = () => {
     const { resetChecked } = useCheckboxContext();
 
     useEffect(() => {
-        if (!sortedCategories || sortedCategories.length === 0) {
-            fetchData();
-        }
-    }, [sortedCategories, fetchData]);
+        fetchData();
+        // eslint-disable-next-line react-hooks/exhaustive-deps
+    }, []);
 
     useEffect(() => {
         if (productStatus) {
@@ -69,7 +69,6 @@ const EditProduct = () => {
         size: '',
         stock: '',
         imageSrc: [],
-        itemSrc: [],
         id: ''
     };
 
@@ -82,18 +81,18 @@ const EditProduct = () => {
             >
                 <Form>
                     <h2>Edit Post</h2>
-                    <EditProductProperty
+                    {product && <EditProductProperty
                         id={id}
                         title={title ?? ''}
                         content={content ?? ''}
                         imageSrc={imageSrc ?? []}
-                        itemSrc={itemSrc ?? []}
                         disabled={productStatus === false || lastRequestStatus === false}
                         resetImages={resetImages}
                         setResetImages={setResetImages}
-                        categoriesIds={checkedCategoriesIds}
+                        checkedCategoryIds={checkedCategoryIds}
                         categories={sortedCategories as CategoryResponse[]}
-                        attributesIds={checkedAttributesIds as string[]}
+                        checkedSubcategoryIds={checkedSubcategoryIds}
+                        checkedAttributesIds={checkedAttributesIds}
                         attributes={attributes as unknown as Attributes[]}
                         resetChecked={resetChecked}
                         price={price}
@@ -101,7 +100,7 @@ const EditProduct = () => {
                         location={location}
                         size={size}
                         stock={stock}
-                    />
+                    />}
                 </Form>
             </Formik>
         </Preloader>

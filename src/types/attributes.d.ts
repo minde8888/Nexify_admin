@@ -4,3 +4,9 @@ export interface Attributes {
     imageName?: string;
     "": string;
 }
+
+export interface AttributesResponse {
+    id: string,
+    attributeName: string,
+    imageName?: string;
+}

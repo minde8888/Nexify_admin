@@ -1,5 +1,3 @@
-import { Attributes } from './attributes';
-
 export interface Product {
     id: string;
     title: string;
@@ -11,13 +9,15 @@ export interface Product {
     location?: string;
     imagesNames?: string[];
     imageSrc?: string[];
-    itemSrc?: string[];
     dateCreated?: string;
-    categories?: CategoryResponse;
+    categories?: Categories[];
     attributes?: Attributes[];
+    subcategories?:Subcategories[];
 }
 
 export interface Products {
     id: string | undefined;
     products: Product[];
 }
+
+

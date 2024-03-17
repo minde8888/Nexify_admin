@@ -1,28 +1,28 @@
-import { Fragment, FunctionComponent, useEffect, useState } from 'react';
-import { TextInputField } from '../../InputFields/TextInputField';
-import UploadImages from '../../UploadImages/UploadImages';
-import EnhancedMdxEditorComponent from '../../MarkDownEditor/EnhancedMdxEditorComponent';
-import { CheckboxField } from '../../InputFields/CheckboxField';
-import useFormikValues from '../../../hooks/useFormikValues';
-import { useCheckboxContext } from '../../../context/checkboxProvider';
-import { CategoryResponse } from '../../../types/category';
-import { ImageFile } from '../../../types/imageFile';
-import { removePartFromUrl } from '../../../utils/helpers/removePartFromUrl/removePartFromUrl';
-import { UrlToImages } from '../../../constants/imageConst';
-import imageStyles from '../../../styles/uploadImages.module.scss';
-import { Product } from '../../../types/product';
-import { Attributes } from '../../../types/attributes';
-import smallUploadImages from '../../../styles/smallUploadImages.module.scss';
-import styles from '../../../styles/productContent.module.scss';
+import { FunctionComponent, useEffect, useState } from 'react';
+import { TextInputField } from '../../../InputFields/TextInputField';
+import UploadImages from '../../../UploadImages/UploadImages';
+import EnhancedMdxEditorComponent from '../../../MarkDownEditor/EnhancedMdxEditorComponent';
+import useFormikValues from '../../../../hooks/useFormikValues';
+import { useCheckboxContext } from '../../../../context/checkboxProvider';
+import { CategoryResponse } from '../../../../types/category';
+import { ImageFile } from '../../../../types/imageFile';
+import { removePartFromUrl } from '../../../../utils/helpers/removePartFromUrl/removePartFromUrl';
+import { UrlToImages } from '../../../../constants/imageConst';
+import { Product } from '../../../../types/product';
+import { Attributes } from '../../../../types/attributes';
+import Checkboxes from '../Checkboxes/Checkboxes';
+import imageStyles from '../../../../styles/uploadImages.module.scss';
+import styles from '../../../../styles/productContent.module.scss';
 
 
 interface EditProductPropertyProps extends Product {
     disabled: boolean;
     resetImages: boolean;
     setResetImages: (value: boolean) => void;
-    categoriesIds?: string[];
+    checkedCategoryIds?: IdProps[];
+    checkedSubcategoryIds?: IdProps[];
     categories?: CategoryResponse[];
-    attributesIds?: string[];
+    checkedAttributesIds?: IdProps[];
     attributes?: Attributes[];
     resetChecked: () => void
 }
@@ -41,6 +41,10 @@ interface ImageProps {
     images: ImageFile[]
 }
 
+interface IdProps {
+    id: string;
+}
+
 const EditProductProperty: FunctionComponent<EditProductPropertyProps> = ({
     id,
     title,
@@ -54,12 +58,15 @@ const EditProductProperty: FunctionComponent<EditProductPropertyProps> = ({
     disabled,
     resetImages,
     setResetImages,
-    categoriesIds,
+    checkedCategoryIds,
+    checkedSubcategoryIds,
+    checkedAttributesIds,
     categories,
     attributes,
     resetChecked,
 }) => {
     const { addNewValue, values } = useFormikValues<Product[]>();
+
     const copyValues = values as unknown as ImageProps;
 
     const imageName = imageSrc?.map(url => removePartFromUrl(url, UrlToImages));
@@ -77,7 +84,7 @@ const EditProductProperty: FunctionComponent<EditProductPropertyProps> = ({
     const { checked, setChecked } = useCheckboxContext();
 
     useEffect(() => {
-        
+
         let categoriesIds: string[] = [];
         let subcategoriesIds: string[] = [];
         let attributesIds: string[] = [];
@@ -102,15 +109,29 @@ const EditProductProperty: FunctionComponent<EditProductPropertyProps> = ({
         }
         addNewValue({ categoriesIds, subcategoriesIds, attributesIds, content });
         // eslint-disable-next-line react-hooks/exhaustive-deps
-    }, [checked]);
+    }, [categories, attributes]);
 
     useEffect(() => {
         resetChecked()
-        categoriesIds?.forEach(id => {
+        const allIds = [
+            ...(checkedCategoryIds?.map(obj => obj.id) || []),
+            ...(checkedSubcategoryIds?.map(obj => obj.id) || []),
+            ...(checkedAttributesIds?.map(obj => obj.id) || [])
+        ];
+
+        allIds?.forEach(id => {
             setChecked(prev => ({ ...prev, [id]: true }));
         });
 
-        addNewValue({ ...postValues, productId: id, imagesNames: imageName });
+        addNewValue({
+            ...postValues,
+            productId: id,
+            imagesNames: imageName,
+            categoriesIds: filterIds(checkedCategoryIds || []),
+            subcategoriesIds: filterIds(checkedSubcategoryIds || []),
+            attributesIds: filterIds(checkedAttributesIds || [])
+        });
+
         // eslint-disable-next-line react-hooks/exhaustive-deps
     }, []);
 
@@ -146,39 +167,7 @@ const EditProductProperty: FunctionComponent<EditProductPropertyProps> = ({
                     styles={imageStyles}
                 />
             </div>
-            <div className={`${styles.columns} ${styles.checkboxContainer}`}>
-                {categories?.map((category) => (
-                    <div key={category.id}>
-                        <Fragment>
-                            <CheckboxField
-                                name={category.id}
-                                label={category.title}
-                                className={styles.checkbox}
-                            />
-                            {category.subcategories?.map((subcategory) => (
-                                <div key={subcategory.id} className={styles.subcategories}>
-                                    <CheckboxField
-                                        name={subcategory.id}
-                                        label={subcategory.title}
-                                        className={styles.checkbox}
-                                    />
-                                </div>
-                            ))}
-                        </Fragment>
-                    </div>
-                ))}
-            </div>
-            <div>
-                {attributes?.map((attribute) => (
-                    <div key={attribute.id} className={styles.subcategories}>
-                        <CheckboxField
-                            name={attribute.id?.toString() || ''}
-                            label={attribute.attributeName}
-                            className={styles.checkbox}
-                        />
-                    </div>
-                ))}
-            </div>
+            <Checkboxes categories={categories} attributes={attributes} />
             <EnhancedMdxEditorComponent
                 content={postValues.content || ''}
                 setContent={handleContentChange}
@@ -203,5 +192,7 @@ const EditProductProperty: FunctionComponent<EditProductPropertyProps> = ({
         </div>
     );
 };
+
+const filterIds = (obj: IdProps[]) => obj.map(obj => obj.id).filter(id => id !== "00000000-0000-0000-0000-000000000000")
 
 export default EditProductProperty;

@@ -40,18 +40,12 @@ const updateBlog = async (dispatch: Dispatch<AnyAction>, url: string, formData: 
 };
 
 const updateProduct = async (dispatch: Dispatch<AnyAction>, url: string, formData: FormData) => {
-        if (formData) {
-        console.log(Object.fromEntries(formData), 'put', url);
-    }
     dispatch(requestProductsStatus(false));
     const response = await handlePutRequest(url, formData);
     dispatch(requestProductsStatus(response === 200));
 };
 
 const updateAttribute = async (dispatch: Dispatch<AnyAction>, url: string, formData: FormData) => {
-    if (formData) {
-        console.log(Object.fromEntries(formData), 'post', url);
-    }
     dispatch(requestAttributesStatus(false));
     const response = await handlePutRequest(url, formData);
     dispatch(requestAttributesStatus(response === 200));
