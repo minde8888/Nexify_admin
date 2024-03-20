@@ -1,17 +1,17 @@
 import { useEffect, useState } from 'react';
-import { Formik, Form } from 'formik';
-import validationSchema from '../../../utils/validation/addCategoryValidationSchema';
-import useForm from '../../../hooks/useForm';
-import { PUT_METHOD, PRODUCT_UPDATE_URL, ALL_PRODUCT_POSTS_URL } from '../../../constants/apiConst';
-import Preloader from '../../preloader/preloader';
 import { useNavigate } from 'react-router-dom';
+import { Formik, Form } from 'formik';
+import useForm from '../../../hooks/useForm';
+import useProductCategoryData from '../../../hooks/useProductCategoryData';
+import { useCheckboxContext } from '../../../context/checkboxProvider';
+import Preloader from '../../preloader/preloader';
+import EditProductProperty from '../../../components/ProductContent/EditProducts/EditProductProperty/EditProductProperty';
+import validationSchema from '../../../utils/validation/addCategoryValidationSchema';
 import sortByProperty from '../../../utils/helpers/sortByProperty/sortByProperty';
 import { CategoryResponse } from '../../../types/category';
-import { useCheckboxContext } from '../../../context/checkboxProvider';
-import useProductCategoryData from '../../../hooks/useProductCategoryData';
 import { Product } from '../../../types/product';
-import EditProductProperty from '../../../components/ProductContent/EditProducts/EditProductProperty/EditProductProperty';
 import { Attributes } from '../../../types/attributes';
+import { PUT_METHOD, PRODUCT_UPDATE_URL, ALL_PRODUCT_POSTS_URL } from '../../../constants/apiConst';
 
 
 const EditProduct = () => {
@@ -22,7 +22,6 @@ const EditProduct = () => {
         price,
         discount,
         location,
-        size,
         stock,
         imageSrc,
         categories,
@@ -66,7 +65,6 @@ const EditProduct = () => {
         price: '',
         discount: '',
         location: '',
-        size: '',
         stock: '',
         imageSrc: [],
         id: ''
@@ -98,7 +96,6 @@ const EditProduct = () => {
                         price={price}
                         discount={discount}
                         location={location}
-                        size={size}
                         stock={stock}
                     />}
                 </Form>

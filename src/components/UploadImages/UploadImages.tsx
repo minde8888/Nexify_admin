@@ -52,6 +52,13 @@ const UploadImages: React.FC<ImagesProps> = (
         setImages(imageList);
     }, [getImages]);
 
+    const onRemoveIndex = useCallback((index: number) => {
+        const updatedImages = images.filter((_, i) => i !== index);
+        setImages(updatedImages);
+
+        getImages(updatedImages);
+    }, [images, getImages]);
+
     useEffect(() => {
         if (resetImages) {
             setImages([]);
@@ -69,7 +76,7 @@ const UploadImages: React.FC<ImagesProps> = (
                 dataURLKey="data_url"
                 acceptType={['jpg', 'gif', 'png', 'gif']}
             >
-                {({ imageList, onImageUpload, onImageUpdate, onImageRemove, isDragging, dragProps, errors }) => (
+                {({ imageList, onImageUpload, onImageUpdate, isDragging, dragProps, errors }) => (
                     <div className={styles.upload_image}>
                         <div
                             className={`${styleDrop}`}
@@ -86,7 +93,7 @@ const UploadImages: React.FC<ImagesProps> = (
                                 <img className={styles.image_show} src={image['data_url']} alt="" width="100" />
                                 <div className={styles.image_btn_wrapper}>
                                     <IconButton onClick={() => onImageUpdate(index)} icon={uploadIcon} />
-                                    <IconButton onClick={() => onImageRemove(index)} icon={closeIcon} id={'-1'} />
+                                    <IconButton onClick={() => onRemoveIndex(index)} icon={closeIcon} id={'-1'} />
                                 </div>
                             </div>
                         ))}

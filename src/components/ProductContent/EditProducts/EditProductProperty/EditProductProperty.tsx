@@ -4,16 +4,15 @@ import UploadImages from '../../../UploadImages/UploadImages';
 import EnhancedMdxEditorComponent from '../../../MarkDownEditor/EnhancedMdxEditorComponent';
 import useFormikValues from '../../../../hooks/useFormikValues';
 import { useCheckboxContext } from '../../../../context/checkboxProvider';
-import { CategoryResponse } from '../../../../types/category';
 import { ImageFile } from '../../../../types/imageFile';
 import { removePartFromUrl } from '../../../../utils/helpers/removePartFromUrl/removePartFromUrl';
 import { UrlToImages } from '../../../../constants/imageConst';
+import { CategoryResponse } from '../../../../types/category';
 import { Product } from '../../../../types/product';
 import { Attributes } from '../../../../types/attributes';
 import Checkboxes from '../Checkboxes/Checkboxes';
 import imageStyles from '../../../../styles/uploadImages.module.scss';
 import styles from '../../../../styles/productContent.module.scss';
-
 
 interface EditProductPropertyProps extends Product {
     disabled: boolean;
@@ -32,7 +31,6 @@ interface ProductProps {
     content: string;
     price?: string;
     discount?: string;
-    size?: string;
     stock?: string;
     location?: string;
 }
@@ -53,7 +51,6 @@ const EditProductProperty: FunctionComponent<EditProductPropertyProps> = ({
     price,
     discount,
     location,
-    size,
     stock,
     disabled,
     resetImages,
@@ -66,22 +63,17 @@ const EditProductProperty: FunctionComponent<EditProductPropertyProps> = ({
     resetChecked,
 }) => {
     const { addNewValue, values } = useFormikValues<Product[]>();
-
-    const copyValues = values as unknown as ImageProps;
-
-    const imageName = imageSrc?.map(url => removePartFromUrl(url, UrlToImages));
-
+    const { checked, setChecked } = useCheckboxContext();
     const [postValues, setPostValues] = useState<ProductProps>(() => ({
         title: title || '',
         content: content || '',
         price: price || '',
         discount: discount || '',
         location: location || '',
-        size: size || '',
         stock: stock || '',
     }));
 
-    const { checked, setChecked } = useCheckboxContext();
+    const copyValues = values as unknown as ImageProps;
 
     useEffect(() => {
 
@@ -126,12 +118,11 @@ const EditProductProperty: FunctionComponent<EditProductPropertyProps> = ({
         addNewValue({
             ...postValues,
             productId: id,
-            imagesNames: imageName,
+            imagesNames: imageSrc?.map(url => removePartFromUrl(url, UrlToImages)),
             categoriesIds: filterIds(checkedCategoryIds || []),
             subcategoriesIds: filterIds(checkedSubcategoryIds || []),
             attributesIds: filterIds(checkedAttributesIds || [])
         });
-
         // eslint-disable-next-line react-hooks/exhaustive-deps
     }, []);
 
@@ -141,8 +132,12 @@ const EditProductProperty: FunctionComponent<EditProductPropertyProps> = ({
     };
 
     const handleImageChange = async (files: ImageFile[], type: 'images') => {
-        const fileData = files.map(file => file.file);
-        addNewValue({ [type]: fileData });
+
+        const filesWithFile = files.filter(file => file.file !== undefined);
+        const filesWithoutFile = files.filter(file => file.file === undefined && file.data_url !== undefined);
+        const urls = filesWithoutFile.map(file => removePartFromUrl(file.data_url as string, UrlToImages));
+        const fileData = filesWithFile.map(file => file.file);
+        addNewValue({ [type]: fileData, imagesNames: urls });
     };
 
     return (

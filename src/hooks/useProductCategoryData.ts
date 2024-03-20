@@ -18,7 +18,7 @@ const useProductCategoryData = () => {
 
     const product: Product | null = productArray.find((p) => p.id === id) || null;
 
-    const { title, content, price, discount, location, size, stock, imageSrc, categories, attributes, subcategories } = product || {};
+    const { title, content, price, discount, location, stock, imageSrc, categories, attributes, subcategories } = product || {};
 
     return {
         lastRequestStatus: catStatus && attStatus,
@@ -27,7 +27,6 @@ const useProductCategoryData = () => {
         price,
         discount,
         location,
-        size,
         stock,
         imageSrc,
         categories: categoriesData,
