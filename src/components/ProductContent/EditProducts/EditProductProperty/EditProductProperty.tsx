@@ -13,6 +13,7 @@ import { Attributes } from '../../../../types/attributes';
 import Checkboxes from '../Checkboxes/Checkboxes';
 import imageStyles from '../../../../styles/uploadImages.module.scss';
 import styles from '../../../../styles/productContent.module.scss';
+import { filterIds } from '../../../../utils/helpers/filterIds/filterIds';
 
 interface EditProductPropertyProps extends Product {
     disabled: boolean;
@@ -132,12 +133,13 @@ const EditProductProperty: FunctionComponent<EditProductPropertyProps> = ({
     };
 
     const handleImageChange = async (files: ImageFile[], type: 'images') => {
-
+   
+        const indicesWithFile = files.map((file, index) => file.file !== undefined ? index : -1).filter(index => index !== -1);
         const filesWithFile = files.filter(file => file.file !== undefined);
         const filesWithoutFile = files.filter(file => file.file === undefined && file.data_url !== undefined);
         const urls = filesWithoutFile.map(file => removePartFromUrl(file.data_url as string, UrlToImages));
         const fileData = filesWithFile.map(file => file.file);
-        addNewValue({ [type]: fileData, imagesNames: urls });
+        addNewValue({ [type]: fileData, imagesNames: urls, imagesFilesIndices:indicesWithFile } );
     };
 
     return (
@@ -187,7 +189,5 @@ const EditProductProperty: FunctionComponent<EditProductPropertyProps> = ({
         </div>
     );
 };
-
-const filterIds = (obj: IdProps[]) => obj.map(obj => obj.id).filter(id => id !== "00000000-0000-0000-0000-000000000000")
 
 export default EditProductProperty;

@@ -56,7 +56,7 @@ jest.mock('../../InputFields/TextInputField', () => ({
                 id={id}
                 name={name}
                 className={className}
-                defaultValue={value || 'Test Title'} // Use defaultValue correctly
+                defaultValue={value || 'Test Title'} 
             />
         </div>
     ),

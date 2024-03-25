@@ -15,14 +15,14 @@ interface CustomFormValues {
     image: File;
 }
 
-interface EditAttributesFormProps {
+interface EditAttributesPropertyProps {
     attributeName: string;
     imageName: string;
     id: string;
     disabled: boolean;
 }
 
-const EditAttributesForm: FunctionComponent<EditAttributesFormProps> = ({
+const EditAttributesProperty: FunctionComponent<EditAttributesPropertyProps> = ({
     attributeName,
     imageName,
     id,
@@ -76,4 +76,4 @@ const EditAttributesForm: FunctionComponent<EditAttributesFormProps> = ({
     );
 };
 
-export default EditAttributesForm;
+export default EditAttributesProperty;
